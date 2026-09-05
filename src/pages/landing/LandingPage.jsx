@@ -176,8 +176,8 @@ const FAQS = [
         r: 'No requieren correo electrónico. El maestro les proporciona un Código de Clase único y ellos eligen un nombre de usuario. Esto garantiza la privacidad de los menores.' 
     },
     { 
-        q: '-pregunta', 
-        r: '-' 
+        q: '¿Tengo que saber de programación antes de empezar?', 
+        r: '¡Para nada! Nuestra plataforma cambia las líneas de código complejas por bloques de colores que arrastras y sueltas. Si sabes armar un rompecabezas, ya tienes todo lo necesario para empezar a crear tus propios proyectos desde el primer minuto' 
     },
     { 
         q: '¿Los padres pueden registrarse?', 
