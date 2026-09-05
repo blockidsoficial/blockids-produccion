@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <!-- Ventana / marco -->
+  <rect x="3" y="3" width="14" height="14" rx="2" fill="none" stroke="#2196F3" stroke-width="1.5"/>
+  
+  <!-- Flecha diagonal (expandir) -->
+  <line x1="7" y1="7" x2="13" y2="13" stroke="#4CAF50" stroke-width="1.8" stroke-linecap="round"/>
+  
+  <!-- Puntas de la flecha -->
+  <line x1="10" y1="13" x2="13" y2="13" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="13" y1="10" x2="13" y2="13" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

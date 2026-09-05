@@ -1,0 +1,7354 @@
+﻿[
+  {
+    "name": "Xolotl Normal",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "ec9a85543fad18a8ebc0d623147d9b1d",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "ec9a85543fad18a8ebc0d623147d9b1d.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Xolotl Constructor",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "cb1dc161ca16284e3cb680035cc52d90",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "cb1dc161ca16284e3cb680035cc52d90.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Xolotl Ninja",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "34c5fe9129173e285f70bac56de5022f",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "34c5fe9129173e285f70bac56de5022f.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Xolotl Astronauta",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "f46c8a449952586c514b2db081ef1350",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "f46c8a449952586c514b2db081ef1350.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Xolotl Científico",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "9bf221d3d463a0d468f7f93b1a3f18a8",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "9bf221d3d463a0d468f7f93b1a3f18a8.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Xolotl Mago",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "50867250276ab7db452c44713866becd",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "50867250276ab7db452c44713866becd.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Xolotl Explorador",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "4688b7d4396677a1f902771a6f832211",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "4688b7d4396677a1f902771a6f832211.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Xolotl Gamer",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "066e6ae1bfa66c4fd53a8acacaf68b87",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "066e6ae1bfa66c4fd53a8acacaf68b87.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Niña Programadora",
+    "tags": [
+      "humanos",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "5adc6f6629db7a6f5a5f506af74d3a01",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "5adc6f6629db7a6f5a5f506af74d3a01.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Niño Inventor",
+    "tags": [
+      "humanos",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "56fa1a2cfe8fb1cecf80725332716001",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "56fa1a2cfe8fb1cecf80725332716001.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Profesora",
+    "tags": [
+      "humanos",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "fe80b8b4c8941a26aebeb3a534992cc7",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "fe80b8b4c8941a26aebeb3a534992cc7.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Científico",
+    "tags": [
+      "humanos",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "b8ea5315995969702873a3f06d4d2f9a",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "b8ea5315995969702873a3f06d4d2f9a.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Astronauta",
+    "tags": [
+      "humanos",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "caaafdab620207576db78e77a815de39",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "caaafdab620207576db78e77a815de39.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Gamer",
+    "tags": [
+      "humanos",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "7f99bef877271bf7dd4aee74c0629e32",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "7f99bef877271bf7dd4aee74c0629e32.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Mochila",
+    "tags": [
+      "escolares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "f23c82476d004c2657f8e486e7014101",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "f23c82476d004c2657f8e486e7014101.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Cuaderno",
+    "tags": [
+      "escolares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "fd033bb3769ba655a38f703cb81bc51d",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "fd033bb3769ba655a38f703cb81bc51d.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Lápiz",
+    "tags": [
+      "escolares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "cc26afdaee695fa32bebd743894a8bd4",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "cc26afdaee695fa32bebd743894a8bd4.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Libro",
+    "tags": [
+      "escolares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "740f012345d61ecd008e19690ec193b7",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "740f012345d61ecd008e19690ec193b7.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Laptop",
+    "tags": [
+      "escolares",
+      "tecnologia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "312f91285e048e09bb4aefef23627994",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "312f91285e048e09bb4aefef23627994.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Tablet",
+    "tags": [
+      "escolares",
+      "tecnologia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "c4e0ba5422383082417c5f96ab121575",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "c4e0ba5422383082417c5f96ab121575.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Regla",
+    "tags": [
+      "escolares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "4914eb8147a0c8e6a66d0d1774348931",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "4914eb8147a0c8e6a66d0d1774348931.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "USB",
+    "tags": [
+      "escolares",
+      "tecnologia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "62ed973d963913bb55111a7b8116ace1",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "62ed973d963913bb55111a7b8116ace1.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Microscopio",
+    "tags": [
+      "escolares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "ea5e5dad08e7b1dc043180f060c1e29f",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "ea5e5dad08e7b1dc043180f060c1e29f.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Globo Terráqueo",
+    "tags": [
+      "escolares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "a658128df146e8fdfa553aca74f4fb09",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "a658128df146e8fdfa553aca74f4fb09.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Robot",
+    "tags": [
+      "tecnologia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "87b7cb79481f317bde90c116cf36084b",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "87b7cb79481f317bde90c116cf36084b.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Cohete",
+    "tags": [
+      "tecnologia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "02454813f9a1eb040ddf67371b630381",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "02454813f9a1eb040ddf67371b630381.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Computadora",
+    "tags": [
+      "tecnologia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "6da6039345d71593a6ab4b3b887d06fc",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "6da6039345d71593a6ab4b3b887d06fc.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Chip",
+    "tags": [
+      "tecnologia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "2f2ec1296695a9fb3251bbc94a2e0cef",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "2f2ec1296695a9fb3251bbc94a2e0cef.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Joystick",
+    "tags": [
+      "tecnologia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "2ed69833bf8cb33c80eaf0daa892400e",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "2ed69833bf8cb33c80eaf0daa892400e.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Consola",
+    "tags": [
+      "tecnologia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "57808a827eb1cb28ada5a0df1d11d8d2",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "57808a827eb1cb28ada5a0df1d11d8d2.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Dragón",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "8621ffdbc5698829397d97767ac13db3",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "8621ffdbc5698829397d97767ac13db3.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Poción",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "7452a66639c75bb0f61043ac1528ae5d",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "7452a66639c75bb0f61043ac1528ae5d.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Cofre",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "623f4edcc75ecb048178392d477f23ba",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "623f4edcc75ecb048178392d477f23ba.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Cristal",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "6bbea091fbcbe4770f208a628cd1d8b5",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "6bbea091fbcbe4770f208a628cd1d8b5.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Varita Mágica",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "af9ea5c7d78e685335931f160c6e15e0",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "af9ea5c7d78e685335931f160c6e15e0.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Nube Mágica",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "0e5799cd08ffa3717f3656ea4acf65ed",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "0e5799cd08ffa3717f3656ea4acf65ed.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Castillo",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "e7a58438fa3c342c6fcd5a635c8afd8b",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "e7a58438fa3c342c6fcd5a635c8afd8b.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Escudo",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "560d45750733c1dae8f470e68b45527b",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "560d45750733c1dae8f470e68b45527b.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Banana",
+    "tags": [
+      "comida",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "72b302bf297a228a75730123efef7c41",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "72b302bf297a228a75730123efef7c41.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Manzana",
+    "tags": [
+      "comida",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "81b1c93c5f431703e4c3bfb0274305e0",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "81b1c93c5f431703e4c3bfb0274305e0.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Pizza",
+    "tags": [
+      "comida",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "7cf2db5ec261a0fa27a502d3196a6f60",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "7cf2db5ec261a0fa27a502d3196a6f60.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Hamburguesa",
+    "tags": [
+      "comida",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "7b886f412edbadc6062b4b889e6c9d70",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "7b886f412edbadc6062b4b889e6c9d70.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Helado",
+    "tags": [
+      "comida",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "fc40a8a9691bad05a4b2de915ebb46e6",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "fc40a8a9691bad05a4b2de915ebb46e6.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Zanahoria",
+    "tags": [
+      "comida",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "35be2606e61ff1f716ee1111d8b67508",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "35be2606e61ff1f716ee1111d8b67508.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Jugo",
+    "tags": [
+      "comida",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "36900aadca34dfb4f4c2b0247f298a3b",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "36900aadca34dfb4f4c2b0247f298a3b.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Fútbol",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "7b08b9eb96845b169b713669020f6be4",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "7b08b9eb96845b169b713669020f6be4.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Basquetbol",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "bfcc99668ce7515cd87d83e33a0ff29b",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "bfcc99668ce7515cd87d83e33a0ff29b.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Baseball",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "276f8db0b86edaa7fc805516c852c889",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "276f8db0b86edaa7fc805516c852c889.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Skateboard",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "6231bb17f25c5717f326fb009583f818",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "6231bb17f25c5717f326fb009583f818.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Trofeo",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "0088d7c2d68eaf9d33da24e4c2bd2b70",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "0088d7c2d68eaf9d33da24e4c2bd2b70.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Medalla",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "08fc8bb6ca481d9f2e4f6fd313ddec67",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "08fc8bb6ca481d9f2e4f6fd313ddec67.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Pesas",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "0939b9014b1b60a1697ed570656da6ba",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "0939b9014b1b60a1697ed570656da6ba.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Raqueta",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "9fd1c2ad1d7ad893ad91444c7d7296aa",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "9fd1c2ad1d7ad893ad91444c7d7296aa.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Guitarra",
+    "tags": [
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "5377ad2a30ac61a139dce0649038a91a",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "5377ad2a30ac61a139dce0649038a91a.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Teclado",
+    "tags": [
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "1c1d5e86e3024e82ba1568aa37c5dfeb",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "1c1d5e86e3024e82ba1568aa37c5dfeb.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Batería",
+    "tags": [
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "f2721b21aa69c3fc97f2f360309d3c81",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "f2721b21aa69c3fc97f2f360309d3c81.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Micrófono",
+    "tags": [
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "8cea7d649a503d1d9fedea04e2d6351f",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "8cea7d649a503d1d9fedea04e2d6351f.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Audífonos",
+    "tags": [
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "66d81dcecee71c196daf66daead4cab4",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "66d81dcecee71c196daf66daead4cab4.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Nota Musical",
+    "tags": [
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "b3f72f6c15473350493f5121496fff42",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "b3f72f6c15473350493f5121496fff42.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Altavoz",
+    "tags": [
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "8339bd1f2008cdd8326ab83218f2b5a6",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "8339bd1f2008cdd8326ab83218f2b5a6.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Árbol",
+    "tags": [
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "a25f21d368d34ff8bc64d0ec8396f3cd",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "a25f21d368d34ff8bc64d0ec8396f3cd.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Flor",
+    "tags": [
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "d38e99d9790733c939e88698afbc30b6",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "d38e99d9790733c939e88698afbc30b6.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Sol",
+    "tags": [
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "12313a3d28f802e3a22b07d2e01c6dcf",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "12313a3d28f802e3a22b07d2e01c6dcf.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Nube",
+    "tags": [
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "84384a402c9540e35b23819f42b745ec",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "84384a402c9540e35b23819f42b745ec.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Montaña",
+    "tags": [
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "6579a92e7f5ac7c57055196b3afe3ddd",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "6579a92e7f5ac7c57055196b3afe3ddd.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Río",
+    "tags": [
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "d5ed38fdbf28bc4e58be142cf5a17cf5",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "d5ed38fdbf28bc4e58be142cf5a17cf5.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Cactus",
+    "tags": [
+      "naturaleza",
+      "plantas",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "42239b8342a1fe81a71703f6de711073",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "42239b8342a1fe81a71703f6de711073.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Animal",
+    "tags": [
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "1e4483e833025ac10e6184e75cb2d19d",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "1e4483e833025ac10e6184e75cb2d19d.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Auto",
+    "tags": [
+      "transporte",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "9df22f196a33acd0b372fe502de51211",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "9df22f196a33acd0b372fe502de51211.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Camión",
+    "tags": [
+      "transporte",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "c2ae0b5ba085cb33fbee01aafc391538",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "c2ae0b5ba085cb33fbee01aafc391538.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Avión",
+    "tags": [
+      "transporte",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "9424fa904b33615d6b5ee9584e70ce1f",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "9424fa904b33615d6b5ee9584e70ce1f.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Barco",
+    "tags": [
+      "transporte",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "78ae959170be4ee86febe81df5ffe4df",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "78ae959170be4ee86febe81df5ffe4df.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Tren",
+    "tags": [
+      "transporte",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "5a5a6871f96d0670ff2ad2684640056c",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "5a5a6871f96d0670ff2ad2684640056c.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Bicicleta",
+    "tags": [
+      "transporte",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "6ff570daea236e56ff32733b8948a458",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "6ff570daea236e56ff32733b8948a458.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Helicóptero",
+    "tags": [
+      "transporte",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "d5ca5e740df13c43375e3bf9267abd55",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "d5ca5e740df13c43375e3bf9267abd55.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra A",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "874b227a19261320683fc08fbc3b2d77",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "874b227a19261320683fc08fbc3b2d77.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra B",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "44b372a6f602c0b1637f7b9df53431d5",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "44b372a6f602c0b1637f7b9df53431d5.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra C",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "eca3f726508269958cef8343be605284",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "eca3f726508269958cef8343be605284.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra D",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "93f6a646d7ec338081fc1b587ebbe8bb",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "93f6a646d7ec338081fc1b587ebbe8bb.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra E",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "4ad8e5ce23f28cd957201373715bbdfa",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "4ad8e5ce23f28cd957201373715bbdfa.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra F",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "8fb93580471eb19c15e9a16ad32aa86e",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "8fb93580471eb19c15e9a16ad32aa86e.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra G",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "844a7f93556bde0cd77b067a2bb89275",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "844a7f93556bde0cd77b067a2bb89275.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra H",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "e6b8c0af91ba7c70e121b98ad22e3b0b",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "e6b8c0af91ba7c70e121b98ad22e3b0b.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra I",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "560f5e7c7d926df81242eb9aecc2d048",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "560f5e7c7d926df81242eb9aecc2d048.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra J",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "e0cc952ba914b9c84b1a30a688752988",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "e0cc952ba914b9c84b1a30a688752988.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra K",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "8a3a2da081702d94463e58b3b4af9741",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "8a3a2da081702d94463e58b3b4af9741.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra L",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "02fe91b70a4a85e689c1ac6f3f2c88aa",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "02fe91b70a4a85e689c1ac6f3f2c88aa.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra M",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "d9d744ae2bf7c7db19577825767f16dd",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "d9d744ae2bf7c7db19577825767f16dd.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra N",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "6ed0ab61348125cd3f41934f9c44911e",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "6ed0ab61348125cd3f41934f9c44911e.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra O",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "1d20108cf1f2a60b892593130c5fefda",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "1d20108cf1f2a60b892593130c5fefda.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra P",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "42255ee5e2c53c20de129971f0a8459e",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "42255ee5e2c53c20de129971f0a8459e.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra Q",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "70919b371bdddeeabc41d6c1eae24c5c",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "70919b371bdddeeabc41d6c1eae24c5c.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra R",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "6fbb4581234fafe2060116d96e14d5b1",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "6fbb4581234fafe2060116d96e14d5b1.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra S",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "265e3089209bc010a50060855df6115e",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "265e3089209bc010a50060855df6115e.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra T",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "e577250804dc98039d4989845e67f654",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "e577250804dc98039d4989845e67f654.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra U",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "45df6e8a455eccfbe9c0c2f35a649933",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "45df6e8a455eccfbe9c0c2f35a649933.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra V",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "a9d0d6496157332a35bcc057b94d243e",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "a9d0d6496157332a35bcc057b94d243e.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra W",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "d8857a63c320350759b74cc99488147d",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "d8857a63c320350759b74cc99488147d.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra X",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "9d1fc175d5812a74130fbe26e09c1aac",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "9d1fc175d5812a74130fbe26e09c1aac.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra Y",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "e1797433548f83ba619ebebbfecdd58f",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "e1797433548f83ba619ebebbfecdd58f.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Letra Z",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "b7c3d676f9a6a76bc658d8ffdc0eff21",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "b7c3d676f9a6a76bc658d8ffdc0eff21.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Pirata",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "92e3a744479a8857975248769ebb0ee8",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "92e3a744479a8857975248769ebb0ee8.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Vaquero",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "5e21bc79ed41702593f6d6814ec910ee",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "5e21bc79ed41702593f6d6814ec910ee.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Policía",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "d93fac0aa9e6f682d248328c737c9d69",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "d93fac0aa9e6f682d248328c737c9d69.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Bombero",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "d4117dc5540f9edda1c28aa72c504a8c",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "d4117dc5540f9edda1c28aa72c504a8c.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Chef",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "cbb4581ba3ada1ddef9b431eef2660ce",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "cbb4581ba3ada1ddef9b431eef2660ce.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Doctor",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "f9f16d97c90d8c6f2cab37bb6d1f1992",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "f9f16d97c90d8c6f2cab37bb6d1f1992.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Artista",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "0335e2c3d9ca2e06e206cbf5ff8d7536",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "0335e2c3d9ca2e06e206cbf5ff8d7536.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Detective",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "4af05d61b7a4d1e3dfdb929e5fcdf91f",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "4af05d61b7a4d1e3dfdb929e5fcdf91f.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Samurái",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "99b1983cf3ee09bbaf6f43ac7b4c8748",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "99b1983cf3ee09bbaf6f43ac7b4c8748.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Vikingo",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "0f58d22c20da992327208c060c7b6f43",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "0f58d22c20da992327208c060c7b6f43.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Rey",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "d2b3ea2dfddc40efdc6941359436c847",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "d2b3ea2dfddc40efdc6941359436c847.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Reina",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "c68694892859e2f05020bc4b2f2af56f",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "c68694892859e2f05020bc4b2f2af56f.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Zombi",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "9d514e6b301cfe7bdc270212d5565eaf",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "9d514e6b301cfe7bdc270212d5565eaf.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Unicornio",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "3a1f9e20f1beac9b81a1e18e08b7f442",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "3a1f9e20f1beac9b81a1e18e08b7f442.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "León",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "5c443b2003676fa5e8966030ce3a86ea",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "5c443b2003676fa5e8966030ce3a86ea.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Tigre",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "1ddff545424249df81f3c4ab552dbb3d",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "1ddff545424249df81f3c4ab552dbb3d.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Elefante",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "87bc60b1d2525741a77d18fda9476cd8",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "87bc60b1d2525741a77d18fda9476cd8.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Jirafa",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "3e2fa8d23436e1133e9e330cc8b84927",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "3e2fa8d23436e1133e9e330cc8b84927.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Panda",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "ce61649168c4550c2f7acab92354dc6e",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "ce61649168c4550c2f7acab92354dc6e.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Pingüino",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "b08484b5b62902dcd1b059c4f51177d8",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "b08484b5b62902dcd1b059c4f51177d8.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Delfín",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "a62b1fca6b53d6670a84aa2c7b373b27",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "a62b1fca6b53d6670a84aa2c7b373b27.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Tiburón",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "923ff56913d9d2538583abd2aca1857d",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "923ff56913d9d2538583abd2aca1857d.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Águila",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "ecba395727f462d8863ba6fab50b193b",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "ecba395727f462d8863ba6fab50b193b.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Búho",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "dc154026d7df548422faf996bc7a65c0",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "dc154026d7df548422faf996bc7a65c0.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Camaleón",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "77bedb3696d429d527deb55e83ccd8ed",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "77bedb3696d429d527deb55e83ccd8ed.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Lobo",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "1b554a52643788461c4c51c68a23cbc5",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "1b554a52643788461c4c51c68a23cbc5.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Robot Amigable",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "493b3d032ace254e95ff69e7a8bfe9fa",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "493b3d032ace254e95ff69e7a8bfe9fa.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Robot Futurista",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "06be8ac31c08c14ed6cf7d620b7e00f2",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "06be8ac31c08c14ed6cf7d620b7e00f2.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Alien Verde",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "03cdce614e56fb4effa533b0d8de966a",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "03cdce614e56fb4effa533b0d8de966a.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Alien Morado",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "47a6ca26e92cbbcf9880f8bb84dab774",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "47a6ca26e92cbbcf9880f8bb84dab774.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Platillo Volador",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "90993725349f0f9566365ce71148cee6",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "90993725349f0f9566365ce71148cee6.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Monstruo Azul",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "837d6953713b1d0c1c796c19cebbfcda",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "837d6953713b1d0c1c796c19cebbfcda.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Monstruo Rosa",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "7c02f10ca04cc19ab3328f40f0781b02",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "7c02f10ca04cc19ab3328f40f0781b02.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Cyborg",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "6b7206d5b741eb55d770fd0d2b8c3a71",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "6b7206d5b741eb55d770fd0d2b8c3a71.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Reloj",
+    "tags": [
+      "objetos",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "6ea8c44896933605cb8b3b65c941b44a",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "6ea8c44896933605cb8b3b65c941b44a.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Lámpara",
+    "tags": [
+      "objetos",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "69698a44808240a4158220f368b56d96",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "69698a44808240a4158220f368b56d96.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Paraguas",
+    "tags": [
+      "objetos",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "4eea4a110e7023f239cadd36d2986325",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "4eea4a110e7023f239cadd36d2986325.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Gafas",
+    "tags": [
+      "objetos",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "418a94f4315d84d6c23d648d295a42e2",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "418a94f4315d84d6c23d648d295a42e2.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Cámara",
+    "tags": [
+      "objetos",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "d1fb83c4c01e41c00920a23b52958525",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "d1fb83c4c01e41c00920a23b52958525.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Linterna",
+    "tags": [
+      "objetos",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "f6ec8d779d16966489537ffb6c410e35",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "f6ec8d779d16966489537ffb6c410e35.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Patineta",
+    "tags": [
+      "objetos",
+      "deportes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "fc29a09e4a63612b120616dd219024d9",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "fc29a09e4a63612b120616dd219024d9.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Patines",
+    "tags": [
+      "objetos",
+      "deportes",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "c8767b9e679878a44e629c532268f9a3",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "c8767b9e679878a44e629c532268f9a3.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Casa",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "202447d5d44ce12531f7207cb33b6bf7",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "202447d5d44ce12531f7207cb33b6bf7.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Escuela",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "2afdad1b723d1fec938ff3d94fa4d63f",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "2afdad1b723d1fec938ff3d94fa4d63f.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Tienda",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "1a07afe7fc2c54d466d12569f05fb391",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "1a07afe7fc2c54d466d12569f05fb391.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Hospital",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "8b42a1c9b8f9fde869f83c954b3d463b",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "8b42a1c9b8f9fde869f83c954b3d463b.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Castillo Medieval",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "792080f8058738fd22e1a454961ceea2",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "792080f8058738fd22e1a454961ceea2.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Granja",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "410f5b6b9c408882f0921ad1597f6247",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "410f5b6b9c408882f0921ad1597f6247.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Faro",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "c538ccfeca02b8b7939c6f406711bbd6",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "c538ccfeca02b8b7939c6f406711bbd6.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Banco",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "52445555705eed5eed000c9ecbd5430c",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "52445555705eed5eed000c9ecbd5430c.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Biblioteca",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "686d4ba6996ab7e2bd626c9a3cc965c6",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "686d4ba6996ab7e2bd626c9a3cc965c6.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Museo",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "1e96672940df940377381ac3d4cf1890",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "1e96672940df940377381ac3d4cf1890.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Estación Espacial",
+    "tags": [
+      "lugares",
+      "espacio",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "5b9e831d3ad4a40925af922d1bb6d357",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "5b9e831d3ad4a40925af922d1bb6d357.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Pirámide",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "26d4d3e915c2fb3a22a3a41acb67ebd8",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "26d4d3e915c2fb3a22a3a41acb67ebd8.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Iglú",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "d2356dcb383b352ef0e2e09251b0047a",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "d2356dcb383b352ef0e2e09251b0047a.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Isla",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "655bd50b2d4d9a77bdff70250cb13dfa",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "655bd50b2d4d9a77bdff70250cb13dfa.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Submarino",
+    "tags": [
+      "transporte-fantastico",
+      "transporte",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "e22ee51d0b7ea9e57551108d757b2133",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "e22ee51d0b7ea9e57551108d757b2133.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Nave Espacial",
+    "tags": [
+      "transporte-fantastico",
+      "espacio",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "d9d047cdfa280c9c36563a228873dafc",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "d9d047cdfa280c9c36563a228873dafc.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Globo Aerostático",
+    "tags": [
+      "transporte-fantastico",
+      "transporte",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "f154e4f6b1088a09e22a2571cf87a2ca",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "f154e4f6b1088a09e22a2571cf87a2ca.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Carrito de Carreras",
+    "tags": [
+      "transporte-fantastico",
+      "transporte",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "2c211db47c055d480c5a41fc060ed0cc",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "2c211db47c055d480c5a41fc060ed0cc.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Motocicleta",
+    "tags": [
+      "transporte-fantastico",
+      "transporte",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "24ac7b3d53ac1560a69b9ee0798c2821",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "24ac7b3d53ac1560a69b9ee0798c2821.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Hoverboard",
+    "tags": [
+      "transporte-fantastico",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "084c99278df28142595fc24d7f5c6205",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "084c99278df28142595fc24d7f5c6205.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Barco Pirata",
+    "tags": [
+      "transporte-fantastico",
+      "transporte",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "4e95e27da94273a275686b9d2b1374af",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "4e95e27da94273a275686b9d2b1374af.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Dron",
+    "tags": [
+      "transporte-fantastico",
+      "tecnologia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "fd0e9133c7efd5ccd54f6bf79147db8f",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "fd0e9133c7efd5ccd54f6bf79147db8f.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Saxofón",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "8195633aa612980fc26a5f48a815482f",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "8195633aa612980fc26a5f48a815482f.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Violín",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "baed9eee805dceb10b8701814740141d",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "baed9eee805dceb10b8701814740141d.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Trompeta",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "dcdf455ad6861b2c7890bc91c80e5294",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "dcdf455ad6861b2c7890bc91c80e5294.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Acordeón",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "84cefbe161bcf1f170b03b5fae73f695",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "84cefbe161bcf1f170b03b5fae73f695.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Maracas",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "44b008009f1f4e826e708dcda2487a91",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "44b008009f1f4e826e708dcda2487a91.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Tambor",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "74c88c9fafaf08f0358826a7e97e1cf0",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "74c88c9fafaf08f0358826a7e97e1cf0.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Armónica",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "5ae9479e25bf542163dc533fa4428f91",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "5ae9479e25bf542163dc533fa4428f91.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Ukelele",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "c1c748adc87fa41ecddd93f34d0335f3",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "c1c748adc87fa41ecddd93f34d0335f3.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Planeta",
+    "tags": [
+      "espacio",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "9772370be8dae4e7e0118e8648667407",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "9772370be8dae4e7e0118e8648667407.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Estrella Fugaz",
+    "tags": [
+      "espacio",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "0b63aa7937b57895e3773de6ce4c0064",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "0b63aa7937b57895e3773de6ce4c0064.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Telescopio",
+    "tags": [
+      "espacio",
+      "escolares",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "debe9bea6e360be7a6f818bc6502c40a",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "debe9bea6e360be7a6f818bc6502c40a.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Satélite",
+    "tags": [
+      "espacio",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "cc99a9ce5d616a04390431e280bd6491",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "cc99a9ce5d616a04390431e280bd6491.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Átomo",
+    "tags": [
+      "espacio",
+      "ciencia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "5028ea3da2e02508c8d2ce4651fc65af",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "5028ea3da2e02508c8d2ce4651fc65af.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Imán",
+    "tags": [
+      "espacio",
+      "ciencia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "5be9a68073f66a56554e25614e9f1c9a",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "5be9a68073f66a56554e25614e9f1c9a.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "ADN",
+    "tags": [
+      "espacio",
+      "ciencia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "862485a86ceea53aed60778c1ab16b1f",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "862485a86ceea53aed60778c1ab16b1f.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Radiación",
+    "tags": [
+      "espacio",
+      "ciencia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "4a79ae865c036a538d6af688034a0883",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "4a79ae865c036a538d6af688034a0883.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Probeta",
+    "tags": [
+      "espacio",
+      "ciencia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "a37db96133f7ace5d87a4de1dfeebca0",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "a37db96133f7ace5d87a4de1dfeebca0.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Molécula",
+    "tags": [
+      "espacio",
+      "ciencia",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "c30088930078567f7dacb127fa851fb1",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "c30088930078567f7dacb127fa851fb1.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Cohete Pequeño",
+    "tags": [
+      "espacio",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "cff2c92f6ac8fe24c3389464342233f1",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "cff2c92f6ac8fe24c3389464342233f1.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Galaxia",
+    "tags": [
+      "espacio",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "d1d0518f47d0c65397526c041635770f",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "d1d0518f47d0c65397526c041635770f.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Feliz",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "afe0b02b35aeae24ae55d34617857428",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "afe0b02b35aeae24ae55d34617857428.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Triste",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "535500fa8ed249a3c394dd6da143923d",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "535500fa8ed249a3c394dd6da143923d.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Enojado",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "92b62e63e1bfb9a30c0cf4a1d5d57dc2",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "92b62e63e1bfb9a30c0cf4a1d5d57dc2.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Sorprendido",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "c2bd60d2928d7c50ad8d4a983c124f38",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "c2bd60d2928d7c50ad8d4a983c124f38.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Pensativo",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "880581485c239008ced485602234b314",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "880581485c239008ced485602234b314.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Pensativo Variante",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "4d58f90bdf097bec16c091dedadd2082",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "4d58f90bdf097bec16c091dedadd2082.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Dormido",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "bd9dce21a40c59f65b9e0cb537ce6f2d",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "bd9dce21a40c59f65b9e0cb537ce6f2d.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Riendo",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "5a7f9ec8f2d86d96a75038364fa1f976",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "5a7f9ec8f2d86d96a75038364fa1f976.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Árbol Grande",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "0c65d56c293b4d1dcd0214ac7fd76e03",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "0c65d56c293b4d1dcd0214ac7fd76e03.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Arbusto",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "68494d020ee965dd827ac8cced51d605",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "68494d020ee965dd827ac8cced51d605.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Rosa",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "84109ae4b4178430b8174b1dfef9162b",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "84109ae4b4178430b8174b1dfef9162b.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Girasol",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "b9da943bf1dcb00b784cf3612d450f91",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "b9da943bf1dcb00b784cf3612d450f91.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Tulipán",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "3599f026c6c3d5c3f5a434cdb4991974",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "3599f026c6c3d5c3f5a434cdb4991974.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Hongo",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "0c38dfad7f2f2b5a5cfbfa56b489e364",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "0c38dfad7f2f2b5a5cfbfa56b489e364.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Hoja",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "5f01c0ceea38f3875e271db995e1d390",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "5f01c0ceea38f3875e271db995e1d390.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Piedra",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "645d267aa931167c17f0e43714093ea2",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "645d267aa931167c17f0e43714093ea2.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Volcán",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "f746e8f07ba1aea5b1aaa07818990f7d",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "f746e8f07ba1aea5b1aaa07818990f7d.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Cascada",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "598a9654ac8a54986d55026094956a48",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "598a9654ac8a54986d55026094956a48.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Arcoíris",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "fff9707cfe4036c1a6e8f2b33474adcb",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "fff9707cfe4036c1a6e8f2b33474adcb.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Copo de Nieve",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "4640cec7c4467201fb13423d1d5aa1af",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "4640cec7c4467201fb13423d1d5aa1af.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Relámpago",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "a8774e150641d314d06f7ed5dda0d72b",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "a8774e150641d314d06f7ed5dda0d72b.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Corazón",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "0a43c50e23a05929e7f2b075170ce0a2",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "0a43c50e23a05929e7f2b075170ce0a2.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Estrella",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "aa87ddc5b4c24406d26ddad771ef44b0",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "aa87ddc5b4c24406d26ddad771ef44b0.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Círculo",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "2852a412940b72eca477ac181003b0ce",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "2852a412940b72eca477ac181003b0ce.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Cuadrado",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "27aacb391c523c23e49cfa190442093b",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "27aacb391c523c23e49cfa190442093b.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Triángulo",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "5638f232c3d11216c24db4af0c0cfea9",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "5638f232c3d11216c24db4af0c0cfea9.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Diamante",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "b28307049aa6c6b722c22bf282b29c96",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "b28307049aa6c6b722c22bf282b29c96.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Rayo",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "331525caeabd92ad49e5f90ed064df5d",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "331525caeabd92ad49e5f90ed064df5d.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Signo de Pregunta",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "d657fca3f2920c6c8c5d11f198cb7ef6",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "d657fca3f2920c6c8c5d11f198cb7ef6.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  },
+  {
+    "name": "Signo de Exclamación",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "isStage": false,
+    "variables": {},
+    "blocks": {},
+    "broadcasts": {},
+    "lists": {},
+    "costumes": [
+      {
+        "assetId": "8d9b38cbd258b82307603dd2e9660afd",
+        "name": "normal",
+        "bitmapResolution": 1,
+        "md5ext": "8d9b38cbd258b82307603dd2e9660afd.svg",
+        "dataFormat": "svg",
+        "rotationCenterX": 50,
+        "rotationCenterY": 50
+      }
+    ],
+    "sounds": [],
+    "comments": {},
+    "currentCostume": 0,
+    "volume": 100,
+    "visible": true,
+    "x": 0,
+    "y": 0,
+    "size": 100,
+    "direction": 90,
+    "draggable": false,
+    "rotationStyle": "all around"
+  }
+]

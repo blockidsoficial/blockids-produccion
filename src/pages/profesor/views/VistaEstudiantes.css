@@ -1,0 +1,271 @@
+/* ── Subtítulo de conteo ──────────────────────────────────────────────────── */
+.subtitulo {
+    margin: 0;
+    font-size: .85rem;
+    color: var(--color-texto-suave);
+}
+
+/* ── Controles de búsqueda y filtro ──────────────────────────────────────── */
+.controles {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.inputBusqueda {
+    min-width: 220px;
+}
+
+.selectAula {
+    min-width: 160px;
+}
+
+/* ── Botón: Asignar Estudiante ────────────────────────────────────────────── */
+.btnAsignar {
+    padding: 9px 18px;
+    border-radius: var(--radio-md);
+    border: none;
+    /* background: linear-gradient(135deg, var(--color-verde-fuerte, #38a169), var(--color-verde-suave, #48bb78)); */
+    background: rgb(99, 194, 111);
+    color: #fff;
+    font-weight: 700;
+    font-size: .85rem;
+    font-family: var(--font-principal);
+    cursor: pointer;
+    transition: opacity .18s ease;
+    white-space: nowrap;
+}
+
+.btnAsignar:hover:not(:disabled) {
+    opacity: .88;
+}
+
+.btnAsignar:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+/* ── Tabla ────────────────────────────────────────────────────────────────── */
+.loadingWrap {
+    padding: 48px 24px;
+    text-align: center;
+}
+
+.emptyWrap {
+    padding: 48px 24px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.theadTr {
+    border-bottom: 1.5px solid var(--color-borde-suave);
+}
+
+.th {
+    padding: 12px 20px;
+    text-align: left;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    color: var(--color-texto-suave);
+    font-family: var(--font-principal);
+    white-space: nowrap;
+}
+
+.tr {
+    border-bottom: 1px solid var(--color-borde-suave);
+    transition: background .14s;
+}
+
+.tr:hover {
+    background: var(--color-fondo-suave, #f9fafb);
+}
+
+.td {
+    padding: 14px 20px;
+}
+
+/* ── Celda de estudiante ──────────────────────────────────────────────────── */
+.estudianteCell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1rem;
+    font-family: var(--font-principal);
+    flex-shrink: 0;
+}
+
+.nombreCompleto {
+    margin: 0;
+    font-weight: 700;
+    font-size: .9rem;
+    color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+}
+
+.usernameText {
+    margin: 0;
+    font-size: .78rem;
+    color: var(--color-texto-suave);
+}
+
+/* ── Badge de aula ────────────────────────────────────────────────────────── */
+.aulaBadge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: .78rem;
+    font-weight: 600;
+    background: var(--color-azul-bg, #e8f0fe);
+    color: var(--color-azul-fuerte, #3b5bdb);
+    font-family: var(--font-principal);
+}
+
+/* ── Fecha de ingreso ─────────────────────────────────────────────────────── */
+.fechaText {
+    font-size: .85rem;
+    color: var(--color-texto-suave);
+}
+
+/* ── Modal: Alerta inline ─────────────────────────────────────────────────── */
+.alertaModal {
+    padding: 10px 14px;
+    border-radius: var(--radio-md);
+    font-size: .84rem;
+    font-weight: 600;
+    font-family: var(--font-principal);
+}
+
+.alertaSuccess {
+    background: #edfaf3;
+    color: #0ca678;
+    border: 1.5px solid #0ca678;
+}
+
+.alertaError {
+    background: #fff0f0;
+    color: #c53030;
+    border: 1.5px solid #e53e3e;
+}
+
+/* ── Modal: Estado buscando ───────────────────────────────────────────────── */
+.buscandoTexto {
+    font-size: .84rem;
+    color: var(--color-texto-suave);
+    font-family: var(--font-principal);
+    margin: 0;
+    text-align: center;
+    padding: 8px 0;
+}
+
+/* ── Modal: Lista de resultados ───────────────────────────────────────────── */
+.resultadosList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.resultadoItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1.5px solid var(--color-borde-suave);
+    border-radius: var(--radio-md);
+    background: var(--color-blanco);
+    transition: background .14s;
+}
+
+.resultadoItem:hover {
+    background: #f8fafc;
+}
+
+.avatarSm {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: .85rem;
+    font-family: var(--font-principal);
+    flex-shrink: 0;
+}
+
+.resultadoInfo {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.resultadoNombre {
+    font-size: .88rem;
+    font-weight: 700;
+    color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.resultadoUser {
+    font-size: .75rem;
+    color: var(--color-texto-suave);
+    font-family: var(--font-principal);
+}
+
+.btnAniadir {
+    padding: 6px 14px;
+    border-radius: var(--radio-md);
+    border: 1.5px solid var(--color-azul-fuerte, #3b5bdb);
+    background: var(--color-blanco);
+    color: var(--color-azul-fuerte, #3b5bdb);
+    font-size: .8rem;
+    font-weight: 700;
+    font-family: var(--font-principal);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .15s ease;
+    flex-shrink: 0;
+}
+
+.btnAniadir:hover:not(:disabled) {
+    background: var(--color-azul-bg, #e8f0fe);
+}
+
+.btnAniadir:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.sinResultados {
+    padding: 16px 12px;
+    text-align: center;
+    font-size: .85rem;
+    color: var(--color-texto-suave);
+    font-family: var(--font-principal);
+}

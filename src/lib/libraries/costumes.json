@@ -1,0 +1,2839 @@
+﻿[
+  {
+    "name": "Xolotl Normal",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "assetId": "ec9a85543fad18a8ebc0d623147d9b1d",
+    "bitmapResolution": 1,
+    "md5ext": "ec9a85543fad18a8ebc0d623147d9b1d.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Xolotl Constructor",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "assetId": "cb1dc161ca16284e3cb680035cc52d90",
+    "bitmapResolution": 1,
+    "md5ext": "cb1dc161ca16284e3cb680035cc52d90.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Xolotl Ninja",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "assetId": "34c5fe9129173e285f70bac56de5022f",
+    "bitmapResolution": 1,
+    "md5ext": "34c5fe9129173e285f70bac56de5022f.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Xolotl Astronauta",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "assetId": "f46c8a449952586c514b2db081ef1350",
+    "bitmapResolution": 1,
+    "md5ext": "f46c8a449952586c514b2db081ef1350.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Xolotl Científico",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "assetId": "9bf221d3d463a0d468f7f93b1a3f18a8",
+    "bitmapResolution": 1,
+    "md5ext": "9bf221d3d463a0d468f7f93b1a3f18a8.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Xolotl Mago",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "assetId": "50867250276ab7db452c44713866becd",
+    "bitmapResolution": 1,
+    "md5ext": "50867250276ab7db452c44713866becd.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Xolotl Explorador",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "assetId": "4688b7d4396677a1f902771a6f832211",
+    "bitmapResolution": 1,
+    "md5ext": "4688b7d4396677a1f902771a6f832211.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Xolotl Gamer",
+    "tags": [
+      "xolotls",
+      "blockids"
+    ],
+    "assetId": "066e6ae1bfa66c4fd53a8acacaf68b87",
+    "bitmapResolution": 1,
+    "md5ext": "066e6ae1bfa66c4fd53a8acacaf68b87.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Niña Programadora",
+    "tags": [
+      "humanos",
+      "blockids"
+    ],
+    "assetId": "5adc6f6629db7a6f5a5f506af74d3a01",
+    "bitmapResolution": 1,
+    "md5ext": "5adc6f6629db7a6f5a5f506af74d3a01.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Niño Inventor",
+    "tags": [
+      "humanos",
+      "blockids"
+    ],
+    "assetId": "56fa1a2cfe8fb1cecf80725332716001",
+    "bitmapResolution": 1,
+    "md5ext": "56fa1a2cfe8fb1cecf80725332716001.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Profesora",
+    "tags": [
+      "humanos",
+      "blockids"
+    ],
+    "assetId": "fe80b8b4c8941a26aebeb3a534992cc7",
+    "bitmapResolution": 1,
+    "md5ext": "fe80b8b4c8941a26aebeb3a534992cc7.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Científico",
+    "tags": [
+      "humanos",
+      "blockids"
+    ],
+    "assetId": "b8ea5315995969702873a3f06d4d2f9a",
+    "bitmapResolution": 1,
+    "md5ext": "b8ea5315995969702873a3f06d4d2f9a.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Astronauta",
+    "tags": [
+      "humanos",
+      "blockids"
+    ],
+    "assetId": "caaafdab620207576db78e77a815de39",
+    "bitmapResolution": 1,
+    "md5ext": "caaafdab620207576db78e77a815de39.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Gamer",
+    "tags": [
+      "humanos",
+      "blockids"
+    ],
+    "assetId": "7f99bef877271bf7dd4aee74c0629e32",
+    "bitmapResolution": 1,
+    "md5ext": "7f99bef877271bf7dd4aee74c0629e32.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Mochila",
+    "tags": [
+      "escolares",
+      "blockids"
+    ],
+    "assetId": "f23c82476d004c2657f8e486e7014101",
+    "bitmapResolution": 1,
+    "md5ext": "f23c82476d004c2657f8e486e7014101.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Cuaderno",
+    "tags": [
+      "escolares",
+      "blockids"
+    ],
+    "assetId": "fd033bb3769ba655a38f703cb81bc51d",
+    "bitmapResolution": 1,
+    "md5ext": "fd033bb3769ba655a38f703cb81bc51d.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Lápiz",
+    "tags": [
+      "escolares",
+      "blockids"
+    ],
+    "assetId": "cc26afdaee695fa32bebd743894a8bd4",
+    "bitmapResolution": 1,
+    "md5ext": "cc26afdaee695fa32bebd743894a8bd4.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Libro",
+    "tags": [
+      "escolares",
+      "blockids"
+    ],
+    "assetId": "740f012345d61ecd008e19690ec193b7",
+    "bitmapResolution": 1,
+    "md5ext": "740f012345d61ecd008e19690ec193b7.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Laptop",
+    "tags": [
+      "escolares",
+      "tecnologia",
+      "blockids"
+    ],
+    "assetId": "312f91285e048e09bb4aefef23627994",
+    "bitmapResolution": 1,
+    "md5ext": "312f91285e048e09bb4aefef23627994.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Tablet",
+    "tags": [
+      "escolares",
+      "tecnologia",
+      "blockids"
+    ],
+    "assetId": "c4e0ba5422383082417c5f96ab121575",
+    "bitmapResolution": 1,
+    "md5ext": "c4e0ba5422383082417c5f96ab121575.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Regla",
+    "tags": [
+      "escolares",
+      "blockids"
+    ],
+    "assetId": "4914eb8147a0c8e6a66d0d1774348931",
+    "bitmapResolution": 1,
+    "md5ext": "4914eb8147a0c8e6a66d0d1774348931.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "USB",
+    "tags": [
+      "escolares",
+      "tecnologia",
+      "blockids"
+    ],
+    "assetId": "62ed973d963913bb55111a7b8116ace1",
+    "bitmapResolution": 1,
+    "md5ext": "62ed973d963913bb55111a7b8116ace1.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Microscopio",
+    "tags": [
+      "escolares",
+      "blockids"
+    ],
+    "assetId": "ea5e5dad08e7b1dc043180f060c1e29f",
+    "bitmapResolution": 1,
+    "md5ext": "ea5e5dad08e7b1dc043180f060c1e29f.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Globo Terráqueo",
+    "tags": [
+      "escolares",
+      "blockids"
+    ],
+    "assetId": "a658128df146e8fdfa553aca74f4fb09",
+    "bitmapResolution": 1,
+    "md5ext": "a658128df146e8fdfa553aca74f4fb09.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Robot",
+    "tags": [
+      "tecnologia",
+      "blockids"
+    ],
+    "assetId": "87b7cb79481f317bde90c116cf36084b",
+    "bitmapResolution": 1,
+    "md5ext": "87b7cb79481f317bde90c116cf36084b.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Cohete",
+    "tags": [
+      "tecnologia",
+      "blockids"
+    ],
+    "assetId": "02454813f9a1eb040ddf67371b630381",
+    "bitmapResolution": 1,
+    "md5ext": "02454813f9a1eb040ddf67371b630381.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Computadora",
+    "tags": [
+      "tecnologia",
+      "blockids"
+    ],
+    "assetId": "6da6039345d71593a6ab4b3b887d06fc",
+    "bitmapResolution": 1,
+    "md5ext": "6da6039345d71593a6ab4b3b887d06fc.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Chip",
+    "tags": [
+      "tecnologia",
+      "blockids"
+    ],
+    "assetId": "2f2ec1296695a9fb3251bbc94a2e0cef",
+    "bitmapResolution": 1,
+    "md5ext": "2f2ec1296695a9fb3251bbc94a2e0cef.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Joystick",
+    "tags": [
+      "tecnologia",
+      "blockids"
+    ],
+    "assetId": "2ed69833bf8cb33c80eaf0daa892400e",
+    "bitmapResolution": 1,
+    "md5ext": "2ed69833bf8cb33c80eaf0daa892400e.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Consola",
+    "tags": [
+      "tecnologia",
+      "blockids"
+    ],
+    "assetId": "57808a827eb1cb28ada5a0df1d11d8d2",
+    "bitmapResolution": 1,
+    "md5ext": "57808a827eb1cb28ada5a0df1d11d8d2.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Dragón",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "assetId": "8621ffdbc5698829397d97767ac13db3",
+    "bitmapResolution": 1,
+    "md5ext": "8621ffdbc5698829397d97767ac13db3.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Poción",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "assetId": "7452a66639c75bb0f61043ac1528ae5d",
+    "bitmapResolution": 1,
+    "md5ext": "7452a66639c75bb0f61043ac1528ae5d.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Cofre",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "assetId": "623f4edcc75ecb048178392d477f23ba",
+    "bitmapResolution": 1,
+    "md5ext": "623f4edcc75ecb048178392d477f23ba.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Cristal",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "assetId": "6bbea091fbcbe4770f208a628cd1d8b5",
+    "bitmapResolution": 1,
+    "md5ext": "6bbea091fbcbe4770f208a628cd1d8b5.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Varita Mágica",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "assetId": "af9ea5c7d78e685335931f160c6e15e0",
+    "bitmapResolution": 1,
+    "md5ext": "af9ea5c7d78e685335931f160c6e15e0.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Nube Mágica",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "assetId": "0e5799cd08ffa3717f3656ea4acf65ed",
+    "bitmapResolution": 1,
+    "md5ext": "0e5799cd08ffa3717f3656ea4acf65ed.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Castillo",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "assetId": "e7a58438fa3c342c6fcd5a635c8afd8b",
+    "bitmapResolution": 1,
+    "md5ext": "e7a58438fa3c342c6fcd5a635c8afd8b.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Escudo",
+    "tags": [
+      "fantasia",
+      "blockids"
+    ],
+    "assetId": "560d45750733c1dae8f470e68b45527b",
+    "bitmapResolution": 1,
+    "md5ext": "560d45750733c1dae8f470e68b45527b.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Banana",
+    "tags": [
+      "comida",
+      "blockids"
+    ],
+    "assetId": "72b302bf297a228a75730123efef7c41",
+    "bitmapResolution": 1,
+    "md5ext": "72b302bf297a228a75730123efef7c41.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Manzana",
+    "tags": [
+      "comida",
+      "blockids"
+    ],
+    "assetId": "81b1c93c5f431703e4c3bfb0274305e0",
+    "bitmapResolution": 1,
+    "md5ext": "81b1c93c5f431703e4c3bfb0274305e0.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Pizza",
+    "tags": [
+      "comida",
+      "blockids"
+    ],
+    "assetId": "7cf2db5ec261a0fa27a502d3196a6f60",
+    "bitmapResolution": 1,
+    "md5ext": "7cf2db5ec261a0fa27a502d3196a6f60.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Hamburguesa",
+    "tags": [
+      "comida",
+      "blockids"
+    ],
+    "assetId": "7b886f412edbadc6062b4b889e6c9d70",
+    "bitmapResolution": 1,
+    "md5ext": "7b886f412edbadc6062b4b889e6c9d70.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Helado",
+    "tags": [
+      "comida",
+      "blockids"
+    ],
+    "assetId": "fc40a8a9691bad05a4b2de915ebb46e6",
+    "bitmapResolution": 1,
+    "md5ext": "fc40a8a9691bad05a4b2de915ebb46e6.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Zanahoria",
+    "tags": [
+      "comida",
+      "blockids"
+    ],
+    "assetId": "35be2606e61ff1f716ee1111d8b67508",
+    "bitmapResolution": 1,
+    "md5ext": "35be2606e61ff1f716ee1111d8b67508.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Jugo",
+    "tags": [
+      "comida",
+      "blockids"
+    ],
+    "assetId": "36900aadca34dfb4f4c2b0247f298a3b",
+    "bitmapResolution": 1,
+    "md5ext": "36900aadca34dfb4f4c2b0247f298a3b.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Fútbol",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "assetId": "7b08b9eb96845b169b713669020f6be4",
+    "bitmapResolution": 1,
+    "md5ext": "7b08b9eb96845b169b713669020f6be4.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Basquetbol",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "assetId": "bfcc99668ce7515cd87d83e33a0ff29b",
+    "bitmapResolution": 1,
+    "md5ext": "bfcc99668ce7515cd87d83e33a0ff29b.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Baseball",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "assetId": "276f8db0b86edaa7fc805516c852c889",
+    "bitmapResolution": 1,
+    "md5ext": "276f8db0b86edaa7fc805516c852c889.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Skateboard",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "assetId": "6231bb17f25c5717f326fb009583f818",
+    "bitmapResolution": 1,
+    "md5ext": "6231bb17f25c5717f326fb009583f818.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Trofeo",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "assetId": "0088d7c2d68eaf9d33da24e4c2bd2b70",
+    "bitmapResolution": 1,
+    "md5ext": "0088d7c2d68eaf9d33da24e4c2bd2b70.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Medalla",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "assetId": "08fc8bb6ca481d9f2e4f6fd313ddec67",
+    "bitmapResolution": 1,
+    "md5ext": "08fc8bb6ca481d9f2e4f6fd313ddec67.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Pesas",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "assetId": "0939b9014b1b60a1697ed570656da6ba",
+    "bitmapResolution": 1,
+    "md5ext": "0939b9014b1b60a1697ed570656da6ba.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Raqueta",
+    "tags": [
+      "deportes",
+      "blockids"
+    ],
+    "assetId": "9fd1c2ad1d7ad893ad91444c7d7296aa",
+    "bitmapResolution": 1,
+    "md5ext": "9fd1c2ad1d7ad893ad91444c7d7296aa.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Guitarra",
+    "tags": [
+      "musica",
+      "blockids"
+    ],
+    "assetId": "5377ad2a30ac61a139dce0649038a91a",
+    "bitmapResolution": 1,
+    "md5ext": "5377ad2a30ac61a139dce0649038a91a.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Teclado",
+    "tags": [
+      "musica",
+      "blockids"
+    ],
+    "assetId": "1c1d5e86e3024e82ba1568aa37c5dfeb",
+    "bitmapResolution": 1,
+    "md5ext": "1c1d5e86e3024e82ba1568aa37c5dfeb.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Batería",
+    "tags": [
+      "musica",
+      "blockids"
+    ],
+    "assetId": "f2721b21aa69c3fc97f2f360309d3c81",
+    "bitmapResolution": 1,
+    "md5ext": "f2721b21aa69c3fc97f2f360309d3c81.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Micrófono",
+    "tags": [
+      "musica",
+      "blockids"
+    ],
+    "assetId": "8cea7d649a503d1d9fedea04e2d6351f",
+    "bitmapResolution": 1,
+    "md5ext": "8cea7d649a503d1d9fedea04e2d6351f.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Audífonos",
+    "tags": [
+      "musica",
+      "blockids"
+    ],
+    "assetId": "66d81dcecee71c196daf66daead4cab4",
+    "bitmapResolution": 1,
+    "md5ext": "66d81dcecee71c196daf66daead4cab4.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Nota Musical",
+    "tags": [
+      "musica",
+      "blockids"
+    ],
+    "assetId": "b3f72f6c15473350493f5121496fff42",
+    "bitmapResolution": 1,
+    "md5ext": "b3f72f6c15473350493f5121496fff42.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Altavoz",
+    "tags": [
+      "musica",
+      "blockids"
+    ],
+    "assetId": "8339bd1f2008cdd8326ab83218f2b5a6",
+    "bitmapResolution": 1,
+    "md5ext": "8339bd1f2008cdd8326ab83218f2b5a6.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Árbol",
+    "tags": [
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "a25f21d368d34ff8bc64d0ec8396f3cd",
+    "bitmapResolution": 1,
+    "md5ext": "a25f21d368d34ff8bc64d0ec8396f3cd.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Flor",
+    "tags": [
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "d38e99d9790733c939e88698afbc30b6",
+    "bitmapResolution": 1,
+    "md5ext": "d38e99d9790733c939e88698afbc30b6.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Sol",
+    "tags": [
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "12313a3d28f802e3a22b07d2e01c6dcf",
+    "bitmapResolution": 1,
+    "md5ext": "12313a3d28f802e3a22b07d2e01c6dcf.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Nube",
+    "tags": [
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "84384a402c9540e35b23819f42b745ec",
+    "bitmapResolution": 1,
+    "md5ext": "84384a402c9540e35b23819f42b745ec.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Montaña",
+    "tags": [
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "6579a92e7f5ac7c57055196b3afe3ddd",
+    "bitmapResolution": 1,
+    "md5ext": "6579a92e7f5ac7c57055196b3afe3ddd.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Río",
+    "tags": [
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "d5ed38fdbf28bc4e58be142cf5a17cf5",
+    "bitmapResolution": 1,
+    "md5ext": "d5ed38fdbf28bc4e58be142cf5a17cf5.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Cactus",
+    "tags": [
+      "naturaleza",
+      "plantas",
+      "blockids"
+    ],
+    "assetId": "42239b8342a1fe81a71703f6de711073",
+    "bitmapResolution": 1,
+    "md5ext": "42239b8342a1fe81a71703f6de711073.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Animal",
+    "tags": [
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "1e4483e833025ac10e6184e75cb2d19d",
+    "bitmapResolution": 1,
+    "md5ext": "1e4483e833025ac10e6184e75cb2d19d.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Auto",
+    "tags": [
+      "transporte",
+      "blockids"
+    ],
+    "assetId": "9df22f196a33acd0b372fe502de51211",
+    "bitmapResolution": 1,
+    "md5ext": "9df22f196a33acd0b372fe502de51211.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Camión",
+    "tags": [
+      "transporte",
+      "blockids"
+    ],
+    "assetId": "c2ae0b5ba085cb33fbee01aafc391538",
+    "bitmapResolution": 1,
+    "md5ext": "c2ae0b5ba085cb33fbee01aafc391538.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Avión",
+    "tags": [
+      "transporte",
+      "blockids"
+    ],
+    "assetId": "9424fa904b33615d6b5ee9584e70ce1f",
+    "bitmapResolution": 1,
+    "md5ext": "9424fa904b33615d6b5ee9584e70ce1f.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Barco",
+    "tags": [
+      "transporte",
+      "blockids"
+    ],
+    "assetId": "78ae959170be4ee86febe81df5ffe4df",
+    "bitmapResolution": 1,
+    "md5ext": "78ae959170be4ee86febe81df5ffe4df.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Tren",
+    "tags": [
+      "transporte",
+      "blockids"
+    ],
+    "assetId": "5a5a6871f96d0670ff2ad2684640056c",
+    "bitmapResolution": 1,
+    "md5ext": "5a5a6871f96d0670ff2ad2684640056c.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Bicicleta",
+    "tags": [
+      "transporte",
+      "blockids"
+    ],
+    "assetId": "6ff570daea236e56ff32733b8948a458",
+    "bitmapResolution": 1,
+    "md5ext": "6ff570daea236e56ff32733b8948a458.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Helicóptero",
+    "tags": [
+      "transporte",
+      "blockids"
+    ],
+    "assetId": "d5ca5e740df13c43375e3bf9267abd55",
+    "bitmapResolution": 1,
+    "md5ext": "d5ca5e740df13c43375e3bf9267abd55.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra A",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "874b227a19261320683fc08fbc3b2d77",
+    "bitmapResolution": 1,
+    "md5ext": "874b227a19261320683fc08fbc3b2d77.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra B",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "44b372a6f602c0b1637f7b9df53431d5",
+    "bitmapResolution": 1,
+    "md5ext": "44b372a6f602c0b1637f7b9df53431d5.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra C",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "eca3f726508269958cef8343be605284",
+    "bitmapResolution": 1,
+    "md5ext": "eca3f726508269958cef8343be605284.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra D",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "93f6a646d7ec338081fc1b587ebbe8bb",
+    "bitmapResolution": 1,
+    "md5ext": "93f6a646d7ec338081fc1b587ebbe8bb.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra E",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "4ad8e5ce23f28cd957201373715bbdfa",
+    "bitmapResolution": 1,
+    "md5ext": "4ad8e5ce23f28cd957201373715bbdfa.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra F",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "8fb93580471eb19c15e9a16ad32aa86e",
+    "bitmapResolution": 1,
+    "md5ext": "8fb93580471eb19c15e9a16ad32aa86e.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra G",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "844a7f93556bde0cd77b067a2bb89275",
+    "bitmapResolution": 1,
+    "md5ext": "844a7f93556bde0cd77b067a2bb89275.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra H",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "e6b8c0af91ba7c70e121b98ad22e3b0b",
+    "bitmapResolution": 1,
+    "md5ext": "e6b8c0af91ba7c70e121b98ad22e3b0b.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra I",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "560f5e7c7d926df81242eb9aecc2d048",
+    "bitmapResolution": 1,
+    "md5ext": "560f5e7c7d926df81242eb9aecc2d048.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra J",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "e0cc952ba914b9c84b1a30a688752988",
+    "bitmapResolution": 1,
+    "md5ext": "e0cc952ba914b9c84b1a30a688752988.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra K",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "8a3a2da081702d94463e58b3b4af9741",
+    "bitmapResolution": 1,
+    "md5ext": "8a3a2da081702d94463e58b3b4af9741.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra L",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "02fe91b70a4a85e689c1ac6f3f2c88aa",
+    "bitmapResolution": 1,
+    "md5ext": "02fe91b70a4a85e689c1ac6f3f2c88aa.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra M",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "d9d744ae2bf7c7db19577825767f16dd",
+    "bitmapResolution": 1,
+    "md5ext": "d9d744ae2bf7c7db19577825767f16dd.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra N",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "6ed0ab61348125cd3f41934f9c44911e",
+    "bitmapResolution": 1,
+    "md5ext": "6ed0ab61348125cd3f41934f9c44911e.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra O",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "1d20108cf1f2a60b892593130c5fefda",
+    "bitmapResolution": 1,
+    "md5ext": "1d20108cf1f2a60b892593130c5fefda.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra P",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "42255ee5e2c53c20de129971f0a8459e",
+    "bitmapResolution": 1,
+    "md5ext": "42255ee5e2c53c20de129971f0a8459e.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra Q",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "70919b371bdddeeabc41d6c1eae24c5c",
+    "bitmapResolution": 1,
+    "md5ext": "70919b371bdddeeabc41d6c1eae24c5c.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra R",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "6fbb4581234fafe2060116d96e14d5b1",
+    "bitmapResolution": 1,
+    "md5ext": "6fbb4581234fafe2060116d96e14d5b1.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra S",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "265e3089209bc010a50060855df6115e",
+    "bitmapResolution": 1,
+    "md5ext": "265e3089209bc010a50060855df6115e.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra T",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "e577250804dc98039d4989845e67f654",
+    "bitmapResolution": 1,
+    "md5ext": "e577250804dc98039d4989845e67f654.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra U",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "45df6e8a455eccfbe9c0c2f35a649933",
+    "bitmapResolution": 1,
+    "md5ext": "45df6e8a455eccfbe9c0c2f35a649933.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra V",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "a9d0d6496157332a35bcc057b94d243e",
+    "bitmapResolution": 1,
+    "md5ext": "a9d0d6496157332a35bcc057b94d243e.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra W",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "d8857a63c320350759b74cc99488147d",
+    "bitmapResolution": 1,
+    "md5ext": "d8857a63c320350759b74cc99488147d.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra X",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "9d1fc175d5812a74130fbe26e09c1aac",
+    "bitmapResolution": 1,
+    "md5ext": "9d1fc175d5812a74130fbe26e09c1aac.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra Y",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "e1797433548f83ba619ebebbfecdd58f",
+    "bitmapResolution": 1,
+    "md5ext": "e1797433548f83ba619ebebbfecdd58f.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Letra Z",
+    "tags": [
+      "letras",
+      "blockids"
+    ],
+    "assetId": "b7c3d676f9a6a76bc658d8ffdc0eff21",
+    "bitmapResolution": 1,
+    "md5ext": "b7c3d676f9a6a76bc658d8ffdc0eff21.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Pirata",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "assetId": "92e3a744479a8857975248769ebb0ee8",
+    "bitmapResolution": 1,
+    "md5ext": "92e3a744479a8857975248769ebb0ee8.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Vaquero",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "assetId": "5e21bc79ed41702593f6d6814ec910ee",
+    "bitmapResolution": 1,
+    "md5ext": "5e21bc79ed41702593f6d6814ec910ee.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Policía",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "assetId": "d93fac0aa9e6f682d248328c737c9d69",
+    "bitmapResolution": 1,
+    "md5ext": "d93fac0aa9e6f682d248328c737c9d69.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Bombero",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "assetId": "d4117dc5540f9edda1c28aa72c504a8c",
+    "bitmapResolution": 1,
+    "md5ext": "d4117dc5540f9edda1c28aa72c504a8c.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Chef",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "assetId": "cbb4581ba3ada1ddef9b431eef2660ce",
+    "bitmapResolution": 1,
+    "md5ext": "cbb4581ba3ada1ddef9b431eef2660ce.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Doctor",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "assetId": "f9f16d97c90d8c6f2cab37bb6d1f1992",
+    "bitmapResolution": 1,
+    "md5ext": "f9f16d97c90d8c6f2cab37bb6d1f1992.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Artista",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "assetId": "0335e2c3d9ca2e06e206cbf5ff8d7536",
+    "bitmapResolution": 1,
+    "md5ext": "0335e2c3d9ca2e06e206cbf5ff8d7536.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Detective",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "assetId": "4af05d61b7a4d1e3dfdb929e5fcdf91f",
+    "bitmapResolution": 1,
+    "md5ext": "4af05d61b7a4d1e3dfdb929e5fcdf91f.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Samurái",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "assetId": "99b1983cf3ee09bbaf6f43ac7b4c8748",
+    "bitmapResolution": 1,
+    "md5ext": "99b1983cf3ee09bbaf6f43ac7b4c8748.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Vikingo",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "assetId": "0f58d22c20da992327208c060c7b6f43",
+    "bitmapResolution": 1,
+    "md5ext": "0f58d22c20da992327208c060c7b6f43.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Rey",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "assetId": "d2b3ea2dfddc40efdc6941359436c847",
+    "bitmapResolution": 1,
+    "md5ext": "d2b3ea2dfddc40efdc6941359436c847.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Reina",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "assetId": "c68694892859e2f05020bc4b2f2af56f",
+    "bitmapResolution": 1,
+    "md5ext": "c68694892859e2f05020bc4b2f2af56f.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Zombi",
+    "tags": [
+      "personajes",
+      "blockids"
+    ],
+    "assetId": "9d514e6b301cfe7bdc270212d5565eaf",
+    "bitmapResolution": 1,
+    "md5ext": "9d514e6b301cfe7bdc270212d5565eaf.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Unicornio",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "assetId": "3a1f9e20f1beac9b81a1e18e08b7f442",
+    "bitmapResolution": 1,
+    "md5ext": "3a1f9e20f1beac9b81a1e18e08b7f442.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "León",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "assetId": "5c443b2003676fa5e8966030ce3a86ea",
+    "bitmapResolution": 1,
+    "md5ext": "5c443b2003676fa5e8966030ce3a86ea.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Tigre",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "assetId": "1ddff545424249df81f3c4ab552dbb3d",
+    "bitmapResolution": 1,
+    "md5ext": "1ddff545424249df81f3c4ab552dbb3d.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Elefante",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "assetId": "87bc60b1d2525741a77d18fda9476cd8",
+    "bitmapResolution": 1,
+    "md5ext": "87bc60b1d2525741a77d18fda9476cd8.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Jirafa",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "assetId": "3e2fa8d23436e1133e9e330cc8b84927",
+    "bitmapResolution": 1,
+    "md5ext": "3e2fa8d23436e1133e9e330cc8b84927.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Panda",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "assetId": "ce61649168c4550c2f7acab92354dc6e",
+    "bitmapResolution": 1,
+    "md5ext": "ce61649168c4550c2f7acab92354dc6e.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Pingüino",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "assetId": "b08484b5b62902dcd1b059c4f51177d8",
+    "bitmapResolution": 1,
+    "md5ext": "b08484b5b62902dcd1b059c4f51177d8.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Delfín",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "assetId": "a62b1fca6b53d6670a84aa2c7b373b27",
+    "bitmapResolution": 1,
+    "md5ext": "a62b1fca6b53d6670a84aa2c7b373b27.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Tiburón",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "assetId": "923ff56913d9d2538583abd2aca1857d",
+    "bitmapResolution": 1,
+    "md5ext": "923ff56913d9d2538583abd2aca1857d.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Águila",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "assetId": "ecba395727f462d8863ba6fab50b193b",
+    "bitmapResolution": 1,
+    "md5ext": "ecba395727f462d8863ba6fab50b193b.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Búho",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "assetId": "dc154026d7df548422faf996bc7a65c0",
+    "bitmapResolution": 1,
+    "md5ext": "dc154026d7df548422faf996bc7a65c0.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Camaleón",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "assetId": "77bedb3696d429d527deb55e83ccd8ed",
+    "bitmapResolution": 1,
+    "md5ext": "77bedb3696d429d527deb55e83ccd8ed.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Lobo",
+    "tags": [
+      "animales",
+      "blockids"
+    ],
+    "assetId": "1b554a52643788461c4c51c68a23cbc5",
+    "bitmapResolution": 1,
+    "md5ext": "1b554a52643788461c4c51c68a23cbc5.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Robot Amigable",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "assetId": "493b3d032ace254e95ff69e7a8bfe9fa",
+    "bitmapResolution": 1,
+    "md5ext": "493b3d032ace254e95ff69e7a8bfe9fa.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Robot Futurista",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "assetId": "06be8ac31c08c14ed6cf7d620b7e00f2",
+    "bitmapResolution": 1,
+    "md5ext": "06be8ac31c08c14ed6cf7d620b7e00f2.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Alien Verde",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "assetId": "03cdce614e56fb4effa533b0d8de966a",
+    "bitmapResolution": 1,
+    "md5ext": "03cdce614e56fb4effa533b0d8de966a.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Alien Morado",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "assetId": "47a6ca26e92cbbcf9880f8bb84dab774",
+    "bitmapResolution": 1,
+    "md5ext": "47a6ca26e92cbbcf9880f8bb84dab774.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Platillo Volador",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "assetId": "90993725349f0f9566365ce71148cee6",
+    "bitmapResolution": 1,
+    "md5ext": "90993725349f0f9566365ce71148cee6.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Monstruo Azul",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "assetId": "837d6953713b1d0c1c796c19cebbfcda",
+    "bitmapResolution": 1,
+    "md5ext": "837d6953713b1d0c1c796c19cebbfcda.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Monstruo Rosa",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "assetId": "7c02f10ca04cc19ab3328f40f0781b02",
+    "bitmapResolution": 1,
+    "md5ext": "7c02f10ca04cc19ab3328f40f0781b02.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Cyborg",
+    "tags": [
+      "robots",
+      "blockids"
+    ],
+    "assetId": "6b7206d5b741eb55d770fd0d2b8c3a71",
+    "bitmapResolution": 1,
+    "md5ext": "6b7206d5b741eb55d770fd0d2b8c3a71.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Reloj",
+    "tags": [
+      "objetos",
+      "blockids"
+    ],
+    "assetId": "6ea8c44896933605cb8b3b65c941b44a",
+    "bitmapResolution": 1,
+    "md5ext": "6ea8c44896933605cb8b3b65c941b44a.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Lámpara",
+    "tags": [
+      "objetos",
+      "blockids"
+    ],
+    "assetId": "69698a44808240a4158220f368b56d96",
+    "bitmapResolution": 1,
+    "md5ext": "69698a44808240a4158220f368b56d96.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Paraguas",
+    "tags": [
+      "objetos",
+      "blockids"
+    ],
+    "assetId": "4eea4a110e7023f239cadd36d2986325",
+    "bitmapResolution": 1,
+    "md5ext": "4eea4a110e7023f239cadd36d2986325.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Gafas",
+    "tags": [
+      "objetos",
+      "blockids"
+    ],
+    "assetId": "418a94f4315d84d6c23d648d295a42e2",
+    "bitmapResolution": 1,
+    "md5ext": "418a94f4315d84d6c23d648d295a42e2.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Cámara",
+    "tags": [
+      "objetos",
+      "blockids"
+    ],
+    "assetId": "d1fb83c4c01e41c00920a23b52958525",
+    "bitmapResolution": 1,
+    "md5ext": "d1fb83c4c01e41c00920a23b52958525.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Linterna",
+    "tags": [
+      "objetos",
+      "blockids"
+    ],
+    "assetId": "f6ec8d779d16966489537ffb6c410e35",
+    "bitmapResolution": 1,
+    "md5ext": "f6ec8d779d16966489537ffb6c410e35.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Patineta",
+    "tags": [
+      "objetos",
+      "deportes",
+      "blockids"
+    ],
+    "assetId": "fc29a09e4a63612b120616dd219024d9",
+    "bitmapResolution": 1,
+    "md5ext": "fc29a09e4a63612b120616dd219024d9.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Patines",
+    "tags": [
+      "objetos",
+      "deportes",
+      "blockids"
+    ],
+    "assetId": "c8767b9e679878a44e629c532268f9a3",
+    "bitmapResolution": 1,
+    "md5ext": "c8767b9e679878a44e629c532268f9a3.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Casa",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "assetId": "202447d5d44ce12531f7207cb33b6bf7",
+    "bitmapResolution": 1,
+    "md5ext": "202447d5d44ce12531f7207cb33b6bf7.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Escuela",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "assetId": "2afdad1b723d1fec938ff3d94fa4d63f",
+    "bitmapResolution": 1,
+    "md5ext": "2afdad1b723d1fec938ff3d94fa4d63f.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Tienda",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "assetId": "1a07afe7fc2c54d466d12569f05fb391",
+    "bitmapResolution": 1,
+    "md5ext": "1a07afe7fc2c54d466d12569f05fb391.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Hospital",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "assetId": "8b42a1c9b8f9fde869f83c954b3d463b",
+    "bitmapResolution": 1,
+    "md5ext": "8b42a1c9b8f9fde869f83c954b3d463b.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Castillo Medieval",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "assetId": "792080f8058738fd22e1a454961ceea2",
+    "bitmapResolution": 1,
+    "md5ext": "792080f8058738fd22e1a454961ceea2.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Granja",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "assetId": "410f5b6b9c408882f0921ad1597f6247",
+    "bitmapResolution": 1,
+    "md5ext": "410f5b6b9c408882f0921ad1597f6247.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Faro",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "assetId": "c538ccfeca02b8b7939c6f406711bbd6",
+    "bitmapResolution": 1,
+    "md5ext": "c538ccfeca02b8b7939c6f406711bbd6.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Banco",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "assetId": "52445555705eed5eed000c9ecbd5430c",
+    "bitmapResolution": 1,
+    "md5ext": "52445555705eed5eed000c9ecbd5430c.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Biblioteca",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "assetId": "686d4ba6996ab7e2bd626c9a3cc965c6",
+    "bitmapResolution": 1,
+    "md5ext": "686d4ba6996ab7e2bd626c9a3cc965c6.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Museo",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "assetId": "1e96672940df940377381ac3d4cf1890",
+    "bitmapResolution": 1,
+    "md5ext": "1e96672940df940377381ac3d4cf1890.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Estación Espacial",
+    "tags": [
+      "lugares",
+      "espacio",
+      "blockids"
+    ],
+    "assetId": "5b9e831d3ad4a40925af922d1bb6d357",
+    "bitmapResolution": 1,
+    "md5ext": "5b9e831d3ad4a40925af922d1bb6d357.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Pirámide",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "assetId": "26d4d3e915c2fb3a22a3a41acb67ebd8",
+    "bitmapResolution": 1,
+    "md5ext": "26d4d3e915c2fb3a22a3a41acb67ebd8.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Iglú",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "assetId": "d2356dcb383b352ef0e2e09251b0047a",
+    "bitmapResolution": 1,
+    "md5ext": "d2356dcb383b352ef0e2e09251b0047a.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Isla",
+    "tags": [
+      "lugares",
+      "blockids"
+    ],
+    "assetId": "655bd50b2d4d9a77bdff70250cb13dfa",
+    "bitmapResolution": 1,
+    "md5ext": "655bd50b2d4d9a77bdff70250cb13dfa.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Submarino",
+    "tags": [
+      "transporte-fantastico",
+      "transporte",
+      "blockids"
+    ],
+    "assetId": "e22ee51d0b7ea9e57551108d757b2133",
+    "bitmapResolution": 1,
+    "md5ext": "e22ee51d0b7ea9e57551108d757b2133.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Nave Espacial",
+    "tags": [
+      "transporte-fantastico",
+      "espacio",
+      "blockids"
+    ],
+    "assetId": "d9d047cdfa280c9c36563a228873dafc",
+    "bitmapResolution": 1,
+    "md5ext": "d9d047cdfa280c9c36563a228873dafc.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Globo Aerostático",
+    "tags": [
+      "transporte-fantastico",
+      "transporte",
+      "blockids"
+    ],
+    "assetId": "f154e4f6b1088a09e22a2571cf87a2ca",
+    "bitmapResolution": 1,
+    "md5ext": "f154e4f6b1088a09e22a2571cf87a2ca.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Carrito de Carreras",
+    "tags": [
+      "transporte-fantastico",
+      "transporte",
+      "blockids"
+    ],
+    "assetId": "2c211db47c055d480c5a41fc060ed0cc",
+    "bitmapResolution": 1,
+    "md5ext": "2c211db47c055d480c5a41fc060ed0cc.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Motocicleta",
+    "tags": [
+      "transporte-fantastico",
+      "transporte",
+      "blockids"
+    ],
+    "assetId": "24ac7b3d53ac1560a69b9ee0798c2821",
+    "bitmapResolution": 1,
+    "md5ext": "24ac7b3d53ac1560a69b9ee0798c2821.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Hoverboard",
+    "tags": [
+      "transporte-fantastico",
+      "blockids"
+    ],
+    "assetId": "084c99278df28142595fc24d7f5c6205",
+    "bitmapResolution": 1,
+    "md5ext": "084c99278df28142595fc24d7f5c6205.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Barco Pirata",
+    "tags": [
+      "transporte-fantastico",
+      "transporte",
+      "blockids"
+    ],
+    "assetId": "4e95e27da94273a275686b9d2b1374af",
+    "bitmapResolution": 1,
+    "md5ext": "4e95e27da94273a275686b9d2b1374af.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Dron",
+    "tags": [
+      "transporte-fantastico",
+      "tecnologia",
+      "blockids"
+    ],
+    "assetId": "fd0e9133c7efd5ccd54f6bf79147db8f",
+    "bitmapResolution": 1,
+    "md5ext": "fd0e9133c7efd5ccd54f6bf79147db8f.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Saxofón",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "assetId": "8195633aa612980fc26a5f48a815482f",
+    "bitmapResolution": 1,
+    "md5ext": "8195633aa612980fc26a5f48a815482f.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Violín",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "assetId": "baed9eee805dceb10b8701814740141d",
+    "bitmapResolution": 1,
+    "md5ext": "baed9eee805dceb10b8701814740141d.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Trompeta",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "assetId": "dcdf455ad6861b2c7890bc91c80e5294",
+    "bitmapResolution": 1,
+    "md5ext": "dcdf455ad6861b2c7890bc91c80e5294.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Acordeón",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "assetId": "84cefbe161bcf1f170b03b5fae73f695",
+    "bitmapResolution": 1,
+    "md5ext": "84cefbe161bcf1f170b03b5fae73f695.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Maracas",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "assetId": "44b008009f1f4e826e708dcda2487a91",
+    "bitmapResolution": 1,
+    "md5ext": "44b008009f1f4e826e708dcda2487a91.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Tambor",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "assetId": "74c88c9fafaf08f0358826a7e97e1cf0",
+    "bitmapResolution": 1,
+    "md5ext": "74c88c9fafaf08f0358826a7e97e1cf0.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Armónica",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "assetId": "5ae9479e25bf542163dc533fa4428f91",
+    "bitmapResolution": 1,
+    "md5ext": "5ae9479e25bf542163dc533fa4428f91.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Ukelele",
+    "tags": [
+      "instrumentos",
+      "musica",
+      "blockids"
+    ],
+    "assetId": "c1c748adc87fa41ecddd93f34d0335f3",
+    "bitmapResolution": 1,
+    "md5ext": "c1c748adc87fa41ecddd93f34d0335f3.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Planeta",
+    "tags": [
+      "espacio",
+      "blockids"
+    ],
+    "assetId": "9772370be8dae4e7e0118e8648667407",
+    "bitmapResolution": 1,
+    "md5ext": "9772370be8dae4e7e0118e8648667407.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Estrella Fugaz",
+    "tags": [
+      "espacio",
+      "blockids"
+    ],
+    "assetId": "0b63aa7937b57895e3773de6ce4c0064",
+    "bitmapResolution": 1,
+    "md5ext": "0b63aa7937b57895e3773de6ce4c0064.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Telescopio",
+    "tags": [
+      "espacio",
+      "escolares",
+      "blockids"
+    ],
+    "assetId": "debe9bea6e360be7a6f818bc6502c40a",
+    "bitmapResolution": 1,
+    "md5ext": "debe9bea6e360be7a6f818bc6502c40a.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Satélite",
+    "tags": [
+      "espacio",
+      "blockids"
+    ],
+    "assetId": "cc99a9ce5d616a04390431e280bd6491",
+    "bitmapResolution": 1,
+    "md5ext": "cc99a9ce5d616a04390431e280bd6491.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Átomo",
+    "tags": [
+      "espacio",
+      "ciencia",
+      "blockids"
+    ],
+    "assetId": "5028ea3da2e02508c8d2ce4651fc65af",
+    "bitmapResolution": 1,
+    "md5ext": "5028ea3da2e02508c8d2ce4651fc65af.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Imán",
+    "tags": [
+      "espacio",
+      "ciencia",
+      "blockids"
+    ],
+    "assetId": "5be9a68073f66a56554e25614e9f1c9a",
+    "bitmapResolution": 1,
+    "md5ext": "5be9a68073f66a56554e25614e9f1c9a.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "ADN",
+    "tags": [
+      "espacio",
+      "ciencia",
+      "blockids"
+    ],
+    "assetId": "862485a86ceea53aed60778c1ab16b1f",
+    "bitmapResolution": 1,
+    "md5ext": "862485a86ceea53aed60778c1ab16b1f.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Radiación",
+    "tags": [
+      "espacio",
+      "ciencia",
+      "blockids"
+    ],
+    "assetId": "4a79ae865c036a538d6af688034a0883",
+    "bitmapResolution": 1,
+    "md5ext": "4a79ae865c036a538d6af688034a0883.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Probeta",
+    "tags": [
+      "espacio",
+      "ciencia",
+      "blockids"
+    ],
+    "assetId": "a37db96133f7ace5d87a4de1dfeebca0",
+    "bitmapResolution": 1,
+    "md5ext": "a37db96133f7ace5d87a4de1dfeebca0.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Molécula",
+    "tags": [
+      "espacio",
+      "ciencia",
+      "blockids"
+    ],
+    "assetId": "c30088930078567f7dacb127fa851fb1",
+    "bitmapResolution": 1,
+    "md5ext": "c30088930078567f7dacb127fa851fb1.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Cohete Pequeño",
+    "tags": [
+      "espacio",
+      "blockids"
+    ],
+    "assetId": "cff2c92f6ac8fe24c3389464342233f1",
+    "bitmapResolution": 1,
+    "md5ext": "cff2c92f6ac8fe24c3389464342233f1.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Galaxia",
+    "tags": [
+      "espacio",
+      "blockids"
+    ],
+    "assetId": "d1d0518f47d0c65397526c041635770f",
+    "bitmapResolution": 1,
+    "md5ext": "d1d0518f47d0c65397526c041635770f.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Feliz",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "assetId": "afe0b02b35aeae24ae55d34617857428",
+    "bitmapResolution": 1,
+    "md5ext": "afe0b02b35aeae24ae55d34617857428.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Triste",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "assetId": "535500fa8ed249a3c394dd6da143923d",
+    "bitmapResolution": 1,
+    "md5ext": "535500fa8ed249a3c394dd6da143923d.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Enojado",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "assetId": "92b62e63e1bfb9a30c0cf4a1d5d57dc2",
+    "bitmapResolution": 1,
+    "md5ext": "92b62e63e1bfb9a30c0cf4a1d5d57dc2.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Sorprendido",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "assetId": "c2bd60d2928d7c50ad8d4a983c124f38",
+    "bitmapResolution": 1,
+    "md5ext": "c2bd60d2928d7c50ad8d4a983c124f38.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Pensativo",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "assetId": "880581485c239008ced485602234b314",
+    "bitmapResolution": 1,
+    "md5ext": "880581485c239008ced485602234b314.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Pensativo Variante",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "assetId": "4d58f90bdf097bec16c091dedadd2082",
+    "bitmapResolution": 1,
+    "md5ext": "4d58f90bdf097bec16c091dedadd2082.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Dormido",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "assetId": "bd9dce21a40c59f65b9e0cb537ce6f2d",
+    "bitmapResolution": 1,
+    "md5ext": "bd9dce21a40c59f65b9e0cb537ce6f2d.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Riendo",
+    "tags": [
+      "emociones",
+      "blockids"
+    ],
+    "assetId": "5a7f9ec8f2d86d96a75038364fa1f976",
+    "bitmapResolution": 1,
+    "md5ext": "5a7f9ec8f2d86d96a75038364fa1f976.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Árbol Grande",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "0c65d56c293b4d1dcd0214ac7fd76e03",
+    "bitmapResolution": 1,
+    "md5ext": "0c65d56c293b4d1dcd0214ac7fd76e03.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Arbusto",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "68494d020ee965dd827ac8cced51d605",
+    "bitmapResolution": 1,
+    "md5ext": "68494d020ee965dd827ac8cced51d605.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Rosa",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "84109ae4b4178430b8174b1dfef9162b",
+    "bitmapResolution": 1,
+    "md5ext": "84109ae4b4178430b8174b1dfef9162b.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Girasol",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "b9da943bf1dcb00b784cf3612d450f91",
+    "bitmapResolution": 1,
+    "md5ext": "b9da943bf1dcb00b784cf3612d450f91.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Tulipán",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "3599f026c6c3d5c3f5a434cdb4991974",
+    "bitmapResolution": 1,
+    "md5ext": "3599f026c6c3d5c3f5a434cdb4991974.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Hongo",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "0c38dfad7f2f2b5a5cfbfa56b489e364",
+    "bitmapResolution": 1,
+    "md5ext": "0c38dfad7f2f2b5a5cfbfa56b489e364.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Hoja",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "5f01c0ceea38f3875e271db995e1d390",
+    "bitmapResolution": 1,
+    "md5ext": "5f01c0ceea38f3875e271db995e1d390.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Piedra",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "645d267aa931167c17f0e43714093ea2",
+    "bitmapResolution": 1,
+    "md5ext": "645d267aa931167c17f0e43714093ea2.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Volcán",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "f746e8f07ba1aea5b1aaa07818990f7d",
+    "bitmapResolution": 1,
+    "md5ext": "f746e8f07ba1aea5b1aaa07818990f7d.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Cascada",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "598a9654ac8a54986d55026094956a48",
+    "bitmapResolution": 1,
+    "md5ext": "598a9654ac8a54986d55026094956a48.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Arcoíris",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "fff9707cfe4036c1a6e8f2b33474adcb",
+    "bitmapResolution": 1,
+    "md5ext": "fff9707cfe4036c1a6e8f2b33474adcb.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Copo de Nieve",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "4640cec7c4467201fb13423d1d5aa1af",
+    "bitmapResolution": 1,
+    "md5ext": "4640cec7c4467201fb13423d1d5aa1af.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Relámpago",
+    "tags": [
+      "plantas",
+      "naturaleza",
+      "blockids"
+    ],
+    "assetId": "a8774e150641d314d06f7ed5dda0d72b",
+    "bitmapResolution": 1,
+    "md5ext": "a8774e150641d314d06f7ed5dda0d72b.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Corazón",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "assetId": "0a43c50e23a05929e7f2b075170ce0a2",
+    "bitmapResolution": 1,
+    "md5ext": "0a43c50e23a05929e7f2b075170ce0a2.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Estrella",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "assetId": "aa87ddc5b4c24406d26ddad771ef44b0",
+    "bitmapResolution": 1,
+    "md5ext": "aa87ddc5b4c24406d26ddad771ef44b0.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Círculo",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "assetId": "2852a412940b72eca477ac181003b0ce",
+    "bitmapResolution": 1,
+    "md5ext": "2852a412940b72eca477ac181003b0ce.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Cuadrado",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "assetId": "27aacb391c523c23e49cfa190442093b",
+    "bitmapResolution": 1,
+    "md5ext": "27aacb391c523c23e49cfa190442093b.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Triángulo",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "assetId": "5638f232c3d11216c24db4af0c0cfea9",
+    "bitmapResolution": 1,
+    "md5ext": "5638f232c3d11216c24db4af0c0cfea9.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Diamante",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "assetId": "b28307049aa6c6b722c22bf282b29c96",
+    "bitmapResolution": 1,
+    "md5ext": "b28307049aa6c6b722c22bf282b29c96.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Rayo",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "assetId": "331525caeabd92ad49e5f90ed064df5d",
+    "bitmapResolution": 1,
+    "md5ext": "331525caeabd92ad49e5f90ed064df5d.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Signo de Pregunta",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "assetId": "d657fca3f2920c6c8c5d11f198cb7ef6",
+    "bitmapResolution": 1,
+    "md5ext": "d657fca3f2920c6c8c5d11f198cb7ef6.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  },
+  {
+    "name": "Signo de Exclamación",
+    "tags": [
+      "formas",
+      "blockids"
+    ],
+    "assetId": "8d9b38cbd258b82307603dd2e9660afd",
+    "bitmapResolution": 1,
+    "md5ext": "8d9b38cbd258b82307603dd2e9660afd.svg",
+    "dataFormat": "svg",
+    "rotationCenterX": 50,
+    "rotationCenterY": 50
+  }
+]

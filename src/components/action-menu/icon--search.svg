@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <!-- Círculo de la lupa -->
+  <circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="#2196F3" stroke-width="2"/>
+  
+  <!-- Mango de la lupa -->
+  <line x1="12.5" y1="12.5" x2="16" y2="16" stroke="#2196F3" stroke-width="2" stroke-linecap="round"/>
+</svg>

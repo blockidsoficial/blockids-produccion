@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Mango de la tapa -->
+  <rect x="24" y="4" width="16" height="6" rx="3" fill="#e53e3e"/>
+  <!-- Tapa -->
+  <rect x="8" y="12" width="48" height="8" rx="4" fill="#e53e3e"/>
+  <!-- Cuerpo de la papelera -->
+  <path d="M13 22 L15 56 Q15.5 60 20 60 L44 60 Q48.5 60 49 56 L51 22 Z" fill="#c53030"/>
+  <!-- Líneas decorativas internas -->
+  <rect x="25" y="28" width="4" height="22" rx="2" fill="white" opacity="0.5"/>
+  <rect x="35" y="28" width="4" height="22" rx="2" fill="white" opacity="0.5"/>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 20 20">
+  <!-- Archivo (fondo) -->
+  <path d="M11.29,0H4A2,2,0,0,0,2,2v12a2,2,0,0,0,2,2h8a2,2,0,0,0,2-2V4.71A1,1,0,0,0,13.71,4L10,.29A1,1,0,0,0,11.29,0Z" fill="#2196F3"/>
+  
+  <!-- Código dentro del archivo -->
+  <path d="M6.65,7.65a.5.5,0,1,1,.71.71L5.71,10l1.65,1.65a.5.5,0,0,1-.71.71l-2-2a.5.5,0,0,1,0-.71Z" fill="white"/>
+  <path d="M9.35,7.65l2,2a.5.5,0,0,1,0,.71l-2,2a.5.5,0,0,1-.71-.71L10.29,10,8.65,8.35a.5.5,0,1,1,.71-.71Z" fill="white"/>
+  
+  <!-- Símbolo de más (+) agregado -->
+  <g transform="translate(16, 16)">
+    <circle cx="-2" cy="-2" r="6" fill="#4CAF50"/>
+    <line x1="-6" y1="-2" x2="3" y2="-2" stroke="white" stroke-width="1" stroke-linecap="round"/>
+    <line x1="-1.5" y1="-6" x2="-1.5" y2="2.5" stroke="white" stroke-width="1" stroke-linecap="round"/>
+  </g>
+</svg>

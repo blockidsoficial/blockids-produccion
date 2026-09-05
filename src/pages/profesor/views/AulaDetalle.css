@@ -1,0 +1,676 @@
+/* ============================================================
+   BLOCKIDS — Vista de Detalle de Aula
+   Usa variables de src/styles/global.css
+   ============================================================ */
+
+@keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Pantalla de carga ───────────────────────────────────── */
+.loadingScreen {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: var(--color-azul-bg);
+    font-family: var(--font-principal);
+    gap: 16px;
+}
+.loadingSpinner {
+    width: 42px; height: 42px;
+    border: 4px solid var(--color-azul-claro);
+    border-top-color: var(--color-azul-fuerte);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+}
+.loadingText {
+    color: var(--color-texto-suave);
+    font-size: .9rem; font-weight: 500; margin: 0;
+    font-family: var(--font-principal);
+}
+
+/* ── Layout raíz ─────────────────────────────────────────── */
+.aulaDetalleRoot {
+    min-height: 100vh;
+    background: linear-gradient(145deg, var(--color-azul-bg) 0%, var(--color-verde-bg) 100%);
+    font-family: var(--font-principal);
+    color: var(--color-texto-oscuro);
+    padding-bottom: 60px;
+}
+
+/* ── Topbar ──────────────────────────────────────────────── */
+.topbar {
+    background: var(--color-superficie);
+    border-bottom: 2px solid var(--color-azul-claro);
+    padding: 0 32px;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 2px 12px rgba(21, 158, 246, 0.1);
+    animation: fadeSlideDown .4s ease both;
+    position: sticky; top: 0; z-index: 50;
+}
+.topbarBrand   { display: flex; align-items: center; gap: 12px; }
+.topbarLogo    {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--color-verde-primario), var(--color-azul-fuerte));
+    border-radius: var(--radio-md);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+}
+.topbarTitle   {
+    font-size: 1.1rem; font-weight: 800; letter-spacing: 2px;
+    color: var(--color-verde-primario); text-transform: uppercase;
+}
+.topbarSubtitle {
+    font-size: .75rem; color: var(--color-texto-suave);
+    font-weight: 500; margin-left: 4px;
+}
+.topbarBadge {
+    background: linear-gradient(135deg, var(--color-azul-fuerte), var(--color-azul-hover));
+    color: var(--color-blanco);
+    font-size: .7rem; font-weight: 700;
+    padding: 4px 12px; border-radius: var(--radio-pill);
+    letter-spacing: 1px; text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(21, 158, 246, 0.3);
+}
+
+/* ── Contenido principal ─────────────────────────────────── */
+.mainContent {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 36px 24px 0;
+}
+
+/* ── Botón de regreso ────────────────────────────────────── */
+.btnVolver {
+    display: inline-flex; align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: var(--color-texto-suave);
+    font-family: var(--font-principal);
+    font-size: .85rem; font-weight: 600;
+    cursor: pointer;
+    padding: 6px 0;
+    margin-bottom: 28px;
+    transition: color .2s ease;
+    animation: fadeSlideDown .35s ease both;
+}
+.btnVolver:hover { color: var(--color-azul-fuerte); }
+
+/* ── Cabecera del aula ───────────────────────────────────── */
+.aulaHeader {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+    animation: fadeSlideDown .45s ease .05s both;
+}
+.aulaNombreTitle {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--color-texto-oscuro);
+    margin: 0;
+    line-height: 1.1;
+    font-family: var(--font-principal);
+}
+.codigoBadgeWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.codigoLabel {
+    font-size: .65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: var(--color-texto-muted);
+    font-family: var(--font-principal);
+}
+.codigoBadge {
+    display: inline-block;
+    background: var(--color-azul-claro);
+    color: var(--color-azul-fuerte);
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    padding: 6px 18px;
+    border-radius: var(--radio-md);
+    border: 2px solid var(--color-azul-fuerte);
+    box-shadow: 0 2px 10px rgba(21, 158, 246, 0.2);
+}
+
+/* ── Barra de pestañas ───────────────────────────────────── */
+.tabsBar {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--color-borde);
+    margin-bottom: 28px;
+    animation: fadeSlideDown .5s ease .1s both;
+}
+.tab {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    padding: 12px 28px;
+    font-family: var(--font-principal);
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--color-texto-suave);
+    cursor: pointer;
+    transition: color .2s ease, border-color .2s ease;
+}
+.tab:hover { color: var(--color-texto-medio); }
+.tabActiva {
+    color: var(--color-verde-primario);
+    border-bottom-color: var(--color-verde-primario);
+    font-weight: 700;
+}
+
+/* ── Contenido de pestaña ────────────────────────────────── */
+.tabContent { animation: fadeSlideUp .4s ease both; }
+
+/* ── Estado vacío (Alumnos / Proyectos) ─────────────────── */
+.emptyState {
+    background: var(--color-superficie);
+    border-radius: var(--radio-xl);
+    border: 2.5px dashed var(--color-azul-claro);
+    padding: 72px 40px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; gap: 14px;
+    box-shadow: var(--sombra-card);
+    transition: border-color .25s, box-shadow .25s;
+}
+.emptyState:hover {
+    border-color: var(--color-azul-fuerte);
+    box-shadow: 0 8px 28px rgba(21, 158, 246, 0.1);
+}
+.emptyIcon  { font-size: 3.5rem; display: block; line-height: 1; }
+.emptyTitle {
+    font-size: 1.15rem; font-weight: 700; color: var(--color-texto-oscuro);
+    margin: 0; font-family: var(--font-principal);
+}
+.emptyDesc {
+    font-size: .88rem; color: var(--color-texto-suave);
+    margin: 0; max-width: 400px; line-height: 1.6;
+    font-family: var(--font-principal);
+}
+.codigoInline {
+    display: inline-block;
+    background: var(--color-azul-claro);
+    color: var(--color-azul-fuerte);
+    font-family: 'Courier New', monospace;
+    font-size: .88rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    padding: 2px 10px;
+    border-radius: 6px;
+    border: 1.5px solid var(--color-azul-fuerte);
+}
+
+/* ══ MURO ══════════════════════════════════════════════════ */
+
+.muroWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ── Lista de mensajes ───────────────────────────────────── */
+.mensajesList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 200px;
+}
+
+/* ── Cargando ────────────────────────────────────────────── */
+.muroCargando {
+    text-align: center;
+    color: var(--color-texto-muted);
+    font-size: .88rem;
+    padding: 32px 0;
+    font-family: var(--font-principal);
+}
+
+/* ── Empty state del muro ────────────────────────────────── */
+.muroEmpty {
+    background: var(--color-superficie);
+    border-radius: var(--radio-xl);
+    border: 2.5px dashed var(--color-borde);
+    padding: 56px 40px;
+    display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;
+    box-shadow: var(--sombra-card);
+}
+.muroEmptyIcon  { font-size: 3rem; display: block; }
+.muroEmptyTitle {
+    font-size: 1.05rem; font-weight: 700; color: var(--color-texto-oscuro);
+    margin: 0; font-family: var(--font-principal);
+}
+.muroEmptyDesc {
+    font-size: .85rem; color: var(--color-texto-suave);
+    margin: 0; max-width: 340px; line-height: 1.5;
+    font-family: var(--font-principal);
+}
+
+/* ── Burbuja base (alumno / otros) ───────────────────────── */
+.mensajeBurbuja {
+    background: var(--color-superficie);
+    border-radius: var(--radio-lg);
+    border: 1.5px solid var(--color-borde-suave);
+    padding: 14px 18px;
+    box-shadow: var(--sombra-card);
+    animation: fadeSlideUp .25s ease both;
+}
+
+/* ── Burbuja del profesor (anuncio oficial) ──────────────── */
+.mensajeBurbujaProfesor {
+    background: var(--color-verde-bg);
+    border-color: var(--color-verde-primario);
+    border-left: 4px solid var(--color-verde-primario);
+    box-shadow: 0 4px 16px rgba(109, 191, 38, 0.12);
+}
+
+/* ── Cabecera de la burbuja ──────────────────────────────── */
+.mensajeHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+.mensajeUsername {
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--color-texto-medio);
+    font-family: var(--font-principal);
+}
+.mensajeBurbujaProfesor .mensajeUsername {
+    color: var(--color-verde-hover);
+}
+.mensajeRolBadge {
+    font-size: .65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    background: var(--color-verde-primario);
+    color: var(--color-blanco);
+    padding: 2px 8px;
+    border-radius: var(--radio-pill);
+    font-family: var(--font-principal);
+}
+.mensajeFecha {
+    font-size: .72rem;
+    color: var(--color-texto-muted);
+    margin-left: auto;
+    font-family: var(--font-principal);
+}
+
+/* ── Texto del mensaje ───────────────────────────────────── */
+.mensajeTexto {
+    font-size: .9rem;
+    color: var(--color-texto-oscuro);
+    line-height: 1.55;
+    margin: 0;
+    white-space: pre-wrap;
+    font-family: var(--font-principal);
+}
+
+/* ── Área de input ───────────────────────────────────────── */
+.muroInputArea {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    background: var(--color-superficie);
+    border-radius: var(--radio-lg);
+    border: 1.5px solid var(--color-borde);
+    padding: 12px 14px;
+    box-shadow: var(--sombra-card);
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+.muroInputArea:focus-within {
+    border-color: var(--color-verde-primario);
+    box-shadow: 0 0 0 3px rgba(109, 191, 38, 0.15);
+}
+.muroTextarea {
+    flex: 1;
+    resize: none;
+    border: none;
+    outline: none;
+    font-family: var(--font-principal);
+    font-size: .9rem;
+    color: var(--color-texto-oscuro);
+    background: transparent;
+    line-height: 1.5;
+    min-height: 44px;
+    max-height: 120px;
+}
+.muroTextarea::placeholder { color: var(--color-texto-muted); }
+.muroTextarea:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ── Botón Publicar ──────────────────────────────────────── */
+.btnEnviarMensaje {
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    padding: 10px 22px;
+    background: var(--color-verde-primario);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: var(--radio-md);
+    font-size: .85rem; font-weight: 700;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    box-shadow: 0 3px 12px rgba(109, 191, 38, 0.35);
+    transition: all .2s ease;
+    min-width: 88px;
+}
+.btnEnviarMensaje:hover:not(:disabled) {
+    background: var(--color-verde-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 16px rgba(109, 191, 38, 0.45);
+}
+.btnEnviarMensaje:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+
+/* ── Spinner del botón ───────────────────────────────────── */
+.btnSpinner {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border: 2.5px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .65s linear infinite;
+}
+
+/* ══ PROYECTOS / TAREAS ════════════════════════════════════ */
+
+.proyectosSection {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ── Encabezado de la sección ────────────────────────────── */
+.proyectosHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.proyectosTitulo {
+    font-size: 1.1rem; font-weight: 800; color: var(--color-texto-oscuro);
+    margin: 0 0 4px; font-family: var(--font-principal);
+}
+.proyectosSubtitulo {
+    font-size: .8rem; color: var(--color-texto-suave);
+    margin: 0; font-family: var(--font-principal);
+}
+
+/* ── Botón asignar tarea (naranja, solo profesor) ────────── */
+.btnAsignarTarea {
+    flex-shrink: 0;
+    padding: 10px 22px;
+    background: var(--color-naranja);
+    color: var(--color-blanco);
+    border: none; border-radius: var(--radio-pill);
+    font-size: .85rem; font-weight: 700; cursor: pointer;
+    font-family: var(--font-principal);
+    box-shadow: 0 4px 14px rgba(232, 157, 125, 0.4);
+    transition: all .2s ease;
+}
+.btnAsignarTarea:hover {
+    background: var(--color-naranja-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(232, 157, 125, 0.5);
+}
+
+/* ── Cargando tareas ─────────────────────────────────────── */
+.cargandoTareas {
+    text-align: center; padding: 32px 0;
+    color: var(--color-texto-muted); font-size: .88rem;
+    font-family: var(--font-principal);
+}
+
+/* ── Lista de tarjetas de tareas ─────────────────────────── */
+.tareasLista {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* ── Tarjeta de tarea ────────────────────────────────────── */
+.tareaCard {
+    background: var(--color-superficie);
+    border-radius: var(--radio-lg);
+    border: 1.5px solid var(--color-borde-suave);
+    padding: 20px 22px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    box-shadow: var(--sombra-card);
+    animation: fadeSlideUp .3s ease both;
+    transition: border-color .2s, box-shadow .2s;
+}
+.tareaCard:hover {
+    border-color: var(--color-azul-claro);
+    box-shadow: 0 6px 20px rgba(21, 158, 246, 0.1);
+}
+.tareaCardBody { flex: 1; min-width: 0; }
+.tareaCardHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+.tareaNumero {
+    font-size: .7rem; font-weight: 700;
+    background: var(--color-azul-bg); color: var(--color-azul-fuerte);
+    padding: 2px 8px; border-radius: var(--radio-pill);
+    font-family: var(--font-principal); letter-spacing: .3px;
+}
+.tareaFecha {
+    font-size: .72rem; color: var(--color-texto-muted);
+    font-family: var(--font-principal);
+}
+.tareaCardTitulo {
+    font-size: 1rem; font-weight: 700; color: var(--color-texto-oscuro);
+    margin: 0 0 8px; font-family: var(--font-principal); line-height: 1.3;
+}
+.tareaCardDesc {
+    font-size: .85rem; color: var(--color-texto-suave);
+    margin: 0; line-height: 1.55; white-space: pre-wrap;
+    font-family: var(--font-principal);
+}
+
+/* ── Botón abrir entorno (alumno, verde) ─────────────────── */
+.btnAbrirEntorno {
+    flex-shrink: 0;
+    padding: 10px 18px;
+    background: var(--color-verde-primario);
+    color: var(--color-blanco);
+    border: none; border-radius: var(--radio-pill);
+    font-size: .82rem; font-weight: 700; cursor: pointer;
+    font-family: var(--font-principal);
+    box-shadow: 0 3px 12px rgba(109, 191, 38, 0.35);
+    transition: all .2s ease;
+    white-space: nowrap;
+}
+.btnAbrirEntorno:hover {
+    background: var(--color-verde-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(109, 191, 38, 0.45);
+}
+
+/* ── Badge publicada (profesor) ──────────────────────────── */
+.tareaCardBadgeProfesor {
+    flex-shrink: 0;
+    font-size: .72rem; font-weight: 700;
+    color: var(--color-verde-hover);
+    background: var(--color-verde-bg);
+    border: 1.5px solid var(--color-verde-primario);
+    padding: 6px 12px; border-radius: var(--radio-pill);
+    font-family: var(--font-principal);
+    align-self: flex-start;
+}
+
+/* ══ MODAL CREAR TAREA ═════════════════════════════════════ */
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(.93) translateY(16px); }
+    to   { opacity: 1; transform: scale(1)   translateY(0); }
+}
+
+.modalOverlay {
+    position: fixed; inset: 0;
+    background: rgba(15, 23, 42, .50);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200; padding: 20px;
+    animation: fadeIn .2s ease both;
+    backdrop-filter: blur(3px);
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modalCard {
+    background: var(--color-superficie);
+    border-radius: var(--radio-xl);
+    width: 100%; max-width: 500px;
+    box-shadow: var(--sombra-modal);
+    animation: scaleIn .25s ease both;
+    overflow: hidden;
+}
+.modalHeader {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    padding: 22px 26px 18px;
+    border-bottom: 1.5px solid var(--color-borde-suave);
+    gap: 12px;
+}
+.modalTitle {
+    font-size: 1.05rem; font-weight: 800; color: var(--color-texto-oscuro);
+    margin: 0 0 4px; font-family: var(--font-principal);
+}
+.modalSubtitle {
+    font-size: .74rem; color: var(--color-texto-muted);
+    margin: 0; font-family: var(--font-principal);
+}
+.modalClose {
+    width: 32px; height: 32px; border-radius: var(--radio-sm); border: none;
+    background: #f1f3f4; color: var(--color-texto-suave);
+    font-size: .9rem; font-weight: 700; cursor: pointer; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s ease;
+}
+.modalClose:hover:not(:disabled) { background: var(--color-rosa-claro); color: #c5221f; }
+.modalClose:disabled { opacity: .4; cursor: not-allowed; }
+
+.modalBody {
+    padding: 22px 26px;
+    display: flex; flex-direction: column; gap: 16px;
+}
+.fieldGroup { display: flex; flex-direction: column; gap: 6px; }
+.fieldLabel {
+    font-size: .73rem; font-weight: 700; color: var(--color-texto-medio);
+    text-transform: uppercase; letter-spacing: .5px;
+    font-family: var(--font-principal);
+}
+.fieldInput {
+    padding: 11px 14px;
+    border: 2px solid var(--color-borde); border-radius: var(--radio-md);
+    font-size: .9rem; color: var(--color-texto-oscuro); background: #f8fafc;
+    outline: none; transition: border-color .2s, box-shadow .2s;
+    font-family: var(--font-principal); width: 100%; box-sizing: border-box;
+}
+.fieldInput:focus {
+    border-color: var(--color-naranja);
+    box-shadow: 0 0 0 3px rgba(232, 157, 125, 0.18);
+    background: var(--color-superficie);
+}
+.fieldInput:disabled { opacity: .6; cursor: not-allowed; }
+.fieldTextarea {
+    padding: 11px 14px;
+    border: 2px solid var(--color-borde); border-radius: var(--radio-md);
+    font-size: .88rem; color: var(--color-texto-oscuro); background: #f8fafc;
+    outline: none; resize: vertical; min-height: 90px;
+    transition: border-color .2s, box-shadow .2s;
+    font-family: var(--font-principal); width: 100%; box-sizing: border-box;
+    line-height: 1.5;
+}
+.fieldTextarea:focus {
+    border-color: var(--color-naranja);
+    box-shadow: 0 0 0 3px rgba(232, 157, 125, 0.18);
+    background: var(--color-superficie);
+}
+.fieldTextarea:disabled { opacity: .6; cursor: not-allowed; }
+
+.modalFooter {
+    display: flex; justify-content: flex-end; gap: 10px;
+    padding: 16px 26px 22px;
+    border-top: 1.5px solid var(--color-borde-suave);
+}
+.btnCancelar {
+    padding: 10px 22px; background: #f1f3f4; color: var(--color-texto-suave);
+    border: 1.5px solid var(--color-borde); border-radius: var(--radio-md);
+    font-size: .88rem; font-weight: 700; cursor: pointer;
+    font-family: var(--font-principal); transition: background .2s;
+}
+.btnCancelar:hover:not(:disabled) { background: var(--color-borde); }
+.btnCancelar:disabled { opacity: .5; cursor: not-allowed; }
+.btnConfirmar {
+    display: flex; align-items: center; gap: 7px;
+    padding: 10px 24px;
+    background: var(--color-naranja);
+    color: var(--color-blanco); border: none; border-radius: var(--radio-md);
+    font-size: .88rem; font-weight: 700; cursor: pointer;
+    font-family: var(--font-principal);
+    box-shadow: 0 4px 14px rgba(232, 157, 125, 0.4);
+    transition: all .25s ease;
+}
+.btnConfirmar:hover:not(:disabled) {
+    background: var(--color-naranja-hover);
+    transform: translateY(-2px);
+}
+.btnConfirmar:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+.btnSpinnerModal {
+    display: inline-block; width: 13px; height: 13px;
+    border: 2px solid rgba(255,255,255,.35); border-top-color: #fff;
+    border-radius: 50%; animation: spin .65s linear infinite; flex-shrink: 0;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .mainContent       { padding: 24px 16px 0; }
+    .aulaNombreTitle   { font-size: 1.8rem; }
+    .aulaHeader        { gap: 14px; }
+    .emptyState        { padding: 52px 24px; }
+    .tab               { padding: 10px 16px; font-size: .85rem; }
+    .muroEmpty         { padding: 40px 20px; }
+    .tareaCard         { flex-direction: column; align-items: stretch; }
+    .btnAbrirEntorno   { width: 100%; text-align: center; }
+    .tareaCardBadgeProfesor { align-self: flex-start; }
+    .proyectosHeader   { flex-direction: column; align-items: flex-start; }
+    .btnAsignarTarea   { align-self: flex-start; }
+}
+@media (max-width: 480px) {
+    .topbar            { padding: 0 16px; }
+    .topbarSubtitle    { display: none; }
+    .aulaNombreTitle   { font-size: 1.5rem; }
+    .aulaHeader        { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .codigoBadge       { font-size: .95rem; padding: 5px 14px; }
+    .tab               { padding: 10px 10px; font-size: .78rem; }
+    .muroInputArea     { flex-direction: column; align-items: stretch; }
+    .btnEnviarMensaje  { width: 100%; }
+    .modalCard         { border-radius: var(--radio-lg); }
+    .modalBody         { padding: 18px 18px; }
+    .modalFooter       { padding: 14px 18px 18px; flex-direction: column; }
+    .btnCancelar, .btnConfirmar { width: 100%; justify-content: center; }
+}

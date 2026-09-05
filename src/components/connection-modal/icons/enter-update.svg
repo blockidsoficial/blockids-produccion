@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <!-- Cuadrado redondeado -->
+  <rect x="2" y="2" width="16" height="16" rx="4" fill="#FFC107" opacity="0.15" stroke="#FFC107" stroke-width="2"/>
+  
+  <!-- Flecha verde hacia arriba (centrada) -->
+  <g transform="translate(10, 8)">
+    <line x1="0" y1="6" x2="0" y2="-3" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
+    <polygon points="0,-5 -3.5,0 3.5,0" fill="#4CAF50"/>
+  </g>
+  
+  <!-- Línea de base (suelo) -->
+  <rect x="6" y="14" width="8" height="1.5" rx="0.5" fill="#4CAF50" opacity="0.5"/>
+</svg>

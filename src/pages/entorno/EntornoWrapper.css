@@ -1,0 +1,228 @@
+﻿/* ============================================================
+   BLOCKIDS — Mobile Guard para el Entorno
+   ============================================================ */
+
+.blocker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2.5rem 1.5rem;
+    background: var(--color-fondo-claro);
+    font-family: var(--font-principal);
+    text-align: center;
+    gap: 1.25rem;
+}
+
+.blockerLogo {
+    height: 36px;
+    width: auto;
+    margin-bottom: 0.25rem;
+}
+
+.blockerXolotl {
+    width: 250px;
+    max-width: 65vw;
+    height: auto;
+}
+
+.blockerTitulo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--color-azul-primario);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.blockerDesc {
+    font-size: 0.95rem;
+    color: var(--color-texto-oscuro);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 340px;
+}
+
+.blockerBtn {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: var(--color-verde-primario);
+    color: var(--color-blanco);
+    font-family: var(--font-principal);
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: var(--radio-pill);
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--sombra-verde);
+    transition: background 0.15s, transform 0.15s;
+}
+
+.blockerBtn:hover {
+    background: var(--color-verde-hover);
+    transform: translateY(-2px);
+}
+
+/* ============================================================
+   Banner flotante de entrega de tarea
+   ============================================================ */
+
+.bannerEntrega {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.55rem 1.5rem;
+    background: #1e293b;
+    border-bottom: 2px solid #22c55e;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+    z-index: 100;
+}
+
+.bannerLabel {
+    font-family: var(--font-principal);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #94a3b8;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.btnEntregar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.4rem;
+    background: #22c55e;
+    color: #fff;
+    font-family: var(--font-principal);
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radio-pill);
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(34, 197, 94, 0.4);
+    transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.btnEntregar:hover:not(:disabled) {
+    background: #16a34a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(34, 197, 94, 0.5);
+}
+
+.btnEntregar:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* ── Layout principal del entorno ─────────────────────────────────────────── */
+.entornoLayout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.scratchContainer {
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* ── Banner modo revisión (profesor) — en flujo, al tope ─────────────────── */
+.bannerRevision {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 8px 24px;
+    background: linear-gradient(90deg, #1e293b, #312e81);
+    border-bottom: 2px solid #6366f1;
+    z-index: 100;
+}
+
+.btnVolverRevision {
+    padding: 6px 18px;
+    border-radius: 8px;
+    border: 1.5px solid #6366f1;
+    background: transparent;
+    color: #a5b4fc;
+    font-family: var(--font-principal);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+}
+
+.btnVolverRevision:hover {
+    background: #312e81;
+    color: #fff;
+}
+
+/* ============================================================
+   Toast de confirmación
+   ============================================================ */
+
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.6rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    animation: toastIn 0.25s ease;
+    min-width: 280px;
+    max-width: 480px;
+}
+
+.toastExito {
+    background: #1e293b;
+    border-left: 4px solid #22c55e;
+}
+
+.toastError {
+    background: #1e293b;
+    border-left: 4px solid #ef4444;
+}
+
+.toastMensaje {
+    font-family: var(--font-principal);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    flex: 1;
+}
+
+.toastBtn {
+    flex-shrink: 0;
+    padding: 0.4rem 1rem;
+    background: #22c55e;
+    color: #fff;
+    font-family: var(--font-principal);
+    font-size: 0.82rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.toastBtn:hover {
+    background: #16a34a;
+}
+
+@keyframes toastIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}

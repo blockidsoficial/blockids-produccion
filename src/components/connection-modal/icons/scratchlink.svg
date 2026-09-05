@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+  <!-- Fondo circular azul -->
+  <circle cx="26" cy="26" r="23" fill="#2196F3"/>
+  
+  <!-- Bloques en el centro -->
+  <rect x="18" y="18" width="16" height="16" rx="3" fill="#FFC107"/>
+  <rect x="22" y="22" width="8" height="8" rx="2" fill="white" opacity="0.3"/>
+  
+  <!-- Barras de señal (wifi) arriba -->
+  <g transform="translate(26, 16)" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+    <path d="M-10,-3 Q0,-12 10,-3"/>
+    <path d="M-6,0 Q0,-7 6,0"/>
+    <path d="M-3,3 Q0,-2 3,3"/>
+  </g>
+  
+  <!-- Detalles de conexión -->
+  <circle cx="26" cy="25" r="2" fill="white" opacity="0.8"/>
+</svg>

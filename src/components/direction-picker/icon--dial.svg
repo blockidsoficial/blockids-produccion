@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60">
+  <!-- Círculo exterior -->
+  <circle cx="30" cy="30" r="28" fill="none" stroke="#2196F3" stroke-width="2"/>
+  
+  <!-- Marcas de hora (simplificadas: solo 4 direcciones) -->
+  <line x1="30" y1="4" x2="30" y2="10" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="30" y1="50" x2="30" y2="56" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="4" y1="30" x2="10" y2="30" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="50" y1="30" x2="56" y2="30" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Círculo interior (perilla) -->
+  <circle cx="30" cy="30" r="5" fill="#FFC107"/>
+  
+  <!-- Manecilla (apuntando a las 12) -->
+  <line x1="30" y1="30" x2="30" y2="12" stroke="#F44336" stroke-width="2" stroke-linecap="round"/>
+</svg>

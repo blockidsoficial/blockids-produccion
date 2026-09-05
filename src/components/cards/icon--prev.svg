@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <!-- Línea horizontal -->
+  <line x1="17" y1="10" x2="6" y2="10" stroke="#2196F3" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Cabeza de flecha -->
+  <polygon points="6,10 10,6 10,14" fill="#2196F3"/>
+</svg>

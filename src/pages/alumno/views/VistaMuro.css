@@ -1,0 +1,360 @@
+﻿/* BLOCKIDS — Alumno / VistaMuro */
+
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Contenedor principal ─────────────────────────────────── */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: fadeSlideUp .35s ease both;
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.pageHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.pageHeaderLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.headerIconWrap {
+    width: 44px;
+    height: 44px;
+    background: var(--color-verde-bg);
+    border-radius: var(--radio-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.pageTitle {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--color-texto-oscuro);
+    margin: 0 0 2px;
+    font-family: var(--font-principal);
+}
+
+.pageSubtitle {
+    font-size: .82rem;
+    color: var(--color-texto-suave);
+    margin: 0;
+    font-family: var(--font-principal);
+    font-weight: 600;
+}
+
+/* ── Filtro de aula ───────────────────────────────────────── */
+.filtroAula {
+    padding: 10px 14px;
+    background: var(--color-blanco);
+    border: 1.5px solid var(--color-borde-suave);
+    border-radius: var(--radio-md);
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+    cursor: pointer;
+    transition: border-color .18s ease;
+}
+
+.filtroAula:hover,
+.filtroAula:focus {
+    outline: none;
+    border-color: var(--color-verde-primario);
+    box-shadow: 0 0 0 3px rgba(107, 203, 119, 0.12);
+}
+
+/* ── Caja de publicación ──────────────────────────────────── */
+.publicarCard {
+    background: var(--color-blanco);
+    border-radius: var(--radio-lg);
+    border: 1.5px solid var(--color-borde-suave);
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.publicarForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mensajeInput {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--color-borde-suave);
+    border-radius: var(--radio-md);
+    font-size: .9rem;
+    font-family: var(--font-principal);
+    color: var(--color-texto-oscuro);
+    background: var(--color-blanco);
+    resize: vertical;
+    min-height: 76px;
+    transition: border-color .18s ease;
+    box-sizing: border-box;
+}
+
+.mensajeInput:focus {
+    outline: none;
+    border-color: var(--color-verde-primario);
+    box-shadow: 0 0 0 3px rgba(107, 203, 119, 0.1);
+}
+
+.mensajeInput:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.publicarFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.charCount {
+    font-size: .75rem;
+    color: var(--color-texto-muted);
+    font-family: var(--font-principal);
+}
+
+.btnPublicar {
+    padding: 10px 24px;
+    background: var(--color-verde-primario);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: var(--radio-md);
+    font-size: .88rem;
+    font-weight: 700;
+    font-family: var(--font-principal);
+    cursor: pointer;
+    transition: background .18s ease, transform .18s ease;
+    box-shadow: 0 4px 12px rgba(109, 191, 38, 0.28);
+}
+
+.btnPublicar:hover:not(:disabled) {
+    background: var(--color-verde-hover);
+    transform: translateY(-1px);
+}
+
+.btnPublicar:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+/* ── Error ────────────────────────────────────────────────── */
+.errorMsg {
+    margin: 0;
+    padding: 10px 14px;
+    border-radius: var(--radio-md);
+    font-size: .84rem;
+    font-weight: 600;
+    font-family: var(--font-principal);
+    background: #fff0f0;
+    color: #c53030;
+    border: 1.5px solid #e53e3e;
+}
+
+/* ── Cargando ─────────────────────────────────────────────── */
+.cargando {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 60px 24px;
+    color: var(--color-texto-muted);
+    font-size: .9rem;
+    font-family: var(--font-principal);
+}
+
+.spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--color-borde-suave);
+    border-top-color: var(--color-verde-primario);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+}
+
+/* ── Empty state ──────────────────────────────────────────── */
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    padding: 56px 32px;
+    background: var(--color-blanco);
+    border-radius: var(--radio-xl);
+    border: 2px solid var(--color-borde-suave);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.xolotl {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+}
+
+.emptyTitle {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--color-texto-oscuro);
+    margin: 0;
+    font-family: var(--font-principal);
+}
+
+.emptyDesc {
+    font-size: .86rem;
+    color: var(--color-texto-muted);
+    margin: 0;
+    max-width: 300px;
+    line-height: 1.6;
+    font-family: var(--font-principal);
+}
+
+/* ── Contenedor principal de mensajes (chat) ──────────────── */
+.mensajesLista {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: var(--color-blanco);
+    padding: 24px;
+    border-radius: var(--radio-lg);
+    border: 1px solid var(--color-borde-suave);
+    max-height: 60vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+/* ── Filas de alineación ──────────────────────────────────── */
+.mensajeFila {
+    display: flex;
+    width: 100%;
+}
+
+/* Mis mensajes → derecha */
+.filaMio {
+    justify-content: flex-end;
+}
+
+/* Mensajes de otros → izquierda */
+.filaOtro {
+    justify-content: flex-start;
+}
+
+/* ── Burbujas ─────────────────────────────────────────────── */
+.burbuja {
+    max-width: 75%;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    animation: fadeSlideUp .25s ease both;
+}
+
+/* Mis mensajes: verde de marca, esquina sup-derecha apuntada */
+.burbujaMia {
+    background: var(--color-verde-primario);
+    border-radius: 16px 4px 16px 16px;
+}
+
+.burbujaMia .mensajeContenido {
+    color: #fff;
+}
+
+.burbujaMia .mensajeFecha {
+    color: rgba(255, 255, 255, .75);
+}
+
+/* Mensajes de profesor: verde claro, izquierda */
+.burbujaProfesor {
+    background-color: #e6f4ea;
+    border-left: 4px solid #137333;
+    border-radius: 4px 16px 16px 16px;
+}
+
+/* Mensajes de compañeros: gris claro, izquierda */
+.burbujaAlumno {
+    background-color: #f1f5f9;
+    border-radius: 4px 16px 16px 16px;
+}
+
+/* ── Cabecera de la burbuja ───────────────────────────────── */
+.mensajeHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.autorNombre {
+    font-size: .85rem;
+    font-weight: 700;
+    color: #3b82f6;
+    font-family: var(--font-principal);
+}
+
+.badgeProfesor {
+    background-color: #137333;
+    color: #fff;
+    font-size: .65rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 999px;
+    letter-spacing: .05em;
+    font-family: var(--font-principal);
+}
+
+/* ── Contenido y fecha ────────────────────────────────────── */
+.mensajeContenido {
+    margin: 0;
+    font-size: .95rem;
+    color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.mensajeFecha {
+    font-size: .7rem;
+    color: #64748b;
+    text-align: right;
+    margin-top: 4px;
+    font-family: var(--font-principal);
+}
+
+/* ── Caja de publicación ──────────────────────────────────── */
+.cajaPublicacion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--color-blanco);
+    padding: 20px;
+    border-radius: var(--radio-lg);
+    border: 1px solid var(--color-borde-suave);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ── Responsivo ───────────────────────────────────────────── */
+@media (max-width: 520px) {
+    .burbuja { max-width: 90%; }
+    .mensajesLista { padding: 16px; }
+}

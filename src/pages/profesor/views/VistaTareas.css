@@ -1,0 +1,374 @@
+/* ── Filtro por aula ──────────────────────────────────────────────────────── */
+.filtroSelect {
+    padding: 9px 14px;
+    background: var(--color-blanco);
+    border: 1.5px solid var(--color-borde-suave);
+    border-radius: var(--radio-md);
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+    cursor: pointer;
+    transition: border-color .18s ease;
+    white-space: nowrap;
+}
+
+.filtroSelect:hover {
+    border-color: var(--color-verde-primario);
+}
+
+.filtroSelect:focus {
+    outline: none;
+    border-color: var(--color-verde-primario);
+    box-shadow: 0 0 0 3px rgba(107, 203, 119, 0.12);
+}
+
+/* ── Botón: Probar Entorno ────────────────────────────────────────────────── */
+.btnProbarEntorno {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    border: 1.5px solid var(--color-borde-suave);
+    border-radius: var(--radio-md);
+    background: var(--color-blanco);
+    color: var(--color-texto-oscuro);
+    font-size: .85rem;
+    font-weight: 600;
+    font-family: var(--font-principal);
+    cursor: pointer;
+    transition: all .18s ease;
+    white-space: nowrap;
+}
+
+.btnProbarEntorno:hover {
+    border-color: var(--color-azul-fuerte, #3b5bdb);
+    color: var(--color-azul-fuerte, #3b5bdb);
+    background: var(--color-azul-bg, #e8f0fe);
+}
+
+.btnProbarEntorno img {
+    width: 16px;
+    height: 16px;
+    opacity: .7;
+}
+
+/* ── Cabecera de la tarjeta ───────────────────────────────────────────────── */
+.cardHeaderRow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.cardHeaderLeft {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ── Botones de acción en tarjeta ─────────────────────────────────────────── */
+.cardAcciones {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.btnAccionTarea {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radio-md);
+    border: 1.5px solid var(--color-borde-suave);
+    background: var(--color-blanco);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .8rem;
+    font-family: var(--font-principal);
+    transition: all .15s ease;
+    color: var(--color-texto-suave);
+}
+
+.btnAccionTarea img {
+    width: 14px;
+    height: 14px;
+}
+
+.btnEditarTarea:hover {
+    border-color: var(--color-azul-fuerte, #3b5bdb);
+    background: var(--color-azul-bg, #e8f0fe);
+    color: var(--color-azul-fuerte, #3b5bdb);
+}
+
+.btnEliminarTarea:hover {
+    border-color: #e53e3e;
+    background: #fff0f0;
+    color: #c53030;
+}
+
+/* ── Botón: Revisar Entregas ──────────────────────────────────────────────── */
+.btnRevisar {
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px 0;
+    background: transparent;
+    border: 1.5px solid var(--color-azul-claro, #c7d2fe);
+    border-radius: var(--radio-md);
+    color: var(--color-azul-fuerte, #3b5bdb);
+    font-size: .85rem;
+    font-weight: 600;
+    font-family: var(--font-principal);
+    cursor: pointer;
+    transition: background .15s ease, border-color .15s ease;
+}
+
+.btnRevisar:hover {
+    background: var(--color-azul-bg, #e8f0fe);
+    border-color: var(--color-azul-fuerte, #3b5bdb);
+}
+
+/* ── Modal revisión: fila de entrega ──────────────────────────────────────── */
+.entregaRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    background: #f8fafc;
+    border-radius: var(--radio-md);
+    border: 1px solid var(--color-borde-suave);
+}
+
+.entregaAvatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e0e7ff;
+    color: #4f46e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: .9rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* Columna principal: ocupa todo el ancho restante */
+.entregaInfo {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Nombre completo, sin corte */
+.entregaNombre {
+    margin: 0;
+    font-weight: 600;
+    font-size: .9rem;
+    color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+    word-break: break-word;
+}
+
+/* Fila de estrellas + botón calificar */
+.entregaAcciones {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Fila de badge de estado + botón probar entrega */
+.entregaMeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btnCalificar {
+    padding: 5px 12px;
+    border: none;
+    border-radius: var(--radio-md);
+    font-weight: 600;
+    font-size: .8rem;
+    font-family: var(--font-principal);
+    cursor: pointer;
+    transition: background .15s ease;
+    white-space: nowrap;
+}
+
+.btnCalificarActivo {
+    background: #4f46e5;
+    color: #fff;
+}
+
+.btnCalificarActivo:hover:not(:disabled) {
+    background: #3730a3;
+}
+
+.btnCalificarInactivo {
+    background: var(--color-borde-suave, #e2e8f0);
+    color: var(--color-texto-suave);
+    cursor: not-allowed;
+}
+
+.badgeCalificado {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.badgePendiente {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+    background: #fef9c3;
+    color: #a16207;
+}
+
+.revisionResumen {
+    font-size: .82rem;
+    color: var(--color-texto-suave);
+    font-family: var(--font-principal);
+}
+
+.listaEntregas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sinEntregas {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.sinEntregasIcon {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.sinEntregasTexto {
+    color: var(--color-texto-suave);
+    margin-top: 8px;
+    font-size: .95rem;
+    font-family: var(--font-principal);
+}
+
+/* ── Enlace material adjunto en tarjeta ───────────────────────────────────── */
+.linkMaterial {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 8px;
+    font-size: .8rem;
+    font-weight: 700;
+    color: #3b82f6;
+    font-family: var(--font-principal);
+    text-decoration: none;
+    transition: opacity .15s ease;
+}
+
+.linkMaterial:hover {
+    opacity: .75;
+}
+
+.notaMaterial {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: .75rem;
+    font-weight: 600;
+    color: #475569;
+    font-family: var(--font-principal);
+    background: #f1f5f9;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+/* ── Input de archivo adjunto ─────────────────────────────────────────────── */
+.inputArchivo {
+    cursor: pointer;
+    padding: 8px 10px;
+}
+
+.archivoSeleccionado {
+    display: block;
+    margin-top: 4px;
+    font-size: .78rem;
+    color: var(--color-verde-hover, #38a169);
+    font-family: var(--font-principal);
+    font-weight: 600;
+}
+
+/* ── Input de calificación numérica ───────────────────────────────────────── */
+.inputCalificacionWrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.inputCalificacion {
+    width: 70px;
+    padding: 5px 8px;
+    border: 1.5px solid var(--color-borde-suave);
+    border-radius: var(--radio-md);
+    font-size: .9rem;
+    font-weight: 700;
+    font-family: var(--font-principal);
+    color: var(--color-texto-oscuro);
+    text-align: center;
+    transition: border-color .15s ease;
+}
+
+.inputCalificacion:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.inputCalificacion:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.maxPuntos {
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--color-texto-suave);
+    font-family: var(--font-principal);
+}
+
+/* ── Botón: Probar Entrega (en modal revisión) ────────────────────────────── */
+.btnProbarEntrega {
+    padding: 4px 12px;
+    border-radius: var(--radio-md);
+    border: 1.5px solid var(--color-azul-claro, #c7d2fe);
+    background: var(--color-blanco);
+    color: var(--color-azul-fuerte, #3b5bdb);
+    font-size: .78rem;
+    font-weight: 700;
+    font-family: var(--font-principal);
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background .15s ease, border-color .15s ease;
+}
+
+.btnProbarEntrega:hover {
+    background: var(--color-azul-bg, #e8f0fe);
+    border-color: var(--color-azul-fuerte, #3b5bdb);
+}

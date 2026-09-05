@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 50" width="80" height="50">
+  <!-- Persona 1 -->
+  <g>
+    <circle cx="18" cy="25" r="8" fill="#2196F3"/>
+    <rect x="12" y="33" width="12" height="12" rx="3" fill="#2196F3"/>
+    <circle cx="15" cy="23" r="1.5" fill="white"/>
+    <circle cx="21" cy="23" r="1.5" fill="white"/>
+    <path d="M16,27 Q18,29 20,27" stroke="white" stroke-width="1" fill="none"/>
+  </g>
+  
+  <!-- Globo de diálogo persona 1 (sin triángulo) -->
+  <rect x="2" y="5" width="22" height="12" rx="6" fill="white" stroke="#2196F3" stroke-width="1"/>
+  <text x="13" y="14" text-anchor="middle" font-size="6" fill="#2196F3" font-family="sans-serif">Hola!</text>
+  
+  <!-- Persona 2 -->
+  <g>
+    <circle cx="62" cy="25" r="8" fill="#4CAF50"/>
+    <rect x="56" y="33" width="12" height="12" rx="3" fill="#4CAF50"/>
+    <circle cx="59" cy="23" r="1.5" fill="white"/>
+    <circle cx="65" cy="23" r="1.5" fill="white"/>
+    <path d="M60,27 Q62,29 64,27" stroke="white" stroke-width="1" fill="none"/>
+  </g>
+  
+  <!-- Globo de diálogo persona 2 (sin triángulo) -->
+  <rect x="56" y="5" width="22" height="12" rx="6" fill="white" stroke="#4CAF50" stroke-width="1"/>
+  <text x="67" y="14" text-anchor="middle" font-size="6" fill="#4CAF50" font-family="sans-serif">Hey!</text>
+</svg>

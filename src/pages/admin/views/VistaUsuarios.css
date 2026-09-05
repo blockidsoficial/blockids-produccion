@@ -1,0 +1,36 @@
+/* BLOCKIDS — VistaUsuarios: estilos exclusivos del panel de usuarios */
+
+/* ── Inline-style replacements ──────────────────────────────── */
+
+.labelOpcional {
+    color: #a0aec0;
+    font-weight: 400;
+}
+
+.cellNombrePrimary {
+    font-weight: 600;
+    font-size: .85rem;
+    color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+}
+
+.cellUsernameSecondary {
+    font-size: .75rem;
+    color: #a0aec0;
+    font-family: var(--font-principal);
+}
+
+.textoMuted {
+    color: #a0aec0;
+    font-family: var(--font-principal);
+}
+
+.textoDash {
+    color: #c0c7d0;
+    font-family: var(--font-principal);
+}
+
+.accionesRow {
+    display: flex;
+    gap: 6px;
+}

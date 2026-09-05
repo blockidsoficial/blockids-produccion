@@ -1,0 +1,633 @@
+﻿/* ============================================================
+   BLOCKIDS — Dashboard Profesor
+   Usa variables de src/styles/global.css
+   ============================================================ */
+
+@keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(.93) translateY(16px); }
+    to   { opacity: 1; transform: scale(1)   translateY(0); }
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Pantalla de carga ───────────────────────────────────── */
+.loadingScreen {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: var(--color-azul-bg);
+    font-family: var(--font-principal);
+    gap: 16px;
+}
+.loadingSpinner {
+    width: 42px; height: 42px;
+    border: 4px solid var(--color-azul-claro);
+    border-top-color: var(--color-azul-fuerte);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+}
+.loadingText {
+    color: var(--color-texto-suave);
+    font-size: .9rem; font-weight: 500; margin: 0;
+    font-family: var(--font-principal);
+}
+
+/* ── Alerta ──────────────────────────────────────────────── */
+.alert {
+    display: flex; align-items: center; gap: 9px;
+    padding: 11px 18px; border-radius: var(--radio-md);
+    font-size: .86rem; font-weight: 600; margin-bottom: 20px;
+    animation: fadeSlideDown .3s ease both;
+    font-family: var(--font-principal);
+}
+.alertSuccess { background: var(--color-verde-bg); color: #137333; border: 1.5px solid #a8d5b5; }
+.alertError   { background: var(--color-rosa-claro); color: #c5221f; border: 1.5px solid #f4b8b5; }
+
+/* ══════════════════════════════════════════════════════════
+   FILA DE ESTADÍSTICAS
+   ══════════════════════════════════════════════════════════ */
+.statsRow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+    animation: fadeSlideDown .45s ease .05s both;
+}
+
+.statCard {
+    background: var(--color-blanco);
+    border-radius: var(--radio-lg);
+    padding: 20px 22px;
+    display: flex; align-items: center; gap: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    animation: fadeSlideUp .4s ease both;
+}
+
+.statIcon {
+    width: 48px; height: 48px; flex-shrink: 0;
+    border-radius: var(--radio-md);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+}
+.statIconGreen  { background: var(--color-verde-bg); }
+.statIconBlue   { background: var(--color-azul-bg); }
+.statIconYellow { background: var(--color-amarillo-bg); }
+.statIconPurple { background: var(--color-morado-bg); }
+
+.statNumber {
+    font-size: 1.7rem; font-weight: 800;
+    color: var(--color-texto-oscuro);
+    line-height: 1; margin: 0 0 4px;
+    font-family: var(--font-principal);
+}
+.statLabel {
+    font-size: .77rem; font-weight: 500;
+    color: var(--color-texto-suave);
+    font-family: var(--font-principal);
+}
+
+/* ══════════════════════════════════════════════════════════
+   GRID PRINCIPAL (2 columnas)
+   ══════════════════════════════════════════════════════════ */
+.mainGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+    animation: fadeSlideUp .5s ease .15s both;
+}
+
+.column {
+    display: flex; flex-direction: column; gap: 16px;
+}
+
+/* Tarjeta de columna (fondo blanco) */
+.columnCard {
+    background: var(--color-blanco);
+    border-radius: var(--radio-lg);
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Encabezado de columna */
+.columnHeader {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 20px;
+}
+.columnTitle {
+    font-size: 1rem; font-weight: 800;
+    color: var(--color-texto-oscuro);
+    margin: 0; font-family: var(--font-principal);
+}
+.countBadge {
+    background: var(--color-verde-bg); color: var(--color-verde-hover);
+    font-size: .7rem; font-weight: 700;
+    padding: 2px 10px; border-radius: var(--radio-pill);
+    font-family: var(--font-principal);
+}
+
+/* ── Cargando aulas ──────────────────────────────────────── */
+.loadingAulas {
+    text-align: center; padding: 32px 0;
+    color: var(--color-texto-muted);
+    font-size: .88rem; font-family: var(--font-principal);
+}
+
+/* ── Estado vacío ────────────────────────────────────────── */
+.emptyAula {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; gap: 10px;
+    padding: 32px 16px;
+    border: 2px dashed var(--color-azul-claro);
+    border-radius: var(--radio-md);
+    margin-bottom: 16px;
+}
+.emptyAulaIcon  { width: 44px; height: 44px; object-fit: contain; opacity: .55; }
+.emptyAulaTitle {
+    font-size: 1rem; font-weight: 700;
+    color: var(--color-texto-oscuro); margin: 0;
+    font-family: var(--font-principal);
+}
+.emptyAulaDesc {
+    font-size: .82rem; color: var(--color-texto-suave);
+    margin: 0; line-height: 1.5; max-width: 280px;
+    font-family: var(--font-principal);
+}
+
+/* ── Lista compacta de aulas ─────────────────────────────── */
+.aulasList {
+    display: flex; flex-direction: column; gap: 8px;
+    margin-bottom: 16px;
+}
+
+.aulaRow {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px;
+    border-radius: var(--radio-md);
+    border: 1.5px solid var(--color-borde-suave);
+    cursor: pointer;
+    transition: border-color .2s, background .2s, transform .2s;
+    animation: fadeSlideUp .35s ease both;
+}
+.aulaRow:hover {
+    border-color: var(--color-verde-primario);
+    background: var(--color-verde-bg);
+    transform: translateX(3px);
+}
+
+.aulaRowIcon { width: 20px; height: 20px; object-fit: contain; flex-shrink: 0; opacity: .65; }
+.statIconImg { width: 22px; height: 22px; object-fit: contain; }
+
+.aulaRowInfo {
+    flex: 1; min-width: 0;
+    display: flex; flex-direction: column; gap: 3px;
+}
+.aulaRowNombre {
+    font-size: .9rem; font-weight: 700;
+    color: var(--color-texto-oscuro);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    font-family: var(--font-principal);
+}
+.aulaRowMeta { display: flex; align-items: center; gap: 10px; }
+.aulaRowCodigo {
+    font-family: 'Courier New', monospace;
+    font-size: .72rem; font-weight: 700;
+    color: var(--color-azul-fuerte);
+    background: var(--color-azul-bg);
+    padding: 1px 7px; border-radius: 5px; letter-spacing: .5px;
+}
+.aulaRowFecha {
+    font-size: .7rem; color: var(--color-texto-muted);
+    font-family: var(--font-principal);
+}
+
+.aulaRowArrow {
+    font-size: 1.3rem; color: var(--color-texto-muted);
+    flex-shrink: 0; transition: color .2s, transform .2s;
+}
+.aulaRow:hover .aulaRowArrow {
+    color: var(--color-verde-primario);
+    transform: translateX(3px);
+}
+
+/* ── Botón Nueva Aula (inferior, ancho completo) ─────────── */
+.btnNuevaAulaBottom {
+    width: 100%;
+    padding: 12px;
+    background: var(--color-verde-primario);
+    color: var(--color-blanco);
+    border: none; border-radius: var(--radio-md);
+    font-size: .9rem; font-weight: 700; cursor: pointer;
+    font-family: var(--font-principal);
+    box-shadow: 0 4px 12px rgba(109, 191, 38, 0.3);
+    transition: background .2s, transform .2s, box-shadow .2s;
+}
+.btnNuevaAulaBottom:hover {
+    background: var(--color-verde-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(109, 191, 38, 0.4);
+}
+
+/* ══════════════════════════════════════════════════════════
+   TAREAS RECIENTES
+   ══════════════════════════════════════════════════════════ */
+.tareasList {
+    display: flex; flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.tareaCard {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--color-borde-suave);
+}
+.tareaCard:last-child { border-bottom: none; }
+
+.tareaInfo {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px;
+}
+.tareaNombre {
+    font-size: .88rem; font-weight: 700;
+    color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+}
+.tareaEntregas {
+    font-size: .75rem; color: var(--color-texto-muted);
+    font-weight: 500; font-family: var(--font-principal);
+    white-space: nowrap;
+}
+
+.progressBar {
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+}
+.progressFill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-verde-primario), var(--color-azul-fuerte));
+    border-radius: 999px;
+    transition: width .4s ease;
+}
+
+/* ── Botón Nueva Tarea ───────────────────────────────────── */
+.btnNuevaTarea {
+    width: 100%;
+    padding: 12px;
+    background: var(--color-verde-primario);
+    color: var(--color-blanco);
+    border: none; border-radius: var(--radio-md);
+    font-size: .9rem; font-weight: 700; cursor: pointer;
+    font-family: var(--font-principal);
+    box-shadow: 0 4px 12px rgba(109, 191, 38, 0.3);
+    transition: background .2s, transform .2s, box-shadow .2s;
+}
+.btnNuevaTarea:hover {
+    background: var(--color-verde-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(109, 191, 38, 0.4);
+}
+
+/* ══════════════════════════════════════════════════════════
+   GORILA MOTIVACIONAL
+   ══════════════════════════════════════════════════════════ */
+.xolotlCard {
+    background: #f0fdf4;
+    border: 1.5px solid #bbf7d0;
+    border-radius: var(--radio-lg);
+    padding: 20px 24px;
+    display: flex; align-items: center; gap: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+.xolotlImg { flex-shrink: 0; object-fit: contain; }
+.xolotlText {
+    font-size: .88rem; font-weight: 600;
+    color: #166534; line-height: 1.55;
+    margin: 0; font-family: var(--font-principal);
+}
+
+/* ══ MODAL ═════════════════════════════════════════════════ */
+.modalOverlay {
+    position: fixed; inset: 0;
+    background: rgba(15, 23, 42, .50);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200; padding: 20px;
+    animation: fadeIn .2s ease both;
+    backdrop-filter: blur(3px);
+}
+.modalCard {
+    background: var(--color-blanco);
+    border-radius: var(--radio-xl);
+    width: 100%; max-width: 460px;
+    box-shadow: var(--sombra-modal);
+    animation: scaleIn .25s ease both;
+    overflow: hidden;
+}
+.modalHeader {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 26px 18px;
+    border-bottom: 1.5px solid var(--color-borde-suave);
+}
+.modalHeaderLeft { display: flex; align-items: center; gap: 12px; }
+.modalIconWrap {
+    width: 44px; height: 44px; border-radius: var(--radio-lg);
+    background: var(--color-verde-bg); font-size: 1.3rem;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.modalTitle    { font-size: 1.05rem; font-weight: 800; color: var(--color-texto-oscuro); margin: 0; font-family: var(--font-principal); }
+.modalSubtitle { font-size: .74rem; color: var(--color-texto-muted); margin: 0; font-family: var(--font-principal); }
+.modalClose {
+    width: 32px; height: 32px; border-radius: var(--radio-sm); border: none;
+    background: #f1f3f4; color: var(--color-texto-suave);
+    font-size: .9rem; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s ease;
+}
+.modalClose:hover:not(:disabled) { background: var(--color-rosa-claro); color: #c5221f; }
+.modalClose:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ── Body del modal ──────────────────────────────────────── */
+.modalBody { padding: 24px 26px; }
+.fieldGroup { display: flex; flex-direction: column; gap: 6px; }
+.fieldLabel {
+    font-size: .75rem; font-weight: 700; color: var(--color-texto-medio);
+    text-transform: uppercase; letter-spacing: .5px;
+    font-family: var(--font-principal);
+}
+.fieldInput {
+    padding: 11px 14px;
+    border: 2px solid var(--color-borde); border-radius: var(--radio-md);
+    font-size: .9rem; color: var(--color-texto-oscuro); background: #f8fafc;
+    outline: none; transition: border-color .2s, box-shadow .2s;
+    box-sizing: border-box; font-family: var(--font-principal);
+    width: 100%;
+}
+.fieldInput:focus {
+    border-color: var(--color-verde-primario); background: var(--color-blanco);
+    box-shadow: 0 0 0 3px rgba(109, 191, 38, 0.15);
+}
+.fieldInput::placeholder { color: var(--color-texto-muted); }
+.fieldInput:disabled { opacity: .6; cursor: not-allowed; }
+
+/* ── Footer del modal ────────────────────────────────────── */
+.modalFooter {
+    display: flex; justify-content: flex-end; gap: 10px;
+    padding: 16px 26px 22px;
+    border-top: 1.5px solid var(--color-borde-suave);
+}
+.btnCancelar {
+    padding: 10px 22px; background: #f1f3f4; color: var(--color-texto-suave);
+    border: 1.5px solid var(--color-borde); border-radius: var(--radio-md);
+    font-size: .88rem; font-weight: 700; cursor: pointer;
+    font-family: var(--font-principal); transition: background .2s;
+}
+.btnCancelar:hover:not(:disabled) { background: var(--color-borde); }
+.btnCancelar:disabled { opacity: .5; cursor: not-allowed; }
+
+.btnCrearConfirm {
+    display: flex; align-items: center; gap: 7px;
+    padding: 10px 24px;
+    background: linear-gradient(135deg, var(--color-verde-primario), var(--color-verde-hover));
+    color: var(--color-blanco); border: none; border-radius: var(--radio-md);
+    font-size: .88rem; font-weight: 700; cursor: pointer;
+    font-family: var(--font-principal);
+    box-shadow: 0 4px 14px rgba(109, 191, 38, 0.35);
+    transition: all .25s ease;
+}
+.btnCrearConfirm:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(109, 191, 38, 0.45);
+}
+.btnCrearConfirm:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+/* ── Spinner dentro del botón ────────────────────────────── */
+.btnSpinner {
+    display: inline-block;
+    width: 13px; height: 13px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .65s linear infinite;
+    flex-shrink: 0;
+}
+
+/* ── Contador de alumnos en fila de aula ─────────────────── */
+.aulaRowAlumnos {
+    font-size: .7rem; font-weight: 600;
+    color: var(--color-verde-hover);
+    background: var(--color-verde-bg);
+    padding: 1px 7px; border-radius: 5px;
+    font-family: var(--font-principal);
+}
+
+/* ══════════════════════════════════════════════════════════
+   ACTIVIDAD RECIENTE
+   ══════════════════════════════════════════════════════════ */
+.emptyActividad {
+    font-size: .85rem; color: var(--color-texto-muted);
+    text-align: center; padding: 24px 0 8px;
+    margin: 0; font-family: var(--font-principal);
+}
+
+.actividadList {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-direction: column; gap: 0;
+}
+
+.actividadItem {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--color-borde-suave);
+}
+.actividadItem:last-child { border-bottom: none; }
+
+.actividadDot {
+    flex-shrink: 0;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--color-verde-primario);
+    margin-top: 5px;
+}
+
+.actividadBody {
+    display: flex; flex-direction: column; gap: 3px;
+    flex: 1; min-width: 0;
+}
+
+.actividadMsg {
+    font-size: .85rem;
+    color: var(--color-texto-oscuro);
+    line-height: 1.45; margin: 0;
+    font-family: var(--font-principal);
+}
+.actividadMsg strong { font-weight: 700; color: var(--color-texto-oscuro); }
+.actividadMsg em     { font-style: normal; font-weight: 600; color: var(--color-azul-fuerte); }
+
+.actividadFecha {
+    font-size: .7rem; color: var(--color-texto-muted);
+    font-family: var(--font-principal);
+}
+
+/* ══════════════════════════════════════════════════════════
+   GRID INICIO (2fr + 1fr — Actividad | Xolotl)
+   ══════════════════════════════════════════════════════════ */
+.mainGridInicio {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    align-items: start;
+    animation: fadeSlideUp .5s ease .15s both;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CABECERA GENÉRICA DE VISTAS (Tareas, etc.)
+   ══════════════════════════════════════════════════════════ */
+.vistaHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    animation: fadeSlideDown .3s ease both;
+}
+.vistaTitle {
+    font-size: 1.3rem; font-weight: 800;
+    color: var(--color-texto-oscuro);
+    margin: 0; font-family: var(--font-principal);
+}
+.vistaSubtitle {
+    font-size: .8rem; color: var(--color-texto-muted);
+    margin: 4px 0 0; font-family: var(--font-principal);
+}
+
+/* ══════════════════════════════════════════════════════════
+   GRID Y TARJETAS DE TAREAS (vista VistaTareas)
+   ══════════════════════════════════════════════════════════ */
+.tareasGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    animation: fadeSlideUp .4s ease both;
+}
+
+.tareaCardFull {
+    background: var(--color-blanco);
+    border-radius: var(--radio-lg);
+    padding: 18px 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,.05);
+    border: 1.5px solid var(--color-borde-suave);
+    animation: fadeSlideUp .35s ease both;
+    transition: border-color .2s, transform .2s;
+}
+.tareaCardFull:hover {
+    border-color: var(--color-verde-primario);
+    transform: translateY(-2px);
+}
+
+.tareaCardFullHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 8px;
+}
+.tareaAulaBadge {
+    font-size: .7rem; font-weight: 700;
+    color: var(--color-azul-fuerte);
+    background: var(--color-azul-bg);
+    padding: 2px 9px; border-radius: var(--radio-pill);
+    white-space: nowrap; font-family: var(--font-principal);
+}
+.tareaFechaLimite {
+    font-size: .7rem; color: var(--color-texto-muted);
+    font-family: var(--font-principal); white-space: nowrap;
+}
+
+.tareaCardFullTitle {
+    font-size: .95rem; font-weight: 700;
+    color: var(--color-texto-oscuro);
+    margin: 0 0 6px; font-family: var(--font-principal);
+    line-height: 1.35;
+}
+.tareaCardFullDesc {
+    font-size: .8rem; color: var(--color-texto-suave);
+    margin: 0 0 10px; line-height: 1.45;
+    font-family: var(--font-principal);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════════════════
+   VISTA PENDIENTE (secciones aún no implementadas)
+   ══════════════════════════════════════════════════════════ */
+.vistaPendiente {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 260px;
+    border: 2px dashed var(--color-azul-claro);
+    border-radius: var(--radio-lg);
+    animation: fadeIn .3s ease both;
+}
+.vistaPendienteTexto {
+    font-size: .95rem; color: var(--color-texto-muted);
+    font-family: var(--font-principal); font-weight: 500;
+    margin: 0;
+}
+
+/* ══ RESPONSIVE ════════════════════════════════════════════ */
+@media (max-width: 900px) {
+    .statsRow      { grid-template-columns: repeat(2, 1fr); }
+    .mainGrid      { grid-template-columns: 1fr; }
+    .mainGridInicio { grid-template-columns: 1fr; }
+    .tareasGrid    { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+    .statsRow  { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .statCard  { padding: 14px; }
+    .columnCard { padding: 18px 16px; }
+    .vistaHeader { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .modalCard   { border-radius: var(--radio-lg); }
+    .modalBody   { padding: 20px 18px; }
+    .modalFooter { padding: 14px 18px 18px; }
+    .modalHeader { padding: 18px 18px 14px; }
+}
+
+
+/* ── Botones de acción en filas de aulas ─────────────────────────────────── */
+.aulaRowActions {
+    display: flex; align-items: center; gap: 6px;
+}
+.btnAccionAula {
+    width: 30px; height: 30px; border-radius: 8px;
+    border: 1.5px solid var(--color-borde-suave);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all .18s ease;
+    background: var(--color-blanco); font-size: .75rem;
+    font-family: var(--font-principal);
+}
+.btnAccionAula img { width: 14px; height: 14px; opacity: .6; }
+.btnEditarAula:hover { border-color: var(--color-azul-fuerte); background: var(--color-azul-bg); }
+.btnEditarAula:hover img { opacity: 1; }
+.btnEliminarAula { color: #c5221f; }
+.btnEliminarAula:hover { border-color: #f4b8b5; background: var(--color-rosa-claro); }
+.btnEliminarConfirm {
+    padding: 10px 20px; border-radius: var(--radio-md); border: none; cursor: pointer;
+    background: linear-gradient(135deg, #e53e3e, #c53030); color: #fff;
+    font-weight: 700; font-size: .9rem; font-family: var(--font-principal);
+    transition: opacity .18s ease;
+}
+.btnEliminarConfirm:disabled { opacity: .55; cursor: not-allowed; }
+
+/* Estilos del Muro → VistaMuro.css */

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 57 49" width="57" height="49">
+  <!-- Fondo del bloque -->
+  <rect x="0.5" y="0.5" width="56" height="48" rx="4" ry="4" fill="#2196F3" stroke="#2196F3" stroke-width="1.5"/>
+  
+  <!-- Círculo/óvalo interior (blanco) -->
+  <rect x="8.5" y="8.5" width="40" height="32" rx="16" ry="16" fill="white" stroke="#2196F3" stroke-width="1.5"/>
+</svg>

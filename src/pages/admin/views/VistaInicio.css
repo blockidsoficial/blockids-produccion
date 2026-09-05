@@ -1,0 +1,47 @@
+/* BLOCKIDS — VistaInicio (admin): estilos propios del componente */
+
+/* ── Overrides de loadingState con padding compacto ────────── */
+.loadingInline {
+    padding: 16px 0;
+}
+
+/* ── Mensaje vacío dentro de tarjetas de actividad ─────────── */
+.actividadVacia {
+    padding: 16px;
+    color: #a0aec0;
+    font-size: 0.85rem;
+    font-family: var(--font-principal);
+}
+
+/* ── Gráfica de dona ────────────────────────────────────────── */
+.donutWrap {
+    width: 100%;
+}
+
+/* Métrica de total debajo de la gráfica */
+.donutMetrica {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0 6px;
+    border-top: 1px solid var(--color-borde-suave);
+    margin-top: 4px;
+}
+
+.donutTotal {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+    line-height: 1;
+}
+
+.donutLabel {
+    font-size: .68rem;
+    font-weight: 600;
+    color: var(--color-texto-muted);
+    font-family: var(--font-principal);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-top: 4px;
+}

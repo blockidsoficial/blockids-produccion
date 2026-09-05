@@ -1,0 +1,310 @@
+/* ============================================================
+   BLOCKIDS — Tablas de administración compartidas
+   Usado por VistaProfesores.jsx y VistaAulas.jsx
+   ============================================================ */
+
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeRow {
+    from { opacity: 0; transform: translateX(-6px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Contenedor base ─────────────────────────────────────── */
+.vistaContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: fadeSlideUp .35s ease both;
+}
+
+/* ── Header: título + buscador + botón ──────────────────── */
+.vistaHeader {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.vistaTitulo {
+    font-size: 1.25rem; font-weight: 800;
+    color: var(--color-texto-oscuro);
+    margin: 0; font-family: var(--font-principal);
+}
+.vistaSubtitulo {
+    font-size: .78rem; color: var(--color-texto-muted);
+    margin: 4px 0 0; font-family: var(--font-principal);
+}
+.headerRight {
+    display: flex; align-items: center; gap: 10px;
+}
+
+/* ── Buscador ────────────────────────────────────────────── */
+.searchWrap {
+    position: relative; display: flex; align-items: center;
+}
+.searchIcon {
+    position: absolute; left: 10px;
+    width: 14px; height: 14px;
+    opacity: .4; pointer-events: none;
+}
+.searchInput {
+    padding: 9px 14px 9px 32px;
+    border: 2px solid var(--color-borde);
+    border-radius: var(--radio-pill);
+    font-size: .83rem; outline: none;
+    font-family: var(--font-principal);
+    color: var(--color-texto-oscuro);
+    background: var(--color-blanco);
+    width: 220px;
+    transition: border-color .2s, box-shadow .2s;
+}
+.searchInput:focus {
+    border-color: var(--color-azul-fuerte);
+    box-shadow: 0 0 0 3px rgba(77,150,255,.12);
+}
+.searchInput::placeholder { color: var(--color-texto-muted); }
+
+/* ── Botón Nueva Aula / acción principal ─────────────────── */
+.btnNuevo {
+    padding: 9px 20px;
+    background: var(--color-verde-primario);
+    color: var(--color-blanco);
+    border: none; border-radius: var(--radio-pill);
+    font-size: .84rem; font-weight: 700; cursor: pointer;
+    font-family: var(--font-principal);
+    box-shadow: 0 4px 12px rgba(109,191,38,.35);
+    transition: all .2s ease; white-space: nowrap;
+}
+.btnNuevo:hover {
+    background: var(--color-verde-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(109,191,38,.45);
+}
+
+/* ── Tabla contenedor ────────────────────────────────────── */
+.tableWrap {
+    background: var(--color-blanco);
+    border-radius: var(--radio-lg);
+    border: 1px solid var(--color-borde-suave);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+
+/* ── Tabla ───────────────────────────────────────────────── */
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+.th {
+    padding: 11px 16px;
+    text-align: left;
+    font-size: .69rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .55px;
+    color: var(--color-texto-muted);
+    background: #f8fafc;
+    border-bottom: 1.5px solid var(--color-borde-suave);
+    font-family: var(--font-principal);
+    white-space: nowrap;
+}
+.tr {
+    border-bottom: 1px solid var(--color-borde-suave);
+    transition: background .15s ease;
+    animation: fadeRow .3s ease both;
+}
+.tr:last-child { border-bottom: none; }
+.tr:hover { background: #f0fdf4; }
+.td {
+    padding: 13px 16px;
+    font-size: .84rem;
+    color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+    vertical-align: middle;
+}
+
+/* ── Celda con avatar ────────────────────────────────────── */
+.userCell {
+    display: flex; align-items: center; gap: 10px;
+}
+.avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--color-azul-bg); color: var(--color-azul-fuerte);
+    font-size: .78rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-family: var(--font-principal);
+}
+
+/* ── Celda aula con icono ────────────────────────────────── */
+.aulaNameCell {
+    display: flex; align-items: center; gap: 8px;
+}
+.aulaIcon {
+    width: 28px; height: 28px; border-radius: var(--radio-sm);
+    background: var(--color-verde-bg);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ── Textos de celdas ────────────────────────────────────── */
+.nombreCompleto {
+    font-weight: 600; color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+}
+.usernameTag {
+    font-size: .76rem; font-weight: 700; letter-spacing: .3px;
+    color: var(--color-azul-fuerte); background: var(--color-azul-bg);
+    padding: 3px 9px; border-radius: var(--radio-pill);
+    font-family: 'Courier New', monospace;
+}
+.codigoBadge {
+    font-size: .76rem; font-weight: 800; letter-spacing: 2px;
+    color: var(--color-azul-fuerte); background: var(--color-azul-bg);
+    padding: 4px 10px; border-radius: var(--radio-sm);
+    border: 1.5px solid var(--color-azul-claro);
+    font-family: 'Courier New', monospace;
+    white-space: nowrap;
+}
+.escuelaNombre {
+    font-size: .82rem; color: var(--color-texto-suave);
+    font-family: var(--font-principal);
+}
+.fechaText {
+    font-size: .79rem; color: var(--color-texto-muted);
+    font-family: var(--font-principal);
+}
+
+/* ── Botones de acción ───────────────────────────────────── */
+.accionesCell {
+    display: flex; align-items: center; gap: 6px;
+}
+.btnAccion {
+    width: 30px; height: 30px; border-radius: var(--radio-sm);
+    border: 1.5px solid var(--color-borde-suave);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all .18s ease;
+    background: var(--color-blanco); font-size: .75rem;
+    font-family: var(--font-principal);
+}
+.btnAccion img { width: 14px; height: 14px; opacity: .6; }
+.btnEditar:hover { border-color: var(--color-azul-fuerte); background: var(--color-azul-bg); }
+.btnEditar:hover img { opacity: 1; }
+.btnEliminar { color: #c5221f; }
+.btnEliminar:hover { border-color: #f4b8b5; background: var(--color-rosa-claro); }
+
+/* ── Estado vacío ────────────────────────────────────────── */
+.emptyState {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 12px; padding: 60px 24px;
+}
+.emptyIcon { width: 44px; height: 44px; opacity: .28; }
+.emptyText {
+    font-size: .88rem; font-weight: 600;
+    color: var(--color-texto-suave); margin: 0;
+    font-family: var(--font-principal);
+}
+
+/* ── Modal editar ────────────────────────────────────────── */
+.modalOverlay {
+    position: fixed; inset: 0;
+    background: rgba(15,23,42,.45);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000; padding: 16px;
+    animation: fadeSlideUp .2s ease both;
+}
+.modalCard {
+    background: var(--color-blanco);
+    border-radius: var(--radio-lg);
+    box-shadow: 0 20px 60px rgba(0,0,0,.18);
+    width: 100%; max-width: 440px;
+    overflow: hidden;
+}
+.modalHeader {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--color-borde-suave);
+}
+.modalTitle {
+    font-size: 1rem; font-weight: 800;
+    color: var(--color-texto-oscuro); margin: 0;
+    font-family: var(--font-principal);
+}
+.modalSubtitle {
+    font-size: .76rem; color: var(--color-texto-muted);
+    margin: 3px 0 0; font-family: var(--font-principal);
+}
+.modalClose {
+    background: none; border: none; font-size: 1rem;
+    cursor: pointer; color: var(--color-texto-muted);
+    padding: 4px 8px; border-radius: 6px;
+    transition: background .15s;
+}
+.modalClose:hover { background: var(--color-rosa-claro); color: #b91c1c; }
+.modalBody { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+.modalFooter {
+    padding: 16px 24px;
+    border-top: 1px solid var(--color-borde-suave);
+    display: flex; justify-content: flex-end; gap: 10px;
+}
+.modalRow { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.fieldGroup { display: flex; flex-direction: column; gap: 5px; }
+.fieldLabel {
+    font-size: .75rem; font-weight: 700;
+    color: var(--color-texto-medio); font-family: var(--font-principal);
+    text-transform: uppercase; letter-spacing: .4px;
+}
+.fieldInput {
+    padding: 10px 12px; border: 2px solid var(--color-borde);
+    border-radius: var(--radio-sm); font-size: .85rem;
+    font-family: var(--font-principal); color: var(--color-texto-oscuro);
+    background: var(--color-blanco); outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+.fieldInput:focus {
+    border-color: var(--color-azul-fuerte);
+    box-shadow: 0 0 0 3px rgba(77,150,255,.12);
+}
+.btnCancelarModal {
+    padding: 9px 20px; border-radius: var(--radio-pill);
+    border: 2px solid var(--color-borde); background: var(--color-blanco);
+    color: var(--color-texto-medio); font-size: .84rem; font-weight: 700;
+    cursor: pointer; font-family: var(--font-principal);
+    transition: all .2s ease;
+}
+.btnCancelarModal:hover { border-color: var(--color-texto-muted); }
+.btnGuardarModal {
+    padding: 9px 22px; border-radius: var(--radio-pill);
+    border: none; background: var(--color-azul-fuerte);
+    color: var(--color-blanco); font-size: .84rem; font-weight: 700;
+    cursor: pointer; font-family: var(--font-principal);
+    transition: all .2s ease;
+    display: flex; align-items: center; gap: 7px;
+}
+.btnGuardarModal:hover:not(:disabled) { background: var(--color-azul-hover, #2563eb); }
+.btnGuardarModal:disabled { opacity: .6; cursor: not-allowed; }
+.btnSpinnerModal {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.35);
+    border-top-color: #fff;
+    animation: spin .7s linear infinite; flex-shrink: 0;
+}
+
+/* ── Estado de carga ─────────────────────────────────────── */
+.loadingState {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; padding: 52px 24px;
+    color: var(--color-texto-muted);
+    font-size: .86rem; font-family: var(--font-principal);
+}
+.spinner {
+    width: 20px; height: 20px;
+    border: 2.5px solid var(--color-azul-claro);
+    border-top-color: var(--color-verde-primario);
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    flex-shrink: 0;
+}

@@ -1,0 +1,490 @@
+﻿/* ============================================
+   BLOCKIDS — Register Page (Split Screen)
+   ============================================ */
+
+.splitScreen {
+    display: flex;
+    height: 100vh;
+    font-family: var(--font-principal);
+    overflow: hidden;
+}
+
+/* ── Columna Izquierda (Visual) ── */
+.leftColumn {
+    flex: 1;
+    background-color: var(--color-azul-primario);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 48px 40px;
+    text-align: center;
+}
+
+.xolotlImg {
+    width: 270px;
+    max-width: 80%;
+}
+
+.leftTitle {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.leftSubtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+    max-width: 300px;
+    line-height: 1.6;
+}
+
+/* ── Columna Derecha (Formulario) ── */
+.rightColumn {
+    flex: 1;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 48px;
+    overflow-y: auto;
+}
+
+.logoImg {
+    width: 160px;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+/* ── Wrapper del formulario (centraliza el contenido) ── */
+.formWrapper {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formWrapper > * {
+    width: 100%;
+}
+
+.formTitle {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-texto-oscuro);
+    margin: 0 0 20px;
+    text-align: center;
+}
+
+/* ── Barra de Progreso ── */
+.progressWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.progressBar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 200px;
+}
+
+.stepDot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--color-borde);
+    color: var(--color-texto-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.stepActive {
+    background-color: var(--color-azul-primario);
+    color: #ffffff;
+}
+
+.stepLine {
+    flex: 1;
+    height: 2px;
+    background-color: var(--color-borde);
+    transition: background-color 0.3s;
+}
+
+.lineActive {
+    background-color: var(--color-azul-primario);
+}
+
+.stepLabel {
+    font-size: 0.78rem;
+    color: var(--color-texto-muted);
+    margin: 0;
+    text-align: center;
+}
+
+/* ── Formulario ── */
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.fieldGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-texto-oscuro);
+}
+
+.helperText {
+    font-size: 0.75rem;
+    color: var(--color-texto-muted);
+    margin: 2px 0 0 0;
+}
+
+/* Dos columnas (nombre + apellido) */
+.rowGroup {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* ── Inputs ── */
+.input {
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1.5px solid var(--color-borde);
+    font-size: 1rem;
+    font-family: var(--font-principal);
+    outline: none;
+    background-color: var(--color-fondo-claro);
+    color: var(--color-texto-oscuro);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus {
+    border-color: var(--color-azul-primario);
+    box-shadow: 0 0 0 3px rgba(77, 150, 255, 0.15);
+    background-color: #ffffff;
+}
+
+.input:disabled {
+    background-color: var(--color-borde-suave);
+    color: var(--color-texto-muted);
+    cursor: not-allowed;
+}
+
+.passwordWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.inputWithEye {
+    padding-right: 44px;
+    width: 100%;
+}
+
+.eyeButton {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-texto-muted);
+    display: flex;
+    align-items: center;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.eyeButton:hover {
+    color: var(--color-texto-oscuro);
+}
+
+.passwordWarning {
+    font-size: 0.8rem;
+    color: #c0663a;
+    margin: 2px 0 0 0;
+    line-height: 1.5;
+}
+
+/* ── Radio buttons ── */
+.radioGroup {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.radioLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: 1.5px solid var(--color-borde);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-texto-medio);
+    transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+    flex: 1;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.radioLabel input[type="radio"] {
+    display: none;
+}
+
+.radioChecked {
+    border-color: var(--color-azul-primario);
+    background-color: var(--color-azul-bg);
+    color: var(--color-azul-primario);
+    font-weight: 600;
+}
+
+/* ── Botones ── */
+.buttonGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.button {
+    padding: 14px;
+    width: 100%;
+    background-color: var(--color-verde-primario);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radio-pill);
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+.button:hover:not(:disabled) {
+    background-color: var(--color-verde-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--sombra-verde);
+}
+
+.button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.buttonSecondary {
+    padding: 12px;
+    width: 100%;
+    background-color: transparent;
+    color: var(--color-azul-primario);
+    border: 1.5px solid var(--color-azul-primario);
+    border-radius: var(--radio-pill);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.buttonSecondary:hover:not(:disabled) {
+    background-color: var(--color-azul-bg);
+}
+
+.buttonSecondary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ── Mensajes ── */
+.errorMessage {
+    background-color: #fff0f0;
+    color: #c0392b;
+    border: 1px solid #f5c6cb;
+    padding: 10px 14px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+/* ── Badge de escuela ── */
+.schoolBadge {
+    background-color: var(--color-verde-bg);
+    color: var(--color-verde-primario);
+    padding: 8px 14px;
+    border-radius: var(--radio-md);
+    text-align: center;
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+/* ── Éxito ── */
+.successContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 20px;
+    text-align: center;
+}
+
+.successIcon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: var(--color-verde-bg);
+    color: var(--color-verde-primario);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.successTitle {
+    color: var(--color-texto-oscuro);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.successText {
+    color: var(--color-texto-medio);
+    font-size: 0.95rem;
+    margin: 0;
+    white-space: pre-line;
+    line-height: 1.6;
+}
+
+/* ── Footer del formulario ── */
+.formFooter {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.footerLink {
+    font-size: 0.9rem;
+    color: var(--color-texto-suave);
+    margin: 0;
+}
+
+.link {
+    color: var(--color-azul-primario);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.footerLegal {
+    font-size: 0.75rem;
+    color: var(--color-texto-muted);
+    margin: 0;
+}
+
+.linkMuted {
+    color: var(--color-texto-muted);
+    text-decoration: none;
+}
+
+.linkMuted:hover {
+    color: var(--color-texto-suave);
+    text-decoration: underline;
+}
+
+.footerSecure {
+    font-size: 0.78rem;
+    color: var(--color-texto-muted);
+    margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .splitScreen {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        overflow: auto;
+    }
+
+    .leftColumn {
+        min-height: 220px;
+        padding: 28px 24px;
+        gap: 12px;
+    }
+
+    .xolotlImg {
+        width: 140px;
+    }
+
+    .leftTitle {
+        font-size: 1.5rem;
+    }
+
+    .leftSubtitle {
+        font-size: 0.9rem;
+    }
+
+    .rightColumn {
+        padding: 32px 24px;
+    }
+
+    .logoImg {
+        width: 130px;
+    }
+
+    .rowGroup {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 400px) {
+    .rightColumn {
+        padding: 24px 16px;
+    }
+
+    .input {
+        padding: 11px 13px;
+        font-size: 0.95rem;
+    }
+
+    .radioLabel {
+        padding: 10px 12px;
+        font-size: 0.88rem;
+    }
+}

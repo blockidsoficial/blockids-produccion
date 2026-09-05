@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <!-- Persona / fantasma / silueta (el disfraz) -->
+  <circle cx="10" cy="7" r="3" fill="none" stroke="#2196F3" stroke-width="1.5"/>
+  <path d="M5 14 Q7 10 10 10 Q13 10 15 14" fill="none" stroke="#2196F3" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Símbolo de agregar (+) en la esquina -->
+  <g transform="translate(14, 3)">
+    <circle cx="0" cy="0" r="4" fill="#4CAF50"/>
+    <line x1="-2" y1="0" x2="2" y2="0" stroke="white" stroke-width="1.5"/>
+    <line x1="0" y1="-2" x2="0" y2="2" stroke="white" stroke-width="1.5"/>
+  </g>
+  
+  <!-- Biblioteca / libro (opción alternativa) -->
+  <!-- Se puede agregar si quieres más contexto -->
+</svg>

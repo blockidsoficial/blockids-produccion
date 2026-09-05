@@ -1,0 +1,41 @@
+{
+  "mcp": {
+    "servers": {
+      "supabase": {
+        "type": "stdio",
+        "command": "npx",
+        "args": [
+          "-y",
+          "@supabase/mcp-server-postgrest",
+          "--apiUrl",
+          "https://pvvqtqwjacgwwdsesymx.supabase.co/rest/v1",
+          "--apiKey",
+          "sb_publishable_sVlg574DRzqHwNY20XV3TQ_sDKfIRTa",
+          "--schema",
+          "public"
+        ]
+      },
+      "context7": {
+        "type": "stdio",
+        "command": "npx",
+        "args": [
+          "-y",
+          "@upstash/context7-mcp",
+          "--api-key",
+          "ctx7sk-66e06ca0-a92c-4935-80a3-eb61f7633943"
+        ]
+      },
+      "testsprite": {
+        "type": "stdio",
+        "command": "npx",
+        "args": [
+          "-y",
+          "@testsprite/testsprite-mcp@latest"
+        ],
+        "env": {
+          "API_KEY": "sk-user-UFATCZShYlXvV8R6Ojfg9s0jvynvujHgKG9Lm6Mk-KYyy19u4e3N13K3li52eHGTnuTDHO7stLEQv4i2LHwyaKe5BbMnnxIeb_xonLpvREyF4Yd6RETP1T1KWGoGlp5F9os"
+        }
+      }
+    }
+  }
+}
