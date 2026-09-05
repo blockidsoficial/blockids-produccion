@@ -220,8 +220,8 @@
 .heroContent {
   position: relative;
   z-index: 2;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: row;
   gap: 3rem;
   align-items: center;
   width: 100%;
@@ -232,8 +232,9 @@
 .heroLeft {
   display: flex;
   flex-direction: column;
+  flex: 1 1 0%; /* Ocupa la mitad del hero mientras está en fila */
   gap: 1.25rem;
-  min-width: 0; /* Evita que el contenido desborde el grid */
+  min-width: 0; /* Evita que el contenido desborde el contenedor flex */
 }
 
 .heroBadges {
@@ -351,7 +352,8 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  min-width: 0; /* Evita que el xolotl desborde el grid */
+  flex: 1 1 0%; /* Ocupa la otra mitad del hero mientras está en fila */
+  min-width: 0; /* Evita que el xolotl desborde el contenedor flex */
 }
 
 .xolotlHero {
@@ -371,14 +373,15 @@
 }
 
 .beneficiosGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-direction: row;
   gap: 1.5rem;
 }
 
 .benCard {
   display: flex;
   flex-direction: column;
+  flex: 1 1 0%; /* 3 tarjetas de ancho igual mientras están en fila */
   align-items: flex-start;
   gap: 0.75rem;
   padding: 2rem 1.75rem;
@@ -819,8 +822,8 @@
 }
 
 .testimoniosGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-direction: row;
   gap: 1.5rem;
 }
 
@@ -831,6 +834,7 @@
   box-shadow: var(--sombra-card);
   display: flex;
   flex-direction: column;
+  flex: 1 1 0%; /* 3 tarjetas de ancho igual mientras están en fila */
   gap: 0.75rem;
   transition: transform 0.2s;
   position: relative;
@@ -1299,7 +1303,7 @@
   }
 
   .heroContent {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     text-align: center;
     gap: 1.5rem;
     width: 100%;
@@ -1329,11 +1333,13 @@
   .decoB2, .decoB4 { display: none; }
   .decoS1, .decoS2 { display: none; }
 
-  /* Grids → 1 columna */
-  .beneficiosGrid,
+  /* Grids → 1 columna (pasosGrid y nivelesGrid siguen usando CSS Grid) */
   .pasosGrid,
-  .nivelesGrid,
-  .testimoniosGrid { grid-template-columns: 1fr; }
+  .nivelesGrid { grid-template-columns: 1fr; }
+
+  /* Beneficios y Testimonios usan Flexbox: de fila (row) a columna (column) */
+  .beneficiosGrid,
+  .testimoniosGrid { flex-direction: column; }
 
   /* Padrse */
   .padresGrid { grid-template-columns: 1fr; gap: 2rem; }
@@ -1364,6 +1370,42 @@
   /* CTA decoratives */
   .ctaXolotl { width: 100px; }
   .ctaCohete { width: 54px; }
+}
+
+/* ================================================================
+   RESPONSIVE — Mobile (max 768px)
+   Requisito de auditoría de responsividad: Hero, tarjetas de
+   Beneficios y tarjetas de Testimonios pasan explícitamente de
+   flex-direction: row a flex-direction: column en este breakpoint
+   (además de que el tablet en 900px, arriba, ya las apila).
+   ================================================================ */
+@media (max-width: 768px) {
+  /* Hero Section: de fila (texto + xolotl lado a lado) a columna */
+  .heroContent {
+    flex-direction: column;
+  }
+
+  /* Tarjetas de Beneficios: de fila (3 en línea) a columna apilada */
+  .beneficiosGrid {
+    flex-direction: column;
+  }
+
+  /* Tarjetas de Testimonios: de fila (3 en línea) a columna apilada */
+  .testimoniosGrid {
+    flex-direction: column;
+  }
+
+  /*
+   * NOTA — Editor de Scratch (/aula):
+   * El editor (EntornoWrapper → scratch-gui) NO se ve afectado por
+   * estos media queries. El stage, el lienzo de bloques y los
+   * paneles del motor gráfico de Scratch mantienen un ANCHO FIJO
+   * por restricciones propias del motor (cálculos de layout en
+   * píxeles absolutos que se rompen con flex-direction: column o
+   * flex-wrap). Por eso /aula queda fuera de cualquier @media de
+   * este archivo; en pantallas angostas se resuelve con scroll
+   * horizontal en vez de reflow, y no debe forzarse aquí.
+   */
 }
 
 /* ================================================================

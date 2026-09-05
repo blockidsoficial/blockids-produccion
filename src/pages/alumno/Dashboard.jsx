@@ -2,6 +2,7 @@
 import { useHistory, useLocation } from 'react-router-dom';
 import { supabase } from '../../config/supabaseClient';
 import DashboardLayout from '../../layouts/DashboardLayout';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 import VistaInicio     from './views/VistaInicio';
 import VistaTareas     from './views/VistaTareas';
@@ -45,6 +46,8 @@ const TOPBAR_INFO = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const DashboardAlumno = () => {
+    useDocumentTitle('Panel del Alumno');
+
     const history  = useHistory();
     const location = useLocation();
 

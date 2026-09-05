@@ -180,6 +180,13 @@ const buildConfig = baseConfig.clone()
                 from: 'extensions/**',
                 to: 'static',
                 context: 'src/examples'
+            },
+            {
+                // Archivos que deben quedar en la raíz del sitio (no bajo /static),
+                // p. ej. sitemap.xml, robots.txt, favicon override, etc.
+                from: 'public',
+                to: '.',
+                noErrorOnMissing: true
             }
         ]
     }));

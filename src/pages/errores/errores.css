@@ -1,0 +1,85 @@
+.pagina-error404 {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    font-family: var(--font-principal, 'Inter', sans-serif);
+    padding: 5%;
+    box-sizing: border-box; /* Evita que el padding genere scroll */
+}
+
+.error404-contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Imagen adaptable */
+.error404-imagen {
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+    margin-bottom: -10px;
+    animation: flotarY 4s ease-in-out infinite;
+}
+
+/* 404 Fluido */
+.error404-numero {
+    font-size: clamp(5rem, 15vw, 8rem);
+    font-weight: 900;
+    color: var(--color-morado-primario, #9B5DE5);
+    margin: 0;
+    line-height: 1;
+    letter-spacing: -3px;
+    text-shadow: 3px 3px 0px rgba(155, 93, 229, 0.15);
+}
+
+/* Textos Fluidos */
+.error404-titulo {
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
+    font-weight: 800;
+    color: var(--color-texto-oscuro, #2F2F2F);
+    margin: 10px 0 15px;
+}
+
+.error404-texto {
+    font-size: clamp(0.9rem, 3vw, 1rem);
+    color: var(--color-texto-medio, #666);
+    line-height: 1.6;
+    margin-bottom: 35px;
+    padding: 0 15px; /* Margen de seguridad lateral */
+}
+
+/* Botón responsivo */
+.error404-boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 36px;
+    background: var(--color-texto-oscuro, #333);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 50px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.2s, background 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    white-space: nowrap; /* Evita que el texto del botón se parta en dos líneas */
+}
+
+.error404-boton:hover {
+    transform: translateY(-3px);
+    background: var(--color-morado-primario, #9B5DE5);
+    color: #fff;
+}
+
+@keyframes flotarY {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+}

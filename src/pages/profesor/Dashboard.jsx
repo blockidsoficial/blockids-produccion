@@ -10,6 +10,7 @@ import VistaCalificaciones from './views/VistaCalificaciones';
 import VistaReportes       from './views/VistaReportes';
 import VistaConfiguracion  from '../shared/VistaConfiguracion';
 import VistaProyectos      from '../shared/VistaProyectos';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 import xolotlMotivacional from '../../assets/xolotl/xolotl-excelente.svg';
 import iconCurso      from '../../assets/iconos-ui/ui-curso.svg';
 import iconUsuario    from '../../assets/iconos-ui/ui-usuario.svg';
@@ -44,6 +45,8 @@ const VISTA_A_NAV = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const DashboardProfesor = () => {
+    useDocumentTitle('Panel del Profesor');
+
     const history  = useHistory();
     const location = useLocation();
 

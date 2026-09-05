@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  BLOCKIDS — sitemap.xml
+  Solo se indexan rutas públicas y sin autenticación.
+
+  Rutas EXCLUIDAS a propósito (protegidas por sesión / no indexables):
+    /admin            -> Dashboard de superadmin / admin_escuela
+    /profesor         -> Dashboard del profesor
+    /alumno           -> Dashboard del alumno
+    /aula/:aulaId     -> Editor de aula (profesor y alumno)
+    /entorno          -> Editor Scratch (requiere sesión)
+    /mis-proyectos    -> Redirección interna a un dashboard
+    /registro, /login, /salir -> Flujos de autenticación, sin valor de indexación
+
+  Estas rutas también deben bloquearse en robots.txt (Disallow) para
+  evitar que los motores de búsqueda intenten rastrear zonas protegidas.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <url>
+        <loc>https://blockids.vercel.app/</loc>
+        <lastmod>2026-09-05</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <url>
+        <loc>https://blockids.vercel.app/terminos-y-condiciones</loc>
+        <lastmod>2026-09-05</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+
+    <url>
+        <loc>https://blockids.vercel.app/aviso-de-privacidad</loc>
+        <lastmod>2026-09-05</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+
+</urlset>

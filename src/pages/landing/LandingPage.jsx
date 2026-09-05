@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './LandingPage.css';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 /* ── Logos ─────────────────────────────────────────────────── */
 import logoHorizontal from '../../assets/logos/logo-horizontal-colores.svg';
@@ -128,26 +129,26 @@ const NIVELES = [
     },
 ];
 
-const TESTIMONIOS = [
-    {
-        xolotl: xolotlT1,
-        quote: 'Gestionar los proyectos de 30 niños en Scratch era un caos. Con Blockids, el sistema de entrega y revisión centralizada me ahorró horas de trabajo técnico.',
-        nombre: 'Ing. Abraham S.',
-        rol: 'Mentor de Programación (Servicio Social)',
-    },
-    {
-        xolotl: xolotlT2,
-        quote: 'Me gusta mucho porque no necesito tener correo. Solo entro con mi usuario, hago mis bloques y mi maestro puede ver mis avances al instante.',
-        nombre: 'Luis Á.',
-        rol: 'Estudiante de Primaria',
-    },
-    {
-        xolotl: xolotlT3,
-        quote: 'Como prestadora de servicio, lo que más valoro es la seguridad. Los niños no necesitan datos personales para usar la plataforma en el salón de clases.',
-        nombre: 'Jessica.G',
-        rol: 'Instructora de Tecnologías (Residente)',
-    },
-];
+// const TESTIMONIOS = [
+//     {
+//         xolotl: xolotlT1,
+//         quote: 'Gestionar los proyectos de 30 niños en Scratch era un caos. Con Blockids, el sistema de entrega y revisión centralizada me ahorró horas de trabajo técnico.',
+//         nombre: 'Ing. Abraham S.',
+//         rol: 'Mentor de Programación (Servicio Social)',
+//     },
+//     {
+//         xolotl: xolotlT2,
+//         quote: 'Me gusta mucho porque no necesito tener correo. Solo entro con mi usuario, hago mis bloques y mi maestro puede ver mis avances al instante.',
+//         nombre: 'Luis Á.',
+//         rol: 'Estudiante de Primaria',
+//     },
+//     {
+//         xolotl: xolotlT3,
+//         quote: 'Como prestadora de servicio, lo que más valoro es la seguridad. Los niños no necesitan datos personales para usar la plataforma en el salón de clases.',
+//         nombre: 'Jessica.G',
+//         rol: 'Instructora de Tecnologías (Residente)',
+//     },
+// ];
 
 
 const BENEFICIOS_CLAVE = [
@@ -218,6 +219,8 @@ const rutaDashboard = (rol) => {
 };
 
 const LandingPage = ({ session, rolPerfil }) => {
+    useDocumentTitle('Inicio');
+
     const [menuAbierto, setMenuAbierto] = useState(false);
     const urlDashboard = session ? rutaDashboard(rolPerfil) : '/registro';
 
@@ -452,7 +455,7 @@ const LandingPage = ({ session, rolPerfil }) => {
             </section>
 
             {/* ══════════ TESTIMONIOS ══════════ */}
-            <section className={styles.testimoniosSection}>
+            {/* <section className={styles.testimoniosSection}>
                 <div className={styles.container}>
                     <h2 className={styles.secTitulo}>Lo que dicen maestros y alumnos</h2>
                     <div className={styles.testimoniosGrid}>
@@ -471,7 +474,7 @@ const LandingPage = ({ session, rolPerfil }) => {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* ══════════ BENEFICIOS CLAVE + COMPARACIÓN ══════════ */}
             <section className={styles.bcSection}>
@@ -566,6 +569,7 @@ const LandingPage = ({ session, rolPerfil }) => {
                             <h4 className={styles.footerHead}>Navegación</h4>
                             <ul className={styles.footerLinks}>
                                 <li><a href="#inicio">Inicio</a></li>
+                                <li><a href="#blockids">Blockids</a></li>
                                 {/* <li><a href="#cursos">Cursos</a></li> */}
                                 <li><a href="#docentes">Docentes</a></li>
                                 <li><a href="#nosotros">Sobre Nosotros</a></li>
@@ -579,7 +583,6 @@ const LandingPage = ({ session, rolPerfil }) => {
                             <ul className={styles.footerLinks}>
                                 <li><Link to="/terminos-y-condiciones">Términos y condiciones</Link></li>
                                 <li><Link to="/aviso-de-privacidad">Aviso de privacidad</Link></li>
-                                <li><Link to="/aviso-de-privacidad">Política de Privacidad</Link></li>
                             </ul>
                         </div>
 
@@ -598,9 +601,11 @@ const LandingPage = ({ session, rolPerfil }) => {
                             <h4 className={styles.footerHead}>Síguenos</h4>
                             <div className={styles.socialRow}>
                                 <a href="#" className={styles.socialBtn} style={{ background: '#1877F2' }}>f</a>
-                                <a href="#" className={styles.socialBtn} style={{ background: '#E4405F' }}>in</a>
+                               
+                                {/* <a href="#" className={styles.socialBtn} style={{ background: '#E4405F' }}>in</a>
                                 <a href="#" className={styles.socialBtn} style={{ background: '#FF0000' }}>yt</a>
-                                {/* <a href="#" className={styles.socialBtn} style={{ background: '#010101' }}>tk</a> */}
+                                <a href="#" className={styles.socialBtn} style={{ background: '#010101' }}>tk</a>
+                             */}
                             </div>
                         </div>
 

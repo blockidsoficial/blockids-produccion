@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin
+Disallow: /profesor
+Disallow: /alumno
+Disallow: /aula
+
+Sitemap: https://blockids.vercel.app/sitemap.xml

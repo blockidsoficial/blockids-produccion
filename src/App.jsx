@@ -15,6 +15,7 @@ import DashboardAlumno from './pages/alumno/Dashboard.jsx';
 import EntornoWrapper from './pages/entorno/EntornoWrapper.jsx';
 import AvisoPrivacidad from './pages/legal/AvisoPrivacidad.jsx';
 import TerminosCondiciones from './pages/legal/TerminosCondiciones.jsx';
+import Error404 from './pages/errores/Error404.jsx';
 
 // El motor nativo de Scratch
 import GUI from './containers/gui.jsx';
@@ -255,8 +256,10 @@ const App = () => {
                     <TerminosCondiciones />
                 </Route>
 
-                {/* ── RESCATE ── */}
-                <Redirect to="/" />
+                {/* ── 404: cualquier ruta no reconocida (siempre al final) ── */}
+                <Route path="*">
+                    <Error404 />
+                </Route>
             </Switch>
         </BrowserRouter>
     );
