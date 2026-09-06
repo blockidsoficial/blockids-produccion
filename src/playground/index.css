@@ -2,14 +2,19 @@ html,
 body,
 .app {
     /* probably unecessary, transitional until layout is refactored */
-    width: 100%; 
+    width: 100%;
     height: 100%;
     margin: 0;
-
-    /* Setting min height/width makes the UI scroll below those sizes */
-    min-width: 1024px;
-    min-height: 640px; /* Min height to fit sprite/backdrop button */
 }
+
+/*
+ * El min-width/min-height que Scratch aplicaba a html/body rompía la
+ * responsividad de las páginas propias de BLOCKIDS (landing, login, registro):
+ * bloqueaba el viewport a >=1024px y ninguna media query llegaba a activarse
+ * en móvil. El editor de Scratch conserva ese comportamiento ("scroll en vez
+ * de aplastarse") mediante .entornoLayout en EntornoWrapper.css, y además el
+ * acceso al editor ya está vetado en móvil por el guard de EntornoWrapper.
+ */
 
 /* @todo: move globally? Safe / side FX, for blocks particularly? */
 * { box-sizing: border-box; }

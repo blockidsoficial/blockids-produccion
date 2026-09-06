@@ -125,6 +125,17 @@
     flex-direction: column;
     height: 100vh;
     overflow: hidden;
+
+    /*
+     * El editor de Scratch calcula su layout en píxeles absolutos y no soporta
+     * anchos angostos. Antes esto lo garantizaba un min-width global en
+     * html/body (index.css), pero rompía la responsividad del resto del sitio.
+     * Ahora el mínimo vive solo aquí: por debajo de 1024px el editor hace
+     * scroll en vez de aplastarse (en móvil ni siquiera se monta: lo veta el
+     * guard de EntornoWrapper.jsx).
+     */
+    min-width: 1024px;
+    min-height: 640px;
 }
 
 .scratchContainer {
