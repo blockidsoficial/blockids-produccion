@@ -93,6 +93,33 @@ const FAQS = [
     },
 ];
 
+const IDENTIDAD = [
+    {
+        titulo: 'Misión',
+        texto: 'Convertimos cada idea en una oportunidad para aprender: crear, jugar y colaborar son parte del camino.',
+        icono: icoDesarr,
+        alt: 'Misión',
+    },
+    {
+        titulo: 'Metodología activa',
+        texto: 'Retos breves, proyectos que cobran vida y retroalimentación docente para avanzar haciendo.',
+        icono: icoCorrect,
+        alt: 'Metodología activa',
+    },
+    {
+        titulo: 'Privacidad y seguridad',
+        texto: 'Un entorno escolar cerrado: el docente administra el acceso y los niños no necesitan correo electrónico.',
+        icono: icoSeguro,
+        alt: 'Privacidad y seguridad',
+    },
+    {
+        titulo: 'Ecosistema y comunidad',
+        texto: 'Profesores, estudiantes y aliados colaboran para imaginar y construir tecnología con propósito.',
+        icono: icoConf,
+        alt: 'Ecosistema y comunidad',
+    },
+];
+
 // ─────────────────────────────────────────────────────────────────────────────
 // SUB-COMPONENTES
 // ─────────────────────────────────────────────────────────────────────────────
@@ -136,6 +163,46 @@ const Nosotros = ({ session, rolPerfil }) => {
 
             {/* ══════════ NAVBAR ══════════ */}
             <Navbar urlDashboard={urlDashboard} />
+
+            {/* ══════════ HERO NOSOTROS ══════════ */}
+            <section className={styles.nosotrosHero}>
+                <div className={styles.container}>
+                    <div className={styles.nosotrosHeroGrid}>
+                        <div className={styles.nosotrosHeroTexto}>
+                            <span className={styles.nosotrosEyebrow}>Conoce Blockids</span>
+                            <h1 className={styles.nosotrosHeroTitulo}>
+                                Programar también puede ser una aventura.
+                            </h1>
+                            <p className={styles.nosotrosHeroDesc}>
+                                Creamos experiencias para que niñas y niños aprendan tecnología jugando, creando y compartiendo sus ideas.
+                            </p>
+                        </div>
+                        <div className={styles.nosotrosHeroImagen}>
+                            <img src={xolotlN1} alt="Xolotl explorando ideas de programación" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ══════════ NUESTRA IDENTIDAD ══════════ */}
+            <section className={styles.identidadSection}>
+                <div className={styles.container}>
+                    <h2 className={styles.secTitulo}>Lo que nos mueve</h2>
+                    <div className={styles.identidadGrid}>
+                        {IDENTIDAD.map((item) => (
+                            <article key={item.titulo} className={styles.identidadCard}>
+                                <img src={item.icono} alt={item.alt} className={styles.identidadIcono} />
+                                <h3 className={styles.identidadTitulo}>{item.titulo}</h3>
+                                <p className={styles.identidadTexto}>{item.texto}</p>
+                            </article>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ══════════ ALIADOS / COMUNIDAD ══════════ */}
+            <Aliados />
+
 
             {/* ══════════ PARA MAESTROS Y ALUMNOS ══════════ */}
             <section id="docentes" className={styles.padresSection}>
@@ -267,9 +334,6 @@ const Nosotros = ({ session, rolPerfil }) => {
                     </div>
                 </div>
             </section>
-
-            {/* ══════════ ALIADOS / COMUNIDAD ══════════ */}
-            <Aliados />
 
             {/* ══════════ FOOTER ══════════ */}
             <Footer />

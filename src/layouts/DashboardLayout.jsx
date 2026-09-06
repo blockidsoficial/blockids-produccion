@@ -2,7 +2,7 @@
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import styles from './DashboardLayout.css';
 
-import logoBlockids  from '../assets/logos/logo-xolotl-letras.svg';
+import logoHorizontal from '../assets/logos/logo-horizontal-colores.svg';
 import xolotlImg     from '../assets/xolotl/xolotl-programando.svg';
 import iconInicio    from '../assets/iconos-ui/ui-inicio.svg';
 import iconAulas     from '../assets/iconos-ui/ui-curso.svg';
@@ -30,6 +30,9 @@ const DashboardLayout = ({
     const location = useLocation();
     const history = useHistory();
     const [menuAbierto, setMenuAbierto] = useState(false);
+    const [notificacionesAbiertas, setNotificacionesAbiertas] = useState(false);
+    const [cuentaAbierta, setCuentaAbierta] = useState(false);
+    const configuracionItem = navItems.find((item) => item.label === 'Configuración');
 
     return (
         <div className={styles.layout}>
@@ -39,7 +42,7 @@ const DashboardLayout = ({
 
                 {/* Logo */}
                 <div className={styles.sidebarTop}>
-                    <img src={logoBlockids} alt="Blockids" className={styles.sidebarLogo} />
+                    <img src={logoHorizontal} alt="Blockids" className={styles.sidebarLogo} />
                     <button
                         type="button"
                         className={styles.menuToggle}
@@ -117,9 +120,27 @@ const DashboardLayout = ({
                         )}
                     </div>
                     <div className={styles.topbarRight}>
-                        <button className={styles.notifBtn} title="Notificaciones">
-                            <img src={iconNotif} alt="Notificaciones" className={styles.notifIcon} />
-                        </button>
+                        <div className={styles.headerMenu}>
+                            <button
+                                type="button"
+                                className={styles.notifBtn}
+                                title="Notificaciones"
+                                aria-label="Abrir notificaciones"
+                                aria-expanded={notificacionesAbiertas}
+                                onClick={() => {
+                                    setNotificacionesAbiertas(!notificacionesAbiertas);
+                                    setCuentaAbierta(false);
+                                }}
+                            >
+                                <img src={iconNotif} alt="" className={styles.notifIcon} />
+                            </button>
+                            {notificacionesAbiertas && (
+                                <div className={styles.headerPopover}>
+                                    <h2 className={styles.popoverTitle}>Notificaciones</h2>
+                                    <p className={styles.emptyPopover}>No tienes notificaciones nuevas.</p>
+                                </div>
+                            )}
+                        </div>
                         <button 
                             className={styles.notifBtn} 
                             title="Entorno de Programación"
@@ -127,12 +148,54 @@ const DashboardLayout = ({
                         >
                             <img src={iconVideo} alt="Entorno de Bloques" className={styles.notifIcon} />
                         </button>
-                        <div className={styles.userPill}>
+                        <div className={styles.headerMenu}>
+                            <button
+                                type="button"
+                                className={styles.userPill}
+                                title="Abrir cuenta"
+                                aria-label={`Abrir cuenta de ${userName}`}
+                                aria-expanded={cuentaAbierta}
+                                onClick={() => {
+                                    setCuentaAbierta(!cuentaAbierta);
+                                    setNotificacionesAbiertas(false);
+                                }}
+                            >
                             <img src={iconUsuario} alt="" className={styles.userAvatar} />
                             <div className={styles.userInfo}>
                                 <span className={styles.userNameText}>{userName}</span>
                                 <span className={styles.userRoleText}>{role}</span>
                             </div>
+                            </button>
+                            {cuentaAbierta && (
+                                <div className={`${styles.headerPopover} ${styles.accountPopover}`}>
+                                    <div className={styles.accountSummary}>
+                                        <strong>{userName}</strong>
+                                        <span>{role}</span>
+                                    </div>
+                                    {configuracionItem?.onClick && (
+                                        <button
+                                            type="button"
+                                            className={styles.popoverAction}
+                                            onClick={() => {
+                                                configuracionItem.onClick();
+                                                setCuentaAbierta(false);
+                                            }}
+                                        >
+                                            Configuración
+                                        </button>
+                                    )}
+                                    <button
+                                        type="button"
+                                        className={`${styles.popoverAction} ${styles.popoverLogout}`}
+                                        onClick={() => {
+                                            onLogout();
+                                            setCuentaAbierta(false);
+                                        }}
+                                    >
+                                        Cerrar sesión
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </header>

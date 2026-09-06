@@ -1,5 +1,6 @@
 import React from 'react';
 import cls from './Aliados.css';
+import itLogo from '../../assets/logos/logo-it.png';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA — Aliados / Comunidad
@@ -7,16 +8,23 @@ import cls from './Aliados.css';
 // ─────────────────────────────────────────────────────────────────────────────
 const ALIADOS = [
     {
-        nombre: 'Instituto Tecnológico',
+        nombre: 'ITM',
         url: 'https://www.itmatamoros.edu.mx',
         iniciales: 'IT',
-        // logo: itLogo,   // <- coloca aquí el mini logo cuando lo tengas
+        descripcion: 'Aliado académico que respalda el desarrollo de Blockids.',
+        logo: itLogo,   // <-el mini logo cuando lo tengas
     },
     {
-        nombre: 'Comunidad Tech',
-        url: 'https://www.comunidadtech.mx',
-        iniciales: 'CT',
-        // logo: comunidadTechLogo,
+        nombre: 'SI PODEMOS',
+        url: '#',
+        iniciales: 'SP',
+        descripcion: 'Voluntarios por la educación digital.',
+    },
+    {
+        nombre: 'Rotaract',
+        url: '#',
+        iniciales: 'R',
+        descripcion: 'Lorem ipsum dolor sit amet, comunidad que inspira y transforma.',
     },
 ];
 
@@ -39,11 +47,12 @@ const renderGrupo = (oculto) => (
                     rel="noopener noreferrer"
                 >
                     <span className={cls.logo} aria-hidden="true">
-                        {a.logo
-                            ? <img src={a.logo} alt="" />
-                            : a.iniciales}
+                        {a.logo ? <img src={a.logo} alt="" /> : a.iniciales}
                     </span>
-                    <span className={cls.nombre}>{a.nombre}</span>
+                    <span className={cls.info}>
+                        <span className={cls.nombre}>{a.nombre}</span>
+                        <span className={cls.descripcion}>{a.descripcion}</span>
+                    </span>
                 </a>
             </li>
         ))}

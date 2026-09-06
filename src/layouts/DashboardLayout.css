@@ -37,8 +37,8 @@
 }
 
 .sidebarLogo {
-    width: 120px;
-    max-width: 100%;
+    max-width: 90px;
+    width: 100%;
     height: auto;
     display: block;
 }
@@ -186,6 +186,36 @@
     gap: 12px;
 }
 
+.headerMenu {
+    position: relative;
+}
+
+.headerPopover {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 260px;
+    padding: 16px;
+    background-color: var(--color-blanco);
+    border: 1px solid var(--color-borde-suave);
+    border-radius: var(--radio-md);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+    z-index: 30;
+}
+
+.popoverTitle {
+    margin: 0;
+    color: var(--color-texto-oscuro);
+    font-size: 0.95rem;
+}
+
+.emptyPopover {
+    margin: 12px 0 0;
+    color: var(--color-texto-muted);
+    font-size: 0.85rem;
+    line-height: 1.45;
+}
+
 /* Botón de notificaciones */
 .notifBtn {
     width: 38px;
@@ -220,6 +250,54 @@
     border-radius: var(--radio-pill);
     cursor: default;
     border: 1px solid var(--color-borde-suave);
+    cursor: pointer;
+    font-family: var(--font-principal);
+    text-align: left;
+}
+
+.accountPopover {
+    width: 220px;
+    padding: 8px;
+}
+
+.accountSummary {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 10px;
+    border-bottom: 1px solid var(--color-borde-suave);
+}
+
+.accountSummary strong {
+    color: var(--color-texto-oscuro);
+    font-size: 0.84rem;
+}
+
+.accountSummary span {
+    color: var(--color-texto-muted);
+    font-size: 0.74rem;
+}
+
+.popoverAction {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    border-radius: var(--radio-sm);
+    color: var(--color-texto-medio);
+    cursor: pointer;
+    font-family: var(--font-principal);
+    font-size: 0.84rem;
+    text-align: left;
+}
+
+.popoverAction:hover {
+    background-color: var(--color-fondo-claro);
+    color: var(--color-texto-oscuro);
+}
+
+.popoverLogout {
+    color: var(--color-rojo-alerta);
 }
 
 .userAvatar {

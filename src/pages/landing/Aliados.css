@@ -64,6 +64,8 @@
 .card {
   flex: 0 0 auto;
   width: 240px;
+  min-height: 112px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   gap: 0.85rem;
@@ -110,6 +112,22 @@
   font-weight: 700;
   color: var(--color-texto-oscuro);
   line-height: 1.25;
+}
+
+.info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.descripcion {
+  min-width: 0;
+  font-family: var(--font-principal);
+  font-size: 0.75rem;
+  color: var(--color-texto-medio);
+  line-height: 1.35;
 }
 
 /* ── Accesibilidad: sin animación si el usuario la desactiva ── */
