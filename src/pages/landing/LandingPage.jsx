@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './LandingPage.css';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
 import Navbar from './Navbar.jsx';
-
-/* ── Logos ─────────────────────────────────────────────────── */
-import logoBlanco     from '../../assets/logos/logo-blanco.svg';
+import Footer from './Footer.jsx';
 
 /* ── Xolotl ───────────────────────────────────────────────── */
 // import xolotlHero    from '../assets/xolotl/xolotl-saludando.svg';
@@ -28,11 +26,6 @@ import xolotlDemo    from '../../assets/xolotl/xolotl-logro.svg';
 
 //seccion 8 conocenos - registrarse
 import xolotlCta     from '../../assets/xolotl/xolotl-saludando.svg';
-
-//seccion 7 lo que dicen lo padres y niños 
-import xolotlT1      from '../../assets/xolotl/xolotl-expresion-feliz.svg';
-import xolotlT2      from '../../assets/xolotl/xolotl-expresion-sorprendido.svg';
-import xolotlT3      from '../../assets/xolotl/xolotl-expresion-riendose.svg';
 
 
 /* ── Iconos ────────────────────────────────────────────────── */
@@ -128,28 +121,6 @@ const NIVELES = [
         features: ['Entrega de proyectos con un clic', 'Calificación y comentarios centralizados', 'Seguimiento de progreso por alumno'],
     },
 ];
-
-// const TESTIMONIOS = [
-//     {
-//         xolotl: xolotlT1,
-//         quote: 'Gestionar los proyectos de 30 niños en Scratch era un caos. Con Blockids, el sistema de entrega y revisión centralizada me ahorró horas de trabajo técnico.',
-//         nombre: 'Ing. Abraham S.',
-//         rol: 'Mentor de Programación (Servicio Social)',
-//     },
-//     {
-//         xolotl: xolotlT2,
-//         quote: 'Me gusta mucho porque no necesito tener correo. Solo entro con mi usuario, hago mis bloques y mi maestro puede ver mis avances al instante.',
-//         nombre: 'Luis Á.',
-//         rol: 'Estudiante de Primaria',
-//     },
-//     {
-//         xolotl: xolotlT3,
-//         quote: 'Como prestadora de servicio, lo que más valoro es la seguridad. Los niños no necesitan datos personales para usar la plataforma en el salón de clases.',
-//         nombre: 'Jessica.G',
-//         rol: 'Instructora de Tecnologías (Residente)',
-//     },
-// ];
-
 
 const BENEFICIOS_CLAVE = [
     'Desarrollo de lógica computacional mediante bloques.',
@@ -426,27 +397,36 @@ const LandingPage = ({ session, rolPerfil }) => {
                 </div>
             </section>
 
-            {/* ══════════ TESTIMONIOS ══════════ */}
-            {/* <section className={styles.testimoniosSection}>
+            {/* ══════════ NUESTRA COMUNIDAD Y ALIADOS ══════════ */}
+            <section id="comunidad" className={styles.testimoniosSection}>
                 <div className={styles.container}>
-                    <h2 className={styles.secTitulo}>Lo que dicen maestros y alumnos</h2>
+                    <h2 className={styles.secTitulo}>Nuestra Comunidad y Aliados</h2>
                     <div className={styles.testimoniosGrid}>
-                        {TESTIMONIOS.map((t) => (
-                            <div key={t.nombre} className={styles.testimCard}>
-                                <span className={styles.comillas}>"</span>
-                                <p className={styles.testimQuote}>{t.quote}</p>
-                                <div className={styles.testimAutor}>
-                                    <img src={t.xolotl} alt={t.nombre} className={styles.testimAvatar} />
-                                    <div>
-                                        <strong className={styles.testimNombre}>{t.nombre}</strong>
-                                        <p className={styles.testimRol}>{t.rol}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                        <a
+                            href="https://www.itmatamoros.edu.mx"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.testimCard}
+                        >
+                            <h3 className={styles.benTitulo}>Instituto Tecnológico</h3>
+                            <p className={styles.benDesc}>
+                                Aliado académico que respalda el desarrollo de Blockids como proyecto de residencia profesional.
+                            </p>
+                        </a>
+                        <a
+                            href="https://www.comunidadtech.mx"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.testimCard}
+                        >
+                            <h3 className={styles.benTitulo}>Comunidad Tech</h3>
+                            <p className={styles.benDesc}>
+                                Red de mentores y voluntarios que impulsan la enseñanza del pensamiento computacional en las aulas.
+                            </p>
+                        </a>
                     </div>
                 </div>
-            </section> */}
+            </section>
 
             {/* ══════════ BENEFICIOS CLAVE + COMPARACIÓN ══════════ */}
             <section className={styles.bcSection}>
@@ -492,7 +472,7 @@ const LandingPage = ({ session, rolPerfil }) => {
             </section>
 
             {/* ══════════ FAQ ══════════ */}
-            <section className={styles.faqSection}>
+            <section id="faq" className={styles.faqSection}>
                 <div className={styles.container}>
                     <h2 className={styles.secTitulo}>Preguntas frecuentes</h2>
                     <div className={styles.faqGrid}>
@@ -524,70 +504,7 @@ const LandingPage = ({ session, rolPerfil }) => {
             </section>
 
             {/* ══════════ FOOTER ══════════ */}
-            <footer id="contacto" className={styles.footer}>
-                <div className={styles.container}>
-                    <div className={styles.footerGrid}>
-
-                        {/* Col 1: Logo + descripción */}
-                        <div className={styles.footerCol}>
-                            <img src={logoBlanco} alt="Blockids" className={styles.footerLogo} />
-                            <p className={styles.footerDesc}>
-                                Enseñamos a niños a programar jugando con bloques y tecnología interactiva.
-                            </p>
-                        </div>
-
-                        {/* Col 2: Navegación */}
-                        <div className={styles.footerCol}>
-                            <h4 className={styles.footerHead}>Navegación</h4>
-                            <ul className={styles.footerLinks}>
-                                <li><a href="#inicio">Inicio</a></li>
-                                <li><a href="#blockids">Blockids</a></li>
-                                {/* <li><a href="#cursos">Cursos</a></li> */}
-                                <li><a href="#docentes">Docentes</a></li>
-                                <li><a href="#nosotros">Sobre Nosotros</a></li>
-                                <li><a href="#contacto">Contacto</a></li>
-                            </ul>
-                        </div>
-
-                        {/* Col 3: Legal */}
-                        <div className={styles.footerCol}>
-                            <h4 className={styles.footerHead}>Legal</h4>
-                            <ul className={styles.footerLinks}>
-                                <li><Link to="/terminos-y-condiciones">Términos y condiciones</Link></li>
-                                <li><Link to="/aviso-de-privacidad">Aviso de privacidad</Link></li>
-                            </ul>
-                        </div>
-
-                        {/* Col 4: Contacto */}
-                        <div className={styles.footerCol}>
-                            <h4 className={styles.footerHead}>Contacto</h4>
-                            <ul className={styles.footerLinks}>
-                                <li><a href="mailto:admin@blockids.com">admin@blockids.com</a></li>
-                                {/* <li>+52 XXXXXX</li> */}
-                                <li>H. Matamoros,Tamaulipas</li>
-                            </ul>
-                        </div>
-
-                        {/* Col 5: Síguenos */}
-                        <div className={styles.footerCol}>
-                            <h4 className={styles.footerHead}>Síguenos</h4>
-                            <div className={styles.socialRow}>
-                                <a href="#" className={styles.socialBtn} style={{ background: '#1877F2' }}>f</a>
-                               
-                                {/* <a href="#" className={styles.socialBtn} style={{ background: '#E4405F' }}>in</a>
-                                <a href="#" className={styles.socialBtn} style={{ background: '#FF0000' }}>yt</a>
-                                <a href="#" className={styles.socialBtn} style={{ background: '#010101' }}>tk</a>
-                             */}
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div className={styles.footerBottom}>
-                        <p>© {new Date().getFullYear()} Blockids. Todos los derechos reservados.</p>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
 
         </div>
     );

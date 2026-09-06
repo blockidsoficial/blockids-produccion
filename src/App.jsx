@@ -16,6 +16,7 @@ import EntornoWrapper from './pages/entorno/EntornoWrapper.jsx';
 import AvisoPrivacidad from './pages/legal/AvisoPrivacidad.jsx';
 import TerminosCondiciones from './pages/legal/TerminosCondiciones.jsx';
 import Error404 from './pages/errores/Error404.jsx';
+import ScrollToTop from './components/ScrollToTop.jsx';
 
 // El motor nativo de Scratch
 import GUI from './containers/gui.jsx';
@@ -142,6 +143,7 @@ const App = () => {
 
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Switch>
                 {/* ── RUTAS PÚBLICAS ── */}
                 <Route exact path="/" render={({ location }) => {
