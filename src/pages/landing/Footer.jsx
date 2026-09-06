@@ -21,8 +21,8 @@ const Footer = () => (
                 <div className={styles.footerCol}>
                     <h4 className={styles.footerHead}>Navegación</h4>
                     <ul className={styles.footerLinks}>
-                        <li><a href="#faq">Preguntas Frecuentes</a></li>
-                        <li><a href="#comunidad">Sobre nosotros</a></li>
+                        <li><Link to="/nosotros">Sobre nosotros</Link></li>
+                        <li><Link to="/nosotros">Preguntas Frecuentes</Link></li>
                         <li><Link to="/manuales">Manuales de Uso</Link></li>
                     </ul>
                 </div>

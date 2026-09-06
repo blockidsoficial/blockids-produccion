@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, { useState } from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import styles from './DashboardLayout.css';
 
@@ -29,6 +29,7 @@ const DashboardLayout = ({
 }) => {
     const location = useLocation();
     const history = useHistory();
+    const [menuAbierto, setMenuAbierto] = useState(false);
 
     return (
         <div className={styles.layout}>
@@ -39,10 +40,21 @@ const DashboardLayout = ({
                 {/* Logo */}
                 <div className={styles.sidebarTop}>
                     <img src={logoBlockids} alt="Blockids" className={styles.sidebarLogo} />
+                    <button
+                        type="button"
+                        className={styles.menuToggle}
+                        aria-label={menuAbierto ? 'Cerrar menú' : 'Abrir menú'}
+                        aria-expanded={menuAbierto}
+                        onClick={() => setMenuAbierto(!menuAbierto)}
+                    >
+                        <span />
+                        <span />
+                        <span />
+                    </button>
                 </div>
 
                 {/* Navegación */}
-                <nav className={styles.sidebarNav}>
+                <nav className={`${styles.sidebarNav} ${menuAbierto ? styles.sidebarNavOpen : ''}`}>
                     <ul className={styles.navList}>
                         {navItems.map((item) => {
                             const isActive = activeNav
@@ -54,7 +66,11 @@ const DashboardLayout = ({
                                         to={item.to}
                                         className={`${styles.navItem} ${isActive ? styles.navItemActive : ''}`}
                                         onClick={item.onClick
-                                            ? (e) => { e.preventDefault(); item.onClick(); }
+                                            ? (e) => {
+                                                e.preventDefault();
+                                                item.onClick();
+                                                setMenuAbierto(false);
+                                            }
                                             : undefined}
                                     >
                                         <img
@@ -67,15 +83,25 @@ const DashboardLayout = ({
                                 </li>
                             );
                         })}
+                        <li>
+                            <button
+                                type="button"
+                                className={`${styles.navItem} ${styles.logoutNavItem}`}
+                                onClick={() => {
+                                    onLogout();
+                                    setMenuAbierto(false);
+                                }}
+                            >
+                                <span className={styles.logoutNavIcon}>↪</span>
+                                <span>Cerrar sesión</span>
+                            </button>
+                        </li>
                     </ul>
                 </nav>
 
-                {/* Parte inferior: xolotl + logout */}
-                <div className={styles.sidebarBottom}>
+                {/* Parte inferior: xolotl */}
+                <div className={`${styles.sidebarBottom} ${menuAbierto ? styles.sidebarBottomOpen : ''}`}>
                     <img src={xolotlImg} alt="" className={styles.sidebarXolotl} />
-                    <button className={styles.btnLogout} onClick={onLogout}>
-                        Cerrar sesión
-                    </button>
                 </div>
             </aside>
 

@@ -8,9 +8,11 @@ import logoHorizontal from '../../assets/logos/logo-horizontal-colores.svg';
 const Navbar = ({ urlDashboard }) => {
     const [menuAbierto, setMenuAbierto] = useState(false);
 
+    const cerrarMenu = () => setMenuAbierto(false);
+
     return (
         <nav className={styles.navbar}>
-            <Link to="/" className={styles.navLogo}>
+            <Link to="/" className={styles.navLogo} onClick={cerrarMenu}>
                 <img src={logoHorizontal} alt="Blockids" className={styles.logoImg} />
             </Link>
 
@@ -23,9 +25,9 @@ const Navbar = ({ urlDashboard }) => {
             </button>
 
             <ul className={`${styles.navLinks} ${menuAbierto ? styles.navOpen : ''}`}>
-                <li><a href="#inicio" className={styles.navLink}>Inicio</a></li>
-                <li><a href="#demo" className={styles.navLink}>Blockids</a></li>
-                <li><a href={urlDashboard} className={styles.navLink}>Ingresar</a></li>
+                <li><Link to="/" className={styles.navLink} onClick={cerrarMenu}>Inicio</Link></li>
+                <li><Link to="/nosotros" className={styles.navLink} onClick={cerrarMenu}>Nosotros</Link></li>
+                <li><a href={urlDashboard} className={styles.navLink} onClick={cerrarMenu}>Ingresar</a></li>
             </ul>
         </nav>
     );

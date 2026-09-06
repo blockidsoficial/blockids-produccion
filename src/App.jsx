@@ -5,6 +5,7 @@ import './styles/global.css';
 
 // Tus Pantallas
 import LandingPage from './pages/landing/LandingPage.jsx';
+import Nosotros from './pages/nosotros/Nosotros.jsx';
 import Register from './auth/Register.jsx';
 import Login from './auth/Login.jsx';
 import DashboardProyectos from './pages/proyectos/Dashboard.jsx';
@@ -154,6 +155,11 @@ const App = () => {
                     }
                     return <LandingPage session={session} rolPerfil={perfil?.rol} />;
                 }} />
+
+                {/* ── NOSOTROS (pública) ── */}
+                <Route path="/nosotros">
+                    <Nosotros session={session} rolPerfil={perfil?.rol} />
+                </Route>
 
                 <Route path="/registro">
                     {!session

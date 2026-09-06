@@ -108,6 +108,16 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
+}
+
+/*
+ * El anti-desbordamiento horizontal vive SOLO en <html> (y en los contenedores
+ * de cada página, p. ej. .landing). Ponerlo también en <body> lo convertía en
+ * un contenedor de scroll propio y hacía que window.scrollTo(0,0) no lo moviera
+ * (rompía el ScrollToTop de la SPA). Con height:100% heredado de scratch-gui,
+ * dejamos que el scroll vertical del documento lo maneje <html>.
+ */
+html {
   overflow-x: hidden;
 }
 
