@@ -24,7 +24,7 @@ const AvisoPrivacidad = () => (
                 <h2>1. Responsable del Tratamiento de Datos Personales</h2>
                 <p>
                     La administración de la plataforma BLOCKIDS y el tratamiento de los datos recabados
-                    están a cargo del equipo desarrollador del proyecto de residencias profesionales, con
+                    están a cargo del equipo desarrollador del proyectoo de residencias profesionales, con
                     domicilio en H. Matamoros, Tamaulipas. Para cualquier duda o solicitud relacionada con
                     este aviso, puede contactarnos a través del correo electrónico:{' '}
                     <a href="mailto:admin@blockids.com">admin@blockids.com</a>.
