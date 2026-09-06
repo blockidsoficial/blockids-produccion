@@ -234,13 +234,13 @@
     }
 
     .leftColumn {
-        min-height: 240px;
-        padding: 32px 24px;
+        min-height: 150px;
+        padding: 22px 24px;
         gap: 12px;
     }
 
     .xolotlImg {
-        width: 150px;
+        display: none;
     }
 
     .leftTitle {
@@ -256,7 +256,9 @@
     }
 
     .logoImg {
-        width: 140px;
+        width: 120px;
+        max-width: 100%;
+        height: auto;
         margin-bottom: 20px;
     }
 
@@ -267,7 +269,7 @@
 
 @media (max-width: 400px) {
     .rightColumn {
-        padding: 28px 16px;
+        padding: 24px 16px;
     }
 
     .input {

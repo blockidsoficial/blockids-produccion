@@ -267,6 +267,53 @@
     font-weight: 600;
 }
 
+.radioDisabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* ── Previsualización del usuario en tiempo real ── */
+.usernamePreview {
+    font-size: 0.8rem;
+    color: var(--color-texto-medio);
+    background-color: var(--color-azul-bg);
+    border: 1px dashed var(--color-azul-claro);
+    border-radius: var(--radio-md);
+    padding: 8px 12px;
+    margin: 2px 0 0 0;
+    word-break: break-all;
+}
+
+.usernamePreview strong {
+    color: var(--color-azul-primario);
+    font-weight: 700;
+}
+
+.btnLink {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 8px;
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-azul-primario);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* ── Nota de rol bloqueado por código de clase ── */
+.lockNote {
+    font-size: 0.85rem;
+    color: var(--color-verde-primario);
+    background-color: var(--color-verde-bg);
+    border-radius: var(--radio-md);
+    padding: 10px 14px;
+    margin: 0;
+    text-align: center;
+    line-height: 1.5;
+}
+
 /* ── Botones ── */
 .buttonGroup {
     display: flex;
@@ -443,13 +490,13 @@
     }
 
     .leftColumn {
-        min-height: 220px;
-        padding: 28px 24px;
+        min-height: 150px;
+        padding: 22px 24px;
         gap: 12px;
     }
 
     .xolotlImg {
-        width: 140px;
+        display: none;
     }
 
     .leftTitle {
@@ -465,7 +512,9 @@
     }
 
     .logoImg {
-        width: 130px;
+        width: 120px;
+        max-width: 100%;
+        height: auto;
     }
 
     .rowGroup {
@@ -475,7 +524,7 @@
 
 @media (max-width: 400px) {
     .rightColumn {
-        padding: 24px 16px;
+        padding: 20px 16px;
     }
 
     .input {

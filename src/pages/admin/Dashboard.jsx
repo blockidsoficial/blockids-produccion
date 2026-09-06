@@ -133,7 +133,7 @@ const DashboardAdmin = () => {
     const cargarDatos = useCallback(async () => {
         setCargando(true);
         const [resEscuelas, resPerfiles, resAulas, resProyectos] = await Promise.all([
-            supabase.from('escuelas').select('id, nombre, clave_acceso, activa, created_at').order('created_at', { ascending: false }),
+            supabase.from('escuelas').select('id, nombre, clave_acceso, pin_docente, activa, created_at').order('created_at', { ascending: false }),
             supabase.from('perfiles').select('id, escuela_id', { count: 'exact' }).eq('activo', true),
             supabase.from('aulas').select('id', { count: 'exact' }),
             supabase.from('proyectos').select('*', { count: 'exact', head: true }),

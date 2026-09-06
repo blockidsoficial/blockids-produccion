@@ -3,7 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { supabase } from '../config/supabaseClient';
 import styles from './Login.css';
 import xolotlSaludando from '../assets/xolotl/xolotl-saludando.svg';
-import logoXolotl from '../assets/logos/logo-xolotl-letras.svg';
+import logoXolotl from '../assets/logos/logo-horizontal-colores.svg';
 
 const Login = ({ mensajeSistema }) => {
     const [username, setUsername] = useState('');
@@ -20,11 +20,15 @@ const Login = ({ mensajeSistema }) => {
         setError('');
 
         try {
-            const cleanUsername = username.trim().replace(/\s+/g, '-').toLowerCase();
-            const correoFantasia = `${cleanUsername}@blockids.com`;
+            const entrada = username.trim();
+            // Profesores/Admin entran con su correo real; alumnos con su usuario,
+            // que se convierte en el correo fantasía usuario@blockids.com.
+            const correo = entrada.includes('@')
+                ? entrada.toLowerCase()
+                : `${entrada.replace(/\s+/g, '-').toLowerCase()}@blockids.com`;
 
             const { error: authError } = await supabase.auth.signInWithPassword({
-                email: correoFantasia,
+                email: correo,
                 password: password
             });
 
@@ -84,13 +88,13 @@ const Login = ({ mensajeSistema }) => {
                 <form onSubmit={handleLogin} className={styles.form}>
                     <div className={styles.fieldGroup}>
                         <label className={styles.label} htmlFor="login-username">
-                            Nombre de usuario
+                            Usuario o correo
                         </label>
                         <input
                             id="login-username"
                             type="text"
                             required
-                            placeholder="Tu nombre de usuario"
+                            placeholder="Tu usuario (alumno) o tu correo (docente)"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             className={styles.input}

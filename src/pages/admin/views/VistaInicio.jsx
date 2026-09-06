@@ -204,6 +204,10 @@ const VistaInicio = ({
                                     <span className={styles.escuelaClave}>{miEscuela?.clave_acceso || '—'}</span>
                                 </div>
                                 <div className={styles.escuelaMetaItem}>
+                                    <span className={styles.escuelaMetaLabel}>PIN Docente</span>
+                                    <span className={styles.escuelaClave}>{miEscuela?.pin_docente || '— (pídelo al superadmin)'}</span>
+                                </div>
+                                <div className={styles.escuelaMetaItem}>
                                     <span className={styles.escuelaMetaLabel}>Estado</span>
                                     <span className={miEscuela?.activa !== false ? styles.badgeActiva : styles.badgeInactiva}>
                                         {miEscuela?.activa !== false ? 'Activa' : 'Inactiva'}

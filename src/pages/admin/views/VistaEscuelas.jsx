@@ -10,6 +10,14 @@ const generarClaveAleatoria = () => {
     return `EDU-${sufijo}`;
 };
 
+// PIN que el director entrega a sus docentes para que se registren como profesor
+const generarPin = () => {
+    const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+    let pin = '';
+    for (let i = 0; i < 6; i++) pin += chars[Math.floor(Math.random() * chars.length)];
+    return pin;
+};
+
 const formatearFecha = (iso) => {
     if (!iso) return '—';
     return new Date(iso).toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -21,13 +29,14 @@ const VistaEscuelas = ({ mostrarAlerta, onRefresh }) => {
     const [toggling, setToggling]       = useState(null);
     const [nombre, setNombre]           = useState('');
     const [claveAcceso, setClaveAcceso] = useState('');
+    const [pinDocente, setPinDocente]   = useState('');
     const [enviando, setEnviando]       = useState(false);
 
     const cargar = useCallback(async () => {
         setCargando(true);
         const { data, error } = await supabase
             .from('escuelas')
-            .select('id, nombre, clave_acceso, activa, created_at')
+            .select('id, nombre, clave_acceso, pin_docente, activa, created_at')
             .order('created_at', { ascending: false });
         if (!error) setEscuelas(data || []);
         setCargando(false);
@@ -39,11 +48,13 @@ const VistaEscuelas = ({ mostrarAlerta, onRefresh }) => {
         e.preventDefault();
         if (!nombre.trim())      return mostrarAlerta('error', 'Escribe el nombre de la escuela.');
         if (!claveAcceso.trim()) return mostrarAlerta('error', 'Genera o escribe una clave de acceso.');
+        if (!pinDocente.trim())  return mostrarAlerta('error', 'Genera o escribe un PIN docente.');
 
         setEnviando(true);
         const { error } = await supabase.from('escuelas').insert([{
             nombre:       nombre.trim(),
             clave_acceso: claveAcceso.trim().toUpperCase(),
+            pin_docente:  pinDocente.trim().toUpperCase(),
             activa:       true,
         }]);
         setEnviando(false);
@@ -54,8 +65,28 @@ const VistaEscuelas = ({ mostrarAlerta, onRefresh }) => {
                 : `Error: ${error.message}`);
         } else {
             mostrarAlerta('success', `Escuela "${nombre.trim()}" creada con éxito.`);
-            setNombre(''); setClaveAcceso('');
+            setNombre(''); setClaveAcceso(''); setPinDocente('');
             cargar();
+            onRefresh?.();
+        }
+    };
+
+    const handleEditarPin = async (escuela) => {
+        const actual = escuela.pin_docente || '';
+        const nuevo = window.prompt(
+            `PIN docente de "${escuela.nombre}".\nEs el código que el director entrega a sus maestros para registrarse como profesor.`,
+            actual
+        );
+        if (nuevo === null) return; // canceló
+        const limpio = nuevo.trim().toUpperCase();
+        if (!limpio) return mostrarAlerta('error', 'El PIN no puede quedar vacío.');
+
+        const { error } = await supabase.from('escuelas').update({ pin_docente: limpio }).eq('id', escuela.id);
+        if (error) {
+            mostrarAlerta('error', `No se pudo actualizar el PIN: ${error.message}`);
+        } else {
+            setEscuelas(prev => prev.map(e => e.id === escuela.id ? { ...e, pin_docente: limpio } : e));
+            mostrarAlerta('success', 'PIN docente actualizado.');
             onRefresh?.();
         }
     };
@@ -145,6 +176,25 @@ const VistaEscuelas = ({ mostrarAlerta, onRefresh }) => {
                                 </button>
                             </div>
                         </div>
+                        <div className={styles.fieldGroup}>
+                            <label className={styles.fieldLabel} htmlFor="ve-pin">PIN Docente</label>
+                            <div className={styles.claveRow}>
+                                <input
+                                    id="ve-pin" type="text" className={styles.fieldInput}
+                                    placeholder="Ej. K7M2QP"
+                                    value={pinDocente}
+                                    onChange={e => setPinDocente(e.target.value.toUpperCase())}
+                                    disabled={enviando} autoComplete="off" maxLength={12}
+                                />
+                                <button
+                                    type="button" className={styles.btnGenerar}
+                                    onClick={() => setPinDocente(generarPin())}
+                                    disabled={enviando}
+                                >
+                                    Generar
+                                </button>
+                            </div>
+                        </div>
                         <button type="submit" className={styles.btnSubmit} disabled={enviando}>
                             {enviando ? 'Registrando...' : 'Registrar Escuela'}
                         </button>
@@ -189,6 +239,13 @@ const VistaEscuelas = ({ mostrarAlerta, onRefresh }) => {
                                                 onClick={() => copiarClave(escuela.clave_acceso)}
                                             >
                                                 {escuela.clave_acceso}
+                                            </span>
+                                            <span
+                                                className={styles.schoolClave}
+                                                title="Click para editar el PIN docente"
+                                                onClick={() => handleEditarPin(escuela)}
+                                            >
+                                                PIN: {escuela.pin_docente || '— fijar'}
                                             </span>
                                         </div>
                                         <div className={styles.schoolDate}>Creada: {formatearFecha(escuela.created_at)}</div>
