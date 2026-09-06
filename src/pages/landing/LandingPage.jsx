@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './LandingPage.css';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
+import Navbar from './Navbar.jsx';
 
 /* ── Logos ─────────────────────────────────────────────────── */
-import logoHorizontal from '../../assets/logos/logo-horizontal-colores.svg';
 import logoBlanco     from '../../assets/logos/logo-blanco.svg';
 
 /* ── Xolotl ───────────────────────────────────────────────── */
@@ -221,41 +221,13 @@ const rutaDashboard = (rol) => {
 const LandingPage = ({ session, rolPerfil }) => {
     useDocumentTitle('Inicio');
 
-    const [menuAbierto, setMenuAbierto] = useState(false);
     const urlDashboard = session ? rutaDashboard(rolPerfil) : '/registro';
 
     return (
         <div className={styles.landing}>
 
             {/* ══════════ NAVBAR ══════════ */}
-            <nav className={styles.navbar}>
-                <Link to="/" className={styles.navLogo}>
-                    <img src={logoHorizontal} alt="Blockids" className={styles.logoImg} />
-                </Link>
-
-                <button
-                    className={styles.hamburger}
-                    onClick={() => setMenuAbierto(!menuAbierto)}
-                    aria-label="Menú"
-                >
-                    <span /><span /><span />
-                </button>
-
-                <ul className={`${styles.navLinks} ${menuAbierto ? styles.navOpen : ''}`}>
-                    <li><a href="#inicio"   className={styles.navLink}>Inicio</a></li>
-                    <li><a href="#docentes"   className={styles.navLink}>Docentes</a></li>
-                    <li><a href="#nosotros" className={styles.navLink}>Nosotros</a></li>
-                    <li><a href="#contacto" className={styles.navLink}>Contacto</a></li>
-                    <li><a href={urlDashboard} className={styles.navLink}>Ingresar</a></li>
-                </ul>
-{/* 
-                <Link
-                    to={session ? '/mis-proyectos' : '/registro'}
-                    className={styles.navCta}
-                >
-                    {session ? 'Mi panel' : 'Comenzar ahora →'}
-                </Link> */}
-            </nav>
+            <Navbar urlDashboard={urlDashboard} />
 
             {/* ══════════ HERO ══════════ */}
             <section
