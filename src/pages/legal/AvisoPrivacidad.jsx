@@ -16,7 +16,7 @@ const AvisoPrivacidad = () => (
             <p>
                 En cumplimiento a lo dispuesto por la Ley Federal de Protección de Datos Personales en
                 Posesión de los Particulares (en adelante, la &ldquo;Ley&rdquo;) y su Reglamento,
-                <strong> BLOCKIDS</strong>, proyecto de carácter académico y educativo desarrollado en
+                <strong>BLOCKIDS</strong>, proyecto de carácter académico y educativo desarrollado en
                 H. Matamoros, Tamaulipas, México, informa lo siguiente:
             </p>
 
