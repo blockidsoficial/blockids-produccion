@@ -43,7 +43,7 @@ import diamantina   from '../../assets/elementos/diamantina-suelto.svg';
 /* ── Fondo Hero ────────────────────────────────────────────── */
 import fondoNubes   from '../../assets/fondos/fondo-nubes.svg';
 
-// Video "Cómo se usa el entorno (Fork de Blockids)" en YouTube.
+// Video "Cómo se usa el entorno en youutube en YouTube.
 // Es sólo el ID: en https://youtu.be/f5G2u3QJWu0  el ID es "f5G2u3QJWu0".
 const VIDEO_ENTORNO_ID = 'f5G2u3QJWu0';
 const VIDEO_ENTORNO_EMBED =
@@ -202,7 +202,7 @@ const LandingPage = ({ session, rolPerfil }) => {
                         <div className={styles.demoTexto}>
                             <h2 className={styles.demoTitulo}>Mira cómo se usa el entorno de Blockids</h2>
                             <p className={styles.demoDesc}>
-                                Un recorrido por el editor por bloques (Fork de Blockids): cómo abrir un
+                                Un recorrido por el editor por bloques BLOCKIDS cómo abrir un
                                 proyecto, armar tu lógica arrastrando bloques y ejecutar tu código.
                                 Los alumnos crean proyectos digitales y los maestros evalúan desde un solo
                                 lugar. Todo en la nube.
