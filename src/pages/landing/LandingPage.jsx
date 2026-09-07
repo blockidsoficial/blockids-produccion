@@ -202,7 +202,7 @@ const LandingPage = ({ session, rolPerfil }) => {
                         <div className={styles.demoTexto}>
                             <h2 className={styles.demoTitulo}>Mira cómo se usa el entorno de Blockids</h2>
                             <p className={styles.demoDesc}>
-                                Un recorrido por el editor por bloques BLOCKIDS cómo abrir un
+                                Un recorrido por el editor de bloques : BLOCKIDS cómo abrir un
                                 proyecto, armar tu lógica arrastrando bloques y ejecutar tu código.
                                 Los alumnos crean proyectos digitales y los maestros evalúan desde un solo
                                 lugar. Todo en la nube.
