@@ -6,8 +6,8 @@ import styles from './VistaConfiguracion.css';
 const ROL_LABEL = {
     alumno:        'Alumno',
     profesor:      'Profesor',
-    admin_escuela: 'Administrador de escuela',
-    superadmin:    'Superadministrador',
+    admin_escuela: 'Administrador de Escuela',
+    superadmin:    'Administrador de la Plataforma',
 };
 
 const PASS_MIN = 8;
