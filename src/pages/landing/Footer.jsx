@@ -23,7 +23,7 @@ const Footer = () => (
                     <ul className={styles.footerLinks}>
                         <li><Link to="/">Inicio</Link></li>
                         <li><Link to="/nosotros">Sobre nosotros</Link></li>
-                        <li><Link to="/proyectos-publicos">Proyectos públicos</Link></li>
+                        <li><Link to="/proyectos-publicos">Proyectos</Link></li>
                         <li><Link to="/nosotros#aliados">Aliados</Link></li>
 
                     </ul>
@@ -58,9 +58,9 @@ const Footer = () => (
 
                     <h4 className={styles.footerHead}>Síguenos</h4>
                     <div className={styles.socialRow}>
-                        <a href="https://www.facebook.com" className={styles.socialBtn} style={{ background: '#1877F2' }}>f</a>
-                        <a href="https://www.instagram.com" className={styles.socialBtn} style={{ background: '#E4405F' }}>ig</a>
-                        <a href="https://www.youtube.com" className={styles.socialBtn} style={{ background: '#FF0000' }}>yt</a>
+                        {/* <a href="https://www.facebook.com" className={styles.socialBtn} style={{ background: '#1877F2' }}>f</a>
+                        <a href="https://www.instagram.com" className={styles.socialBtn} style={{ background: '#E4405F' }}>ig</a> */}
+                        <a href="https://www.youtube.com/@blockids-mx" className={styles.socialBtn} style={{ background: '#FF0000' }}>yt</a>
                     </div>
                 </div>
 

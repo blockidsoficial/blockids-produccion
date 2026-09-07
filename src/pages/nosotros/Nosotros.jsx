@@ -9,6 +9,7 @@ import Aliados from '../landing/Aliados.jsx';
 
 /* ── Xolotl ───────────────────────────────────────────────── */
 import xolotlN1      from '../../assets/xolotl/xolotl-explorando.svg';
+import xolotlN4     from '../../assets/xolotl/xolotl-excelente.svg';
 import xolotlN2      from '../../assets/xolotl/xolotl-levantandobloque.svg';
 import xolotlN3      from '../../assets/xolotl/xolotl-explicando-codigo.svg';
 
@@ -30,7 +31,7 @@ const NIVELES = [
         titulo: 'Acceso sin complicaciones',
         edad: 'Para todos los niveles',
         desc: 'Olvídate de gestionar correos electrónicos para menores. Los maestros generan códigos de clase únicos y los alumnos acceden solo con su nombre de usuario. Privacidad total garantizada.',
-        xolotl: xolotlN1,
+        xolotl: xolotlN4,
         btnColor: '#6BCB77',
         btnText: 'Saber más',
         features: ['Sin correo electrónico requerido', 'Código de clase único por grupo', 'Acceso solo con nombre de usuario'],

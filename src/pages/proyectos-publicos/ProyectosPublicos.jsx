@@ -8,7 +8,7 @@ import Footer from '../landing/Footer.jsx';
 import styles from './ProyectosPublicos.css';
 
 import xolotlGanador from '../../assets/xolotl/xolotl-ganador.svg';
-import xolotlIdea    from '../../assets/xolotl/xolotl-idea.svg';
+import xolotlIdea    from '../../assets/xolotl/xolotl-sorprendido.svg';
 import medallaOro    from '../../assets/iconos/icono-medalla-oro.svg';
 import medallaPlata  from '../../assets/iconos/icono-medalla-plata.svg';
 import medallaCobre  from '../../assets/iconos/icono-medalla-cobre.svg';
