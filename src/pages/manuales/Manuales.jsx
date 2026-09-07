@@ -18,7 +18,7 @@ import icoEntorno from '../../assets/iconos/icono-bloques.svg';
 const CANAL_YOUTUBE = 'https://www.youtube.com/@blockids-mx';
 const CORREO_SOPORTE = 'blockids.oficial@gmail.com';
 
-// Video "Cómo se usa el entorno (Fork de Blockids)" en YouTube.
+// Video "Cómo se usa el entorno blockids" en YouTube.
 // Es sólo el ID: en https://youtu.be/f5G2u3QJWu0  el ID es "f5G2u3QJWu0".
 const VIDEO_ENTORNO_ID = 'f5G2u3QJWu0';
 const VIDEO_ENTORNO_EMBED =
@@ -157,7 +157,7 @@ const Manuales = ({ session, rolPerfil }) => {
                             </div>
                             <span className={styles.entornoEyebrow}>Panel del entorno</span>
                             <h2 className={styles.cardTitulo}>Cómo se usa el entorno de programación</h2>
-                            <p className={styles.cardSubtitulo}>El editor por bloques — Fork de Blockids</p>
+                            <p className={styles.cardSubtitulo}>El editor por bloques BLOCKIDS</p>
 
                             <ol className={styles.pasos}>
                                 <li className={styles.paso}>
