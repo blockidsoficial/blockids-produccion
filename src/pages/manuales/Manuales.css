@@ -192,13 +192,21 @@
     line-height: 1.5;
 }
 
-/* Botón "Ver video tutorial" — acento naranja unificado en las 3 tarjetas */
+/* Nota sobre el video — aclara que es un recorrido, no un tutorial de registro */
+.videoNota {
+    margin: auto 0 0.6rem;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    font-weight: 600;
+    color: var(--color-texto-muted);
+}
+
+/* Botón "Ver recorrido del panel" — acento naranja unificado en las 3 tarjetas */
 .btnVideo {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    margin-top: auto;
     padding: 0.75rem 1.25rem;
     background: var(--color-naranja);
     color: var(--color-blanco);

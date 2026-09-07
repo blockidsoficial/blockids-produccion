@@ -24,6 +24,14 @@ const VIDEO_ENTORNO_ID = 'f5G2u3QJWu0';
 const VIDEO_ENTORNO_EMBED =
     `https://www.youtube-nocookie.com/embed/${VIDEO_ENTORNO_ID}?rel=0&modestbranding=1`;
 
+// Recorrido del panel por rol. No es un tutorial de registro: muestra cómo se
+// usa el panel de cada plataforma una vez dentro.
+const VIDEO_PANEL = {
+    admin:   'https://youtu.be/Mj_oGL3F-hQ',
+    docente: 'https://youtu.be/2VvKN0ft80w',
+    alumno:  'https://youtu.be/z9-_0Fs9MFU',
+};
+
 const rutaDashboard = (rol) => {
     switch (rol) {
         case 'superadmin':
@@ -45,6 +53,7 @@ const SECCIONES = [
         icono: icoAdmin,
         titulo: 'Administradores de Escuela',
         subtitulo: 'Para directores y coordinadores',
+        video: VIDEO_PANEL.admin,
         pasos: [
             'Registra tu institución en Blockids.',
             'Obtén el PIN Docente de tu escuela para compartirlo con tus maestros.',
@@ -57,6 +66,7 @@ const SECCIONES = [
         icono: icoDocente,
         titulo: 'Docentes',
         subtitulo: 'Para profesores y mentores',
+        video: VIDEO_PANEL.docente,
         pasos: [
             'Regístrate con la clave de tu escuela y el PIN Docente.',
             'Crea tu cuenta de profesor en la plataforma.',
@@ -69,6 +79,7 @@ const SECCIONES = [
         icono: icoAlumno,
         titulo: 'Alumnos',
         subtitulo: 'Para estudiantes',
+        video: VIDEO_PANEL.alumno,
         pasos: [
             'Regístrate con el Código de Aula que te dio tu profesor.',
             'Crea tu cuenta en el panel Blockids y elige tu nombre de usuario.',
@@ -131,14 +142,17 @@ const Manuales = ({ session, rolPerfil }) => {
                                         ))}
                                     </ol>
 
+                                    <p className={styles.videoNota}>
+                                        🎬 Recorrido del panel — no es un tutorial de registro
+                                    </p>
                                     <a
-                                        href={CANAL_YOUTUBE}
+                                        href={sec.video || CANAL_YOUTUBE}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className={styles.btnVideo}
                                     >
                                         <PlayCircle size={20} />
-                                        Ver video tutorial
+                                        Ver recorrido del panel
                                     </a>
                                 </article>
                             );
