@@ -60,8 +60,8 @@ const NIVELES = [
 ];
 
 const BENEFICIOS_CLAVE = [
-    'Desarrollo de lógica computacional mediante bloques.',
-    'Gestión segura de identidades sin correos externos.',
+            // 'Desarrollo de lógica computacional mediante bloques.',
+            // 'Gestión segura de identidades sin correos externos.',
     'Fomento de la resolución de problemas algorítmicos.',
     'Entorno colaborativo maestro-alumno en tiempo real.',
     'Portafolio digital de proyectos guardado en la nube.',
@@ -101,12 +101,6 @@ const IDENTIDAD = [
         alt: 'Misión',
     },
     {
-        titulo: 'Metodología activa',
-        texto: 'Retos breves, proyectos que cobran vida y retroalimentación docente para avanzar haciendo.',
-        icono: icoCorrect,
-        alt: 'Metodología activa',
-    },
-    {
         titulo: 'Privacidad y seguridad',
         texto: 'Un entorno escolar cerrado: el docente administra el acceso y los niños no necesitan correo electrónico.',
         icono: icoSeguro,
@@ -117,6 +111,12 @@ const IDENTIDAD = [
         texto: 'Profesores, estudiantes y aliados colaboran para imaginar y construir tecnología con propósito.',
         icono: icoConf,
         alt: 'Ecosistema y comunidad',
+    },
+     {
+        titulo: 'Metodología activa',
+        texto: 'Retos breves, proyectos que cobran vida y retroalimentación docente para avanzar haciendo.',
+        icono: icoCorrect,
+        alt: 'Metodología activa',
     },
 ];
 
@@ -218,7 +218,7 @@ const Nosotros = ({ session, rolPerfil }) => {
                             <p className={styles.padresDesc}>
                                 Blockids está diseñado para que los estudiantes aprendan a programar de forma intuitiva, mientras los docentes tienen el control total para evaluar y dar seguimiento a su progreso.
                             </p>
-                            <div className={styles.padresBeneficios}>
+                            {/* <div className={styles.padresBeneficios}>
                                 <div className={styles.padreBen}>
                                     <img src={icoSeguro} alt="Seguro" className={styles.padreBenIco} />
                                     <div>
@@ -240,7 +240,7 @@ const Nosotros = ({ session, rolPerfil }) => {
                                         <p>Habilidades que les servirán para el futuro: lógica computacional, creatividad y resolución algorítmica de problemas.</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

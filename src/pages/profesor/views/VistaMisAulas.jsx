@@ -225,7 +225,7 @@ const VistaMisAulas = ({ userId, escuelaId }) => {
                                         id="editar-nombre-aula"
                                         type="text"
                                         className={dash.fieldInput}
-                                        placeholder="Escribe el nombre del "
+                                        placeholder="Escribe el nombre del aula"
                                         value={nuevoNombreAula}
                                         onChange={e => setNuevoNombreAula(e.target.value)}
                                         disabled={enviando}
