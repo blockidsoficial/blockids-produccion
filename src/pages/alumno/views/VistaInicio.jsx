@@ -1,5 +1,6 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { supabase } from '../../../config/supabaseClient';
+import { tipDelDia } from '../../../lib/frase-del-dia';
 
 import xolotlGanador from '../../../assets/xolotl/xolotl-ganador.svg';
 import xolotlIdea    from '../../../assets/xolotl/xolotl-idea.svg';
@@ -8,6 +9,8 @@ import iconCurso     from '../../../assets/iconos-ui/ui-curso.svg';
 import iconCalendario from '../../../assets/iconos-ui/ui-calendario.svg';
 import iconVideo     from '../../../assets/iconos-ui/ui-video.svg';
 import iconFavorito  from '../../../assets/iconos-ui/ui-favorito.svg';
+import iconTareasVacio from '../../../assets/iconos/icon-tareas-vacio.svg';
+import iconProyectosVacio from '../../../assets/iconos/icon-proyectos-vacio.svg';
 
 import bloqueAzul    from '../../../assets/elementos/bloque-azul.svg';
 import bloqueAmarillo from '../../../assets/elementos/bloque-amarillo.svg';
@@ -199,7 +202,7 @@ const VistaInicio = ({ userId, misAulas, aulaIds, onNavigate }) => {
 
                     {tareas.length === 0 ? (
                         <div className={styles.emptyState}>
-                            <span className={styles.emptyEmoji}>📋</span>
+                            <img src={iconTareasVacio} alt="" className={styles.emptyEmoji} />
                             <p>No tienes tareas asignadas todavía.</p>
                         </div>
                     ) : (
@@ -229,7 +232,7 @@ const VistaInicio = ({ userId, misAulas, aulaIds, onNavigate }) => {
 
                     {proyectos.length === 0 ? (
                         <div className={styles.emptyState}>
-                            <span className={styles.emptyEmoji}>🚀</span>
+                            <img src={iconProyectosVacio} alt="" className={styles.emptyEmoji} />
                             <p>Aún no has creado proyectos.</p>
                         </div>
                     ) : (
@@ -252,11 +255,11 @@ const VistaInicio = ({ userId, misAulas, aulaIds, onNavigate }) => {
                 </div>
             </div>
 
-            {/* ── Fila 3: Tip del Día ── */}
+            {/* ── Fila 3: Tip del Día (rotativo, cambia una vez por día) ── */}
             <div className={styles.tipBanner}>
                 <img src={xolotlIdea} alt="Xolotl con idea" width="50" className={styles.tipXolotl} />
                 <p className={styles.tipTexto}>
-                    <strong>Tip del día:</strong> ¡Usa bloques de repetición para hacer tu código más eficiente!
+                    <strong>Tip del día:</strong> {tipDelDia()}
                 </p>
                 <div className={styles.tipDecos}>
                     <img src={bloqueAzul}      alt="" className={styles.tipBloque} />

@@ -179,7 +179,7 @@ const VistaMisAulas = ({ userId, escuelaId }) => {
                                         id="nombre-aula"
                                         type="text"
                                         className={dash.fieldInput}
-                                        placeholder="Ej. 6to A, Taller de Programación"
+                                        placeholder="Ej. Primer Grado A"
                                         value={nombreAula}
                                         onChange={e => setNombreAula(e.target.value)}
                                         disabled={enviando}
@@ -225,7 +225,7 @@ const VistaMisAulas = ({ userId, escuelaId }) => {
                                         id="editar-nombre-aula"
                                         type="text"
                                         className={dash.fieldInput}
-                                        placeholder="Nuevo nombre del aula"
+                                        placeholder="Escribe el nombre del "
                                         value={nuevoNombreAula}
                                         onChange={e => setNuevoNombreAula(e.target.value)}
                                         disabled={enviando}

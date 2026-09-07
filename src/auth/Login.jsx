@@ -88,13 +88,13 @@ const Login = ({ mensajeSistema }) => {
                 <form onSubmit={handleLogin} className={styles.form}>
                     <div className={styles.fieldGroup}>
                         <label className={styles.label} htmlFor="login-username">
-                            Usuario o correo
+                            Usuario
                         </label>
                         <input
                             id="login-username"
                             type="text"
                             required
-                            placeholder="Tu usuario (alumno) o tu correo (docente)"
+                            placeholder="Ingrese nombre de usuario"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             className={styles.input}
@@ -109,7 +109,7 @@ const Login = ({ mensajeSistema }) => {
                                 id="login-password"
                                 type={showPassword ? 'text' : 'password'}
                                 required
-                                placeholder="Tu contraseña secreta"
+                                placeholder="Escribe tu contraseña"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 className={`${styles.input} ${styles.inputWithEye}`}
@@ -144,6 +144,10 @@ const Login = ({ mensajeSistema }) => {
                         ¿No tienes cuenta?{' '}
                         <Link to="/registro" className={styles.link}>Regístrate aquí</Link>
                     </p>
+                     <p className={styles.footerLink}>
+                    <Link to="/" className={styles.link}>Volver al Inicio</Link>
+                    </p>
+
                     <p className={styles.footerLegal}>
                         <Link to="/terminos-y-condiciones" className={styles.linkMuted}>Términos y Condiciones</Link>
                         {' | '}

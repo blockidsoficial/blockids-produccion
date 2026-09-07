@@ -27,6 +27,7 @@ const Navbar = ({ urlDashboard }) => {
             <ul className={`${styles.navLinks} ${menuAbierto ? styles.navOpen : ''}`}>
                 <li><Link to="/" className={styles.navLink} onClick={cerrarMenu}>Inicio</Link></li>
                 <li><Link to="/nosotros" className={styles.navLink} onClick={cerrarMenu}>Nosotros</Link></li>
+                <li><Link to="/proyectos" className={styles.navLink} onClick={cerrarMenu}>Proyectos</Link></li>
                 <li><a href={urlDashboard} className={styles.navLink} onClick={cerrarMenu}>Ingresar</a></li>
             </ul>
         </nav>

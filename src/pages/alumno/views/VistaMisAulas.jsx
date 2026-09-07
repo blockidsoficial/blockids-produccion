@@ -71,7 +71,7 @@ const VistaMisAulas = ({ userId, misAulas, aulaIds, onAulasUpdated, onNavigate }
 
             await desbloquearLogro(userId, 'Nuevo en la Clase', 30);
 
-            setExito(`¡Te uniste a "${aula.nombre}"! 🎉`);
+            setExito(`¡Te uniste a "${aula.nombre}"!`);
             setTimeout(() => {
                 cerrarModal();
                 if (onAulasUpdated) onAulasUpdated();

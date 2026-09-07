@@ -233,6 +233,8 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    min-width: 0;
+    overflow-wrap: anywhere;   /* nombres largos sin espacios no rompen la tarjeta */
 }
 
 .proyectoNombre:hover .editHint {
@@ -293,6 +295,7 @@
 .metaItem {
     display: flex;
     justify-content: space-between;
+    gap: 10px;
     font-size: .75rem;
     font-family: var(--font-principal);
 }
@@ -302,11 +305,15 @@
     color: var(--color-texto-muted);
     text-transform: uppercase;
     letter-spacing: .4px;
+    flex-shrink: 0;
 }
 
 .metaValor {
     font-weight: 600;
     color: var(--color-texto-oscuro);
+    text-align: right;
+    min-width: 0;
+    overflow-wrap: anywhere;   /* IDs / correos largos hacen wrap en vez de desbordar */
 }
 
 /* ── Badge de estado ─────────────────────────────────────── */

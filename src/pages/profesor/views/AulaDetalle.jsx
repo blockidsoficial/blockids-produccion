@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { supabase } from '../../../config/supabaseClient';
 import styles from './AulaDetalle.css';
+import iconCargandoTareas from '../../../assets/iconos/icon-cargando-tareas.svg';
+import iconCargandoMensajes from '../../../assets/iconos/icon-cargando-mensajes.svg';
+import iconMuroVacio from '../../../assets/iconos/icon-muro-vacio.svg';
 
 const formatearFecha = (iso) => {
     if (!iso) return '';
@@ -250,7 +253,7 @@ const AulaDetalle = () => {
                                     />
                                 </div>
                                 <div className={styles.fieldGroup}>
-                                    <label className={styles.fieldLabel} htmlFor="tarea-desc">Descripción (opcional)</label>
+                                    <label className={styles.fieldLabel} htmlFor="tarea-desc">Descripción </label>
                                     <textarea
                                         id="tarea-desc"
                                         className={styles.fieldTextarea}
@@ -397,7 +400,10 @@ const AulaDetalle = () => {
                             </div>
 
                             {cargandoTareas && (
-                                <p className={styles.cargandoTareas}>⏳ Cargando tareas...</p>
+                                    <p className={styles.cargandoTareas}>
+                                        <img src={iconCargandoTareas} alt="" className={styles.statusIcon} />
+                                        Cargando tareas...
+                                    </p>
                             )}
 
                             {!cargandoTareas && tareas.length === 0 && (
@@ -464,11 +470,14 @@ const AulaDetalle = () => {
                         <div className={styles.muroWrapper}>
                             <div className={styles.mensajesList}>
                                 {cargandoMuro && (
-                                    <p className={styles.muroCargando}>⏳ Cargando mensajes...</p>
+                                    <p className={styles.muroCargando}>
+                                        <img src={iconCargandoMensajes} alt="" className={styles.statusIcon} />
+                                        Cargando mensajes...
+                                    </p>
                                 )}
                                 {!cargandoMuro && mensajes.length === 0 && (
                                     <div className={styles.muroEmpty}>
-                                        <span className={styles.muroEmptyIcon}>📢</span>
+                                        <img src={iconMuroVacio} alt="" className={styles.muroEmptyIcon} />
                                         <p className={styles.muroEmptyTitle}>El muro está vacío</p>
                                         <p className={styles.muroEmptyDesc}>
                                             {esProfesor

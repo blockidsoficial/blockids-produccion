@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {listarProyectos, eliminarProyecto} from '../../services/projectService';
+import iconProyectosTarjetas from '../../assets/iconos/icon-proyectos-tarjetas.svg';
+import iconEliminarProyecto from '../../assets/iconos/icon-eliminar-proyecto.svg';
 
 const estilos = {
     pagina: {
@@ -69,8 +71,15 @@ const estilos = {
         transition: 'transform 0.15s, box-shadow 0.15s'
     },
     tarjetaIcono: {
-        fontSize: '2.5rem',
+        width: '2.5rem',
+        height: '2.5rem',
+        objectFit: 'contain',
         textAlign: 'center'
+    },
+    iconoEliminar: {
+        width: '1.1rem',
+        height: '1.1rem',
+        objectFit: 'contain'
     },
     tarjetaNombre: {
         margin: 0,
@@ -199,7 +208,7 @@ const DashboardProyectos = () => {
 
                 {!cargando && !error && proyectos.length === 0 && (
                     <div style={estilos.vacio}>
-                        <p style={{fontSize: '3rem', margin: 0}}>🎮</p>
+                        <img src={iconProyectosTarjetas} alt="" style={{ width: '3rem', height: '3rem', objectFit: 'contain' }} />
                         <p>Todavía no tienes proyectos guardados.</p>
                         <button
                             style={{...estilos.botonNuevo, backgroundColor: '#27ae60', color: '#fff', marginTop: '1rem'}}
@@ -225,7 +234,7 @@ const DashboardProyectos = () => {
                                     e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
                                 }}
                             >
-                                <div style={estilos.tarjetaIcono}>🎮</div>
+                                <img src={iconProyectosTarjetas} alt="" style={estilos.tarjetaIcono} />
                                 <h3 style={estilos.tarjetaNombre} title={p.nombre}>
                                     {p.nombre}
                                 </h3>
@@ -244,7 +253,7 @@ const DashboardProyectos = () => {
                                         onClick={e => { e.stopPropagation(); borrarProyecto(p); }}
                                         title="Eliminar proyecto"
                                     >
-                                        🗑
+                                        <img src={iconEliminarProyecto} alt="Eliminar proyecto" style={estilos.iconoEliminar} />
                                     </button>
                                 </div>
                             </div>

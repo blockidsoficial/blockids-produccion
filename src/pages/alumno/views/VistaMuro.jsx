@@ -79,9 +79,12 @@ const VistaMuro = ({ userId, misAulas, aulaInicial }) => {
             return;
         }
 
-        await desbloquearLogro(userId, 'Rompehielos', 20);
+        // Refrescar la lista de inmediato para que el mensaje aparezca al instante
         setNuevoMensaje('');
         cargarMensajes();
+
+        // Gamificacion en segundo plano (no bloquea el refresco del muro)
+        desbloquearLogro(userId, 'Rompehielos', 20);
     };
 
     // ── Sin aulas ─────────────────────────────────────────────────────────────
@@ -197,7 +200,7 @@ const VistaMuro = ({ userId, misAulas, aulaInicial }) => {
                 <form onSubmit={handlePublicar} className={styles.publicarForm}>
                     <textarea
                         className={styles.mensajeInput}
-                        placeholder="Escribe algo para tu clase..."
+                        placeholder="Escribe un mensaje para la clase en el muro ..."
                         value={nuevoMensaje}
                         onChange={e => setNuevoMensaje(e.target.value)}
                         disabled={publicando}

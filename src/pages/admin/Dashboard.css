@@ -780,3 +780,43 @@
     .tabs { width: 100%; }
     .tab  { flex: 1; justify-content: center; }
 }
+
+@media (max-width: 640px) {
+    .schoolCard {
+        flex-wrap: wrap;
+    }
+
+    .schoolInfo {
+        flex: 1 1 180px;
+        min-width: 0;
+    }
+
+    .schoolActions {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .usuariosGrid { min-width: 0; }
+
+    .usuarioRow {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .usuarioUsername {
+        flex: 1 1 220px;
+        min-width: 0;
+    }
+
+    .rolCell,
+    .usuarioEscuela,
+    .usuarioNotas,
+    .usuarioFecha {
+        flex: 1 1 120px;
+        min-width: 0;
+    }
+}

@@ -281,6 +281,10 @@ const DashboardAdmin = () => {
         window.location.href = '/';
     };
 
+    const actualizarPerfilHeader = (cambios) => {
+        setPerfil(prev => prev ? { ...prev, ...cambios } : prev);
+    };
+
 
 
     // ── Modal Aula: cargar profesores por escuela ─────────────────────────────
@@ -563,7 +567,11 @@ const DashboardAdmin = () => {
             )}
 
             {vistaActiva === 'Configuración' && (
-                <VistaConfiguracion userId={perfil?.id} mostrarAlerta={mostrarAlerta} />
+                <VistaConfiguracion
+                    userId={perfil?.id}
+                    mostrarAlerta={mostrarAlerta}
+                    onPerfilActualizado={actualizarPerfilHeader}
+                />
             )}
 
             {!['Dashboard', 'Escuelas', 'Profesores', 'Aulas', 'Usuarios', 'Proyectos', 'Reportes', 'Configuración'].includes(vistaActiva) && (

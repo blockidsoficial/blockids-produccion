@@ -206,6 +206,25 @@
     border: 1px solid var(--color-borde);
 }
 
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .headerNivel {
+        grid-template-columns: 1fr;
+        padding: 20px 18px 16px;
+        margin-bottom: 22px;
+    }
+    .nivelRight {
+        justify-content: flex-start;
+    }
+    .logrosCount {
+        align-self: flex-start;
+    }
+    .gridLogros {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+    }
+}
+
 /* ── Spinner de carga ─────────────────────────────────────────── */
 .spinnerWrap {
     display: flex;

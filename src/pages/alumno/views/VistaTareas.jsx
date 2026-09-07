@@ -7,6 +7,11 @@ import xolotlIdea     from '../../../assets/xolotl/xolotl-idea.svg';
 import iconCalendario from '../../../assets/iconos-ui/ui-calendario.svg';
 import iconVideo      from '../../../assets/iconos-ui/ui-video.svg';
 import iconDescargar  from '../../../assets/iconos-ui/ui-descargar.svg';
+import iconNotaMaterial from '../../../assets/iconos/icon-nota-material.svg';
+import iconTareaEntregada from '../../../assets/iconos/icon-tarea-entregada.svg';
+import iconArchivoSeleccionado from '../../../assets/iconos/icon-archivo-seleccionado.svg';
+import iconFechaLimite from '../../../assets/iconos/icon-fecha-limite.svg';
+import iconPuntosXp from '../../../assets/iconos/icon-puntos-xp.svg';
 
 const BADGE_ESTADO = {
     'Pendiente':   'badgePendiente',
@@ -56,7 +61,8 @@ const RenderMaterial = ({ url, stylesRef }) => {
     }
     return (
         <div className={stylesRef.materialNota}>
-            📌 Nota: {url}
+            <img src={iconNotaMaterial} alt="" className={styles.materialInlineIcon} />
+            Nota: {url}
         </div>
     );
 };
@@ -174,7 +180,7 @@ const VistaTareas = ({ userId, aulaIds }) => {
                 if (insertError) throw insertError;
             }
 
-            setAlertaModal({ tipo: 'success', texto: '¡Tarea entregada exitosamente! 🎉' });
+            setAlertaModal({ tipo: 'success', texto: '¡Tarea entregada exitosamente!' });
             setArchivoSubir(null);
             setTimeout(() => { cerrarModal(); cargarDatos(); }, 1500);
 
@@ -283,7 +289,10 @@ const VistaTareas = ({ userId, aulaIds }) => {
                                         disabled={subiendoTarea}
                                     />
                                     {archivoSubir && (
-                                        <span className={styles.archivoNombre}>📎 {archivoSubir.name}</span>
+                                        <span className={styles.archivoNombre}>
+                                            <img src={iconArchivoSeleccionado} alt="" className={styles.inlineIcon} />
+                                            {archivoSubir.name}
+                                        </span>
                                     )}
                                     <button
                                         type="submit"
@@ -372,7 +381,8 @@ const VistaTareas = ({ userId, aulaIds }) => {
                                             </span>
                                             {tarea.estado === 'Calificado' && tarea.calificacion != null && (
                                                 <span className={`${styles.badge} ${styles.badgeCalificado}`}>
-                                                    ⭐ {tarea.calificacion} XP
+                                                    <img src={iconPuntosXp} alt="" className={styles.inlineIcon} />
+                                                    {tarea.calificacion} XP
                                                 </span>
                                             )}
                                         </div>
@@ -385,11 +395,15 @@ const VistaTareas = ({ userId, aulaIds }) => {
                                             {aula && <span className={styles.aulaTag}>{aula.nombre}</span>}
                                             {tarea.fecha_limite && (
                                                 <span className={`${styles.fechaTag} ${esVencida ? styles.vencida : ''}`}>
-                                                    📅 {formatearFechaRelativa(tarea.fecha_limite)}
+                                                    <img src={iconFechaLimite} alt="" className={styles.inlineIcon} />
+                                                    {formatearFechaRelativa(tarea.fecha_limite)}
                                                 </span>
                                             )}
                                             {tarea.puntos_recompensa > 0 && (
-                                                <span className={styles.xpTag}>⭐ {tarea.puntos_recompensa} XP</span>
+                                                <span className={styles.xpTag}>
+                                                    <img src={iconPuntosXp} alt="" className={styles.inlineIcon} />
+                                                    {tarea.puntos_recompensa} XP
+                                                </span>
                                             )}
                                         </div>
                                         <div className={styles.acciones}>

@@ -498,6 +498,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
     margin-bottom: 24px;
     animation: fadeSlideDown .3s ease both;
 }
@@ -593,11 +595,16 @@
     .mainGridInicio { grid-template-columns: 1fr; }
     .tareasGrid    { grid-template-columns: 1fr; }
 }
+@media (max-width: 640px) {
+    .vistaHeader { flex-direction: column; align-items: stretch; }
+    /* Los clusters de acciones (buscador + selector + botón) ocupan
+       todo el ancho y sus hijos se reparten en fila fluida. */
+    .vistaHeader > div:last-child { width: 100%; }
+}
 @media (max-width: 480px) {
     .statsRow  { grid-template-columns: 1fr 1fr; gap: 10px; }
     .statCard  { padding: 14px; }
     .columnCard { padding: 18px 16px; }
-    .vistaHeader { flex-direction: column; align-items: flex-start; gap: 12px; }
     .modalCard   { border-radius: var(--radio-lg); }
     .modalBody   { padding: 20px 18px; }
     .modalFooter { padding: 14px 18px 18px; }

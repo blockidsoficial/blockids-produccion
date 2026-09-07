@@ -47,6 +47,15 @@
 }
 
 /* ── Tabla ────────────────────────────────────────────────────────────────── */
+/* La tarjeta contiene el scroll horizontal: solo la tabla se desliza en móvil. */
+.tablaCard {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.tablaCard::-webkit-scrollbar { height: 6px; }
+.tablaCard::-webkit-scrollbar-track { background: var(--color-fondo-claro); border-radius: 10px; }
+.tablaCard::-webkit-scrollbar-thumb { background: var(--color-borde); border-radius: 10px; }
+
 .loadingWrap {
     padding: 48px 24px;
     text-align: center;
@@ -58,6 +67,7 @@
 
 .table {
     width: 100%;
+    min-width: 560px;   /* por debajo, el contenedor se desliza en vez de comprimir las celdas */
     border-collapse: collapse;
 }
 
@@ -268,4 +278,19 @@
     font-size: .85rem;
     color: var(--color-texto-suave);
     font-family: var(--font-principal);
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .controles {
+        width: 100%;
+    }
+    .inputBusqueda,
+    .selectAula {
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+    .btnAsignar {
+        flex: 1 1 100%;
+    }
 }

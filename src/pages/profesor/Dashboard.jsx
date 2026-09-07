@@ -11,6 +11,7 @@ import VistaReportes       from './views/VistaReportes';
 import VistaConfiguracion  from '../shared/VistaConfiguracion';
 import VistaProyectos      from '../shared/VistaProyectos';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
+import { fraseDelDia, fraseAnimoProfesor } from '../../lib/frase-del-dia';
 import xolotlMotivacional from '../../assets/xolotl/xolotl-excelente.svg';
 import iconCurso      from '../../assets/iconos-ui/ui-curso.svg';
 import iconUsuario    from '../../assets/iconos-ui/ui-usuario.svg';
@@ -28,6 +29,10 @@ const formatearFecha = (iso) => {
     if (!iso) return '—';
     return new Date(iso).toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' });
 };
+
+// Frase del saludo de Inicio (ver lib/frase-del-dia): cambia una vez por día
+// calendario. En el resto de vistas el subtítulo sigue mostrando la escuela,
+// que ahí sí es información útil de contexto.
 
 // Mapea vistaActual → label que resalta en el sidebar
 const VISTA_A_NAV = {
@@ -65,6 +70,10 @@ const DashboardProfesor = () => {
         ? _vistaParamProfesor
         : (sessionStorage.getItem('bk_profesor_vista') || 'inicio');
     const [vistaActual, setVistaActual]     = useState(vistaInicial);
+
+    // Frase del saludo de Inicio: cambia una vez por día calendario (no en
+    // cada carga de página ni al navegar entre vistas). Ver lib/frase-del-dia.
+    const [fraseInicio] = useState(fraseDelDia);
 
     // ── Métricas (solo usadas en vista Inicio) ────────────────────────────────
     const [metricas, setMetricas]           = useState({ aulas: 0, estudiantes: 0, tareasActivas: 0, entregas: 0 });
@@ -191,6 +200,12 @@ const DashboardProfesor = () => {
 
     const irA = (vista) => setVistaActual(vista);
 
+    const actualizarPerfilHeader = ({ nombre, apellido_paterno, apellido_materno, username: usernameActual }) => {
+        const nombreArmado = [nombre, apellido_paterno, apellido_materno].filter(Boolean).join(' ');
+        setNombreCompleto(nombreArmado || usernameActual);
+        setUsername(usernameActual);
+    };
+
     // ── Items del menú lateral ────────────────────────────────────────────────
     const navItems = [
         { label: 'Inicio',         icon: iconInicio,     to: '#', onClick: () => irA('inicio') },
@@ -218,7 +233,7 @@ const DashboardProfesor = () => {
     return (
         <DashboardLayout
             title={`¡Hola, ${nombreCompleto || username}!`}
-            subtitle={`Escuela: ${nombreEscuela || '—'}`}
+            subtitle={vistaActual === 'inicio' ? fraseInicio : `Escuela: ${nombreEscuela || '—'}`}
             userName={`@${username}`}
             role="Profesor"
             onLogout={handleLogout}
@@ -288,7 +303,7 @@ const DashboardProfesor = () => {
                             )}
                         </div>
 
-                        {/* Xolotl motivacional */}
+                        {/* Xolotl motivacional (mensaje rotativo, cambia una vez por día) */}
                         <div className={styles.xolotlCard}>
                             <img
                                 src={xolotlMotivacional}
@@ -297,7 +312,7 @@ const DashboardProfesor = () => {
                                 width="70"
                             />
                             <p className={styles.xolotlText}>
-                                ¡Sigue así! Estás ayudando a tus estudiantes a aprender y crear.
+                                {fraseAnimoProfesor()}
                             </p>
                         </div>
 
@@ -337,7 +352,7 @@ const DashboardProfesor = () => {
 
             {/* ══════════ VISTA: CONFIGURACIÓN ══════════ */}
             {vistaActual === 'configuracion' && (
-                <VistaConfiguracion userId={userId} />
+                <VistaConfiguracion userId={userId} onPerfilActualizado={actualizarPerfilHeader} />
             )}
 
             {/* ══════════ VISTA: REPORTES ══════════ */}

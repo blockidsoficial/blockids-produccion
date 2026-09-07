@@ -257,6 +257,9 @@
 }
 
 .fechaTag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     font-size: .7rem;
     font-weight: 600;
     padding: 4px 10px;
@@ -362,6 +365,9 @@
 
 /* ── XP Tag ──────────────────────────────────────────────── */
 .xpTag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     font-size: .7rem;
     font-weight: 700;
     padding: 4px 10px;
@@ -524,6 +530,9 @@
 }
 
 .materialNota {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-size: .84rem;
     color: var(--color-texto-oscuro);
     font-family: var(--font-principal);
@@ -595,11 +604,28 @@
 }
 
 .archivoNombre {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     font-size: .8rem;
     font-weight: 600;
     color: var(--color-texto-suave);
     font-family: var(--font-principal);
     word-break: break-all;
+}
+
+.inlineIcon {
+    width: 1rem;
+    height: 1rem;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.materialInlineIcon {
+    width: 1.1rem;
+    height: 1.1rem;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 /* ── Botones del modal ────────────────────────────────────── */

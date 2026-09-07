@@ -34,3 +34,11 @@
     display: flex;
     gap: 6px;
 }
+
+@media (max-width: 640px) {
+    .accionesRow {
+        margin-top: 10px;
+        justify-content: flex-start;
+        width: 100%;
+    }
+}

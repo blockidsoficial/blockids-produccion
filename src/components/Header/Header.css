@@ -1,0 +1,424 @@
+/* ============================================================
+   BLOCKIDS — Header gamificado (estilo Duolingo)
+   Reemplazo del topbar de DashboardLayout.
+   Alumno  -> insignias de juego (XP · racha)
+   Docente -> cabecera limpia y formal
+   ============================================================ */
+
+.header {
+    position: relative;         /* contexto para los popovers */
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    width: 100%;
+    min-height: 70px;
+    padding: 10px 32px;
+
+    background-color: var(--color-blanco);
+    border-bottom: 1px solid var(--color-borde-suave);
+    box-shadow: var(--sombra-card);
+    font-family: var(--font-principal);
+    flex-shrink: 0;
+}
+
+/* ── Izquierda: título / subtítulo ────────────────────────── */
+.left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--color-texto-oscuro);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.subtitle {
+    margin: 0;
+    font-size: 0.83rem;
+    color: var(--color-texto-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ── Centro: insignias de juego ───────────────────────────── */
+.stats {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 7px 14px;
+    border-radius: var(--radio-pill);
+    border: 2px solid transparent;
+
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    user-select: none;
+    cursor: default;
+    transition: transform 0.12s ease;
+}
+
+.pill:hover {
+    transform: translateY(-1px);
+}
+
+.pillIconImg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.pillValue {
+    font-size: 0.98rem;
+    font-weight: 800;
+    color: var(--color-texto-oscuro);
+}
+
+.pillUnit {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    opacity: 0.7;
+}
+
+/* XP — ámbar */
+.pillXp {
+    background-color: var(--color-amarillo-bg);
+    border-color: var(--color-amarillo-acento);
+}
+
+.pillXp .pillValue {
+    color: #b7791f;
+}
+
+/* Racha activa — naranja / fuego */
+.pillStreak {
+    position: relative;
+    background-color: var(--color-naranja-bg);
+    border-color: var(--color-naranja);
+}
+
+.pillStreak .pillValue {
+    color: var(--color-naranja);
+}
+
+.pillStreak .pillIconImg {
+    animation: llama 1.6s ease-in-out infinite;
+}
+
+/* Racha perdida / inactividad — gris apagado + alerta sutil */
+.pillStreakOff {
+    background-color: var(--color-fondo-claro);
+    border-color: var(--color-borde);
+}
+
+.pillStreakOff .pillValue {
+    color: var(--color-texto-suave);
+}
+
+.pillStreakOff .pillIconImg {
+    filter: grayscale(0.9);
+    opacity: 0.6;
+    animation: none;
+}
+
+.streakAlert {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--color-rojo-alerta);
+    border: 2px solid var(--color-blanco);
+    animation: latido 1.4s ease-in-out infinite;
+}
+
+/* ── Derecha: acciones + perfil + salir ───────────────────── */
+.right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
+.menu {
+    position: relative;
+}
+
+.iconBtn {
+    width: 38px;
+    height: 38px;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s;
+}
+
+.iconBtn:hover {
+    background-color: var(--color-fondo-claro);
+}
+
+.iconImg {
+    width: 22px;
+    height: 22px;
+    opacity: 0.6;
+}
+
+.popover {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 260px;
+    padding: 16px;
+    background-color: var(--color-blanco);
+    border: 1px solid var(--color-borde-suave);
+    border-radius: var(--radio-md);
+    box-shadow: var(--sombra-modal);
+    z-index: 40;
+}
+
+.popoverTitle {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-texto-oscuro);
+}
+
+.popoverEmpty {
+    margin: 12px 0 0;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--color-texto-muted);
+}
+
+/* Pastilla de cuenta: icono + nombre. Al hacer clic despliega .accountPopover */
+.userPill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px 6px 6px;
+    background-color: var(--color-fondo-claro);
+    border: 1px solid var(--color-borde-suave);
+    border-radius: var(--radio-pill);
+    max-width: 220px;
+    min-width: 0;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    text-align: left;
+    transition: background-color 0.15s;
+}
+
+.userPill:hover {
+    background-color: var(--color-borde-suave);
+}
+
+.userAvatarImg {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    opacity: 0.65;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    min-width: 0;
+}
+
+.userName {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--color-texto-oscuro);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.userRole {
+    font-size: 0.72rem;
+    color: var(--color-texto-muted);
+}
+
+/* ── Menú desplegable de la cuenta ─────────────────────────── */
+.accountPopover {
+    width: 220px;
+    padding: 8px;
+}
+
+.accountSummary {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 10px;
+    border-bottom: 1px solid var(--color-borde-suave);
+}
+
+.accountSummary strong {
+    color: var(--color-texto-oscuro);
+    font-size: 0.84rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.accountSummary span {
+    color: var(--color-texto-muted);
+    font-size: 0.74rem;
+}
+
+.popoverAction {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    background: transparent;
+    border: none;
+    border-radius: var(--radio-sm);
+    color: var(--color-texto-medio);
+    cursor: pointer;
+    font-family: var(--font-principal);
+    font-size: 0.84rem;
+    text-align: left;
+}
+
+.popoverAction:hover {
+    background-color: var(--color-fondo-claro);
+    color: var(--color-texto-oscuro);
+}
+
+.popoverAction:disabled {
+    opacity: 0.6;
+    cursor: progress;
+}
+
+.popoverLogout {
+    color: var(--color-rojo-alerta);
+}
+
+/* ── Animaciones ──────────────────────────────────────────── */
+@keyframes llama {
+    0%, 100% { transform: rotate(-4deg) scale(1); }
+    50%      { transform: rotate(4deg) scale(1.12); }
+}
+
+@keyframes latido {
+    0%, 100% { transform: scale(1);    opacity: 1; }
+    50%      { transform: scale(1.35); opacity: 0.7; }
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+
+/* Tablet: se sacrifica lo decorativo (subtítulo, unidades "XP"/"días") antes
+   que el contenido — nada se corta ni provoca scroll horizontal todavía. */
+@media (max-width: 1100px) {
+    .subtitle { display: none; }
+    .pillUnit { display: none; }
+}
+
+@media (max-width: 900px) {
+    .header {
+        gap: 10px;
+        padding: 10px 16px;
+    }
+    .title { font-size: 1rem; }
+    .stats { gap: 8px; }
+}
+
+/* Celular en horizontal / tablet chica: el header pasa a dos filas —
+   arriba el título solo (a todo el ancho), abajo la racha/XP junto con los
+   iconos de acción (entorno, notificaciones, cuenta) empujados a la derecha. */
+@media (max-width: 720px) {
+    .header {
+        flex-wrap: wrap;
+        gap: 6px 8px;         /* menos separación vertical entre las 2 filas que horizontal */
+        min-height: 56px;
+        padding: 8px 14px;
+    }
+    .left {
+        order: 1;
+        flex: 1 1 100%;      /* ocupa toda la fila 1 ella sola -> empuja todo lo demás a la fila 2 */
+    }
+    .stats {
+        order: 2;
+        flex: 1 1 auto;
+        min-width: 0;         /* permite encogerse para que el overflow-x de abajo funcione */
+        width: auto;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 2px;
+    }
+    .stats::-webkit-scrollbar { display: none; }
+    .right {
+        order: 3;
+        flex: 0 0 auto;
+        gap: 6px;
+        margin-left: auto;    /* fija los iconos al extremo derecho de la fila 2 */
+    }
+
+    /* En una fila tan angosta, sólo el ícono es visible: nombre/rol y el
+       texto del botón se ocultan; el título/menú siguen siendo accesibles
+       por su title/aria-label. */
+    .userInfo {
+        display: none;
+    }
+    .userPill {
+        padding: 4px;
+        max-width: none;
+    }
+    .pill { padding: 6px 10px; }
+
+    /* El menú desplegable no debe salirse de la pantalla en anchos chicos. */
+    .popover {
+        width: 240px;
+        max-width: calc(100vw - 28px);
+    }
+}
+
+/* Celular chico (iPhone SE y similares). */
+@media (max-width: 420px) {
+    .header {
+        padding: 8px 10px;
+        gap: 6px;
+    }
+    .title {
+        font-size: 0.92rem;
+    }
+    .iconBtn {
+        width: 34px;
+        height: 34px;
+    }
+    .iconImg {
+        width: 19px;
+        height: 19px;
+    }
+    .pill {
+        padding: 5px 8px;
+        gap: 4px;
+    }
+    .pillValue {
+        font-size: 0.86rem;
+    }
+}

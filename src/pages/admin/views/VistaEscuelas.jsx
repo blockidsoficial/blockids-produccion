@@ -158,11 +158,11 @@ const VistaEscuelas = ({ mostrarAlerta, onRefresh }) => {
                             />
                         </div>
                         <div className={styles.fieldGroup}>
-                            <label className={styles.fieldLabel} htmlFor="ve-clave">Clave de Acceso</label>
+                            <label className={styles.fieldLabel} htmlFor="ve-clave">CLAVE DE ACCESO</label>
                             <div className={styles.claveRow}>
                                 <input
                                     id="ve-clave" type="text" className={styles.fieldInput}
-                                    placeholder="Ej. EDU-X8B2"
+                                    placeholder="Ej. EDU-XXXX"
                                     value={claveAcceso}
                                     onChange={e => setClaveAcceso(e.target.value.toUpperCase())}
                                     disabled={enviando} autoComplete="off" maxLength={12}
@@ -177,11 +177,11 @@ const VistaEscuelas = ({ mostrarAlerta, onRefresh }) => {
                             </div>
                         </div>
                         <div className={styles.fieldGroup}>
-                            <label className={styles.fieldLabel} htmlFor="ve-pin">PIN Docente</label>
+                            <label className={styles.fieldLabel} htmlFor="ve-pin">PIN DOCENTE</label>
                             <div className={styles.claveRow}>
                                 <input
                                     id="ve-pin" type="text" className={styles.fieldInput}
-                                    placeholder="Ej. K7M2QP"
+                                    placeholder="Ej. ABC123"
                                     value={pinDocente}
                                     onChange={e => setPinDocente(e.target.value.toUpperCase())}
                                     disabled={enviando} autoComplete="off" maxLength={12}

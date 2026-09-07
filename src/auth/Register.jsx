@@ -4,6 +4,10 @@ import { supabase } from '../config/supabaseClient';
 import styles from './Register.css';
 import xolotlIdea from '../assets/xolotl/xolotl-idea.svg';
 import logoXolotl from '../assets/logos/logo-horizontal-colores.svg';
+import iconClase from '../assets/iconos/icon-clase.svg';
+import iconEscuela from '../assets/iconos/icon-escuela.svg';
+import iconBienvenidaProfesor from '../assets/iconos/icon-bienvenida-profesor.svg';
+import iconBienvenidaAlumno from '../assets/iconos/icon-bienvenida-alumno.svg';
 
 // "José Pérez López" -> "jose-perez-lopez"
 // normalize('NFD') separa cada acento en un carácter aparte que luego elimina
@@ -299,10 +303,10 @@ const Register = () => {
 
     const badgeContexto = esAlumno
         ? (aula && aula.nombre && (
-            <p className={styles.schoolBadge}>🎒 Clase: <strong>{aula.nombre}</strong></p>
+            <p className={styles.schoolBadge}><img src={iconClase} alt="" /> Clase: <strong>{aula.nombre}</strong></p>
         ))
         : (escuela && escuela.nombre && (
-            <p className={styles.schoolBadge}>🏫 <strong>{escuela.nombre}</strong></p>
+            <p className={styles.schoolBadge}><img src={iconEscuela} alt="" /> <strong>{escuela.nombre}</strong></p>
         ));
 
     return (
@@ -323,8 +327,13 @@ const Register = () => {
                         <div className={styles.successIcon}>✓</div>
                         <h2 className={styles.successTitle}>¡Cuenta creada!</h2>
                         <p className={styles.successText}>
-                            {rol === 'profesor' ? '👨‍🏫' : '👨‍🎓'} Bienvenido/a a Blockids.{'\n'}
-                            Redirigiendo...
+                            <img
+                                src={rol === 'profesor' ? iconBienvenidaProfesor : iconBienvenidaAlumno}
+                                alt=""
+                                className={styles.roleWelcomeIcon}
+                            />
+                            Bienvenido/a a Blockids.{ '\n'}
+                                Bienvenido/a a Blockids.{ '\n'}
                         </p>
                     </div>
                 ) : (
@@ -346,7 +355,7 @@ const Register = () => {
                                         id="reg-codigo"
                                         type="text"
                                         required
-                                        placeholder="Ej. ABC-XK42"
+                                        placeholder="Ej. ABC-1234"
                                         value={codigo}
                                         onChange={(e) => cambiarCodigo(e.target.value)}
                                         className={styles.input}
@@ -354,7 +363,8 @@ const Register = () => {
                                         autoComplete="off"
                                     />
                                     <p className={styles.helperText}>
-                                        <strong>Alumno:</strong> el código de tu clase (te lo da tu profe).{' '}
+                                        <strong>Alumno:</strong> el código de tu clase otorgado por tu profesor.{' '}
+                                        <br />
                                         <strong>Docente:</strong> la clave de acceso de tu escuela.
                                     </p>
                                 </div>
@@ -368,7 +378,7 @@ const Register = () => {
                                             id="reg-pin"
                                             type="text"
                                             required
-                                            placeholder="PIN que te dio la dirección"
+                                            placeholder="PIN docente"
                                             value={pinDocente}
                                             onChange={(e) => setPinDocente(e.target.value)}
                                             className={styles.input}
@@ -558,7 +568,7 @@ const Register = () => {
                                             required
                                             pattern={PATRON_CLAVE}
                                             maxLength={10}
-                                            placeholder="Repite tu clave"
+                                            placeholder="Confirma tu clave"
                                             value={confirmPassword}
                                             onChange={(e) => setConfirmPassword(e.target.value)}
                                             className={`${styles.input} ${styles.inputWithEye}`}
@@ -577,8 +587,7 @@ const Register = () => {
 
                                 {esAlumno && (
                                     <p className={styles.passwordWarning}>
-                                        Guarda tu clave en un lugar seguro. Como los alumnos no usan
-                                        correo, no se puede recuperar automáticamente.
+                                        Guarda tu clave en un lugar seguro. No podrás recuperarla si la olvidas.
                                     </p>
                                 )}
 

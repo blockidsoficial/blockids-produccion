@@ -3,8 +3,12 @@ import { supabase } from '../../../config/supabaseClient';
 import dash   from '../Dashboard.css';
 import styles from './VistaReportes.css';
 import xolotlMotivacional from '../../../assets/xolotl/xolotl-excelente.svg';
+import medallaOro from '../../../assets/iconos/icono-medalla-oro.svg';
+import medallaPlata from '../../../assets/iconos/icono-medalla-plata.svg';
+import medallaCobre from '../../../assets/iconos/icono-medalla-cobre.svg';
+import medallaEspecial from '../../../assets/iconos/icono-medalla-especial.svg';
 
-const MEDALLAS = ['🥇', '🥈', '🥉', '4°', '5°'];
+const MEDALLAS = [medallaOro, medallaPlata, medallaCobre, medallaEspecial, medallaEspecial];
 
 const nombreCompleto = (p) => {
     if (!p) return '—';
@@ -271,7 +275,7 @@ const VistaReportes = ({ userId }) => {
                                             key={alumno.id}
                                             className={`${styles.leaderItem} ${i === 0 ? styles.leaderOro : ''}`}
                                         >
-                                            <span className={styles.medalla}>{MEDALLAS[i]}</span>
+                                            <img src={MEDALLAS[i]} alt={`Puesto ${i + 1}`} className={styles.medalla} />
                                             <div className={styles.leaderInfo}>
                                                 <span className={styles.leaderNombre}>
                                                     {nombreCompleto(alumno)}

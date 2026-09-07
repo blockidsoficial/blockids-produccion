@@ -1,15 +1,14 @@
 ﻿import React, { useState } from 'react';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './DashboardLayout.css';
+import Header from '../components/Header/Header';
+import { puedeNavegar } from '../lib/navGuard';
 
 import logoHorizontal from '../assets/logos/logo-horizontal-colores.svg';
 import xolotlImg     from '../assets/xolotl/xolotl-programando.svg';
 import iconInicio    from '../assets/iconos-ui/ui-inicio.svg';
 import iconAulas     from '../assets/iconos-ui/ui-curso.svg';
 import iconConfig    from '../assets/iconos-ui/ui-configuracion.svg';
-import iconNotif     from '../assets/iconos-ui/ui-notificaciones.svg';
-import iconUsuario   from '../assets/iconos-ui/ui-usuario.svg';
-import iconVideo     from '../assets/iconos-ui/ui-video.svg';
 
 const DEFAULT_NAV = [
     { label: 'Inicio',        icon: iconInicio, to: '#' },
@@ -28,11 +27,7 @@ const DashboardLayout = ({
     activeNav,
 }) => {
     const location = useLocation();
-    const history = useHistory();
     const [menuAbierto, setMenuAbierto] = useState(false);
-    const [notificacionesAbiertas, setNotificacionesAbiertas] = useState(false);
-    const [cuentaAbierta, setCuentaAbierta] = useState(false);
-    const configuracionItem = navItems.find((item) => item.label === 'Configuración');
 
     return (
         <div className={styles.layout}>
@@ -71,6 +66,7 @@ const DashboardLayout = ({
                                         onClick={item.onClick
                                             ? (e) => {
                                                 e.preventDefault();
+                                                if (!puedeNavegar()) return;
                                                 item.onClick();
                                                 setMenuAbierto(false);
                                             }
@@ -91,6 +87,7 @@ const DashboardLayout = ({
                                 type="button"
                                 className={`${styles.navItem} ${styles.logoutNavItem}`}
                                 onClick={() => {
+                                    if (!puedeNavegar()) return;
                                     onLogout();
                                     setMenuAbierto(false);
                                 }}
@@ -111,94 +108,15 @@ const DashboardLayout = ({
             {/* ══════════════════ ÁREA PRINCIPAL ══════════════════ */}
             <div className={styles.mainArea}>
 
-                {/* Topbar */}
-                <header className={styles.topbar}>
-                    <div className={styles.topbarLeft}>
-                        <h1 className={styles.topbarTitle}>{title}</h1>
-                        {subtitle && (
-                            <p className={styles.topbarSubtitle}>{subtitle}</p>
-                        )}
-                    </div>
-                    <div className={styles.topbarRight}>
-                        <div className={styles.headerMenu}>
-                            <button
-                                type="button"
-                                className={styles.notifBtn}
-                                title="Notificaciones"
-                                aria-label="Abrir notificaciones"
-                                aria-expanded={notificacionesAbiertas}
-                                onClick={() => {
-                                    setNotificacionesAbiertas(!notificacionesAbiertas);
-                                    setCuentaAbierta(false);
-                                }}
-                            >
-                                <img src={iconNotif} alt="" className={styles.notifIcon} />
-                            </button>
-                            {notificacionesAbiertas && (
-                                <div className={styles.headerPopover}>
-                                    <h2 className={styles.popoverTitle}>Notificaciones</h2>
-                                    <p className={styles.emptyPopover}>No tienes notificaciones nuevas.</p>
-                                </div>
-                            )}
-                        </div>
-                        <button 
-                            className={styles.notifBtn} 
-                            title="Entorno de Programación"
-                            onClick={() => history.push('/entorno')}
-                        >
-                            <img src={iconVideo} alt="Entorno de Bloques" className={styles.notifIcon} />
-                        </button>
-                        <div className={styles.headerMenu}>
-                            <button
-                                type="button"
-                                className={styles.userPill}
-                                title="Abrir cuenta"
-                                aria-label={`Abrir cuenta de ${userName}`}
-                                aria-expanded={cuentaAbierta}
-                                onClick={() => {
-                                    setCuentaAbierta(!cuentaAbierta);
-                                    setNotificacionesAbiertas(false);
-                                }}
-                            >
-                            <img src={iconUsuario} alt="" className={styles.userAvatar} />
-                            <div className={styles.userInfo}>
-                                <span className={styles.userNameText}>{userName}</span>
-                                <span className={styles.userRoleText}>{role}</span>
-                            </div>
-                            </button>
-                            {cuentaAbierta && (
-                                <div className={`${styles.headerPopover} ${styles.accountPopover}`}>
-                                    <div className={styles.accountSummary}>
-                                        <strong>{userName}</strong>
-                                        <span>{role}</span>
-                                    </div>
-                                    {configuracionItem?.onClick && (
-                                        <button
-                                            type="button"
-                                            className={styles.popoverAction}
-                                            onClick={() => {
-                                                configuracionItem.onClick();
-                                                setCuentaAbierta(false);
-                                            }}
-                                        >
-                                            Configuración
-                                        </button>
-                                    )}
-                                    <button
-                                        type="button"
-                                        className={`${styles.popoverAction} ${styles.popoverLogout}`}
-                                        onClick={() => {
-                                            onLogout();
-                                            setCuentaAbierta(false);
-                                        }}
-                                    >
-                                        Cerrar sesión
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </header>
+                {/* Topbar gamificado (muestra XP/racha/nivel solo al alumno) */}
+                <Header
+                    title={title}
+                    subtitle={subtitle}
+                    userName={userName}
+                    role={role}
+                    onLogout={onLogout}
+                    navItems={navItems}
+                />
 
                 {/* Área de contenido */}
                 <main className={styles.content}>

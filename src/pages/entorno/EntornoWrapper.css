@@ -91,6 +91,14 @@
     text-transform: uppercase;
 }
 
+.bannerIcon {
+    width: 1rem;
+    height: 1rem;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 0.35rem;
+}
+
 .btnEntregar {
     display: inline-flex;
     align-items: center;

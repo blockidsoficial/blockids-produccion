@@ -88,17 +88,25 @@
 }
 
 /* ── Tabla contenedor ────────────────────────────────────── */
+/* Solo la tabla se desliza en horizontal; la página nunca genera scroll-x. */
 .tableWrap {
     background: var(--color-blanco);
     border-radius: var(--radio-lg);
     border: 1px solid var(--color-borde-suave);
-    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     box-shadow: 0 2px 8px rgba(0,0,0,.04);
 }
+.tableWrap::-webkit-scrollbar { height: 6px; }
+.tableWrap::-webkit-scrollbar-track { background: var(--color-fondo-claro); border-radius: 10px; }
+.tableWrap::-webkit-scrollbar-thumb { background: var(--color-borde); border-radius: 10px; }
 
 /* ── Tabla ───────────────────────────────────────────────── */
 .tabla {
     width: 100%;
+    min-width: 640px;   /* debajo de este ancho, el .tableWrap se desliza en vez de aplastar columnas */
     border-collapse: collapse;
 }
 .th {
@@ -307,4 +315,33 @@
     border-radius: 50%;
     animation: spin .7s linear infinite;
     flex-shrink: 0;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .vistaHeader {
+        align-items: stretch;
+    }
+    .headerRight {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    .searchWrap {
+        flex: 1 1 100%;
+    }
+    .searchInput {
+        width: 100%;
+    }
+    .btnNuevo {
+        flex: 1 1 100%;
+        text-align: center;
+    }
+    .modalRow {
+        grid-template-columns: 1fr;
+    }
+    .modalHeader { padding: 16px 18px 14px; }
+    .modalBody   { padding: 16px 18px; }
+    .modalFooter { padding: 14px 18px; }
+    .modalFooter .btnCancelarModal,
+    .modalFooter .btnGuardarModal { flex: 1; justify-content: center; }
 }

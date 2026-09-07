@@ -265,7 +265,11 @@
     font-size: .85rem; font-family: var(--font-principal);
     text-align: center;
 }
-.emptyEmoji { font-size: 2rem; }
+.emptyEmoji {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: contain;
+}
 
 /* Botón ver todas */
 .btnVerTodas {

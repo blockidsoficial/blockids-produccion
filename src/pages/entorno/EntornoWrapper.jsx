@@ -6,6 +6,7 @@ import { otorgarXP, desbloquearLogro } from '../../services/gamificationService'
 
 import xolotlSorprendido from '../../assets/xolotl/xolotl-sorprendido.svg';
 import logoHorizontal   from '../../assets/logos/logo-horizontal-colores.svg';
+import iconModoRevision from '../../assets/iconos/icon-modo-revision.svg';
 
 const BREAKPOINT = 900;
 
@@ -217,7 +218,12 @@ const EntornoWrapper = ({ children }) => {
                 <div className={styles.bannerRevision}>
                     {cargandoEntrega
                         ? <span className={styles.bannerLabel}> Cargando proyecto del alumno...</span>
-                        : <span className={styles.bannerLabel}>👁 Modo revisión — proyecto del alumno (solo lectura)</span>
+                        : (
+                            <span className={styles.bannerLabel}>
+                                <img src={iconModoRevision} alt="" className={styles.bannerIcon} />
+                                Modo revisión — proyecto del alumno (solo lectura)
+                            </span>
+                        )
                     }
                     <button className={styles.btnVolverRevision} onClick={() => window.close()}>
                         Cerrar pestaña

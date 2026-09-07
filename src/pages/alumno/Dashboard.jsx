@@ -3,6 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { supabase } from '../../config/supabaseClient';
 import DashboardLayout from '../../layouts/DashboardLayout';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
+import { fraseDelDia } from '../../lib/frase-del-dia';
 
 import VistaInicio     from './views/VistaInicio';
 import VistaTareas     from './views/VistaTareas';
@@ -10,17 +11,19 @@ import VistaProyectos  from '../shared/VistaProyectos';
 import VistaMisAulas   from './views/VistaMisAulas';
 import VistaLogros         from './views/VistaLogros';
 import VistaMuro           from './views/VistaMuro';
+import VistaMinijuegos     from './views/VistaMinijuegos';
 import VistaConfiguracion  from '../shared/VistaConfiguracion';
 
 import xolotlExplicando from '../../assets/xolotl/xolotl-explicando.svg';
 
-import iconInicio    from '../../assets/iconos-ui/ui-inicio.svg';
-import iconTareas    from '../../assets/iconos-ui/ui-calendario.svg';
-import iconProyectos from '../../assets/iconos-ui/ui-video.svg';
-import iconAulas     from '../../assets/iconos-ui/ui-curso.svg';
-import iconLogros    from '../../assets/iconos-ui/ui-favorito.svg';
-import iconMuro      from '../../assets/iconos-ui/ui-contacto.svg';
-import iconConfig    from '../../assets/iconos-ui/ui-configuracion.svg';
+import iconInicio     from '../../assets/iconos-ui/ui-inicio.svg';
+import iconTareas     from '../../assets/iconos-ui/ui-calendario.svg';
+import iconProyectos  from '../../assets/iconos-ui/ui-video.svg';
+import iconAulas      from '../../assets/iconos-ui/ui-curso.svg';
+import iconLogros     from '../../assets/iconos-ui/ui-favorito.svg';
+import iconMuro       from '../../assets/iconos-ui/ui-contacto.svg';
+import iconMinijuegos from '../../assets/iconos-ui/ui-fav.svg';
+import iconConfig     from '../../assets/iconos-ui/ui-configuracion.svg';
 
 import styles from './Dashboard.css';
 
@@ -31,16 +34,17 @@ const VISTAS = {
     AULAS:          'Mis Aulas',
     MURO:           'Muro',
     LOGROS:         'Logros',
+    MINIJUEGOS:     'Minijuegos',
     CONFIGURACION:  'Configuración',
 };
 
 const TOPBAR_INFO = {
-    [VISTAS.INICIO]:    { subtitle: '¡Listo para crear algo increíble!' },
     [VISTAS.TAREAS]:    { subtitle: 'Revisa tus actividades pendientes y entregadas' },
     [VISTAS.PROYECTOS]: { subtitle: 'Todos tus proyectos en un solo lugar' },
     [VISTAS.AULAS]:     { subtitle: 'Tus clases activas' },
     [VISTAS.MURO]:      { subtitle: 'Comunícate con tu profesor y compañeros' },
     [VISTAS.LOGROS]:    { subtitle: 'Tu progreso y recompensas' },
+    [VISTAS.MINIJUEGOS]: { subtitle: 'Retos y minijuegos para practicar jugando' },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -66,6 +70,7 @@ const DashboardAlumno = () => {
         'aulas':         VISTAS.AULAS,
         'muro':          VISTAS.MURO,
         'logros':        VISTAS.LOGROS,
+        'minijuegos':    VISTAS.MINIJUEGOS,
         'configuracion': VISTAS.CONFIGURACION,
     };
     const _vistaParamAlumno = new URLSearchParams(location.search).get('vista');
@@ -73,6 +78,10 @@ const DashboardAlumno = () => {
         ? VISTAS_URL_MAP[_vistaParamAlumno]
         : (sessionStorage.getItem('bk_alumno_vista') || VISTAS.INICIO);
     const [vistaActual, setVistaActual] = useState(vistaInicial);
+
+    // Frase del saludo de Inicio: cambia una vez por día calendario (no en
+    // cada carga de página ni al navegar entre vistas). Ver lib/frase-del-dia.
+    const [fraseInicio] = useState(fraseDelDia);
 
     const [aulaInicioId, setAulaInicioId]        = useState(null);
     const [codigoIngresado, setCodigoIngresado] = useState('');
@@ -141,6 +150,12 @@ const DashboardAlumno = () => {
         history.push('/');
     };
 
+    const actualizarPerfilHeader = ({ nombre, apellido_paterno, apellido_materno, username: usernameActual }) => {
+        const nombreArmado = [nombre, apellido_paterno, apellido_materno].filter(Boolean).join(' ');
+        setNombreCompleto(nombreArmado || usernameActual);
+        setUsername(usernameActual);
+    };
+
     const handleUnirse = async (e) => {
         e.preventDefault();
         const codigoLimpio = codigoIngresado.replace(/\s+/g, '').toUpperCase();
@@ -191,7 +206,7 @@ const DashboardAlumno = () => {
             return;
         }
 
-        setExito(`¡Bienvenido a "${aula.nombre}"! 🎉`);
+        setExito(`¡Bienvenido a "${aula.nombre}"!`);
         setCodigoIngresado('');
         setTimeout(() => cargarAulas(userId), 1000);
         setUniendose(false);
@@ -204,8 +219,9 @@ const DashboardAlumno = () => {
         { label: VISTAS.PROYECTOS, icon: iconProyectos, to: '#', onClick: () => setVistaActual(VISTAS.PROYECTOS) },
         { label: VISTAS.AULAS,     icon: iconAulas,     to: '#', onClick: () => setVistaActual(VISTAS.AULAS) },
         { label: VISTAS.MURO,      icon: iconMuro,      to: '#', onClick: () => setVistaActual(VISTAS.MURO) },
-        { label: VISTAS.LOGROS,        icon: iconLogros,  to: '#', onClick: () => setVistaActual(VISTAS.LOGROS) },
-        { label: VISTAS.CONFIGURACION, icon: iconConfig, to: '#', onClick: () => setVistaActual(VISTAS.CONFIGURACION) },
+        { label: VISTAS.LOGROS,        icon: iconLogros,     to: '#', onClick: () => setVistaActual(VISTAS.LOGROS) },
+        { label: VISTAS.MINIJUEGOS,    icon: iconMinijuegos, to: '#', onClick: () => setVistaActual(VISTAS.MINIJUEGOS) },
+        { label: VISTAS.CONFIGURACION, icon: iconConfig,     to: '#', onClick: () => setVistaActual(VISTAS.CONFIGURACION) },
     ];
 
     // ── Pantalla de carga ─────────────────────────────────────────────────────
@@ -218,7 +234,9 @@ const DashboardAlumno = () => {
         );
     }
 
-    const topbarInfo = TOPBAR_INFO[vistaActual] || {};
+    const topbarInfo = vistaActual === VISTAS.INICIO
+        ? { subtitle: fraseInicio }
+        : (TOPBAR_INFO[vistaActual] || {});
 
     // ── Vista sin aula: estado de bienvenida con formulario ───────────────────
     const renderContenido = () => {
@@ -292,8 +310,15 @@ const DashboardAlumno = () => {
                 return <VistaMuro userId={userId} misAulas={misAulas} aulaIds={aulaIds} aulaInicial={aulaInicioId} />;
             case VISTAS.LOGROS:
                 return <VistaLogros userId={userId} />;
+            case VISTAS.MINIJUEGOS:
+                return <VistaMinijuegos onVolver={() => setVistaActual(VISTAS.INICIO)} />;
             case VISTAS.CONFIGURACION:
-                return <VistaConfiguracion userId={userId} />;
+                return (
+                    <VistaConfiguracion
+                        userId={userId}
+                        onPerfilActualizado={actualizarPerfilHeader}
+                    />
+                );
             default:
                 return null;
         }

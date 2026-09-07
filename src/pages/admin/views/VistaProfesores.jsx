@@ -135,7 +135,7 @@ const VistaProfesores = ({ perfil, esSuperAdmin, refreshKey, mostrarAlerta }) =>
                                 <input
                                     type="text"
                                     className={styles.fieldInput}
-                                    placeholder="ej. María"
+                                    placeholder="Nombre(s) del profesor"
                                     value={fNombre}
                                     onChange={e => setFNombre(e.target.value)}
                                 />
@@ -146,7 +146,7 @@ const VistaProfesores = ({ perfil, esSuperAdmin, refreshKey, mostrarAlerta }) =>
                                     <input
                                         type="text"
                                         className={styles.fieldInput}
-                                        placeholder="ej. García"
+                                        placeholder="Apellido Paterno"
                                         value={fApellidoPaterno}
                                         onChange={e => setFApellidoPaterno(e.target.value)}
                                     />
@@ -156,7 +156,7 @@ const VistaProfesores = ({ perfil, esSuperAdmin, refreshKey, mostrarAlerta }) =>
                                     <input
                                         type="text"
                                         className={styles.fieldInput}
-                                        placeholder="ej. López"
+                                        placeholder="Apellido Materno"
                                         value={fApellidoMaterno}
                                         onChange={e => setFApellidoMaterno(e.target.value)}
                                     />

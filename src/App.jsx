@@ -6,6 +6,8 @@ import './styles/global.css';
 // Tus Pantallas
 import LandingPage from './pages/landing/LandingPage.jsx';
 import Nosotros from './pages/nosotros/Nosotros.jsx';
+import ProyectosPublicos from './pages/proyectos-publicos/ProyectosPublicos.jsx';
+import Manuales from './pages/manuales/Manuales.jsx';
 import Register from './auth/Register.jsx';
 import Login from './auth/Login.jsx';
 import DashboardProyectos from './pages/proyectos/Dashboard.jsx';
@@ -159,6 +161,16 @@ const App = () => {
                 {/* ── NOSOTROS (pública) ── */}
                 <Route path="/nosotros">
                     <Nosotros session={session} rolPerfil={perfil?.rol} />
+                </Route>
+
+                {/* ── PROYECTOS PÚBLICOS: Top 3 destacados (pública) ── */}
+                <Route path="/proyectos">
+                    <ProyectosPublicos session={session} rolPerfil={perfil?.rol} />
+                </Route>
+
+                {/* ── MANUALES DE USO (pública) ── */}
+                <Route path="/manuales">
+                    <Manuales session={session} rolPerfil={perfil?.rol} />
                 </Route>
 
                 <Route path="/registro">

@@ -63,15 +63,15 @@ const VistaProyectos = ({ userId }) => {
                 `)
                 .eq('estudiante_id', userId);
 
-            console.log('🕵️‍♂️ ERROR DE SUPABASE:', errorEntregas);
-            console.log('🕵️‍♂️ ENTREGAS CRUDAS:', entregas);
+            console.log('[BLOCKIDS] ERROR DE SUPABASE:', errorEntregas);
+            console.log('[BLOCKIDS] ENTREGAS CRUDAS:', entregas);
 
             // 3. Filtrar en memoria ignorando variantes de mayúsculas
             const entregasValidas = (entregas || []).filter(e =>
                 e.estado && e.estado.toLowerCase() !== 'pendiente'
             );
 
-            console.log('🕵️‍♂️ ENTREGAS VÁLIDAS:', entregasValidas);
+            console.log('[BLOCKIDS] ENTREGAS VÁLIDAS:', entregasValidas);
 
             // 4. Mapear proyectos libres
             const proyectosLibres = (projs || []).map(p => ({

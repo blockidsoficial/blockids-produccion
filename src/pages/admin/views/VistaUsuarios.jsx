@@ -123,7 +123,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
 
     // ── Crear usuario vía Edge Function ───────────────────────────────────────
     const handleCreateUser = async () => {
-        if (!fUsername.trim()) return mostrarAlerta('error', 'Escribe un nombre de usuario.');
+        if (!fUsername.trim()) return mostrarAlerta('error', 'Escribe un nombre de usuario válido.');
         if (fPassword.trim().length < 6) return mostrarAlerta('error', 'La contraseña debe tener mínimo 6 caracteres.');
         if (fPassword !== fConfirmPassword) return mostrarAlerta('error', 'Las contraseñas no coinciden.');
 
@@ -299,7 +299,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                 </label>
                                 {modoModal === 'crear' ? (
                                     <input type="text" className={styles.fieldInput}
-                                        placeholder="ej. profe.garcia"
+                                        placeholder="Crear usuario (sin espacios ni acentos)"
                                         value={fUsername} onChange={e => setFUsername(e.target.value)} />
                                 ) : (
                                     <div className={styles.fieldReadonly}>@{usuarioEditando?.username}</div>
@@ -307,23 +307,23 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                             </div>
 
                             <div className={styles.fieldGroup}>
-                                <label className={styles.fieldLabel}>Nombre <span className={local.labelOpcional}>(opcional)</span></label>
+                                <label className={styles.fieldLabel}>Nombre</label>
                                 <input type="text" className={styles.fieldInput}
-                                    placeholder="ej. María"
+                                    placeholder="Nombre(s) del usuario"
                                     value={fNombre} onChange={e => setFNombre(e.target.value)} />
                             </div>
 
                             <div className={styles.modalRow}>
                                 <div className={styles.fieldGroup}>
-                                    <label className={styles.fieldLabel}>Apellido Paterno <span className={local.labelOpcional}>(opcional)</span></label>
+                                    <label className={styles.fieldLabel}>Apellido Paterno</label>
                                     <input type="text" className={styles.fieldInput}
-                                        placeholder="ej. García"
+                                        placeholder="Apellido Paterno"
                                         value={fApellidoPaterno} onChange={e => setFApellidoPaterno(e.target.value)} />
                                 </div>
                                 <div className={styles.fieldGroup}>
-                                    <label className={styles.fieldLabel}>Apellido Materno <span className={local.labelOpcional}>(opcional)</span></label>
+                                    <label className={styles.fieldLabel}>Apellido Materno</label>
                                     <input type="text" className={styles.fieldInput}
-                                        placeholder="ej. López"
+                                        placeholder="Apellido Materno"
                                         value={fApellidoMaterno} onChange={e => setFApellidoMaterno(e.target.value)} />
                                 </div>
                             </div>
@@ -337,7 +337,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                             <input
                                                 type={showPassword ? 'text' : 'password'}
                                                 className={styles.fieldInput}
-                                                placeholder="Mínimo 6 caracteres"
+                                                placeholder="Mínimo 6 caracteres, sin espacios ni acentos"
                                                 value={fPassword} onChange={e => setFPassword(e.target.value)} />
                                             <button type="button" className={styles.eyeButton}
                                                 onClick={() => setShowPassword(v => !v)}
@@ -353,7 +353,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                             <input
                                                 type={showConfirmPassword ? 'text' : 'password'}
                                                 className={styles.fieldInput}
-                                                placeholder="Repite la contraseña"
+                                                placeholder="Confirma la contraseña"
                                                 value={fConfirmPassword} onChange={e => setFConfirmPassword(e.target.value)} />
                                             <button type="button" className={styles.eyeButton}
                                                 onClick={() => setShowConfirmPassword(v => !v)}

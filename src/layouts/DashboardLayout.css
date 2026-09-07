@@ -357,10 +357,12 @@
     }
 
     .sidebar {
+        position: relative;      /* ancla de posicionamiento para el menú flotante */
         width: 100%;
         min-width: 0;
         height: auto;
         overflow: visible;
+        z-index: 50;
     }
 
     .sidebarTop {
@@ -380,18 +382,29 @@
         background-color: var(--color-blanco);
     }
 
+    /* Menú desplegado: FLOTA sobre el contenido del dashboard.
+       Al ser position:absolute sale del flujo y no empuja los
+       elementos inferiores hacia abajo. */
     .sidebarNavOpen {
         display: block;
-    }
-
-    .sidebarBottom {
-        display: none;
-        padding: 16px;
+        position: absolute;
+        top: 100%;               /* nace justo debajo de la barra superior */
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 100;            /* cubre imágenes y textos del contenido inferior */
         background-color: var(--color-blanco);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+        border-bottom: 1px solid var(--color-borde-suave);
+        max-height: calc(100vh - 56px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
+    /* La franja decorativa (xolotl) no aporta en el menú móvil */
+    .sidebarBottom,
     .sidebarBottomOpen {
-        display: flex;
+        display: none;
     }
 
     .menuToggle {

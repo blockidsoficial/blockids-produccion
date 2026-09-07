@@ -124,7 +124,7 @@ const VistaAulas = ({ perfil, esSuperAdmin, onNuevaAula, refreshKey, mostrarAler
                                 <input
                                     type="text"
                                     className={styles.fieldInput}
-                                    placeholder="ej. 6to A"
+                                    placeholder="Ej. 6to A"
                                     value={fNombre}
                                     onChange={e => setFNombre(e.target.value)}
                                 />

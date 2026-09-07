@@ -1,39 +1,37 @@
 import { supabase } from '../config/supabaseClient';
 
-const XP_POR_NIVEL = 500;
+// La curva de nivel (XP por nivel) vive ahora en la función SQL otorgar_xp().
 
 /**
  * Suma XP al usuario y recalcula su nivel.
+ *
+ * El cálculo y la escritura ocurren en la función SECURITY DEFINER
+ * `otorgar_xp()` de Supabase: las columnas puntos_xp / nivel ya NO son
+ * editables directamente desde el cliente (las bloquea un trigger).
+ *
  * Devuelve { exito, subioDeNivel, nuevoNivel, nuevoXP }.
  */
 export const otorgarXP = async (userId, cantidadXP) => {
     if (!userId || !cantidadXP || cantidadXP <= 0) return { exito: false, razon: 'params_invalidos' };
 
     try {
-        const { data: perfil, error: fetchError } = await supabase
-            .from('perfiles')
-            .select('puntos_xp, nivel')
-            .eq('id', userId)
-            .single();
+        const { data, error } = await supabase.rpc('otorgar_xp', {
+            p_user_id:  userId,
+            p_cantidad: cantidadXP,
+        });
 
-        if (fetchError) throw fetchError;
+        if (error) throw error;
 
-        const nuevoXP      = (perfil.puntos_xp || 0) + cantidadXP;
-        const nuevoNivel   = Math.floor(nuevoXP / XP_POR_NIVEL) + 1;
-        const subioDeNivel = nuevoNivel > (perfil.nivel || 1);
-
-        const { error: updateError } = await supabase
-            .from('perfiles')
-            .update({ puntos_xp: nuevoXP, nivel: nuevoNivel })
-            .eq('id', userId);
-
-        if (updateError) throw updateError;
-
-        if (subioDeNivel) {
-            console.log(`[BLOCKIDS] Subida de nivel: ${nuevoNivel}`);
+        if (data?.subioDeNivel) {
+            console.log(`[BLOCKIDS] Subida de nivel: ${data.nuevoNivel}`);
         }
 
-        return { exito: true, subioDeNivel, nuevoNivel, nuevoXP };
+        return {
+            exito:        true,
+            subioDeNivel: data?.subioDeNivel ?? false,
+            nuevoNivel:   data?.nuevoNivel,
+            nuevoXP:      data?.nuevoXP,
+        };
     } catch (err) {
         console.error('[BLOCKIDS] Error otorgando XP:', err);
         return { exito: false, error: err };

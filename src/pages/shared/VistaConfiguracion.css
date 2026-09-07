@@ -34,6 +34,10 @@
     overflow: hidden;
 }
 
+.cardStacked {
+    margin-top: 20px;
+}
+
 .cardHeader {
     padding: 20px 28px 16px;
     border-bottom: 1.5px solid var(--color-borde-suave);
@@ -112,11 +116,49 @@
     background: var(--color-fondo-suave, #f9fafb);
 }
 
+/* ── Datos de la cuenta (solo lectura) ───────────────────────────────────── */
+.infoBox {
+    padding: 20px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.infoRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    font-family: var(--font-principal);
+}
+
+.infoLabel {
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--color-texto-suave);
+}
+
+.infoValue {
+    font-size: .9rem;
+    font-weight: 700;
+    color: var(--color-texto-oscuro);
+    text-align: right;
+}
+
 /* ── Footer del formulario ────────────────────────────────────────────────── */
 .formFooter {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    gap: 14px;
     padding-top: 8px;
+}
+
+.dirtyHint {
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--color-naranja, #e8590c);
+    font-family: var(--font-principal);
 }
 
 .btnGuardar {
@@ -148,4 +190,17 @@
     color: var(--color-texto-suave);
     font-family: var(--font-principal);
     font-size: .9rem;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .fieldGroupGrid {
+        grid-template-columns: 1fr;   /* apellidos apilados, sin comprimir inputs */
+    }
+    .cardHeader { padding: 16px 18px 14px; }
+    .form       { padding: 18px; }
+    .infoBox    { padding: 16px 18px 20px; }
+    .formFooter { flex-wrap: wrap; justify-content: stretch; }
+    .btnGuardar { width: 100%; }
+    .dirtyHint  { width: 100%; text-align: center; }
 }

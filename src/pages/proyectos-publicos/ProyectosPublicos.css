@@ -1,0 +1,369 @@
+/* ============================================================
+   BLOCKIDS — Proyectos Públicos (Salón de la Fama)
+   Vitrina pública del Top 3 de proyectos con más "Me gusta".
+   ============================================================ */
+
+@keyframes flotarY {
+    0%, 100% { transform: translateY(0px); }
+    50%      { transform: translateY(-10px); }
+}
+
+@keyframes entrarCard {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes brillo {
+    0%   { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+.pagina {
+    font-family: var(--font-principal);
+    color: var(--color-texto-oscuro);
+    background: var(--color-fondo-claro);
+    overflow-x: hidden;
+    padding-top: 80px; /* deja espacio al Navbar fijo (misma altura que LandingPage) */
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ── Hero ─────────────────────────────────────────────────── */
+.hero {
+    padding: 4rem 0 3rem;
+    background: linear-gradient(180deg, var(--color-morado-bg) 0%, var(--color-fondo-claro) 100%);
+}
+
+.heroContenido {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    text-align: left;
+}
+
+.heroXolotl {
+    width: 130px;
+    height: auto;
+    flex-shrink: 0;
+    filter: drop-shadow(0 14px 24px rgba(124, 69, 200, 0.25));
+    animation: flotarY 4.5s ease-in-out infinite;
+}
+
+.heroEyebrow {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    color: var(--color-morado-primario);
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.heroTitulo {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--color-texto-oscuro);
+}
+
+.heroDesc {
+    max-width: 520px;
+    margin: 0.75rem 0 0;
+    color: var(--color-texto-medio);
+    font-size: 1.02rem;
+    line-height: 1.6;
+}
+
+/* ── Contenido / grid ─────────────────────────────────────── */
+.contenido {
+    padding: 3rem 0 5rem;
+}
+
+.estadoTexto {
+    text-align: center;
+    color: var(--color-texto-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 0 1.5rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+}
+
+/* ── Card ─────────────────────────────────────────────────── */
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
+    animation: entrarCard 0.4s ease backwards;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-panel);
+}
+
+.medalla {
+    position: absolute;
+    top: 0.85rem;
+    left: 0.85rem;
+    z-index: 2;
+    width: 1.6rem;
+    height: 1.6rem;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+.thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-morado-bg);
+    overflow: hidden;
+}
+
+.thumbImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.thumbPlaceholder {
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+}
+
+.cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.1rem 1.25rem 1.25rem;
+}
+
+.cardNombre {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--color-texto-oscuro);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cardAutor {
+    margin: 0 0 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-morado-primario);
+}
+
+.cardFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+}
+
+/* Botón "Me gusta" */
+.btnLike {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.85rem;
+    background: var(--color-rosa-bg);
+    border: 1px solid var(--color-rosa-claro);
+    border-radius: var(--radio-pill);
+    color: var(--color-rosa-fuerte);
+    font-family: var(--font-principal);
+    font-size: 0.86rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.15s ease;
+}
+
+.likeIcon {
+    width: 1rem;
+    height: 1rem;
+    object-fit: contain;
+}
+
+.btnLike:hover:not(:disabled) {
+    background: var(--color-rosa-claro);
+    transform: translateY(-1px);
+}
+
+.btnLike:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+.btnLike:disabled {
+    cursor: default;
+}
+
+.btnLikeActivo {
+    background: var(--color-rosa-claro);
+    border-color: var(--color-rosa-fuerte);
+}
+
+/* Botón secundario "Ver proyecto" */
+.btnVer {
+    padding: 0.5rem 0.9rem;
+    background: transparent;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-pill);
+    color: var(--color-texto-medio);
+    font-family: var(--font-principal);
+    font-size: 0.86rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.btnVer:hover {
+    background: var(--color-morado-bg);
+    border-color: var(--color-morado-claro);
+    color: var(--color-morado-primario);
+}
+
+/* ── Skeleton (carga) ─────────────────────────────────────── */
+.cardSkeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding-bottom: 1.25rem;
+    background: var(--color-blanco);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-card);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
+}
+
+.skeletonThumb {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+}
+
+.skeletonThumb,
+.skeletonLinea,
+.skeletonLineaCorta {
+    background: linear-gradient(90deg, #eef1f6 25%, #e2e6ee 37%, #eef1f6 63%);
+    background-size: 400% 100%;
+    animation: brillo 1.4s ease infinite;
+}
+
+.skeletonLinea {
+    height: 14px;
+    margin: 0 1.25rem;
+    border-radius: 6px;
+}
+
+.skeletonLineaCorta {
+    height: 12px;
+    width: 45%;
+    margin: 0 1.25rem;
+    border-radius: 6px;
+}
+
+/* ── Estado vacío / error ─────────────────────────────────── */
+.estadoVacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    padding: 3rem 1.5rem;
+}
+
+.estadoXolotl {
+    width: 110px;
+    height: auto;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+.estadoTitulo {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--color-texto-oscuro);
+}
+
+.estadoDesc {
+    margin: 0;
+    max-width: 380px;
+    color: var(--color-texto-medio);
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .heroContenido {
+        text-align: center;
+    }
+}
+
+@media (max-width: 640px) {
+    .pagina {
+        padding-top: 64px;
+    }
+
+    .hero {
+        padding: 2.75rem 0 2.25rem;
+    }
+
+    .heroContenido {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .heroXolotl {
+        width: 100px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .cardFooter {
+        flex-wrap: wrap;
+    }
+
+    .btnLike,
+    .btnVer {
+        flex: 1 1 auto;
+        justify-content: center;
+        text-align: center;
+    }
+}

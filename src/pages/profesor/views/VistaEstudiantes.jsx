@@ -210,7 +210,7 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
                                 <input
                                     type="text"
                                     className={dash.fieldInput}
-                                    placeholder="Nombre o @usuario..."
+                                    placeholder="Buscar alumno por nombre o usuario..."
                                     value={busquedaAlumno}
                                     onChange={e => { setBusquedaAlumno(e.target.value); setAlertaModal(null); }}
                                     disabled={asignando}

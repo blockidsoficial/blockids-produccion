@@ -7,6 +7,7 @@ import iconInicio     from '../../../assets/iconos-ui/ui-inicio.svg';
 import iconVideo      from '../../../assets/iconos-ui/ui-video.svg';
 import dash   from '../Dashboard.css';
 import styles from './VistaTareas.css';
+import iconArchivoAdjunto from '../../../assets/iconos/icon-archivo-adjunto.svg';
 
 const formatearFecha = (iso) => {
     if (!iso) return '—';
@@ -331,7 +332,7 @@ const VistaTareas = ({ userId }) => {
                                 </div>
 
                                 <div className={dash.fieldGroup}>
-                                    <label className={dash.fieldLabel} htmlFor="desc-tarea">Descripción (opcional)</label>
+                                    <label className={dash.fieldLabel} htmlFor="desc-tarea">Descripción</label>
                                     <textarea
                                         id="desc-tarea" className={dash.fieldInput}
                                         placeholder="Instrucciones o detalles de la tarea..."
@@ -342,7 +343,7 @@ const VistaTareas = ({ userId }) => {
                                 </div>
 
                                 <div className={dash.fieldGroup}>
-                                    <label className={dash.fieldLabel} htmlFor="material-tarea">Material de apoyo / Enlace (opcional)</label>
+                                    <label className={dash.fieldLabel} htmlFor="material-tarea">Material de apoyo / Enlace </label>
                                     <input
                                         id="material-tarea" type="text" className={dash.fieldInput}
                                         placeholder="Ej. Enlace a YouTube o 'Lee la pág. 12'"
@@ -362,7 +363,8 @@ const VistaTareas = ({ userId }) => {
                                     />
                                     {archivoAdjunto && (
                                         <span className={styles.archivoSeleccionado}>
-                                            📎 {archivoAdjunto.name}
+                                            <img src={iconArchivoAdjunto} alt="" className={styles.archivoIcon} />
+                                            {archivoAdjunto.name}
                                         </span>
                                     )}
                                 </div>
@@ -378,7 +380,7 @@ const VistaTareas = ({ userId }) => {
                                         />
                                     </div>
                                     <div className={dash.fieldGroup}>
-                                        <label className={dash.fieldLabel} htmlFor="fecha-tarea">Fecha límite (opcional)</label>
+                                        <label className={dash.fieldLabel} htmlFor="fecha-tarea">Fecha límite </label>
                                         <input
                                             id="fecha-tarea" type="date" className={dash.fieldInput}
                                             value={fechaLimite} onChange={e => setFechaLimite(e.target.value)}
@@ -635,7 +637,6 @@ const VistaTareas = ({ userId }) => {
                                             rel="noopener noreferrer"
                                             className={styles.linkMaterial}
                                         >
-                                            {/* <span style={{ marginRight: '4px' }}>📎</span> */}
                                             <span style={{ textDecoration: 'underline' }}>
                                                 {tarea.material_referencia.includes('supabase.co')
                                                     ? 'Descargar Archivo Adjunto'
