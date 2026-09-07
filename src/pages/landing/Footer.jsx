@@ -51,7 +51,7 @@ const Footer = () => (
                 <div className={styles.footerCol}>
                     <h4 className={styles.footerHead}>Contacto</h4>
                     <ul className={styles.footerLinks}>
-                        <li><a href="mailto:admin@blockids.com">admin@blockids.com</a></li>
+                        <li><a href="mailto:blockids.oficial@gmail.com">blockids.oficial@gmail.com</a></li>
                         <li>H. Matamoros,Tamaulipas</li>
                         <li><Link to="/nosotros#aliados">Aliados</Link></li>
                     </ul>

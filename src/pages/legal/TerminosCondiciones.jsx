@@ -84,6 +84,15 @@ const TerminosCondiciones = () => (
                 </p>
             </section>
 
+            <section>
+                <h2>6. Contacto</h2>
+                <p>
+                    Para dudas relacionadas con estos términos o con el funcionamiento de BLOCKIDS,
+                    puede contactarnos en{' '}
+                    <a href="mailto:blockids.oficial@gmail.com">blockids.oficial@gmail.com</a>.
+                </p>
+            </section>
+
         </article>
     </div>
 );

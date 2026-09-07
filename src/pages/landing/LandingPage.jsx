@@ -43,6 +43,12 @@ import diamantina   from '../../assets/elementos/diamantina-suelto.svg';
 /* ── Fondo Hero ────────────────────────────────────────────── */
 import fondoNubes   from '../../assets/fondos/fondo-nubes.svg';
 
+// Video "Cómo se usa el entorno (Fork de Blockids)" en YouTube.
+// Es sólo el ID: en https://youtu.be/f5G2u3QJWu0  el ID es "f5G2u3QJWu0".
+const VIDEO_ENTORNO_ID = 'f5G2u3QJWu0';
+const VIDEO_ENTORNO_EMBED =
+    `https://www.youtube-nocookie.com/embed/${VIDEO_ENTORNO_ID}?rel=0&modestbranding=1`;
+
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA dela seccion 2 de CARDS - 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -194,25 +200,29 @@ const LandingPage = ({ session, rolPerfil }) => {
                 <div className={styles.container}>
                     <div className={styles.demoCard}>
                         <div className={styles.demoTexto}>
-                            <h2 className={styles.demoTitulo}>Mira cómo funciona Blockids</h2>
+                            <h2 className={styles.demoTitulo}>Mira cómo se usa el entorno de Blockids</h2>
                             <p className={styles.demoDesc}>
-                                Tu salón de clases, ahora con programación por bloques.
-                                Descubre cómo Blockids integra el poder del código visual en un entorno escolar
-                                cerrado.Los alumnos crean proyectos digitales, y los maestros evalúan desde un solo lugar. Todo en la nube.
+                                Un recorrido por el editor por bloques (Fork de Blockids): cómo abrir un
+                                proyecto, armar tu lógica arrastrando bloques y ejecutar tu código.
+                                Los alumnos crean proyectos digitales y los maestros evalúan desde un solo
+                                lugar. Todo en la nube.
                             </p>
                             <div className={styles.demoButtons}>
                                 <Link to="/registro" className={styles.btnDemoSecundario}>Registrarse</Link>
                             </div>
                         </div>
                         <div className={styles.demoImgWrap}>
-                            <div className={styles.demoPantalla}>
+                            <div className={styles.demoVideo}>
+                                <iframe
+                                    className={styles.demoIframe}
+                                    src={VIDEO_ENTORNO_EMBED}
+                                    title="Cómo se usa el entorno de Blockids"
+                                    loading="lazy"
+                                    referrerPolicy="strict-origin-when-cross-origin"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowFullScreen
+                                />
                             </div>
-                            {/* <div className={styles.demoPantalla}>
-                                <img src={bloqueAzul}  alt="" aria-hidden="true" className={styles.demoBloque} style={{ top: '10%', left: '5%' }} />
-                                <img src={bloqueVerde} alt="" aria-hidden="true" className={styles.demoBloque} style={{ top: '25%', left: '30%' }} />
-                                <img src={bloqueAmari} alt="" aria-hidden="true" className={styles.demoBloque} style={{ top: '50%', left: '15%' }} />
-                                <img src={bloqueRojo}  alt="" aria-hidden="true" className={styles.demoBloque} style={{ top: '65%', left: '50%' }} />
-                            </div> */}
                             <img src={xolotlDemo} alt="Xolotl Blockids" className={styles.demoXolotl} />
                         </div>
                     </div>

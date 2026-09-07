@@ -27,7 +27,7 @@ const AvisoPrivacidad = () => (
                     están a cargo del equipo desarrollador del proyectoo de residencias profesionales, con
                     domicilio en H. Matamoros, Tamaulipas. Para cualquier duda o solicitud relacionada con
                     este aviso, puede contactarnos a través del correo electrónico:{' '}
-                    <a href="mailto:admin@blockids.com">admin@blockids.com</a>.
+                    <a href="mailto:blockids.oficial@gmail.com">blockids.oficial@gmail.com</a>.
                 </p>
             </section>
 

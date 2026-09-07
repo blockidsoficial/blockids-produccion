@@ -41,13 +41,20 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
 
     // Datos de solo lectura
     const [infoCuenta, setInfoCuenta] = useState({ rol: '', escuela: '', creado: '' });
+    const [rolRaw, setRolRaw] = useState('');
+    const [email,  setEmail]  = useState('');
 
     // Cambio de contraseña
+    const [passActual,    setPassActual]    = useState('');
     const [nuevaPass,     setNuevaPass]     = useState('');
     const [confirmarPass, setConfirmarPass] = useState('');
     const [guardandoPass, setGuardandoPass] = useState(false);
+    const [verPassActual,   setVerPassActual]   = useState(false);
     const [verNuevaPass,    setVerNuevaPass]    = useState(false);
     const [verConfirmarPass, setVerConfirmarPass] = useState(false);
+
+    // El alumno no gestiona su propia contraseña (la resetea su profesor/admin)
+    const puedeCambiarPass = rolRaw !== '' && rolRaw !== 'alumno';
 
     // ── Mostrar mensaje: usa la alerta del dashboard padre si está disponible ─
     const mostrarMensaje = (tipo, texto) => {
@@ -84,6 +91,11 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
                 setApellidoMaterno(am);
                 setUsername(data?.username || '');
                 setIniciales({ nombre: n, apellidoPaterno: ap, apellidoMaterno: am });
+                setRolRaw(data?.rol || '');
+
+                // Email de la sesión (para verificar la contraseña actual)
+                const { data: authData } = await supabase.auth.getUser();
+                setEmail(authData?.user?.email || '');
 
                 setInfoCuenta({
                     rol:     ROL_LABEL[data?.rol] || data?.rol || '—',
@@ -159,6 +171,11 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
     // ── Cambiar contraseña ──────────────────────────────────────────────────
     const handleCambiarPass = async (e) => {
         e.preventDefault();
+        if (!puedeCambiarPass) return;
+        if (!passActual) {
+            mostrarMensaje('error', 'Escribe tu contraseña actual.');
+            return;
+        }
         if (nuevaPass.length < PASS_MIN) {
             mostrarMensaje('error', `La contraseña debe tener al menos ${PASS_MIN} caracteres.`);
             return;
@@ -167,10 +184,24 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
             mostrarMensaje('error', 'Las contraseñas no coinciden.');
             return;
         }
+        if (nuevaPass === passActual) {
+            mostrarMensaje('error', 'La nueva contraseña debe ser distinta de la actual.');
+            return;
+        }
         setGuardandoPass(true);
         try {
+            // 1) Verificar la contraseña actual
+            if (!email) throw new Error('No se pudo verificar la sesión. Vuelve a iniciar sesión.');
+            const { error: errVerif } = await supabase.auth.signInWithPassword({
+                email,
+                password: passActual,
+            });
+            if (errVerif) throw new Error('La contraseña actual no es correcta.');
+
+            // 2) Actualizar a la nueva
             const { error } = await supabase.auth.updateUser({ password: nuevaPass });
             if (error) throw error;
+            setPassActual('');
             setNuevaPass('');
             setConfirmarPass('');
             mostrarMensaje('success', 'Contraseña actualizada correctamente.');
@@ -298,7 +329,8 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
                 </form>
             </div>
 
-            {/* ── Tarjeta: seguridad ── */}
+            {/* ── Tarjeta: seguridad (el alumno no cambia su propia contraseña) ── */}
+            {puedeCambiarPass && (
             <div className={`${styles.card} ${styles.cardStacked}`}>
                 <div className={styles.cardHeader}>
                     <h2 className={styles.cardTitle}>Seguridad</h2>
@@ -306,6 +338,31 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
                 </div>
 
                 <form className={styles.form} onSubmit={handleCambiarPass}>
+                    <div className={styles.fieldGroup}>
+                        <label className={styles.fieldLabel} htmlFor="cfg-pass0">Contraseña actual</label>
+                        <div className={styles.passwordWrapper}>
+                            <input
+                                id="cfg-pass0"
+                                type={verPassActual ? 'text' : 'password'}
+                                className={`${styles.fieldInput} ${styles.inputWithEye}`}
+                                placeholder="Tu contraseña actual"
+                                value={passActual}
+                                onChange={(e) => setPassActual(e.target.value)}
+                                disabled={guardandoPass}
+                                autoComplete="current-password"
+                                maxLength={72}
+                            />
+                            <button
+                                type="button"
+                                className={styles.eyeButton}
+                                onClick={() => setVerPassActual((v) => !v)}
+                                disabled={guardandoPass}
+                                aria-label={verPassActual ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                            >
+                                <IconoOjo visible={verPassActual} />
+                            </button>
+                        </div>
+                    </div>
                     <div className={styles.fieldGroup}>
                         <label className={styles.fieldLabel} htmlFor="cfg-pass1">Nueva contraseña</label>
                         <div className={styles.passwordWrapper}>
@@ -360,13 +417,14 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
                         <button
                             type="submit"
                             className={styles.btnGuardar}
-                            disabled={guardandoPass || !nuevaPass || !confirmarPass}
+                            disabled={guardandoPass || !passActual || !nuevaPass || !confirmarPass}
                         >
                             {guardandoPass ? 'Guardando...' : 'Cambiar contraseña'}
                         </button>
                     </div>
                 </form>
             </div>
+            )}
 
         </div>
     );

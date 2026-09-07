@@ -46,64 +46,94 @@
     cursor: not-allowed;
 }
 
-/* ── Tabla ────────────────────────────────────────────────────────────────── */
-/* La tarjeta contiene el scroll horizontal: solo la tabla se desliza en móvil. */
-.tablaCard {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
-.tablaCard::-webkit-scrollbar { height: 6px; }
-.tablaCard::-webkit-scrollbar-track { background: var(--color-fondo-claro); border-radius: 10px; }
-.tablaCard::-webkit-scrollbar-thumb { background: var(--color-borde); border-radius: 10px; }
-
-.loadingWrap {
-    padding: 48px 24px;
-    text-align: center;
-}
-
-.emptyWrap {
-    padding: 48px 24px;
-}
-
-.table {
-    width: 100%;
-    min-width: 560px;   /* por debajo, el contenedor se desliza en vez de comprimir las celdas */
-    border-collapse: collapse;
-}
-
-.theadTr {
-    border-bottom: 1.5px solid var(--color-borde-suave);
-}
-
-.th {
-    padding: 12px 20px;
-    text-align: left;
-    font-size: .72rem;
+/* ── Botón: Crear alumno (secundario, contorno) ──────────────────────────── */
+.btnCrearAlumno {
+    padding: 9px 18px;
+    border-radius: var(--radio-md);
+    border: 1.5px solid rgb(99, 194, 111);
+    background: var(--color-blanco);
+    color: rgb(74, 154, 86);
     font-weight: 700;
-    letter-spacing: .06em;
-    color: var(--color-texto-suave);
+    font-size: .85rem;
     font-family: var(--font-principal);
+    cursor: pointer;
+    transition: background .18s ease, opacity .18s ease;
     white-space: nowrap;
 }
 
-.tr {
-    border-bottom: 1px solid var(--color-borde-suave);
-    transition: background .14s;
+.btnCrearAlumno:hover:not(:disabled) {
+    background: #eef9f0;
 }
 
-.tr:hover {
-    background: var(--color-fondo-suave, #f9fafb);
+.btnCrearAlumno:disabled {
+    opacity: .45;
+    cursor: not-allowed;
 }
 
-.td {
-    padding: 14px 20px;
+/* ── Fila de dos campos (apellidos) en el modal ──────────────────────────── */
+.filaDoble {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
 }
 
-/* ── Celda de estudiante ──────────────────────────────────────────────────── */
-.estudianteCell {
+@media (max-width: 460px) {
+    .filaDoble { grid-template-columns: 1fr; }
+}
+
+/* ── Estado (cargando / vacío) ───────────────────────────────────────────── */
+.estadoCard {
+    padding: 40px 24px;
+    text-align: center;
+    font-size: .9rem;
+    color: var(--color-texto-suave);
+    font-family: var(--font-principal);
+}
+
+/* ── Grid de tarjetas de estudiante ──────────────────────────────────────── */
+/* Mismo patrón que VistaTareas: auto-fill + minmax → nunca se desborda,
+   colapsa a 1 columna en móvil sin scroll horizontal. */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+}
+
+.alumnoCard {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--color-blanco);
+    border: 1.5px solid var(--color-borde-suave);
+    border-radius: var(--radio-lg);
+    padding: 16px 18px;
+    transition: border-color .18s ease, transform .18s ease;
+}
+
+.alumnoCard:hover {
+    border-color: var(--color-verde-primario, #6dbf26);
+    transform: translateY(-2px);
+}
+
+.cardTop {
     display: flex;
     align-items: center;
     gap: 12px;
+    min-width: 0;
+}
+
+.cardIdent {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.cardMeta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
 }
 
 .avatar {
@@ -126,12 +156,18 @@
     font-size: .9rem;
     color: var(--color-texto-oscuro);
     font-family: var(--font-principal);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .usernameText {
     margin: 0;
     font-size: .78rem;
     color: var(--color-texto-suave);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* ── Badge de aula ────────────────────────────────────────────────────────── */
@@ -150,6 +186,113 @@
 .fechaText {
     font-size: .85rem;
     color: var(--color-texto-suave);
+}
+
+/* ── Botón: restablecer contraseña (pie de la tarjeta) ───────────────────── */
+.btnResetPass {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: var(--radio-md);
+    border: 1.5px solid var(--color-borde-suave);
+    background: var(--color-blanco);
+    color: var(--color-texto-medio, #4b5563);
+    font-size: .8rem;
+    font-weight: 700;
+    font-family: var(--font-principal);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .15s ease;
+}
+
+.btnResetPass svg { flex-shrink: 0; }
+
+.btnResetPass:hover:not(:disabled) {
+    background: #f8fafc;
+    border-color: var(--color-verde-primario, #6dbf26);
+    color: var(--color-verde-primario, #6dbf26);
+}
+
+.btnResetPass:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+/* ── Modal reset: campo de contraseña con ojo ────────────────────────────── */
+.passwordWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.inputWithEye {
+    padding-right: 42px;
+}
+
+.eyeButton {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-texto-suave);
+    line-height: 1;
+    transition: color .18s ease;
+}
+
+.eyeButton:hover:not(:disabled) {
+    color: var(--color-texto-oscuro);
+}
+
+.eyeButton:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.resetBody {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.hintPass {
+    margin: 0;
+    font-size: .8rem;
+    color: var(--color-texto-suave);
+    font-family: var(--font-principal);
+    line-height: 1.45;
+}
+
+.btnResetSubmit {
+    padding: 10px 22px;
+    border: none;
+    border-radius: var(--radio-md);
+    background: rgb(99, 194, 111);
+    color: #fff;
+    font-size: .88rem;
+    font-weight: 700;
+    font-family: var(--font-principal);
+    cursor: pointer;
+    transition: opacity .18s ease;
+}
+
+.btnResetSubmit:hover:not(:disabled) {
+    opacity: .88;
+}
+
+.btnResetSubmit:disabled {
+    opacity: .5;
+    cursor: not-allowed;
 }
 
 /* ── Modal: Alerta inline ─────────────────────────────────────────────────── */
@@ -290,7 +433,8 @@
         flex: 1 1 100%;
         min-width: 0;
     }
-    .btnAsignar {
+    .btnAsignar,
+    .btnCrearAlumno {
         flex: 1 1 100%;
     }
 }

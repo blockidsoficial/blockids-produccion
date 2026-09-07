@@ -35,13 +35,16 @@ Deno.serve(async (req) => {
       .eq('id', user.id)
       .single();
 
-    if (perfilError || !['superadmin', 'admin_escuela'].includes(perfil?.rol)) {
+    if (perfilError || !['superadmin', 'admin_escuela', 'profesor'].includes(perfil?.rol)) {
       return json({ error: 'Prohibido: no tienes permisos para crear usuarios.' }, 403);
     }
 
-    const esSuperAdmin = perfil.rol === 'superadmin';
+    const rolSolicitante = perfil.rol;
 
-    const { username, password, rol, escuela_id, notas_admin } = await req.json();
+    const {
+      username, password, rol, escuela_id, notas_admin,
+      nombre, apellido_paterno, apellido_materno,
+    } = await req.json();
 
     if (!username || !password || !rol || !escuela_id) {
       return json({ error: 'Faltan campos: username, password, rol, escuela_id.' }, 400);
@@ -54,13 +57,20 @@ Deno.serve(async (req) => {
       return json({ error: `Rol inválido: ${rol}` }, 400);
     }
 
-    // admin_escuela: solo puede crear profesor/alumno en su propia escuela
-    if (!esSuperAdmin) {
+    // Reglas de alcance según el rol del solicitante
+    if (rolSolicitante === 'admin_escuela') {
       if (!['profesor', 'alumno'].includes(rol)) {
         return json({ error: 'Admin de escuela solo puede crear profesores o alumnos.' }, 403);
       }
       if (escuela_id !== perfil.escuela_id) {
         return json({ error: 'No puedes crear usuarios en otra escuela.' }, 403);
+      }
+    } else if (rolSolicitante === 'profesor') {
+      if (rol !== 'alumno') {
+        return json({ error: 'Un profesor solo puede crear alumnos.' }, 403);
+      }
+      if (escuela_id !== perfil.escuela_id) {
+        return json({ error: 'Solo puedes crear alumnos en tu propia escuela.' }, 403);
       }
     }
 
@@ -87,16 +97,22 @@ Deno.serve(async (req) => {
       return json({ error: msg }, 400);
     }
 
+    const perfilPayload = {
+      id:          data.user.id,
+      username:    usernameNorm,
+      rol,
+      escuela_id,
+      notas_admin: notas_admin?.trim() ||
+        `Alta (${rolSolicitante}) — ${new Date().toLocaleDateString('es-MX')}`,
+    };
+    // Nombre / apellidos son opcionales; solo se escriben si vienen en el body.
+    if (typeof nombre === 'string')           perfilPayload.nombre = nombre.trim() || null;
+    if (typeof apellido_paterno === 'string') perfilPayload.apellido_paterno = apellido_paterno.trim() || null;
+    if (typeof apellido_materno === 'string') perfilPayload.apellido_materno = apellido_materno.trim() || null;
+
     const { error: profileError } = await supabaseAdmin
       .from('perfiles')
-      .upsert({
-        id:          data.user.id,
-        username:    usernameNorm,
-        rol,
-        escuela_id,
-        notas_admin: notas_admin?.trim() ||
-          `Alta por Superadmin — ${new Date().toLocaleDateString('es-MX')}`,
-      }, { onConflict: 'id' });
+      .upsert(perfilPayload, { onConflict: 'id' });
 
     if (profileError) {
       return json({

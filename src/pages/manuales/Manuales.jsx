@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Building, GraduationCap, Gamepad2, PlayCircle, Mail } from 'lucide-react';
+import { PlayCircle, Mail } from 'lucide-react';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
 import Navbar from '../landing/Navbar.jsx';
 import Footer from '../landing/Footer.jsx';
@@ -8,10 +8,21 @@ import styles from './Manuales.css';
 
 import xolotlExplicandoCodigo from '../../assets/xolotl/xolotl-explicando-codigo.svg';
 
+import icoAdmin   from '../../assets/iconos/icono-configuracion.svg';
+import icoDocente from '../../assets/iconos/icono-acompañamiento.svg';
+import icoAlumno  from '../../assets/iconos/icono-juego.svg';
+import icoEntorno from '../../assets/iconos/icono-bloques.svg';
+
 // TODO: reemplaza esta URL por el canal oficial real de YouTube de Blockids
 // (por ahora es un placeholder para que el botón no quede roto/vacío).
-const CANAL_YOUTUBE = 'https://www.youtube.com/@BlockidsOficial';
+const CANAL_YOUTUBE = 'https://www.youtube.com/@blockids-mx';
 const CORREO_SOPORTE = 'blockids.oficial@gmail.com';
+
+// Video "Cómo se usa el entorno (Fork de Blockids)" en YouTube.
+// Es sólo el ID: en https://youtu.be/f5G2u3QJWu0  el ID es "f5G2u3QJWu0".
+const VIDEO_ENTORNO_ID = 'f5G2u3QJWu0';
+const VIDEO_ENTORNO_EMBED =
+    `https://www.youtube-nocookie.com/embed/${VIDEO_ENTORNO_ID}?rel=0&modestbranding=1`;
 
 const rutaDashboard = (rol) => {
     switch (rol) {
@@ -31,7 +42,7 @@ const SECCIONES = [
     {
         id: 'admin',
         color: 'morado',
-        Icono: Building,
+        icono: icoAdmin,
         titulo: 'Administradores de Escuela',
         subtitulo: 'Para directores y coordinadores',
         pasos: [
@@ -43,7 +54,7 @@ const SECCIONES = [
     {
         id: 'docente',
         color: 'azul',
-        Icono: GraduationCap,
+        icono: icoDocente,
         titulo: 'Docentes',
         subtitulo: 'Para profesores y mentores',
         pasos: [
@@ -55,7 +66,7 @@ const SECCIONES = [
     {
         id: 'alumno',
         color: 'verde',
-        Icono: Gamepad2,
+        icono: icoAlumno,
         titulo: 'Alumnos',
         subtitulo: 'Para estudiantes',
         pasos: [
@@ -97,14 +108,13 @@ const Manuales = ({ session, rolPerfil }) => {
                 <div className={styles.container}>
                     <div className={styles.grid}>
                         {SECCIONES.map((sec) => {
-                            const Icono = sec.Icono;
                             return (
                                 <article
                                     key={sec.id}
                                     className={`${styles.card} ${styles[`card_${sec.color}`]}`}
                                 >
                                     <div className={`${styles.iconoCirculo} ${styles[`icono_${sec.color}`]}`}>
-                                        <Icono size={30} color="#ffffff" strokeWidth={2.2} />
+                                        <img src={sec.icono} alt="" aria-hidden="true" className={styles.iconoImg} />
                                     </div>
 
                                     <h2 className={styles.cardTitulo}>{sec.titulo}</h2>
@@ -134,6 +144,55 @@ const Manuales = ({ session, rolPerfil }) => {
                             );
                         })}
                     </div>
+                </div>
+            </section>
+
+            {/* ══════════ ENTORNO DE PROGRAMACIÓN (FORK DE BLOCKIDS) ══════════ */}
+            <section className={styles.entornoSection}>
+                <div className={styles.container}>
+                    <article className={styles.entornoCard}>
+                        <div className={styles.entornoInfo}>
+                            <div className={`${styles.iconoCirculo} ${styles.icono_naranja}`}>
+                                <img src={icoEntorno} alt="" aria-hidden="true" className={styles.iconoImg} />
+                            </div>
+                            <span className={styles.entornoEyebrow}>Panel del entorno</span>
+                            <h2 className={styles.cardTitulo}>Cómo se usa el entorno de programación</h2>
+                            <p className={styles.cardSubtitulo}>El editor por bloques — Fork de Blockids</p>
+
+                            <ol className={styles.pasos}>
+                                <li className={styles.paso}>
+                                    <span className={`${styles.pasoNum} ${styles.num_naranja}`}>1</span>
+                                    <span className={styles.pasoTexto}>
+                                        Abre un proyecto desde tu panel para entrar al entorno de bloques.
+                                    </span>
+                                </li>
+                                <li className={styles.paso}>
+                                    <span className={`${styles.pasoNum} ${styles.num_naranja}`}>2</span>
+                                    <span className={styles.pasoTexto}>
+                                        Arrastra los bloques al área de trabajo y conéctalos para armar tu lógica.
+                                    </span>
+                                </li>
+                                <li className={styles.paso}>
+                                    <span className={`${styles.pasoNum} ${styles.num_naranja}`}>3</span>
+                                    <span className={styles.pasoTexto}>
+                                        Ejecuta tu código, revisa el resultado y guarda para enviar tu proyecto.
+                                    </span>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div className={styles.entornoVideo}>
+                            <iframe
+                                className={styles.entornoIframe}
+                                src={VIDEO_ENTORNO_EMBED}
+                                title="Cómo se usa el entorno de Blockids"
+                                loading="lazy"
+                                referrerPolicy="strict-origin-when-cross-origin"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                            />
+                        </div>
+                    </article>
                 </div>
             </section>
 
