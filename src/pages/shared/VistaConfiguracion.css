@@ -116,6 +116,43 @@
     background: var(--color-fondo-suave, #f9fafb);
 }
 
+/* ── Campo de contraseña con ojo ─────────────────────────────────────────── */
+.passwordWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.inputWithEye {
+    padding-right: 44px;
+}
+
+.eyeButton {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-texto-suave);
+    line-height: 1;
+    transition: color .18s ease;
+}
+
+.eyeButton:hover:not(:disabled) {
+    color: var(--color-texto-oscuro);
+}
+
+.eyeButton:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
 /* ── Datos de la cuenta (solo lectura) ───────────────────────────────────── */
 .infoBox {
     padding: 20px 28px 24px;

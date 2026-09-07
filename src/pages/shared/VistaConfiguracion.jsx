@@ -12,6 +12,21 @@ const ROL_LABEL = {
 
 const PASS_MIN = 8;
 
+// ── Icono de ojo (mostrar / ocultar contraseña) ──────────────────────────────
+const IconoOjo = ({ visible }) => (
+    visible ? (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+            <line x1="1" y1="1" x2="23" y2="23" />
+        </svg>
+    ) : (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+            <circle cx="12" cy="12" r="3" />
+        </svg>
+    )
+);
+
 const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
     const [nombre,          setNombre]          = useState('');
     const [apellidoPaterno, setApellidoPaterno] = useState('');
@@ -31,6 +46,8 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
     const [nuevaPass,     setNuevaPass]     = useState('');
     const [confirmarPass, setConfirmarPass] = useState('');
     const [guardandoPass, setGuardandoPass] = useState(false);
+    const [verNuevaPass,    setVerNuevaPass]    = useState(false);
+    const [verConfirmarPass, setVerConfirmarPass] = useState(false);
 
     // ── Mostrar mensaje: usa la alerta del dashboard padre si está disponible ─
     const mostrarMensaje = (tipo, texto) => {
@@ -291,31 +308,53 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
                 <form className={styles.form} onSubmit={handleCambiarPass}>
                     <div className={styles.fieldGroup}>
                         <label className={styles.fieldLabel} htmlFor="cfg-pass1">Nueva contraseña</label>
-                        <input
-                            id="cfg-pass1"
-                            type="password"
-                            className={styles.fieldInput}
-                            placeholder={`Mínimo ${PASS_MIN} caracteres`}
-                            value={nuevaPass}
-                            onChange={(e) => setNuevaPass(e.target.value)}
-                            disabled={guardandoPass}
-                            autoComplete="new-password"
-                            maxLength={72}
-                        />
+                        <div className={styles.passwordWrapper}>
+                            <input
+                                id="cfg-pass1"
+                                type={verNuevaPass ? 'text' : 'password'}
+                                className={`${styles.fieldInput} ${styles.inputWithEye}`}
+                                placeholder={`Mínimo ${PASS_MIN} caracteres`}
+                                value={nuevaPass}
+                                onChange={(e) => setNuevaPass(e.target.value)}
+                                disabled={guardandoPass}
+                                autoComplete="new-password"
+                                maxLength={72}
+                            />
+                            <button
+                                type="button"
+                                className={styles.eyeButton}
+                                onClick={() => setVerNuevaPass((v) => !v)}
+                                disabled={guardandoPass}
+                                aria-label={verNuevaPass ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                            >
+                                <IconoOjo visible={verNuevaPass} />
+                            </button>
+                        </div>
                     </div>
                     <div className={styles.fieldGroup}>
                         <label className={styles.fieldLabel} htmlFor="cfg-pass2">Confirmar contraseña</label>
-                        <input
-                            id="cfg-pass2"
-                            type="password"
-                            className={styles.fieldInput}
-                            placeholder="Confirma la contraseña"
-                            value={confirmarPass}
-                            onChange={(e) => setConfirmarPass(e.target.value)}
-                            disabled={guardandoPass}
-                            autoComplete="new-password"
-                            maxLength={72}
-                        />
+                        <div className={styles.passwordWrapper}>
+                            <input
+                                id="cfg-pass2"
+                                type={verConfirmarPass ? 'text' : 'password'}
+                                className={`${styles.fieldInput} ${styles.inputWithEye}`}
+                                placeholder="Confirma la contraseña"
+                                value={confirmarPass}
+                                onChange={(e) => setConfirmarPass(e.target.value)}
+                                disabled={guardandoPass}
+                                autoComplete="new-password"
+                                maxLength={72}
+                            />
+                            <button
+                                type="button"
+                                className={styles.eyeButton}
+                                onClick={() => setVerConfirmarPass((v) => !v)}
+                                disabled={guardandoPass}
+                                aria-label={verConfirmarPass ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                            >
+                                <IconoOjo visible={verConfirmarPass} />
+                            </button>
+                        </div>
                     </div>
                     <div className={styles.formFooter}>
                         <button
