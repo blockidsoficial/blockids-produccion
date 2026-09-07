@@ -490,11 +490,11 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
                         <div className={`${dash.modalBody} ${styles.resetBody}`}>
 
                             <div className={dash.fieldGroup}>
-                                <label className={dash.fieldLabel}>Nombre de usuario *</label>
+                                <label className={dash.fieldLabel}>Crear usuario </label>
                                 <input
                                     type="text"
                                     className={dash.fieldInput}
-                                    placeholder="sin espacios ni acentos"
+                                    placeholder="Nombre de usuario sin espacios ni acentos"
                                     value={cUsername}
                                     onChange={e => { setCUsername(e.target.value); setAlertaCrear(null); }}
                                     disabled={creando}

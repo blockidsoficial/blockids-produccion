@@ -295,7 +295,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
 
                             <div className={styles.fieldGroup}>
                                 <label className={styles.fieldLabel}>
-                                    {modoModal === 'crear' ? 'Nombre de Usuario' : 'Usuario'}
+                                    {modoModal === 'crear' ? 'Crear Usuario' : 'Usuario'}
                                 </label>
                                 {modoModal === 'crear' ? (
                                     <input type="text" className={styles.fieldInput}
