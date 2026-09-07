@@ -143,7 +143,7 @@ const Manuales = ({ session, rolPerfil }) => {
                                     </ol>
 
                                     <p className={styles.videoNota}>
-                                        🎬 Recorrido del panel — no es un tutorial de registro
+                                         Recorrido del panel — no es un tutorial de registro
                                     </p>
                                     <a
                                         href={sec.video || CANAL_YOUTUBE}
