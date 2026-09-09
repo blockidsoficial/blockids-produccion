@@ -333,6 +333,11 @@
     background-color: var(--color-fondo-claro);
 }
 
+/* Carrusel de frases (alumno) — justo debajo del banner */
+.carruselWrap {
+    margin-bottom: 20px;
+}
+
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 900px) {
     .sidebar {

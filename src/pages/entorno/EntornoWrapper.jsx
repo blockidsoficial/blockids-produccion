@@ -3,6 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { supabase } from '../../config/supabaseClient';
 import styles from './EntornoWrapper.css';
 import { otorgarXP, desbloquearLogro } from '../../services/gamificationService';
+import LogroCelebracion from '../../components/logro-celebracion/LogroCelebracion';
 
 import xolotlSorprendido from '../../assets/xolotl/xolotl-sorprendido.svg';
 import logoHorizontal   from '../../assets/logos/logo-horizontal-colores.svg';
@@ -34,6 +35,33 @@ const EntornoWrapper = ({ children }) => {
         setTareaId(params.get('tareaId') || null);
         setEntregaId(params.get('entregaId') || null);
     }, [location.search]);
+
+    // ── Logro "Primer Vuelo": el alumno abre el entorno por primera vez ──────
+    // (no cuenta el modo revisión del profesor). desbloquearLogro es idempotente:
+    // solo otorga (y suma XP) la primera vez.
+    useEffect(() => {
+        const esRevision = Boolean(new URLSearchParams(location.search).get('entregaId'));
+        let vivo = true;
+
+        if (!esRevision) {
+            (async () => {
+                const { data: { user }, error } = await supabase.auth.getUser();
+                if (!vivo || error || !user) return;
+
+                const { data: perfil } = await supabase
+                    .from('perfiles')
+                    .select('rol')
+                    .eq('id', user.id)
+                    .single();
+
+                if (vivo && perfil && perfil.rol === 'alumno') {
+                    desbloquearLogro(user.id, 'Primer Vuelo', 50);
+                }
+            })();
+        }
+
+        return () => { vivo = false; };
+    }, []);
 
     // ── Cargar entrega previa cuando el alumno retoma una tarea ─────────────
     useEffect(() => {
@@ -249,6 +277,10 @@ const EntornoWrapper = ({ children }) => {
             <div className={styles.scratchContainer}>
                 {children}
             </div>
+
+            {/* Celebración de logros (p. ej. "Primeros Pasos" al entregar) */}
+            <LogroCelebracion />
+
 
             {toast && (
                 <div className={`${styles.toast} ${toast.exito ? styles.toastExito : styles.toastError}`}>

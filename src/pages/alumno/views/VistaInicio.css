@@ -32,6 +32,67 @@
     animation: fadeSlideUp .4s ease both;
 }
 
+/* ── Hero "Ir a Programar" ───────────────────────────────── */
+.heroProgramar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 28px;
+    border-radius: var(--radio-lg);
+    background-color: var(--color-morado-primario);
+    box-shadow: 0 8px 24px rgba(124, 69, 200, 0.32);
+    overflow: hidden;
+}
+.heroTexto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    min-width: 0;
+}
+.heroKicker {
+    font-size: .78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    color: rgba(255, 255, 255, .8);
+    font-family: var(--font-principal);
+}
+.heroTitulo {
+    margin: 0 0 6px;
+    font-size: 1.5rem;
+    font-weight: 900;
+    line-height: 1.2;
+    color: #fff;
+    font-family: var(--font-principal);
+}
+.heroBtn {
+    padding: 13px 28px;
+    background-color: #fff;
+    color: var(--color-morado-primario);
+    border: none;
+    border-radius: var(--radio-pill);
+    font-size: 1rem;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .18);
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+.heroBtn:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .24);
+}
+.heroXolotl {
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    flex-shrink: 0;
+    align-self: flex-end;
+    margin-bottom: -22px;
+}
+
 .rowPrimary {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -323,4 +384,7 @@
     .tipBanner  { flex-wrap: wrap; }
     .tipDecos   { display: none; }
     .aulaMetaRow { flex-direction: column; gap: 10px; }
+    .heroProgramar { flex-direction: column; align-items: flex-start; gap: 12px; padding: 20px; }
+    .heroTitulo { font-size: 1.25rem; }
+    .heroXolotl { align-self: center; width: 100px; height: 100px; margin-bottom: -20px; }
 }

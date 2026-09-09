@@ -36,7 +36,9 @@ const fraseEstableDelDia = (lista, sal) => {
 };
 
 // ── Saludo del header (alumno y profesor) ───────────────────────────────────
-const FRASES_SALUDO = [
+// Se exporta para que el carrusel de frases del panel del alumno pueda rotar
+// por la misma lista (ver components/frase-carrusel).
+export const FRASES_SALUDO = [
     '¡Listo para crear algo increíble hoy!',
     'Cada línea de código es un paso más hacia tu meta.',
     'El éxito es la suma de pequeños esfuerzos repetidos día con día.',

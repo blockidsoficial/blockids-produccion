@@ -1,9 +1,12 @@
 ﻿import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { supabase } from '../../../config/supabaseClient';
 import { tipDelDia } from '../../../lib/frase-del-dia';
+import { puedeNavegar } from '../../../lib/navGuard';
 
 import xolotlGanador from '../../../assets/xolotl/xolotl-ganador.svg';
 import xolotlIdea    from '../../../assets/xolotl/xolotl-idea.svg';
+import xolotlBravo   from '../../../assets/xolotl/xolotl-bravo.svg';
 
 import iconCurso     from '../../../assets/iconos-ui/ui-curso.svg';
 import iconCalendario from '../../../assets/iconos-ui/ui-calendario.svg';
@@ -25,6 +28,8 @@ const BADGE_CLASE = {
 };
 
 const VistaInicio = ({ userId, misAulas, aulaIds, onNavigate }) => {
+
+    const history = useHistory();
 
     const [tareas, setTareas]       = useState([]);
     const [proyectos, setProyectos] = useState([]);
@@ -118,8 +123,28 @@ const VistaInicio = ({ userId, misAulas, aulaIds, onNavigate }) => {
 
     const aulaActual = misAulas[0] || null;
 
+    const irAProgramar = () => {
+        if (puedeNavegar()) history.push('/entorno');
+    };
+
     return (
         <div className={styles.dashContent}>
+
+            {/* ── Hero: botón grande para ir al entorno de programación ── */}
+            <div className={styles.heroProgramar}>
+                <div className={styles.heroTexto}>
+                    <span className={styles.heroKicker}>Tu taller de bloques te espera</span>
+                    <h2 className={styles.heroTitulo}>¡Vamos a crear algo increíble!</h2>
+                    <button
+                        type="button"
+                        className={styles.heroBtn}
+                        onClick={irAProgramar}
+                    >
+                        ¡Ir a Programar!
+                    </button>
+                </div>
+                <img src={xolotlBravo} alt="" className={styles.heroXolotl} />
+            </div>
 
             {/* ── Fila 1: Mi(s) Aula(s) + Mis Logros ── */}
             <div className={styles.rowPrimary}>

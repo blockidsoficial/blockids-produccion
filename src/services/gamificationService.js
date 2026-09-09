@@ -1,4 +1,5 @@
 import { supabase } from '../config/supabaseClient';
+import { emitirLogro } from '../lib/logro-eventos';
 
 // La curva de nivel (XP por nivel) vive ahora en la función SQL otorgar_xp().
 
@@ -50,11 +51,16 @@ export const desbloquearLogro = async (userId, nombreLogro, bonoXP = 100) => {
     try {
         const { data: logro, error: logroError } = await supabase
             .from('logros')
-            .select('id')
+            .select('id, nombre, descripcion, icono_url')
             .eq('nombre', nombreLogro)
             .maybeSingle();
 
         if (logroError || !logro) {
+            console.warn(
+                `[BLOCKIDS] Logro "${nombreLogro}" no está en el catálogo public.logros ` +
+                `(¿se aplicó la migración 20260906_fix_logros_alumno.sql?).`,
+                logroError || ''
+            );
             return { exito: false, razon: 'logro_no_encontrado' };
         }
 
@@ -80,6 +86,14 @@ export const desbloquearLogro = async (userId, nombreLogro, bonoXP = 100) => {
         if (bonoXP > 0) {
             await otorgarXP(userId, bonoXP);
         }
+
+        // Dispara la celebración (popup) en el panel del alumno / entorno.
+        emitirLogro({
+            nombre:      logro.nombre,
+            descripcion: logro.descripcion,
+            iconoUrl:    logro.icono_url,
+            bonoXP,
+        });
 
         return { exito: true, logroId: logro.id };
     } catch (err) {

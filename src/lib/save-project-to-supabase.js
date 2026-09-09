@@ -1,4 +1,5 @@
 import {supabase} from '../config/supabaseClient';
+import {desbloquearLogro} from '../services/gamificationService';
 
 /**
  * Guarda el proyecto completo (.blockids) en Supabase Storage
@@ -61,6 +62,15 @@ const saveProjectToSupabase = async function (projectId, blob, params) {
         })
         .eq('id', proyectoId);
     if (updateError) throw updateError;
+
+    // Gamificación: primer proyecto que el alumno crea/guarda desde el entorno
+    // (modo sandbox). En el flujo normal el logro ya lo otorga VistaProyectos.
+    // desbloquearLogro es idempotente y no bloquea el guardado si algo falla.
+    if (creandoNuevo) {
+        Promise.resolve()
+            .then(() => desbloquearLogro(user.id, 'Mi Primer Proyecto', 50))
+            .catch(() => { /* la celebración es best-effort */ });
+    }
 
     return {id: proyectoId};
 };

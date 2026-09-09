@@ -1,6 +1,8 @@
 import React from 'react';
 import cls from './Aliados.css';
 import itLogo from '../../assets/logos/logo-it.png';
+import SPLogo from '../../assets/logos/logo-sipodemos.png';
+import RLogo from '../../assets/logos/logo-rotaract.jpg';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA — Aliados / Comunidad
@@ -16,15 +18,17 @@ const ALIADOS = [
     },
     {
         nombre: 'SI PODEMOS',
-        url: '#',
+        url: 'http://facebook.com/organizacionsipodemos',
         iniciales: 'SP',
-        descripcion: 'Voluntarios por la educación digital.',
+        descripcion: 'Organización que promueve la participación ciudadana y el desarrollo social.',
+         logo: SPLogo,
     },
     {
         nombre: 'Rotaract',
-        url: '#',
+        url: 'https://clubrotariomatamorossur.org',
         iniciales: 'R',
-        descripcion: 'Lorem ipsum dolor sit amet, comunidad que inspira y transforma.',
+        descripcion: 'Club de jóvenes que fomenta el liderazgo y el servicio a la comunidad.',
+         logo: RLogo,
     },
 ];
 

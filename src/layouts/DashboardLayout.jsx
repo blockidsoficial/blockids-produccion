@@ -2,6 +2,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import styles from './DashboardLayout.css';
 import Header from '../components/Header/Header';
+import FraseCarrusel from '../components/frase-carrusel/FraseCarrusel';
+import LogroCelebracion from '../components/logro-celebracion/LogroCelebracion';
 import { puedeNavegar } from '../lib/navGuard';
 
 import logoHorizontal from '../assets/logos/logo-horizontal-colores.svg';
@@ -28,6 +30,10 @@ const DashboardLayout = ({
 }) => {
     const location = useLocation();
     const [menuAbierto, setMenuAbierto] = useState(false);
+    const esAlumno = (role || '').toString().trim().toLowerCase() === 'alumno';
+    // El carrusel de frases solo acompaña al Inicio del alumno (es lo primero
+    // que ve al entrar); la celebración de logros sí escucha en todo el panel.
+    const mostrarCarrusel = esAlumno && activeNav === 'Inicio';
 
     return (
         <div className={styles.layout}>
@@ -120,9 +126,17 @@ const DashboardLayout = ({
 
                 {/* Área de contenido */}
                 <main className={styles.content}>
+                    {mostrarCarrusel && (
+                        <div className={styles.carruselWrap}>
+                            <FraseCarrusel />
+                        </div>
+                    )}
                     {children}
                 </main>
             </div>
+
+            {/* Celebración de logros (popup) — solo alumno */}
+            {esAlumno && <LogroCelebracion />}
         </div>
     );
 };

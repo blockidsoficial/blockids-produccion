@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { supabase } from '../../config/supabaseClient';
 import DashboardLayout from '../../layouts/DashboardLayout';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
-import { fraseDelDia } from '../../lib/frase-del-dia';
+import { desbloquearLogro } from '../../services/gamificationService';
 
 import VistaInicio     from './views/VistaInicio';
 import VistaTareas     from './views/VistaTareas';
@@ -78,10 +78,6 @@ const DashboardAlumno = () => {
         ? VISTAS_URL_MAP[_vistaParamAlumno]
         : (sessionStorage.getItem('bk_alumno_vista') || VISTAS.INICIO);
     const [vistaActual, setVistaActual] = useState(vistaInicial);
-
-    // Frase del saludo de Inicio: cambia una vez por día calendario (no en
-    // cada carga de página ni al navegar entre vistas). Ver lib/frase-del-dia.
-    const [fraseInicio] = useState(fraseDelDia);
 
     const [aulaInicioId, setAulaInicioId]        = useState(null);
     const [codigoIngresado, setCodigoIngresado] = useState('');
@@ -206,6 +202,10 @@ const DashboardAlumno = () => {
             return;
         }
 
+        // Logro "Nuevo en la Clase": misma lógica que el modal de Mis Aulas.
+        // desbloquearLogro es idempotente (no re-otorga si ya lo tiene).
+        desbloquearLogro(userId, 'Nuevo en la Clase', 30);
+
         setExito(`¡Bienvenido a "${aula.nombre}"!`);
         setCodigoIngresado('');
         setTimeout(() => cargarAulas(userId), 1000);
@@ -234,9 +234,9 @@ const DashboardAlumno = () => {
         );
     }
 
-    const topbarInfo = vistaActual === VISTAS.INICIO
-        ? { subtitle: fraseInicio }
-        : (TOPBAR_INFO[vistaActual] || {});
+    // En Inicio el banner va sin subtítulo: la frase motivadora ahora vive en
+    // el carrusel de colores que aparece debajo del banner (ver DashboardLayout).
+    const topbarInfo = TOPBAR_INFO[vistaActual] || {};
 
     // ── Vista sin aula: estado de bienvenida con formulario ───────────────────
     const renderContenido = () => {
