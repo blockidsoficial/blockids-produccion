@@ -644,12 +644,14 @@ class MenuBar extends React.Component {
                     ) : null)}
                     <Divider className={classNames(styles.divider)} />
                     <div className={styles.fileGroup}>
-                        <div
+                        <a
                             aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
                             className={
                                 classNames(styles.menuBarItem, styles.noOffset, styles.hoverable, 'tutorials-button')
                             }
-                            onClick={this.props.onOpenTipLibrary}
+                            href="https://www.youtube.com/@blockids-mx"
+                            target="_blank"
+                            rel="noopener noreferrer"
                         >
                             <img
                                 className={styles.helpIcon}
@@ -658,7 +660,7 @@ class MenuBar extends React.Component {
                             <span className={styles.tutorialsLabel}>
                                 <FormattedMessage {...ariaMessages.tutorials} />
                             </span>
-                        </div>
+                        </a>
                     </div>
                 </div>
 
