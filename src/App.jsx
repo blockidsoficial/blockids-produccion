@@ -155,7 +155,12 @@ const App = () => {
                     const vista = new URLSearchParams(location.search).get('vista');
                     if (vista && session && perfilCargando) return Verificando;
                     if (vista && session && perfil) {
-                        return <Redirect to={`${rutaPorRol(perfil?.rol)}?vista=${vista}`} />;
+                        return <Redirect to={`${rutaPorRol(perfil.rol)}?vista=${vista}`} />;
+                    }
+                    // Pidieron ir a un panel (?vista=…) con sesión pero sin perfil:
+                    // sesión rota/anónima → a login, no a la landing.
+                    if (vista && session && !perfil) {
+                        return <Redirect to="/login" />;
                     }
                     return <LandingPage session={session} rolPerfil={perfil?.rol} />;
                 }} />
