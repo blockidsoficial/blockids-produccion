@@ -672,7 +672,7 @@ class MenuBar extends React.Component {
                     )}
                     <button
                         className={styles.volverPanelBtn}
-                        onClick={() => { window.location.href = '/'; }}
+                        onClick={() => { window.location.href = '/?vista=inicio'; }}
                     >
                         <img src={iconInicio} alt="" className={styles.volverPanelIcon} />
                         {'Volver al Panel'}

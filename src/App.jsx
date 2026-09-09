@@ -27,14 +27,16 @@ import AppStateHOC from './lib/app-state-hoc.jsx';
 import HashParserHOC from './lib/hash-parser-hoc.jsx';
 import { compose } from 'redux';
 
-// Ruta destino según rol
+// Ruta destino según rol. Sin rol reconocible (sesión anónima o rota, sin
+// perfil) mandamos a /login, no a la landing: así el visitante del "salón de
+// la fama" que entra a ver un proyecto no se queda con una sesión a medias.
 const rutaPorRol = (rol) => {
     switch (rol) {
         case 'superadmin':
         case 'admin_escuela': return '/admin';
         case 'profesor':      return '/profesor';
         case 'alumno':        return '/alumno';
-        default:              return '/';
+        default:              return '/login';
     }
 };
 
@@ -178,7 +180,9 @@ const App = () => {
                         ? <Register />
                         : perfilCargando
                             ? Verificando
-                            : <Redirect to={rutaPorRol(perfil?.rol)} />
+                            : perfil
+                                ? <Redirect to={rutaPorRol(perfil.rol)} />
+                                : <Register />
                     }
                 </Route>
 
@@ -187,7 +191,9 @@ const App = () => {
                         ? <Login mensajeSistema={mensajeSistema} />
                         : perfilCargando
                             ? Verificando
-                            : <Redirect to={rutaPorRol(perfil?.rol)} />
+                            : perfil
+                                ? <Redirect to={rutaPorRol(perfil.rol)} />
+                                : <Login mensajeSistema={mensajeSistema} />
                     }
                 </Route>
 
