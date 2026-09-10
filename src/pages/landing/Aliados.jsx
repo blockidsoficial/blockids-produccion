@@ -11,7 +11,7 @@ import RLogo from '../../assets/logos/logo-rotary.jpg';
 const ALIADOS = [
     {
         nombre: 'ITM',
-        url: 'https://www.itmatamoros.edu.mx',
+        url: 'https://www.matamoros.tecnm.mx/',
         iniciales: 'IT',
         descripcion: 'Aliado académico que respalda el desarrollo de Blockids.',
         logo: itLogo,   // <-el mini logo cuando lo tengas
