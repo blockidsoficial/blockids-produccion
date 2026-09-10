@@ -24,10 +24,10 @@ const ALIADOS = [
          logo: SPLogo,
     },
     {
-        nombre: 'Rotaract',
+        nombre: 'Club RotariosMatamoros Sur',
         url: 'https://clubrotariomatamorossur.org',
         iniciales: 'R',
-        descripcion: 'Club de jóvenes que fomenta el liderazgo y el servicio a la comunidad.',
+        descripcion: 'En Rotary fomentamos el diálogo para promover la comprensión internacional entre los pueblos y culturas.',
          logo: RLogo,
     },
 ];
