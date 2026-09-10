@@ -2,7 +2,7 @@ import React from 'react';
 import cls from './Aliados.css';
 import itLogo from '../../assets/logos/logo-it.png';
 import SPLogo from '../../assets/logos/logo-sipodemos.png';
-import RLogo from '../../assets/logos/logo-rotaract.jpg';
+import RLogo from '../../assets/logos/logo-rotary.jpg';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA — Aliados / Comunidad
@@ -24,10 +24,10 @@ const ALIADOS = [
          logo: SPLogo,
     },
     {
-        nombre: 'Club RotariosMatamoros Sur',
+        nombre: 'CLUB ROTARIO MATAMOROS SUR',
         url: 'https://clubrotariomatamorossur.org',
         iniciales: 'R',
-        descripcion: 'En Rotary fomentamos el diálogo para promover la comprensión internacional entre los pueblos y culturas.',
+        descripcion: 'Organización internacional que fomenta la filantropía y el servicio comunitario.',
          logo: RLogo,
     },
 ];
