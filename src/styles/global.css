@@ -116,9 +116,16 @@ body {
  * un contenedor de scroll propio y hacía que window.scrollTo(0,0) no lo moviera
  * (rompía el ScrollToTop de la SPA). Con height:100% heredado de scratch-gui,
  * dejamos que el scroll vertical del documento lo maneje <html>.
+ *
+ * Se usa "clip" en vez de "hidden": ambos recortan el desbordamiento, pero
+ * "hidden" convierte a <html> en un contenedor de scroll propio, y eso es lo
+ * que en iOS Safari rompe el `position: fixed` (los modales — p. ej. "Editar
+ * Profesor" — quedan anclados al documento en vez de al viewport y aparecen
+ * desalineados/recortados). "clip" evita ese contenedor de scroll y no
+ * dispara el bug, sin perder el anti-desbordamiento horizontal.
  */
 html {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
