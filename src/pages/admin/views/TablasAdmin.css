@@ -229,6 +229,8 @@
     border-radius: var(--radio-lg);
     box-shadow: 0 20px 60px rgba(0,0,0,.18);
     width: 100%; max-width: 440px;
+    max-height: 85vh;
+    display: flex; flex-direction: column;
     overflow: hidden;
 }
 .modalHeader {
@@ -252,7 +254,7 @@
     transition: background .15s;
 }
 .modalClose:hover { background: var(--color-rosa-claro); color: #b91c1c; }
-.modalBody { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+.modalBody { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; flex: 1; min-height: 0; }
 .modalFooter {
     padding: 16px 24px;
     border-top: 1px solid var(--color-borde-suave);
