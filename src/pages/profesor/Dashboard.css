@@ -331,6 +331,8 @@
     background: var(--color-blanco);
     border-radius: var(--radio-xl);
     width: 100%; max-width: 460px;
+    max-height: 85vh;
+    display: flex; flex-direction: column;
     box-shadow: var(--sombra-modal);
     animation: scaleIn .25s ease both;
     overflow: hidden;
@@ -359,7 +361,7 @@
 .modalClose:disabled { opacity: .4; cursor: not-allowed; }
 
 /* ── Body del modal ──────────────────────────────────────── */
-.modalBody { padding: 24px 26px; }
+.modalBody { padding: 24px 26px; overflow-y: auto; flex: 1; min-height: 0; }
 .fieldGroup { display: flex; flex-direction: column; gap: 6px; }
 .fieldLabel {
     font-size: .75rem; font-weight: 700; color: var(--color-texto-medio);

@@ -546,6 +546,8 @@
     background: var(--color-superficie);
     border-radius: var(--radio-xl);
     width: 100%; max-width: 500px;
+    max-height: 85vh;
+    display: flex; flex-direction: column;
     box-shadow: var(--sombra-modal);
     animation: scaleIn .25s ease both;
     overflow: hidden;
@@ -577,6 +579,9 @@
 .modalBody {
     padding: 22px 26px;
     display: flex; flex-direction: column; gap: 16px;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
 }
 .fieldGroup { display: flex; flex-direction: column; gap: 6px; }
 .fieldLabel {
