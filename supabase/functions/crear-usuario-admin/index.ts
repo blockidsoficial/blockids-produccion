@@ -46,8 +46,8 @@ Deno.serve(async (req) => {
       nombre, apellido_paterno, apellido_materno,
     } = await req.json();
 
-    if (!username || !password || !rol || !escuela_id) {
-      return json({ error: 'Faltan campos: username, password, rol, escuela_id.' }, 400);
+    if (!username || !password || !rol) {
+      return json({ error: 'Faltan campos: username, password, rol.' }, 400);
     }
     if (password.length < 6) {
       return json({ error: 'La contraseña debe tener mínimo 6 caracteres.' }, 400);
@@ -55,6 +55,11 @@ Deno.serve(async (req) => {
     const rolesValidos = ['superadmin', 'admin_escuela', 'profesor', 'alumno'];
     if (!rolesValidos.includes(rol)) {
       return json({ error: `Rol inválido: ${rol}` }, 400);
+    }
+    // Un superadmin no pertenece a ninguna escuela — solo el resto de los roles
+    // (que sí viven dentro de una institución) exigen escuela_id.
+    if (rol !== 'superadmin' && !escuela_id) {
+      return json({ error: 'Falta escuela_id.' }, 400);
     }
 
     // Reglas de alcance según el rol del solicitante
@@ -72,6 +77,9 @@ Deno.serve(async (req) => {
       if (escuela_id !== perfil.escuela_id) {
         return json({ error: 'Solo puedes crear alumnos en tu propia escuela.' }, 403);
       }
+    } else if (rolSolicitante !== 'superadmin' && rol === 'superadmin') {
+      // Defensa extra: solo un superadmin puede dar de alta a otro superadmin.
+      return json({ error: 'Solo un superadmin puede crear otro superadmin.' }, 403);
     }
 
     const usernameNorm = username.trim().toLowerCase().replace(/\s+/g, '-');
@@ -87,7 +95,7 @@ Deno.serve(async (req) => {
       email:         emailFantasia,
       password:      password,
       email_confirm: true,
-      user_metadata: { username: usernameNorm, rol, escuela_id },
+      user_metadata: { username: usernameNorm, rol, escuela_id: escuela_id || null },
     });
 
     if (createError) {
@@ -101,7 +109,7 @@ Deno.serve(async (req) => {
       id:          data.user.id,
       username:    usernameNorm,
       rol,
-      escuela_id,
+      escuela_id:  escuela_id || null,
       notas_admin: notas_admin?.trim() ||
         `Alta (${rolSolicitante}) — ${new Date().toLocaleDateString('es-MX')}`,
     };

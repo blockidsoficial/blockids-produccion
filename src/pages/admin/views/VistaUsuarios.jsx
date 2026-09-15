@@ -127,12 +127,17 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
         if (fPassword.trim().length < 6) return mostrarAlerta('error', 'La contraseña debe tener mínimo 6 caracteres.');
         if (fPassword !== fConfirmPassword) return mostrarAlerta('error', 'Las contraseñas no coinciden.');
 
-        const escuelaIdFinal = esSuperAdmin ? fEscuelaId : perfil?.escuela_id;
         const rolFinal = esSuperAdmin
             ? fRol
             : (fRol === 'profesor' || fRol === 'alumno') ? fRol : 'alumno';
 
-        if (!escuelaIdFinal) return mostrarAlerta('error', 'Selecciona una escuela.');
+        // Un superadmin no pertenece a ninguna escuela — solo se exige escuela_id
+        // para el resto de los roles, que sí viven dentro de una institución.
+        const escuelaIdFinal = rolFinal === 'superadmin'
+            ? null
+            : (esSuperAdmin ? fEscuelaId : perfil?.escuela_id);
+
+        if (rolFinal !== 'superadmin' && !escuelaIdFinal) return mostrarAlerta('error', 'Selecciona una escuela.');
 
         const usernameNorm = fUsername.trim().toLowerCase().replace(/\s+/g, '-');
 
@@ -193,12 +198,14 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
         if (!usuarioEditando) return;
         if (!fNotas.trim()) return mostrarAlerta('error', 'Escribe el motivo del cambio en "Comentarios".');
 
-        const escuelaIdFinal = esSuperAdmin
-            ? (fEscuelaId || usuarioEditando.escuela_id)
-            : perfil?.escuela_id;
         const rolFinal = esSuperAdmin
             ? fRol
             : (fRol === 'profesor' || fRol === 'alumno') ? fRol : usuarioEditando.rol;
+
+        // Igual que al crear: un superadmin no pertenece a ninguna escuela.
+        const escuelaIdFinal = rolFinal === 'superadmin'
+            ? null
+            : (esSuperAdmin ? (fEscuelaId || usuarioEditando.escuela_id) : perfil?.escuela_id);
 
         const payload = {
             nombre:           fNombre.trim() || null,
@@ -379,7 +386,9 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
 
                                 <div className={styles.fieldGroup}>
                                     <label className={styles.fieldLabel}>Escuela</label>
-                                    {esSuperAdmin ? (
+                                    {fRol === 'superadmin' ? (
+                                        <div className={styles.fieldReadonly}>No aplica — el Superadmin no pertenece a una escuela</div>
+                                    ) : esSuperAdmin ? (
                                         <select className={styles.fieldSelect} value={fEscuelaId} onChange={e => setFEscuelaId(e.target.value)}>
                                             <option value="">— Selecciona —</option>
                                             {escuelasActivas.map(e => (
