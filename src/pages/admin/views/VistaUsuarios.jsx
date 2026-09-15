@@ -300,6 +300,44 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
 
                         <div className={styles.modalBody}>
 
+                             {/* <div className={styles.rolPreview}>
+                                <span className={styles.rolPreviewLabel}>Rol seleccionado:</span>
+                                <span className={styles.rolBadge}
+                                    style={{ color: ROL_CONFIG[fRol]?.color, background: ROL_CONFIG[fRol]?.bg }}>
+                                    {ROL_CONFIG[fRol]?.label}
+                                </span>
+                            </div> */}
+
+                            <div className={styles.modalRow}>
+                                <div className={styles.fieldGroup}>
+                                    <label className={styles.fieldLabel}>Rol</label>
+                                    <select className={styles.fieldSelect} value={fRol} onChange={e => setFRol(e.target.value)}>
+                                        {Object.entries(ROL_CONFIG)
+                                            .filter(([key]) => esSuperAdmin || key === 'profesor' || key === 'alumno')
+                                            .map(([key, cfg]) => (
+                                                <option key={key} value={key}>{cfg.label}</option>
+                                            ))}
+                                    </select>
+                                </div>
+
+                                <div className={styles.fieldGroup}>
+                                    <label className={styles.fieldLabel}>Escuela</label>
+                                    {fRol === 'superadmin' ? (
+                                        <div className={styles.fieldReadonly}>No aplica — el Superadmin no pertenece a una escuela</div>
+                                    ) : esSuperAdmin ? (
+                                        <select className={styles.fieldSelect} value={fEscuelaId} onChange={e => setFEscuelaId(e.target.value)}>
+                                            <option value="">— Selecciona —</option>
+                                            {escuelasActivas.map(e => (
+                                                <option key={e.id} value={e.id}>{e.nombre}</option>
+                                            ))}
+                                        </select>
+                                    ) : (
+                                        <div className={styles.fieldReadonly}>{miEscuela?.nombre || 'Tu escuela'}</div>
+                                    )}
+                                </div>
+                            </div>
+                            
+
                             <div className={styles.fieldGroup}>
                                 <label className={styles.fieldLabel}>
                                     {modoModal === 'crear' ? 'Crear Usuario' : 'Usuario'}
@@ -313,14 +351,8 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                 )}
                             </div>
 
-                            <div className={styles.rolPreview}>
-                                <span className={styles.rolPreviewLabel}>Rol seleccionado:</span>
-                                <span className={styles.rolBadge}
-                                    style={{ color: ROL_CONFIG[fRol]?.color, background: ROL_CONFIG[fRol]?.bg }}>
-                                    {ROL_CONFIG[fRol]?.label}
-                                </span>
-                            </div>
-                            
+                           
+
 
                             <div className={styles.fieldGroup}>
                                 <label className={styles.fieldLabel}>Nombre</label>
@@ -381,34 +413,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                 </>
                             )}
 
-                            <div className={styles.modalRow}>
-                                <div className={styles.fieldGroup}>
-                                    <label className={styles.fieldLabel}>Rol</label>
-                                    <select className={styles.fieldSelect} value={fRol} onChange={e => setFRol(e.target.value)}>
-                                        {Object.entries(ROL_CONFIG)
-                                            .filter(([key]) => esSuperAdmin || key === 'profesor' || key === 'alumno')
-                                            .map(([key, cfg]) => (
-                                                <option key={key} value={key}>{cfg.label}</option>
-                                            ))}
-                                    </select>
-                                </div>
-
-                                <div className={styles.fieldGroup}>
-                                    <label className={styles.fieldLabel}>Escuela</label>
-                                    {fRol === 'superadmin' ? (
-                                        <div className={styles.fieldReadonly}>No aplica — el Superadmin no pertenece a una escuela</div>
-                                    ) : esSuperAdmin ? (
-                                        <select className={styles.fieldSelect} value={fEscuelaId} onChange={e => setFEscuelaId(e.target.value)}>
-                                            <option value="">— Selecciona —</option>
-                                            {escuelasActivas.map(e => (
-                                                <option key={e.id} value={e.id}>{e.nombre}</option>
-                                            ))}
-                                        </select>
-                                    ) : (
-                                        <div className={styles.fieldReadonly}>{miEscuela?.nombre || 'Tu escuela'}</div>
-                                    )}
-                                </div>
-                            </div>
+                            
 
                             <div className={styles.fieldGroup}>
                                 <label className={styles.fieldLabel}>
