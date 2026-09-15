@@ -313,6 +313,15 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                 )}
                             </div>
 
+                            <div className={styles.rolPreview}>
+                                <span className={styles.rolPreviewLabel}>Rol seleccionado:</span>
+                                <span className={styles.rolBadge}
+                                    style={{ color: ROL_CONFIG[fRol]?.color, background: ROL_CONFIG[fRol]?.bg }}>
+                                    {ROL_CONFIG[fRol]?.label}
+                                </span>
+                            </div>
+                            
+
                             <div className={styles.fieldGroup}>
                                 <label className={styles.fieldLabel}>Nombre</label>
                                 <input type="text" className={styles.fieldInput}
@@ -413,13 +422,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                     value={fNotas} onChange={e => setFNotas(e.target.value)} rows={3} />
                             </div>
 
-                            <div className={styles.rolPreview}>
-                                <span className={styles.rolPreviewLabel}>Rol seleccionado:</span>
-                                <span className={styles.rolBadge}
-                                    style={{ color: ROL_CONFIG[fRol]?.color, background: ROL_CONFIG[fRol]?.bg }}>
-                                    {ROL_CONFIG[fRol]?.label}
-                                </span>
-                            </div>
+                            
                         </div>
 
                         <div className={styles.modalFooter}>
