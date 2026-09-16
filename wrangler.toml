@@ -1,0 +1,12 @@
+name = "blockids-produccion"
+compatibility_date = "2026-09-16"
+
+# Sirve el sitio estático generado por "npm run build" (equivalente a lo que
+# hacía Vercel con "outputDirectory": "build" en vercel.json). No hay código
+# de Worker propio — Cloudflare solo sirve los archivos de esta carpeta.
+[assets]
+directory = "./build"
+# Cualquier ruta que no exista como archivo cae a index.html — necesario
+# para que funcionen las rutas de React Router (equivalente al rewrite
+# "/(.*) -> /index.html" de vercel.json / al public/_redirects de Pages).
+not_found_handling = "single-page-application"
