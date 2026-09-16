@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../../config/supabaseClient';
-import iconPadres  from '../../../assets/iconos-ui/ui-padres.svg';
-import iconBuscar  from '../../../assets/iconos-ui/ui-buscar.svg';
-import iconConfig  from '../../../assets/iconos-ui/ui-configuracion.svg';
+import iconPadres     from '../../../assets/iconos-ui/ui-padres.svg';
+import iconBuscar     from '../../../assets/iconos-ui/ui-buscar.svg';
+import iconEditar     from '../../../assets/iconos-ui/editar.svg';
+import iconActivado   from '../../../assets/iconos-ui/activado.svg';
+import iconDesactivado from '../../../assets/iconos-ui/desactivado.svg';
 import styles from './TablasAdmin.css';
 
 const formatearFecha = (iso) => {
@@ -28,9 +30,8 @@ const VistaProfesores = ({ perfil, esSuperAdmin, refreshKey, mostrarAlerta }) =>
         setCargando(true);
         let query = supabase
             .from('perfiles')
-            .select('id, username, nombre, apellido, apellido_paterno, apellido_materno, escuela_id, created_at, escuelas(nombre)')
+            .select('id, username, nombre, apellido, apellido_paterno, apellido_materno, escuela_id, created_at, activo, escuelas(nombre)')
             .eq('rol', 'profesor')
-            .eq('activo', true)
             .order('created_at', { ascending: false });
 
         if (!esSuperAdmin && perfil?.escuela_id) {
@@ -89,21 +90,27 @@ const VistaProfesores = ({ perfil, esSuperAdmin, refreshKey, mostrarAlerta }) =>
         }
     };
 
-    // ── Desactivar profesor (Soft Delete) ────────────────────────────────────
-    const handleEliminar = async (p) => {
-        if (!window.confirm('¿Estás seguro de desactivar a este usuario? Perderá su acceso a la plataforma, pero sus datos se conservarán.')) return;
+    // ── Activar / desactivar profesor (toggle, no borra nada) ────────────────
+    const handleToggleActivo = async (p) => {
+        const activarlo = !p.activo;
+        const confirmacion = activarlo
+            ? `¿Reactivar a @${p.username}? Recuperará su acceso a la plataforma.`
+            : `¿Desactivar a @${p.username}? Perderá su acceso a la plataforma, pero sus datos se conservarán.`;
+        if (!window.confirm(confirmacion)) return;
         const { data: filas, error } = await supabase
             .from('perfiles')
-            .update({ activo: false })
+            .update({ activo: activarlo })
             .eq('id', p.id)
             .select('id');
         if (error) {
-            console.error('ERROR al desactivar profesor:', error);
-            mostrarAlerta('error', `Error al desactivar: ${error.message}`);
+            console.error('ERROR al cambiar estado del profesor:', error);
+            mostrarAlerta('error', `Error al ${activarlo ? 'reactivar' : 'desactivar'}: ${error.message}`);
         } else if (!filas || filas.length === 0) {
-            mostrarAlerta('error', 'No se pudo desactivar el profesor. Verifica que tienes permisos.');
+            mostrarAlerta('error', `No se pudo ${activarlo ? 'reactivar' : 'desactivar'} al profesor. Verifica que tienes permisos.`);
         } else {
-            mostrarAlerta('success', `Profesor @${p.username} desactivado. Sus datos se han conservado.`);
+            mostrarAlerta('success', activarlo
+                ? `Profesor @${p.username} reactivado.`
+                : `Profesor @${p.username} desactivado. Sus datos se han conservado.`);
             cargar();
         }
     };
@@ -116,9 +123,17 @@ const VistaProfesores = ({ perfil, esSuperAdmin, refreshKey, mostrarAlerta }) =>
     });
 
     return (
-        <div className={styles.vistaContainer}>
-
-            {/* ── Modal editar profesor ── */}
+        <>
+            {/* ── Modal editar profesor ──
+                Fuera de .vistaContainer a propósito: esa clase tiene
+                `animation: fadeSlideUp ... both`, y como el fill-mode "both"
+                deja el `transform` final (translateY(0)) aplicado para
+                siempre, .vistaContainer queda como "containing block" de
+                cualquier descendiente `position: fixed`. Anidado ahí, este
+                overlay dejaba de posicionarse contra el viewport y se
+                recortaba/desalineaba contra la caja (más chica) de
+                .vistaContainer. Como hermano del contenedor, vuelve a
+                anclarse correctamente a toda la pantalla. */}
             {editando && (
                 <div className={styles.modalOverlay} onClick={cerrarEditar}>
                     <div className={styles.modalCard} onClick={e => e.stopPropagation()}>
@@ -175,123 +190,129 @@ const VistaProfesores = ({ perfil, esSuperAdmin, refreshKey, mostrarAlerta }) =>
                 </div>
             )}
 
-            {/* ── Encabezado ── */}
-            <div className={styles.vistaHeader}>
-                <div>
-                    <h1 className={styles.vistaTitulo}>Directorio de Profesores</h1>
-                    <p className={styles.vistaSubtitulo}>
-                        {cargando
-                            ? 'Cargando...'
-                            : `${filtrados.length} profesor${filtrados.length !== 1 ? 'es' : ''} encontrado${filtrados.length !== 1 ? 's' : ''}`}
-                    </p>
-                </div>
-                <div className={styles.headerRight}>
-                    <div className={styles.searchWrap}>
-                        <img src={iconBuscar} alt="" className={styles.searchIcon} />
-                        <input
-                            type="text"
-                            placeholder="Buscar profesor..."
-                            className={styles.searchInput}
-                            value={busqueda}
-                            onChange={e => setBusqueda(e.target.value)}
-                        />
+            <div className={styles.vistaContainer}>
+
+                {/* ── Encabezado ── */}
+                <div className={styles.vistaHeader}>
+                    <div>
+                        <h1 className={styles.vistaTitulo}>Directorio de Profesores</h1>
+                        <p className={styles.vistaSubtitulo}>
+                            {cargando
+                                ? 'Cargando...'
+                                : `${filtrados.length} profesor${filtrados.length !== 1 ? 'es' : ''} encontrado${filtrados.length !== 1 ? 's' : ''}`}
+                        </p>
                     </div>
-                    {esSuperAdmin && escuelas.length > 0 && (
-                        <select
-                            className={styles.searchInput}
-                            value={filtroEscuela}
-                            onChange={e => setFiltroEscuela(e.target.value)}
-                        >
-                            <option value="todas">Todas las escuelas</option>
-                            {escuelas.map(esc => (
-                                <option key={esc.id} value={esc.nombre}>{esc.nombre}</option>
-                            ))}
-                        </select>
+                    <div className={styles.headerRight}>
+                        <div className={styles.searchWrap}>
+                            <img src={iconBuscar} alt="" className={styles.searchIcon} />
+                            <input
+                                type="text"
+                                placeholder="Buscar profesor..."
+                                className={styles.searchInput}
+                                value={busqueda}
+                                onChange={e => setBusqueda(e.target.value)}
+                            />
+                        </div>
+                        {esSuperAdmin && escuelas.length > 0 && (
+                            <select
+                                className={styles.searchInput}
+                                value={filtroEscuela}
+                                onChange={e => setFiltroEscuela(e.target.value)}
+                            >
+                                <option value="todas">Todas las escuelas</option>
+                                {escuelas.map(esc => (
+                                    <option key={esc.id} value={esc.nombre}>{esc.nombre}</option>
+                                ))}
+                            </select>
+                        )}
+                    </div>
+                </div>
+
+                {/* ── Tabla ── */}
+                <div className={styles.tableWrap}>
+                    {cargando ? (
+                        <div className={styles.loadingState}>
+                            <div className={styles.spinner} />
+                            <span>Cargando profesores...</span>
+                        </div>
+                    ) : filtrados.length === 0 ? (
+                        <div className={styles.emptyState}>
+                            <img src={iconPadres} alt="" className={styles.emptyIcon} />
+                            <p className={styles.emptyText}>
+                                {busqueda ? 'Sin resultados para esa búsqueda.' : 'No hay profesores registrados aún.'}
+                            </p>
+                        </div>
+                    ) : (
+                        <table className={styles.tabla}>
+                            <thead>
+                                <tr>
+                                    <th className={styles.th}>Nombre</th>
+                                    <th className={styles.th}>Usuario</th>
+                                    {esSuperAdmin && <th className={styles.th}>Escuela</th>}
+                                    <th className={styles.th}>Registro</th>
+                                    <th className={styles.th}>Estado</th>
+                                    <th className={styles.th}>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filtrados.map((p, i) => {
+                                    const inicial = (p.nombre || p.username)?.[0]?.toUpperCase() || '?';
+                                    const nombreCompleto = [p.nombre, p.apellido_paterno, p.apellido_materno]
+                                        .filter(Boolean).join(' ') || '—';
+                                    return (
+                                        <tr
+                                            key={p.id}
+                                            className={`${styles.tr} ${!p.activo ? styles.trInactiva : ''}`}
+                                            style={{ animationDelay: `${i * 0.04}s` }}
+                                        >
+                                            <td className={styles.td}>
+                                                <div className={styles.userCell}>
+                                                    <div className={styles.avatar}>{inicial}</div>
+                                                    <span className={styles.nombreCompleto}>{nombreCompleto}</span>
+                                                </div>
+                                            </td>
+                                            <td className={styles.td}>
+                                                <span className={styles.usernameTag}>@{p.username}</span>
+                                            </td>
+                                            {esSuperAdmin && (
+                                                <td className={styles.td}>
+                                                    <span className={styles.escuelaNombre}>
+                                                        {p.escuelas?.nombre || '—'}
+                                                    </span>
+                                                </td>
+                                            )}
+                                            <td className={styles.td}>
+                                                <span className={styles.fechaText}>{formatearFecha(p.created_at)}</span>
+                                            </td>
+                                            <td className={styles.td}>
+                                                <button
+                                                    className={styles.btnToggleActivo}
+                                                    title={p.activo ? 'Activo — clic para desactivar' : 'Inactivo — clic para reactivar'}
+                                                    onClick={() => handleToggleActivo(p)}
+                                                >
+                                                    <img src={p.activo ? iconActivado : iconDesactivado} alt={p.activo ? 'Activo' : 'Inactivo'} />
+                                                </button>
+                                            </td>
+                                            <td className={styles.td}>
+                                                <div className={styles.accionesCell}>
+                                                    <button
+                                                        className={`${styles.btnAccion} ${styles.btnEditar}`}
+                                                        title="Editar"
+                                                        onClick={() => abrirEditar(p)}
+                                                    >
+                                                        <img src={iconEditar} alt="Editar" />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
                     )}
                 </div>
             </div>
-
-            {/* ── Tabla ── */}
-            <div className={styles.tableWrap}>
-                {cargando ? (
-                    <div className={styles.loadingState}>
-                        <div className={styles.spinner} />
-                        <span>Cargando profesores...</span>
-                    </div>
-                ) : filtrados.length === 0 ? (
-                    <div className={styles.emptyState}>
-                        <img src={iconPadres} alt="" className={styles.emptyIcon} />
-                        <p className={styles.emptyText}>
-                            {busqueda ? 'Sin resultados para esa búsqueda.' : 'No hay profesores registrados aún.'}
-                        </p>
-                    </div>
-                ) : (
-                    <table className={styles.tabla}>
-                        <thead>
-                            <tr>
-                                <th className={styles.th}>Nombre</th>
-                                <th className={styles.th}>Usuario</th>
-                                {esSuperAdmin && <th className={styles.th}>Escuela</th>}
-                                <th className={styles.th}>Registro</th>
-                                <th className={styles.th}>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filtrados.map((p, i) => {
-                                const inicial = (p.nombre || p.username)?.[0]?.toUpperCase() || '?';
-                                const nombreCompleto = [p.nombre, p.apellido_paterno, p.apellido_materno]
-                                    .filter(Boolean).join(' ') || '—';
-                                return (
-                                    <tr
-                                        key={p.id}
-                                        className={styles.tr}
-                                        style={{ animationDelay: `${i * 0.04}s` }}
-                                    >
-                                        <td className={styles.td}>
-                                            <div className={styles.userCell}>
-                                                <div className={styles.avatar}>{inicial}</div>
-                                                <span className={styles.nombreCompleto}>{nombreCompleto}</span>
-                                            </div>
-                                        </td>
-                                        <td className={styles.td}>
-                                            <span className={styles.usernameTag}>@{p.username}</span>
-                                        </td>
-                                        {esSuperAdmin && (
-                                            <td className={styles.td}>
-                                                <span className={styles.escuelaNombre}>
-                                                    {p.escuelas?.nombre || '—'}
-                                                </span>
-                                            </td>
-                                        )}
-                                        <td className={styles.td}>
-                                            <span className={styles.fechaText}>{formatearFecha(p.created_at)}</span>
-                                        </td>
-                                        <td className={styles.td}>
-                                            <div className={styles.accionesCell}>
-                                                <button
-                                                    className={`${styles.btnAccion} ${styles.btnEditar}`}
-                                                    title="Editar"
-                                                    onClick={() => abrirEditar(p)}
-                                                >
-                                                    <img src={iconConfig} alt="Editar" />
-                                                </button>
-                                                <button
-                                                    className={`${styles.btnAccion} ${styles.btnEliminar}`}
-                                                    title="Eliminar"
-                                                    onClick={() => handleEliminar(p)}
-                                                >
-                                                    ✕
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                )}
-            </div>
-        </div>
+        </>
     );
 };
 

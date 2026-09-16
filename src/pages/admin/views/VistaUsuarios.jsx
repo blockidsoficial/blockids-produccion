@@ -1,12 +1,20 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../../../config/supabaseClient';
 import iconUsuario from '../../../assets/iconos-ui/ui-usuario.svg';
-import iconConfig  from '../../../assets/iconos-ui/ui-configuracion.svg';
+import iconCrear      from '../../../assets/iconos-ui/crear.svg';
+import iconEditar     from '../../../assets/iconos-ui/editar.svg';
+import iconActivado   from '../../../assets/iconos-ui/activado.svg';
+import iconDesactivado from '../../../assets/iconos-ui/desactivado.svg';
 import styles from '../Dashboard.css';
 import local  from './VistaUsuarios.css';
+import { normalizarUsername, validarUsername } from '../../../lib/username-rules';
+import IconoOjo from '../../../components/IconoOjo/IconoOjo';
+
+const PASS_MIN = 6;
+const PASS_MAX = 72; // límite real de bcrypt (lo que usa Supabase Auth por debajo)
 
 const ROL_CONFIG = {
-    superadmin:    { label: 'Superadmin',    color: '#f59e0b', bg: '#fef3c7' },
+    superadmin:    { label: 'Administrador Plataforma', color: '#f59e0b', bg: '#fef3c7' },
     admin_escuela: { label: 'Admin Escuela', color: '#8b5cf6', bg: '#ede9fe' },
     profesor:      { label: 'Profesor',      color: '#3b82f6', bg: '#dbeafe' },
     alumno:        { label: 'Alumno',        color: '#10b981', bg: '#d1fae5' },
@@ -17,19 +25,6 @@ const formatearFecha = (iso) => {
     return new Date(iso).toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' });
 };
 
-const EyeOpen = () => (
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-        <circle cx="12" cy="12" r="3" />
-    </svg>
-);
-
-const EyeOff = () => (
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-        <line x1="1" y1="1" x2="23" y2="23" />
-    </svg>
-);
 
 const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostrarAlerta, onRefreshDatos }) => {
 
@@ -60,13 +55,19 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
     const [fEscuelaId, setFEscuelaId]             = useState('');
     const [fNotas, setFNotas]                     = useState('');
 
+    // ── Zona de peligro: borrado permanente (solo superadmin) ─────────────────
+    const [confirmandoEliminar, setConfirmandoEliminar] = useState(false);
+    const [impactoEliminar, setImpactoEliminar]         = useState(null);
+    const [cargandoImpacto, setCargandoImpacto]         = useState(false);
+    const [usernameConfirmacion, setUsernameConfirmacion] = useState('');
+    const [eliminandoPermanente, setEliminandoPermanente] = useState(false);
+
     // ── Cargar usuarios ───────────────────────────────────────────────────────
     const cargarUsuarios = useCallback(async () => {
         setCargandoUsers(true);
         let query = supabase
             .from('perfiles')
-            .select('id, username, nombre, apellido, apellido_paterno, apellido_materno, rol, escuela_id, notas_admin, created_at, escuelas(nombre)')
-            .eq('activo', true)
+            .select('id, username, nombre, apellido, apellido_paterno, apellido_materno, rol, escuela_id, notas_admin, created_at, activo, escuelas(nombre)')
             .order('created_at', { ascending: false });
 
         if (!esSuperAdmin && perfil?.escuela_id) {
@@ -119,13 +120,19 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
         setFPassword(''); setFConfirmPassword('');
         setFNotas('');
         setShowPassword(false); setShowConfirmPassword(false);
+        setConfirmandoEliminar(false); setImpactoEliminar(null); setUsernameConfirmacion('');
     };
 
     // ── Crear usuario vía Edge Function ───────────────────────────────────────
     const handleCreateUser = async () => {
         if (!fUsername.trim()) return mostrarAlerta('error', 'Escribe un nombre de usuario válido.');
-        if (fPassword.trim().length < 6) return mostrarAlerta('error', 'La contraseña debe tener mínimo 6 caracteres.');
-        if (fPassword !== fConfirmPassword) return mostrarAlerta('error', 'Las contraseñas no coinciden.');
+        // Trim SOLO en las puntas — los espacios intermedios de una
+        // frase-clave se respetan tal cual (no se restringe ningún carácter).
+        const fPasswordFinal = fPassword.trim();
+        if (fPasswordFinal.length < PASS_MIN || fPasswordFinal.length > PASS_MAX) {
+            return mostrarAlerta('error', `La contraseña debe tener entre ${PASS_MIN} y ${PASS_MAX} caracteres.`);
+        }
+        if (fPasswordFinal !== fConfirmPassword.trim()) return mostrarAlerta('error', 'Las contraseñas no coinciden.');
 
         const rolFinal = esSuperAdmin
             ? fRol
@@ -139,11 +146,13 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
 
         if (rolFinal !== 'superadmin' && !escuelaIdFinal) return mostrarAlerta('error', 'Selecciona una escuela.');
 
-        const usernameNorm = fUsername.trim().toLowerCase().replace(/\s+/g, '-');
+        const usernameNorm = normalizarUsername(fUsername);
+        const errorUsername = validarUsername(usernameNorm, { rol: rolFinal });
+        if (errorUsername) return mostrarAlerta('error', errorUsername);
 
         const payload = {
             username:    usernameNorm,
-            password:    fPassword,
+            password:    fPasswordFinal,
             rol:         rolFinal,
             escuela_id:  escuelaIdFinal,
             notas_admin: fNotas.trim(),
@@ -239,21 +248,116 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
         }
     };
 
-    // ── Desactivar usuario (Soft Delete) ─────────────────────────────────────
-    const handleDeleteUser = async (usuario) => {
-        if (!window.confirm('¿Estás seguro de desactivar a este usuario? Perderá su acceso a la plataforma, pero sus datos se conservarán.')) return;
+    // ── Zona de peligro: borrado permanente (solo superadmin) ─────────────────
+    // Antes de dejar confirmar, calculamos qué se lleva en cascada — todas
+    // las FK de perfiles.id tienen ON DELETE CASCADE, así que esto no es
+    // decorativo: es literalmente lo que va a desaparecer.
+    const abrirConfirmarEliminar = async () => {
+        if (!usuarioEditando) return;
+        setCargandoImpacto(true);
+        setConfirmandoEliminar(true);
+        setUsernameConfirmacion('');
+
+        if (usuarioEditando.rol === 'alumno') {
+            const [{ count: proyectos }, { count: entregas }, { count: aulas }, { count: logros }] = await Promise.all([
+                supabase.from('proyectos').select('id', { count: 'exact', head: true }).eq('alumno_id', usuarioEditando.id),
+                supabase.from('entregas_proyectos').select('id', { count: 'exact', head: true }).eq('estudiante_id', usuarioEditando.id),
+                supabase.from('aula_alumnos').select('aula_id', { count: 'exact', head: true }).eq('alumno_id', usuarioEditando.id),
+                supabase.from('usuario_logros').select('id', { count: 'exact', head: true }).eq('perfil_id', usuarioEditando.id),
+            ]);
+            setImpactoEliminar({
+                tipo: 'alumno',
+                lineas: [
+                    `${proyectos || 0} proyecto(s)`,
+                    `${entregas || 0} entrega(s)/calificación(es)`,
+                    `${aulas || 0} inscripción(es) a aula`,
+                    `${logros || 0} logro(s) desbloqueado(s)`,
+                ],
+            });
+        } else if (usuarioEditando.rol === 'profesor') {
+            const { data: aulasDelProfe } = await supabase
+                .from('aulas').select('id').eq('profesor_id', usuarioEditando.id);
+            const aulaIds = (aulasDelProfe || []).map(a => a.id);
+            let tareas = 0, alumnosInscritos = 0;
+            if (aulaIds.length > 0) {
+                const [{ count: tCount }, { count: aCount }] = await Promise.all([
+                    supabase.from('tareas').select('id', { count: 'exact', head: true }).in('aula_id', aulaIds),
+                    supabase.from('aula_alumnos').select('aula_id', { count: 'exact', head: true }).in('aula_id', aulaIds),
+                ]);
+                tareas = tCount || 0;
+                alumnosInscritos = aCount || 0;
+            }
+            setImpactoEliminar({
+                tipo: 'profesor',
+                lineas: [
+                    `${aulaIds.length} aula(s) completa(s), con todas sus tareas y mensajes`,
+                    `${tareas} tarea(s) de esas aulas (y las entregas/calificaciones asociadas)`,
+                    `${alumnosInscritos} inscripción(es) de alumnos a esas aulas (los alumnos NO se borran, solo pierden esa aula)`,
+                ],
+            });
+        } else {
+            setImpactoEliminar({ tipo: usuarioEditando.rol, lineas: ['Esta cuenta no tiene aulas ni proyectos propios asociados.'] });
+        }
+        setCargandoImpacto(false);
+    };
+
+    const cancelarConfirmarEliminar = () => {
+        setConfirmandoEliminar(false);
+        setImpactoEliminar(null);
+        setUsernameConfirmacion('');
+    };
+
+    const handleEliminarPermanente = async () => {
+        if (!usuarioEditando) return;
+        if (usernameConfirmacion !== usuarioEditando.username) return;
+
+        setEliminandoPermanente(true);
+        const { data, error } = await supabase.functions.invoke('eliminar-usuario-permanente', {
+            body: { usuario_id: usuarioEditando.id, username_confirmacion: usernameConfirmacion },
+        });
+        setEliminandoPermanente(false);
+
+        if (error || data?.error) {
+            let mensajeError = data?.error;
+            if (!mensajeError && error) {
+                try {
+                    const cuerpo = await error.context?.json?.();
+                    mensajeError = cuerpo?.error || error.message;
+                } catch {
+                    mensajeError = error.message;
+                }
+            }
+            console.error('ERROR ELIMINAR PERMANENTE:', error, '| Mensaje:', mensajeError);
+            return mostrarAlerta('error', mensajeError || 'Error desconocido al eliminar la cuenta.');
+        }
+
+        mostrarAlerta('success', `Cuenta @${data.username} eliminada de forma permanente.`);
+        cerrarModal();
+        cargarUsuarios();
+        onRefreshDatos?.();
+    };
+
+    // ── Activar / desactivar usuario (toggle, no borra nada) ──────────────────
+    const handleToggleActivo = async (usuario) => {
+        const activarlo = !usuario.activo;
+        const confirmacion = activarlo
+            ? `¿Reactivar a @${usuario.username}? Recuperará su acceso a la plataforma.`
+            : `¿Desactivar a @${usuario.username}? Perderá su acceso a la plataforma, pero sus datos se conservarán.`;
+        if (!window.confirm(confirmacion)) return;
         const { data: filas, error } = await supabase
             .from('perfiles')
-            .update({ activo: false })
+            .update({ activo: activarlo })
             .eq('id', usuario.id)
             .select('id');
         if (error) {
-            console.error('ERROR al desactivar usuario:', error);
-            mostrarAlerta('error', `Error al desactivar: ${error.message}`);
+            console.error('ERROR al cambiar estado del usuario:', error);
+            mostrarAlerta('error', `Error al ${activarlo ? 'reactivar' : 'desactivar'}: ${error.message}`);
         } else if (!filas || filas.length === 0) {
-            mostrarAlerta('error', 'No se pudo desactivar el usuario. Verifica que tienes permisos.');
+            mostrarAlerta('error', `No se pudo ${activarlo ? 'reactivar' : 'desactivar'} al usuario. Verifica que tienes permisos.`);
         } else {
-            mostrarAlerta('success', `Usuario @${usuario.username} desactivado. Sus datos se han conservado.`);
+            mostrarAlerta('success', activarlo
+                ? `Usuario @${usuario.username} reactivado.`
+                : `Usuario @${usuario.username} desactivado. Sus datos se han conservado.`);
             cargarUsuarios();
             onRefreshDatos?.();
         }
@@ -282,7 +386,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                         <div className={styles.modalHeader}>
                             <div className={styles.modalHeaderLeft}>
                                 <div className={styles.modalIcon}>
-                                    <img src={modoModal === 'crear' ? iconUsuario : iconConfig} alt="" className={styles.modalIconImg} />
+                                    <img src={modoModal === 'crear' ? iconCrear : iconEditar} alt="" className={styles.modalIconImg} />
                                 </div>
                                 <div>
                                     <h3 className={styles.modalTitle}>
@@ -300,13 +404,13 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
 
                         <div className={styles.modalBody}>
 
-                             {/* <div className={styles.rolPreview}>
+                             <div className={styles.rolPreview}>
                                 <span className={styles.rolPreviewLabel}>Rol seleccionado:</span>
                                 <span className={styles.rolBadge}
                                     style={{ color: ROL_CONFIG[fRol]?.color, background: ROL_CONFIG[fRol]?.bg }}>
                                     {ROL_CONFIG[fRol]?.label}
                                 </span>
-                            </div> */}
+                            </div>
 
                             <div className={styles.modalRow}>
                                 <div className={styles.fieldGroup}>
@@ -323,7 +427,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                 <div className={styles.fieldGroup}>
                                     <label className={styles.fieldLabel}>Escuela</label>
                                     {fRol === 'superadmin' ? (
-                                        <div className={styles.fieldReadonly}>No aplica — el Superadmin no pertenece a una escuela</div>
+                                        <div className={styles.fieldReadonly}>No aplica — Administrador Plataforma no pertenece a una escuela</div>
                                     ) : esSuperAdmin ? (
                                         <select className={styles.fieldSelect} value={fEscuelaId} onChange={e => setFEscuelaId(e.target.value)}>
                                             <option value="">— Selecciona —</option>
@@ -336,7 +440,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                     )}
                                 </div>
                             </div>
-                            
+
 
                             <div className={styles.fieldGroup}>
                                 <label className={styles.fieldLabel}>
@@ -351,8 +455,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                 )}
                             </div>
 
-                           
-
+        
 
                             <div className={styles.fieldGroup}>
                                 <label className={styles.fieldLabel}>Nombre</label>
@@ -385,12 +488,14 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                             <input
                                                 type={showPassword ? 'text' : 'password'}
                                                 className={styles.fieldInput}
-                                                placeholder="Mínimo 6 caracteres, sin espacios ni acentos"
+                                                placeholder={`Mínimo ${PASS_MIN} caracteres — puede llevar espacios`}
+                                                maxLength={PASS_MAX}
+                                                autoComplete="new-password"
                                                 value={fPassword} onChange={e => setFPassword(e.target.value)} />
                                             <button type="button" className={styles.eyeButton}
                                                 onClick={() => setShowPassword(v => !v)}
                                                 aria-label={showPassword ? 'Ocultar' : 'Mostrar'}>
-                                                {showPassword ? <EyeOff /> : <EyeOpen />}
+                                                <IconoOjo visible={showPassword} size={18} />
                                             </button>
                                         </div>
                                     </div>
@@ -402,11 +507,13 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                                 type={showConfirmPassword ? 'text' : 'password'}
                                                 className={styles.fieldInput}
                                                 placeholder="Confirma la contraseña"
+                                                maxLength={PASS_MAX}
+                                                autoComplete="new-password"
                                                 value={fConfirmPassword} onChange={e => setFConfirmPassword(e.target.value)} />
                                             <button type="button" className={styles.eyeButton}
                                                 onClick={() => setShowConfirmPassword(v => !v)}
                                                 aria-label={showConfirmPassword ? 'Ocultar' : 'Mostrar'}>
-                                                {showConfirmPassword ? <EyeOff /> : <EyeOpen />}
+                                                <IconoOjo visible={showConfirmPassword} size={18} />
                                             </button>
                                         </div>
                                     </div>
@@ -427,7 +534,55 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                     value={fNotas} onChange={e => setFNotas(e.target.value)} rows={3} />
                             </div>
 
-                            
+                            {/* ── Zona de peligro: borrado permanente (solo superadmin, solo editando) ── */}
+                            {esSuperAdmin && modoModal === 'editar' && usuarioEditando && (
+                                <div className={local.zonaPeligro}>
+                                    <p className={local.zonaPeligroTitulo}>⚠ Precaución Eliminación Permanente</p>
+                                    {!confirmandoEliminar ? (
+                                        <>
+                                            <p className={local.zonaPeligroDesc}>
+                                                Borra la cuenta de forma permanente e irreversible — no es lo mismo que desactivar.
+                                            </p>
+                                            <button type="button" className={local.btnAbrirEliminar} onClick={abrirConfirmarEliminar}>
+                                                Eliminar cuenta permanentemente
+                                            </button>
+                                        </>
+                                    ) : cargandoImpacto ? (
+                                        <p className={local.zonaPeligroDesc}>Calculando qué se vería afectado...</p>
+                                    ) : (
+                                        <>
+                                            <p className={local.zonaPeligroDesc}>Esto también borrará para siempre:</p>
+                                            <ul className={local.listaImpacto}>
+                                                {impactoEliminar?.lineas.map((linea, i) => <li key={i}>{linea}</li>)}
+                                            </ul>
+                                            <label className={styles.fieldLabel}>
+                                                Escribe <strong className={local.usernameLiteral}>{usuarioEditando.username}</strong> para confirmar
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className={styles.fieldInput}
+                                                placeholder={usuarioEditando.username}
+                                                value={usernameConfirmacion}
+                                                onChange={e => setUsernameConfirmacion(e.target.value)}
+                                                autoComplete="off"
+                                            />
+                                            <div className={local.accionesEliminar}>
+                                                <button type="button" className={styles.btnCancelar} onClick={cancelarConfirmarEliminar} disabled={eliminandoPermanente}>
+                                                    Cancelar
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className={local.btnConfirmarEliminar}
+                                                    onClick={handleEliminarPermanente}
+                                                    disabled={eliminandoPermanente || usernameConfirmacion !== usuarioEditando.username}
+                                                >
+                                                    {eliminandoPermanente ? 'Eliminando...' : 'Eliminar para siempre'}
+                                                </button>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+                            )}
                         </div>
 
                         <div className={styles.modalFooter}>
@@ -512,12 +667,13 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                     <span>Escuela</span>
                                     <span>Notas Admin</span>
                                     <span>Registro</span>
+                                    <span>Estado</span>
                                     <span>Acciones</span>
                                 </div>
                                 {usuariosFiltrados.map((u, i) => {
                                     const cfg = ROL_CONFIG[u.rol] || {};
                                     return (
-                                        <div key={u.id} className={styles.usuarioRow} style={{ animationDelay: `${i * 0.04}s` }}>
+                                        <div key={u.id} className={`${styles.usuarioRow} ${!u.activo ? local.filaInactiva : ''}`} style={{ animationDelay: `${i * 0.04}s` }}>
                                             <div className={styles.usuarioUsername}>
                                                 <div className={styles.usuarioAvatar}>
                                                     {(u.nombre || u.username)?.[0]?.toUpperCase() || '?'}
@@ -541,12 +697,19 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                                 {u.notas_admin || <span className={local.textoDash}>—</span>}
                                             </div>
                                             <div className={styles.usuarioFecha}>{formatearFecha(u.created_at)}</div>
+                                            <div>
+                                                <button
+                                                    className={local.btnToggleActivo}
+                                                    title={u.activo ? 'Activo — clic para desactivar' : 'Inactivo — clic para reactivar'}
+                                                    onClick={() => handleToggleActivo(u)}
+                                                >
+                                                    <img src={u.activo ? iconActivado : iconDesactivado} alt={u.activo ? 'Activo' : 'Inactivo'} />
+                                                </button>
+                                            </div>
                                             <div className={local.accionesRow}>
                                                 <button className={styles.btnEditar} onClick={() => abrirModalEditar(u)}>
+                                                    <img src={iconEditar} alt="" className={local.iconoBoton} />
                                                     Editar
-                                                </button>
-                                                <button className={styles.btnEliminar} onClick={() => handleDeleteUser(u)}>
-                                                    Eliminar
                                                 </button>
                                             </div>
                                         </div>

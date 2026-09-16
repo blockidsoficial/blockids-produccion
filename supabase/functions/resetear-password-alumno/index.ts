@@ -44,8 +44,14 @@ Deno.serve(async (req) => {
     if (!alumno_id || !nueva_password) {
       return json({ error: 'Faltan campos: alumno_id, nueva_password.' }, 400);
     }
-    if (String(nueva_password).length < 6) {
-      return json({ error: 'La contraseña debe tener mínimo 6 caracteres.' }, 400);
+    // Trim SOLO en las puntas (accidente de copiar/pegar) — no se restringe
+    // ningún carácter: se aceptan espacios intermedios, acentos y emojis.
+    // Tope de 72 = límite real de bcrypt (lo que usa Supabase Auth por
+    // debajo); no es arbitrario, todo lo que pase de eso se ignora al
+    // hashear de cualquier forma.
+    const passwordFinal = String(nueva_password).trim();
+    if (passwordFinal.length < 6 || passwordFinal.length > 72) {
+      return json({ error: 'La contraseña debe tener entre 6 y 72 caracteres.' }, 400);
     }
 
     // Cliente con service role — para las operaciones privilegiadas (bypassa RLS).
@@ -106,7 +112,7 @@ Deno.serve(async (req) => {
     // superadmin: sin restricción de alcance.
 
     const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(alumno_id, {
-      password: String(nueva_password),
+      password: passwordFinal,
     });
     if (updateError) {
       return json({ error: `No se pudo actualizar la contraseña: ${updateError.message}` }, 400);

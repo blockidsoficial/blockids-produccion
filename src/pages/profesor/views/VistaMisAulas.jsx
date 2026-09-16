@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../../../config/supabaseClient';
 import iconCurso   from '../../../assets/iconos-ui/ui-curso.svg';
 import iconInicio  from '../../../assets/iconos-ui/ui-inicio.svg';
-import iconConfig  from '../../../assets/iconos-ui/ui-configuracion.svg';
+import iconEditar   from '../../../assets/iconos-ui/editar.svg';
+import iconEliminar from '../../../assets/iconos-ui/eliminar.svg';
 import dash   from '../Dashboard.css';
 import styles from './VistaMisAulas.css';
 
@@ -333,14 +334,14 @@ const VistaMisAulas = ({ userId, escuelaId }) => {
                                         title="Editar aula"
                                         onClick={(e) => { e.stopPropagation(); abrirModalEditar(aula); }}
                                     >
-                                        <img src={iconConfig} alt="Editar" />
+                                        <img src={iconEditar} alt="Editar" />
                                     </button>
                                     <button
                                         className={`${styles.btnAccionAula} ${styles.btnEliminarAula}`}
                                         title="Eliminar aula"
                                         onClick={(e) => { e.stopPropagation(); abrirModalEliminar(aula); }}
                                     >
-                                        ✕
+                                        <img src={iconEliminar} alt="Eliminar" />
                                     </button>
                                 </div>
                             </div>

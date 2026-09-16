@@ -25,6 +25,7 @@ const VistaCalificaciones = ({ userId }) => {
     const [entregaEditando, setEntregaEditando] = useState(null);
     const [nuevaCalif,      setNuevaCalif]      = useState(5);
     const [guardandoNota,   setGuardandoNota]   = useState(false);
+    const [errorGuardado,   setErrorGuardado]   = useState('');
 
     // ── Carga aulas del profesor ──────────────────────────────────────────────
     useEffect(() => {
@@ -131,6 +132,7 @@ const VistaCalificaciones = ({ userId }) => {
     const abrirModal = (alumno, tarea, entrega) => {
         setEntregaEditando({ alumno, tarea, entrega });
         setNuevaCalif(entrega?.calificacion || 5);
+        setErrorGuardado('');
         setModalAbierto(true);
     };
 
@@ -138,20 +140,25 @@ const VistaCalificaciones = ({ userId }) => {
         if (guardandoNota) return;
         setModalAbierto(false);
         setEntregaEditando(null);
+        setErrorGuardado('');
     };
 
     // ── Guardar calificación ──────────────────────────────────────────────────
     const handleGuardarNota = async () => {
         if (!entregaEditando) return;
         setGuardandoNota(true);
+        setErrorGuardado('');
 
-        if (entregaEditando.entrega) {
-            await supabase
+        // Se otorga XP solo la primera vez que la entrega pasa a "calificado"
+        // (no cada vez que se re-edita la nota de algo que ya estaba calificado).
+        const yaEstabaCalificada = entregaEditando.entrega?.estado === 'calificado';
+
+        const { error } = entregaEditando.entrega
+            ? await supabase
                 .from('entregas_proyectos')
                 .update({ calificacion: nuevaCalif, estado: 'calificado' })
-                .eq('id', entregaEditando.entrega.id);
-        } else {
-            await supabase
+                .eq('id', entregaEditando.entrega.id)
+            : await supabase
                 .from('entregas_proyectos')
                 .insert([{
                     tarea_id:      entregaEditando.tarea.id,
@@ -159,6 +166,26 @@ const VistaCalificaciones = ({ userId }) => {
                     calificacion:  nuevaCalif,
                     estado:        'calificado',
                 }]);
+
+        if (error) {
+            console.error('Error al guardar la calificación:', error);
+            setGuardandoNota(false);
+            setErrorGuardado(`No se pudo guardar: ${error.message}`);
+            return;
+        }
+
+        // El XP se otorga vía RPC (único camino que el trigger de seguridad
+        // de "perfiles" permite tocar puntos_xp/nivel) — nunca con un UPDATE
+        // directo, que quedaría bloqueado.
+        if (!yaEstabaCalificada) {
+            const xp = entregaEditando.tarea.puntos_recompensa || 0;
+            if (xp > 0) {
+                const { error: xpError } = await supabase.rpc('otorgar_xp', {
+                    p_user_id: entregaEditando.alumno.id,
+                    p_cantidad: xp,
+                });
+                if (xpError) console.error('Error al otorgar XP:', xpError);
+            }
         }
 
         setGuardandoNota(false);
@@ -210,6 +237,9 @@ const VistaCalificaciones = ({ userId }) => {
                                 {nuevaCalif}
                                 <span className={styles.notaActualLabel}>/ 10</span>
                             </p>
+                            {errorGuardado && (
+                                <p className={styles.errorGuardado}>{errorGuardado}</p>
+                            )}
                         </div>
 
                         <div className={dash.modalFooter}>

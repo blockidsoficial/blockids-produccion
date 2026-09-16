@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../../config/supabaseClient';
-import iconCurso  from '../../../assets/iconos-ui/ui-curso.svg';
-import iconBuscar from '../../../assets/iconos-ui/ui-buscar.svg';
-import iconConfig from '../../../assets/iconos-ui/ui-configuracion.svg';
+import iconCurso   from '../../../assets/iconos-ui/ui-curso.svg';
+import iconBuscar  from '../../../assets/iconos-ui/ui-buscar.svg';
+import iconEditar  from '../../../assets/iconos-ui/editar.svg';
+import iconEliminar from '../../../assets/iconos-ui/eliminar.svg';
 import styles from './TablasAdmin.css';
 
 const formatearFecha = (iso) => {
@@ -105,9 +106,14 @@ const VistaAulas = ({ perfil, esSuperAdmin, onNuevaAula, refreshKey, mostrarAler
     });
 
     return (
-        <div className={styles.vistaContainer}>
-
-            {/* ── Modal editar aula ── */}
+        <>
+            {/* ── Modal editar aula ──
+                Fuera de .vistaContainer a propósito: ver el comentario del
+                mismo patrón en VistaProfesores.jsx — .vistaContainer tiene
+                `animation: fadeSlideUp ... both`, y ese fill-mode deja un
+                `transform` permanente que convierte a .vistaContainer en
+                "containing block" de cualquier `position: fixed` anidado,
+                rompiendo el centrado/tamaño del overlay. */}
             {editando && (
                 <div className={styles.modalOverlay} onClick={cerrarEditar}>
                     <div className={styles.modalCard} onClick={e => e.stopPropagation()}>
@@ -142,139 +148,142 @@ const VistaAulas = ({ perfil, esSuperAdmin, onNuevaAula, refreshKey, mostrarAler
                 </div>
             )}
 
-            {/* ── Encabezado ── */}
-            <div className={styles.vistaHeader}>
-                <div>
-                    <h1 className={styles.vistaTitulo}>Directorio de Aulas</h1>
-                    <p className={styles.vistaSubtitulo}>
-                        {cargando
-                            ? 'Cargando...'
-                            : `${filtradas.length} aula${filtradas.length !== 1 ? 's' : ''} encontrada${filtradas.length !== 1 ? 's' : ''}`}
-                    </p>
-                </div>
-                <div className={styles.headerRight}>
-                    <div className={styles.searchWrap}>
-                        <img src={iconBuscar} alt="" className={styles.searchIcon} />
-                        <input
-                            type="text"
-                            placeholder="Buscar aula o código..."
-                            className={styles.searchInput}
-                            value={busqueda}
-                            onChange={e => setBusqueda(e.target.value)}
-                        />
-                    </div>
-                    {esSuperAdmin && escuelas.length > 0 && (
-                        <select
-                            className={styles.searchInput}
-                            value={filtroEscuela}
-                            onChange={e => setFiltroEscuela(e.target.value)}
-                        >
-                            <option value="todas">Todas las escuelas</option>
-                            {escuelas.map(esc => (
-                                <option key={esc.id} value={esc.nombre}>{esc.nombre}</option>
-                            ))}
-                        </select>
-                    )}
-                    {onNuevaAula && (
-                        <button className={styles.btnNuevo} onClick={onNuevaAula}>
-                            + Nueva Aula
-                        </button>
-                    )}
-                </div>
-            </div>
+            <div className={styles.vistaContainer}>
 
-            {/* ── Tabla ── */}
-            <div className={styles.tableWrap}>
-                {cargando ? (
-                    <div className={styles.loadingState}>
-                        <div className={styles.spinner} />
-                        <span>Cargando aulas...</span>
-                    </div>
-                ) : filtradas.length === 0 ? (
-                    <div className={styles.emptyState}>
-                        <img src={iconCurso} alt="" className={styles.emptyIcon} />
-                        <p className={styles.emptyText}>
-                            {busqueda ? 'Sin resultados para esa búsqueda.' : 'No hay aulas registradas aún.'}
+                {/* ── Encabezado ── */}
+                <div className={styles.vistaHeader}>
+                    <div>
+                        <h1 className={styles.vistaTitulo}>Directorio de Aulas</h1>
+                        <p className={styles.vistaSubtitulo}>
+                            {cargando
+                                ? 'Cargando...'
+                                : `${filtradas.length} aula${filtradas.length !== 1 ? 's' : ''} encontrada${filtradas.length !== 1 ? 's' : ''}`}
                         </p>
                     </div>
-                ) : (
-                    <table className={styles.tabla}>
-                        <thead>
-                            <tr>
-                                <th className={styles.th}>Nombre del Aula</th>
-                                <th className={styles.th}>Código</th>
-                                <th className={styles.th}>Profesor</th>
-                                {esSuperAdmin && <th className={styles.th}>Escuela</th>}
-                                <th className={styles.th}>Creación</th>
-                                <th className={styles.th}>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filtradas.map((a, i) => {
-                                const profe = a.profesor;
-                                const nombreProfe = profe
-                                    ? (profe.nombre && profe.apellido
-                                        ? `${profe.nombre} ${profe.apellido}`
-                                        : `@${profe.username}`)
-                                    : '—';
-                                return (
-                                    <tr
-                                        key={a.id}
-                                        className={styles.tr}
-                                        style={{ animationDelay: `${i * 0.04}s` }}
-                                    >
-                                        <td className={styles.td}>
-                                            <div className={styles.aulaNameCell}>
-                                                <div className={styles.aulaIcon}>
-                                                    <img src={iconCurso} alt="" width="15" />
-                                                </div>
-                                                <span className={styles.nombreCompleto}>{a.nombre}</span>
-                                            </div>
-                                        </td>
-                                        <td className={styles.td}>
-                                            <span className={styles.codigoBadge}>
-                                                {a.codigo_aula || '—'}
-                                            </span>
-                                        </td>
-                                        <td className={styles.td}>
-                                            <span className={styles.escuelaNombre}>{nombreProfe}</span>
-                                        </td>
-                                        {esSuperAdmin && (
+                    <div className={styles.headerRight}>
+                        <div className={styles.searchWrap}>
+                            <img src={iconBuscar} alt="" className={styles.searchIcon} />
+                            <input
+                                type="text"
+                                placeholder="Buscar aula o código..."
+                                className={styles.searchInput}
+                                value={busqueda}
+                                onChange={e => setBusqueda(e.target.value)}
+                            />
+                        </div>
+                        {esSuperAdmin && escuelas.length > 0 && (
+                            <select
+                                className={styles.searchInput}
+                                value={filtroEscuela}
+                                onChange={e => setFiltroEscuela(e.target.value)}
+                            >
+                                <option value="todas">Todas las escuelas</option>
+                                {escuelas.map(esc => (
+                                    <option key={esc.id} value={esc.nombre}>{esc.nombre}</option>
+                                ))}
+                            </select>
+                        )}
+                        {onNuevaAula && (
+                            <button className={styles.btnNuevo} onClick={onNuevaAula}>
+                                + Nueva Aula
+                            </button>
+                        )}
+                    </div>
+                </div>
+
+                {/* ── Tabla ── */}
+                <div className={styles.tableWrap}>
+                    {cargando ? (
+                        <div className={styles.loadingState}>
+                            <div className={styles.spinner} />
+                            <span>Cargando aulas...</span>
+                        </div>
+                    ) : filtradas.length === 0 ? (
+                        <div className={styles.emptyState}>
+                            <img src={iconCurso} alt="" className={styles.emptyIcon} />
+                            <p className={styles.emptyText}>
+                                {busqueda ? 'Sin resultados para esa búsqueda.' : 'No hay aulas registradas aún.'}
+                            </p>
+                        </div>
+                    ) : (
+                        <table className={styles.tabla}>
+                            <thead>
+                                <tr>
+                                    <th className={styles.th}>Nombre del Aula</th>
+                                    <th className={styles.th}>Código</th>
+                                    <th className={styles.th}>Profesor</th>
+                                    {esSuperAdmin && <th className={styles.th}>Escuela</th>}
+                                    <th className={styles.th}>Creación</th>
+                                    <th className={styles.th}>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filtradas.map((a, i) => {
+                                    const profe = a.profesor;
+                                    const nombreProfe = profe
+                                        ? (profe.nombre && profe.apellido
+                                            ? `${profe.nombre} ${profe.apellido}`
+                                            : `@${profe.username}`)
+                                        : '—';
+                                    return (
+                                        <tr
+                                            key={a.id}
+                                            className={styles.tr}
+                                            style={{ animationDelay: `${i * 0.04}s` }}
+                                        >
                                             <td className={styles.td}>
-                                                <span className={styles.escuelaNombre}>
-                                                    {a.escuelas?.nombre || '—'}
+                                                <div className={styles.aulaNameCell}>
+                                                    <div className={styles.aulaIcon}>
+                                                        <img src={iconCurso} alt="" width="15" />
+                                                    </div>
+                                                    <span className={styles.nombreCompleto}>{a.nombre}</span>
+                                                </div>
+                                            </td>
+                                            <td className={styles.td}>
+                                                <span className={styles.codigoBadge}>
+                                                    {a.codigo_aula || '—'}
                                                 </span>
                                             </td>
-                                        )}
-                                        <td className={styles.td}>
-                                            <span className={styles.fechaText}>{formatearFecha(a.created_at)}</span>
-                                        </td>
-                                        <td className={styles.td}>
-                                            <div className={styles.accionesCell}>
-                                                <button
-                                                    className={`${styles.btnAccion} ${styles.btnEditar}`}
-                                                    title="Editar"
-                                                    onClick={() => abrirEditar(a)}
-                                                >
-                                                    <img src={iconConfig} alt="Editar" />
-                                                </button>
-                                                <button
-                                                    className={`${styles.btnAccion} ${styles.btnEliminar}`}
-                                                    title="Eliminar"
-                                                    onClick={() => handleEliminar(a)}
-                                                >
-                                                    ✕
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                )}
+                                            <td className={styles.td}>
+                                                <span className={styles.escuelaNombre}>{nombreProfe}</span>
+                                            </td>
+                                            {esSuperAdmin && (
+                                                <td className={styles.td}>
+                                                    <span className={styles.escuelaNombre}>
+                                                        {a.escuelas?.nombre || '—'}
+                                                    </span>
+                                                </td>
+                                            )}
+                                            <td className={styles.td}>
+                                                <span className={styles.fechaText}>{formatearFecha(a.created_at)}</span>
+                                            </td>
+                                            <td className={styles.td}>
+                                                <div className={styles.accionesCell}>
+                                                    <button
+                                                        className={`${styles.btnAccion} ${styles.btnEditar}`}
+                                                        title="Editar"
+                                                        onClick={() => abrirEditar(a)}
+                                                    >
+                                                        <img src={iconEditar} alt="Editar" />
+                                                    </button>
+                                                    <button
+                                                        className={`${styles.btnAccion} ${styles.btnEliminar}`}
+                                                        title="Eliminar"
+                                                        onClick={() => handleEliminar(a)}
+                                                    >
+                                                        <img src={iconEliminar} alt="Eliminar" />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    )}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

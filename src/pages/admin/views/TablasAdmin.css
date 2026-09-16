@@ -198,11 +198,31 @@
     background: var(--color-blanco); font-size: .75rem;
     font-family: var(--font-principal);
 }
-.btnAccion img { width: 14px; height: 14px; opacity: .6; }
-.btnEditar:hover { border-color: var(--color-azul-fuerte); background: var(--color-azul-bg); }
-.btnEditar:hover img { opacity: 1; }
+/* Los iconos nuevos (editar/eliminar/activado/...) son ilustraciones a
+   color, no líneas monocromáticas — se muestran a color completo, sin la
+   atenuación de opacidad que sí necesitaban los iconos de línea antiguos. */
+.btnAccion img { width: 18px; height: 18px; }
+.btnEditar:hover { border-color: var(--color-azul-fuerte); background: var(--color-azul-bg); transform: translateY(-1px); }
 .btnEliminar { color: #c5221f; }
-.btnEliminar:hover { border-color: #f4b8b5; background: var(--color-rosa-claro); }
+.btnEliminar:hover { border-color: #f4b8b5; background: var(--color-rosa-claro); transform: translateY(-1px); }
+
+/* ── Toggle activo/inactivo (perfiles) ──────────────────────
+   No es un botón de "eliminar": alterna perfiles.activo — reversible,
+   no borra nada. Reemplaza al viejo botón "✕ eliminar" que en realidad
+   solo apagaba/prendía la cuenta. */
+.btnToggleActivo {
+    width: 30px; height: 30px; border-radius: var(--radio-sm);
+    border: none; background: transparent; padding: 0;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: transform .18s ease;
+}
+.btnToggleActivo:hover { transform: scale(1.08); }
+.btnToggleActivo img { width: 30px; height: 24px; }
+
+/* Fila de un perfil desactivado: se ve, pero apagada, para distinguirla
+   de un vistazo sin tener que leer la columna Estado. */
+.trInactiva { opacity: .5; }
+.trInactiva:hover { opacity: .75; }
 
 /* ── Estado vacío ────────────────────────────────────────── */
 .emptyState {

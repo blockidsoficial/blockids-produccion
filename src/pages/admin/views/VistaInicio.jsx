@@ -21,7 +21,7 @@ const ROLES_DONA = [
     { key: 'alumno',        name: 'Alumnos',       color: '#4D96FF' },
     { key: 'profesor',      name: 'Profesores',    color: '#6BCB77' },
     { key: 'admin_escuela', name: 'Admin Escuela', color: '#f59e0b' },
-    { key: 'superadmin',    name: 'Superadmin',    color: '#64748b' },
+    { key: 'superadmin',    name: 'Administrador Plataforma', color: '#64748b' },
 ];
 
 const formatearFecha = (iso) => {

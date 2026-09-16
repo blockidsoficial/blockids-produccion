@@ -48,7 +48,7 @@ const tiempoRelativo = (iso) => {
 };
 
 const ROL_CONFIG = {
-    superadmin:    { label: 'Superadmin',    color: '#f59e0b', bg: '#fef3c7' },
+    superadmin:    { label: 'Administrador Plataforma', color: '#f59e0b', bg: '#fef3c7' },
     admin_escuela: { label: 'Admin Escuela', color: '#8b5cf6', bg: '#ede9fe' },
     profesor:      { label: 'Profesor',      color: '#3b82f6', bg: '#dbeafe' },
     alumno:        { label: 'Alumno',        color: '#10b981', bg: '#d1fae5' },
@@ -380,10 +380,10 @@ const DashboardAdmin = () => {
 
     return (
         <DashboardLayout
-            title={nombreCompletoAdmin ? `¡Hola, ${nombreCompletoAdmin}!` : (esSuperAdmin ? '¡Bienvenido, Super Admin!' : '¡Hola, Admin!')}
+            title={nombreCompletoAdmin ? `¡Hola, ${nombreCompletoAdmin}!` : (esSuperAdmin ? '¡Bienvenido, Administrador Plataforma!' : '¡Hola, Admin!')}
             subtitle={esSuperAdmin ? 'Tienes control total de la plataforma.' : 'Gestiona tu escuela de forma fácil.'}
             userName={perfil?.username ? `@${perfil.username}` : (esSuperAdmin ? 'superadmin' : 'admin')}
-            role={esSuperAdmin ? 'Superadmin' : 'Admin Escuela'}
+            role={esSuperAdmin ? 'Administrador Plataforma' : 'Admin Escuela'}
             navItems={navItems}
             activeNav={vistaActiva}
             onLogout={handleLogout}

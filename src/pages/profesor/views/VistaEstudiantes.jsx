@@ -3,6 +3,8 @@ import { supabase } from '../../../config/supabaseClient';
 import iconUsuario from '../../../assets/iconos-ui/ui-usuario.svg';
 import dash   from '../Dashboard.css';
 import styles from './VistaEstudiantes.css';
+import { normalizarUsername, validarUsername } from '../../../lib/username-rules';
+import IconoOjo from '../../../components/IconoOjo/IconoOjo';
 
 const formatearFecha = (iso) => {
     if (!iso) return '—';
@@ -19,6 +21,7 @@ const COLORES_AVATAR = ['#3b5bdb', '#7048e8', '#0ca678', '#e67700', '#c92a2a', '
 const colorAvatar = (str = '') => COLORES_AVATAR[str.charCodeAt(0) % COLORES_AVATAR.length];
 
 const PASS_MIN = 6;
+const PASS_MAX = 72; // límite real de bcrypt (lo que usa Supabase Auth por debajo)
 
 const IconoLlave = () => (
     <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -27,19 +30,6 @@ const IconoLlave = () => (
     </svg>
 );
 
-const IconoOjo = ({ visible }) => (
-    visible ? (
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-            <line x1="1" y1="1" x2="23" y2="23" />
-        </svg>
-    ) : (
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-            <circle cx="12" cy="12" r="3" />
-        </svg>
-    )
-);
 
 const VistaEstudiantes = ({ userId, escuelaId }) => {
 
@@ -218,16 +208,20 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
             setAlertaCrear({ tipo: 'error', texto: 'No se encontró tu escuela. Recarga la página.' });
             return;
         }
-        const usernameNorm = cUsername.trim().toLowerCase().replace(/\s+/g, '-');
-        if (!usernameNorm) {
-            setAlertaCrear({ tipo: 'error', texto: 'Escribe un nombre de usuario.' });
+        const usernameNorm = normalizarUsername(cUsername);
+        const errorUsername = validarUsername(usernameNorm, { rol: 'alumno' });
+        if (errorUsername) {
+            setAlertaCrear({ tipo: 'error', texto: errorUsername });
             return;
         }
-        if (cPassword.length < PASS_MIN) {
-            setAlertaCrear({ tipo: 'error', texto: `La contraseña debe tener al menos ${PASS_MIN} caracteres.` });
+        // Trim SOLO en las puntas — los espacios intermedios de una
+        // frase-clave se respetan tal cual (no se restringe ningún carácter).
+        const cPasswordFinal = cPassword.trim();
+        if (cPasswordFinal.length < PASS_MIN || cPasswordFinal.length > PASS_MAX) {
+            setAlertaCrear({ tipo: 'error', texto: `La contraseña debe tener entre ${PASS_MIN} y ${PASS_MAX} caracteres.` });
             return;
         }
-        if (cPassword !== cConfirm) {
+        if (cPasswordFinal !== cConfirm.trim()) {
             setAlertaCrear({ tipo: 'error', texto: 'Las contraseñas no coinciden.' });
             return;
         }
@@ -237,7 +231,7 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
         const { data, error } = await supabase.functions.invoke('crear-usuario-admin', {
             body: {
                 username:         usernameNorm,
-                password:         cPassword,
+                password:         cPasswordFinal,
                 rol:              'alumno',
                 escuela_id:       escuelaId,
                 nombre:           cNombre.trim(),
@@ -305,11 +299,13 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
 
     const handleResetPassword = async () => {
         if (!alumnoReset) return;
-        if (nuevaPassReset.length < PASS_MIN) {
-            setAlertaReset({ tipo: 'error', texto: `La contraseña debe tener al menos ${PASS_MIN} caracteres.` });
+        // Trim SOLO en las puntas — los espacios intermedios se respetan tal cual.
+        const nuevaPassResetFinal = nuevaPassReset.trim();
+        if (nuevaPassResetFinal.length < PASS_MIN || nuevaPassResetFinal.length > PASS_MAX) {
+            setAlertaReset({ tipo: 'error', texto: `La contraseña debe tener entre ${PASS_MIN} y ${PASS_MAX} caracteres.` });
             return;
         }
-        if (nuevaPassReset !== confirmPassReset) {
+        if (nuevaPassResetFinal !== confirmPassReset.trim()) {
             setAlertaReset({ tipo: 'error', texto: 'Las contraseñas no coinciden.' });
             return;
         }
@@ -317,7 +313,7 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
         setAlertaReset(null);
 
         const { data, error } = await supabase.functions.invoke('resetear-password-alumno', {
-            body: { alumno_id: alumnoReset.id, nueva_password: nuevaPassReset },
+            body: { alumno_id: alumnoReset.id, nueva_password: nuevaPassResetFinal },
         });
 
         setReseteando(false);
@@ -559,7 +555,7 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
                                         disabled={creando}
                                         aria-label={verCPass ? 'Ocultar contraseña' : 'Mostrar contraseña'}
                                     >
-                                        <IconoOjo visible={verCPass} />
+                                        <IconoOjo visible={verCPass} size={18} />
                                     </button>
                                 </div>
                             </div>
@@ -584,7 +580,7 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
                                         disabled={creando}
                                         aria-label={verCConfirm ? 'Ocultar contraseña' : 'Mostrar contraseña'}
                                     >
-                                        <IconoOjo visible={verCConfirm} />
+                                        <IconoOjo visible={verCConfirm} size={18} />
                                     </button>
                                 </div>
                             </div>
@@ -675,7 +671,7 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
                                         disabled={reseteando}
                                         aria-label={verPassReset1 ? 'Ocultar contraseña' : 'Mostrar contraseña'}
                                     >
-                                        <IconoOjo visible={verPassReset1} />
+                                        <IconoOjo visible={verPassReset1} size={18} />
                                     </button>
                                 </div>
                             </div>
@@ -700,7 +696,7 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
                                         disabled={reseteando}
                                         aria-label={verPassReset2 ? 'Ocultar contraseña' : 'Mostrar contraseña'}
                                     >
-                                        <IconoOjo visible={verPassReset2} />
+                                        <IconoOjo visible={verPassReset2} size={18} />
                                     </button>
                                 </div>
                             </div>

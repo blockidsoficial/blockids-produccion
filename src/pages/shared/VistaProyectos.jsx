@@ -4,7 +4,8 @@ import { supabase } from '../../config/supabaseClient';
 import styles from './VistaProyectos.css';
 
 import xolotlIdea from '../../assets/xolotl/xolotl-idea.svg';
-import iconVideo  from '../../assets/iconos-ui/ui-video.svg';
+import iconVideo    from '../../assets/iconos-ui/ui-video.svg';
+import iconEliminar from '../../assets/iconos-ui/eliminar.svg';
 
 import { desbloquearLogro } from '../../services/gamificationService';
 
@@ -358,7 +359,7 @@ const VistaProyectos = ({ userId }) => {
                                                 onClick={() => handleEliminar(proyecto.id, proyecto.nombre)}
                                                 title="Eliminar proyecto"
                                             >
-                                                ✕
+                                                <img src={iconEliminar} alt="Eliminar" />
                                             </button>
                                         )}
                                     </div>

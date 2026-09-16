@@ -335,3 +335,15 @@
     color: var(--color-texto-suave);
     margin-left: 4px;
 }
+
+.errorGuardado {
+    margin-top: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #fee2e2;
+    color: #b91c1c;
+    font-size: .78rem;
+    font-weight: 600;
+    font-family: var(--font-principal);
+    text-align: center;
+}

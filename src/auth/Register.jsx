@@ -8,6 +8,8 @@ import iconClase from '../assets/iconos/icon-clase.svg';
 import iconEscuela from '../assets/iconos/icon-escuela.svg';
 import iconBienvenidaProfesor from '../assets/iconos/icon-bienvenida-profesor.svg';
 import iconBienvenidaAlumno from '../assets/iconos/icon-bienvenida-alumno.svg';
+import IconoOjo from '../components/IconoOjo/IconoOjo';
+import { validarUsername, USERNAME_MAX } from '../lib/username-rules';
 
 // "José Pérez López" -> "jose-perez-lopez"
 // normalize('NFD') separa cada acento en un carácter aparte que luego elimina
@@ -28,23 +30,19 @@ const sufijoAleatorio = () => (Math.random().toString(36) + '000').slice(2, 5);
 // resto de la app (alumno/Dashboard, admin/VistaEscuelas).
 const normalizarCodigo = (v) => v.replace(/\s+/g, '').toUpperCase();
 
-// Clave de acceso: 6-10 caracteres, solo alfanumérico y guiones, sin espacios.
-// El mínimo de 6 coincide con el que Supabase Auth exige por defecto.
-const PATRON_CLAVE = '[a-zA-Z0-9-]{6,10}';
-const RE_CLAVE = /^[a-zA-Z0-9-]{6,10}$/;
+// Clave de acceso: SIN restricción de caracteres — se acepta espacios,
+// acentos, emojis, cualquier símbolo (una frase larga tipo "mi gato azul
+// salta alto" es más segura y más fácil de recordar que "Ab3!" con reglas
+// raras). Solo se limita la longitud: mínimo 6 (lo que exige Supabase Auth
+// por defecto) y máximo 72 — no es un capricho, es el límite real de bcrypt
+// (el algoritmo que usa Supabase Auth por debajo): todo lo que pases de 72
+// bytes se ignora en silencio al hashear, así que permitir más solo
+// engañaría al usuario haciéndole creer que agregó seguridad que no cuenta.
+const PASSWORD_MIN = 6;
+const PASSWORD_MAX = 72;
 const RE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const iconoOjo = (visible) => (visible ? (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-        <line x1="1" y1="1" x2="23" y2="23" />
-    </svg>
-) : (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-        <circle cx="12" cy="12" r="3" />
-    </svg>
-));
+const iconoOjo = (visible) => <IconoOjo visible={visible} />;
 
 const NOMBRES_PASO = ['Código', 'Datos', 'Acceso'];
 
@@ -167,9 +165,8 @@ const Register = () => {
         setError('');
         if (!nombre.trim()) return setError('Ingresa tu nombre');
         if (!apellidoPaterno.trim()) return setError('Ingresa tu apellido paterno');
-        if (usernameFinal.length < 3) {
-            return setError('El nombre de usuario debe tener al menos 3 caracteres (letras, números o guiones).');
-        }
+        const errorUsername = validarUsername(usernameFinal, { rol });
+        if (errorUsername) return setError(errorUsername);
         setPaso(3);
     };
 
@@ -178,10 +175,13 @@ const Register = () => {
         e.preventDefault();
         setError('');
 
-        if (!RE_CLAVE.test(password)) {
-            return setError('La clave de acceso debe tener de 6 a 10 caracteres: solo letras, números y guiones, sin espacios.');
+        // Trim SOLO en las puntas (accidentes de copiar/pegar) — los espacios
+        // intermedios de una frase-clave se respetan tal cual.
+        const passwordFinal = password.trim();
+        if (passwordFinal.length < PASSWORD_MIN || passwordFinal.length > PASSWORD_MAX) {
+            return setError(`La clave de acceso debe tener entre ${PASSWORD_MIN} y ${PASSWORD_MAX} caracteres.`);
         }
-        if (password !== confirmPassword) {
+        if (passwordFinal !== confirmPassword.trim()) {
             return setError('Las claves de acceso no coinciden');
         }
         if (!esAlumno && !RE_EMAIL.test(email.trim())) {
@@ -190,7 +190,9 @@ const Register = () => {
 
         setLoading(true);
         try {
-            const base = usernameFinal || 'usuario';
+            // -4 deja espacio para el sufijo anti-colisión "-xxx" sin pasar
+            // de USERNAME_MAX (la validación del edge/trigger es estricta).
+            const base = (usernameFinal || 'usuario').slice(0, USERNAME_MAX - 4);
             const correoReal = email.trim().toLowerCase();
 
             let cuenta = null;
@@ -206,7 +208,7 @@ const Register = () => {
                 // eslint-disable-next-line no-await-in-loop
                 const { data, error: authError } = await supabase.auth.signUp({
                     email: emailAuth,
-                    password: password,
+                    password: passwordFinal,
                     options: {
                         data: {
                             username:         username,
@@ -533,10 +535,11 @@ const Register = () => {
                                             id="reg-password"
                                             type={showPassword ? 'text' : 'password'}
                                             required
-                                            pattern={PATRON_CLAVE}
-                                            maxLength={10}
-                                            title="De 6 a 10 caracteres: solo letras, números y guiones, sin espacios."
-                                            placeholder="6 a 10 caracteres"
+                                            autoComplete="new-password"
+                                            minLength={PASSWORD_MIN}
+                                            maxLength={PASSWORD_MAX}
+                                            title={`Mínimo ${PASSWORD_MIN} caracteres. Puedes usar espacios, acentos y emojis.`}
+                                            placeholder="Puede ser una frase, ej: mi gato azul salta alto"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
                                             className={`${styles.input} ${styles.inputWithEye}`}
@@ -552,7 +555,7 @@ const Register = () => {
                                         </button>
                                     </div>
                                     <p className={styles.helperText}>
-                                        De 6 a 10 caracteres. Solo letras, números y guiones. Sin espacios.
+                                        Mínimo {PASSWORD_MIN} caracteres. Entre más larga, mejor — puedes usar una frase con espacios.
                                     </p>
                                 </div>
 
@@ -566,8 +569,9 @@ const Register = () => {
                                             id="reg-confirm-password"
                                             type={showConfirmPassword ? 'text' : 'password'}
                                             required
-                                            pattern={PATRON_CLAVE}
-                                            maxLength={10}
+                                            autoComplete="new-password"
+                                            minLength={PASSWORD_MIN}
+                                            maxLength={PASSWORD_MAX}
                                             placeholder="Confirma tu clave"
                                             value={confirmPassword}
                                             onChange={(e) => setConfirmPassword(e.target.value)}

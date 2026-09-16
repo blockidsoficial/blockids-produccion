@@ -35,6 +35,106 @@
     gap: 6px;
 }
 
+.iconoBoton {
+    width: 14px;
+    height: 14px;
+}
+
+/* ── Toggle activo/inactivo ──────────────────────────────────
+   No es un botón de "eliminar": alterna perfiles.activo — reversible,
+   no borra nada. Los iconos nuevos son ilustraciones a color, se
+   muestran tal cual (sin atenuar opacidad). */
+.btnToggleActivo {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform .18s ease;
+}
+.btnToggleActivo:hover { transform: scale(1.08); }
+.btnToggleActivo img { width: 30px; height: 24px; }
+
+/* Fila de un perfil desactivado: se ve, pero apagada. */
+.filaInactiva { opacity: .5; }
+.filaInactiva:hover { opacity: .75; }
+
+/* ── Zona de peligro: borrado permanente ─────────────────────
+   A propósito muy distinta al resto del modal — roja, con borde grueso —
+   para que no se confunda nunca con "Guardar Cambios". */
+.zonaPeligro {
+    margin-top: 8px;
+    padding: 14px 16px;
+    border: 1.5px dashed #f4b8b5;
+    border-radius: 10px;
+    background: #fff8f8;
+}
+.zonaPeligroTitulo {
+    margin: 0 0 6px;
+    font-size: .82rem;
+    font-weight: 800;
+    color: #b91c1c;
+    font-family: var(--font-principal);
+}
+.zonaPeligroDesc {
+    margin: 0 0 10px;
+    font-size: .78rem;
+    color: #7a2e2e;
+    font-family: var(--font-principal);
+}
+.listaImpacto {
+    margin: 0 0 12px;
+    padding-left: 18px;
+    font-size: .78rem;
+    color: #7a2e2e;
+    font-family: var(--font-principal);
+}
+.listaImpacto li { margin-bottom: 3px; }
+
+/* .fieldLabel (Dashboard.css) pone text-transform:uppercase para las
+   etiquetas normales — pero aquí adentro va un username real, que el
+   usuario tiene que copiar tal cual para confirmar. */
+.usernameLiteral { text-transform: none; }
+
+.btnAbrirEliminar {
+    padding: 8px 16px;
+    border-radius: var(--radio-sm, 8px);
+    border: 1.5px solid #c5221f;
+    background: var(--color-blanco);
+    color: #c5221f;
+    font-size: .78rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    transition: all .18s ease;
+}
+.btnAbrirEliminar:hover { background: #c5221f; color: var(--color-blanco); }
+
+.accionesEliminar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 10px;
+}
+.btnConfirmarEliminar {
+    padding: 8px 16px;
+    border-radius: var(--radio-sm, 8px);
+    border: none;
+    background: #c5221f;
+    color: var(--color-blanco);
+    font-size: .78rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    transition: all .18s ease;
+}
+.btnConfirmarEliminar:hover:not(:disabled) { background: #9f1a17; }
+.btnConfirmarEliminar:disabled { opacity: .45; cursor: not-allowed; }
+
 @media (max-width: 640px) {
     .accionesRow {
         margin-top: 10px;

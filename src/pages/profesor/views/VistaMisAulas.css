@@ -104,19 +104,16 @@
     font-family: var(--font-principal);
 }
 
+/* Iconos nuevos = ilustraciones a color, se muestran a color completo. */
 .btnAccionAula img {
-    width: 14px;
-    height: 14px;
-    opacity: .6;
+    width: 18px;
+    height: 18px;
 }
 
 .btnEditarAula:hover {
     border-color: var(--color-azul-fuerte);
     background: var(--color-azul-bg);
-}
-
-.btnEditarAula:hover img {
-    opacity: 1;
+    transform: translateY(-1px);
 }
 
 .btnEliminarAula {
@@ -126,6 +123,7 @@
 .btnEliminarAula:hover {
     border-color: #f4b8b5;
     background: var(--color-rosa-claro);
+    transform: translateY(-1px);
 }
 
 /* ── Botón confirmar eliminación ──────────────────────────────────────────── */

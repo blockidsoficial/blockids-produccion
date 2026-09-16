@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { supabase } from '../../../config/supabaseClient';
 import iconCalendario from '../../../assets/iconos-ui/ui-calendario.svg';
-import iconConfig     from '../../../assets/iconos-ui/ui-configuracion.svg';
+import iconEditar     from '../../../assets/iconos-ui/editar.svg';
+import iconEliminar   from '../../../assets/iconos-ui/eliminar.svg';
 import iconInicio     from '../../../assets/iconos-ui/ui-inicio.svg';
 import iconVideo      from '../../../assets/iconos-ui/ui-video.svg';
 import dash   from '../Dashboard.css';
@@ -613,14 +614,14 @@ const VistaTareas = ({ userId }) => {
                                             title="Editar tarea"
                                             onClick={() => abrirModalEditar(tarea)}
                                         >
-                                            <img src={iconConfig} alt="Editar" />
+                                            <img src={iconEditar} alt="Editar" />
                                         </button>
                                         <button
                                             className={`${styles.btnAccionTarea} ${styles.btnEliminarTarea}`}
                                             title="Eliminar tarea"
                                             onClick={() => handleEliminarTarea(tarea.id)}
                                         >
-                                            ✕
+                                            <img src={iconEliminar} alt="Eliminar" />
                                         </button>
                                     </div>
                                 </div>

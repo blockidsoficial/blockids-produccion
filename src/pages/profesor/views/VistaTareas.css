@@ -93,20 +93,22 @@
 }
 
 .btnAccionTarea img {
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
 }
 
 .btnEditarTarea:hover {
     border-color: var(--color-azul-fuerte, #3b5bdb);
     background: var(--color-azul-bg, #e8f0fe);
     color: var(--color-azul-fuerte, #3b5bdb);
+    transform: translateY(-1px);
 }
 
 .btnEliminarTarea:hover {
     border-color: #e53e3e;
     background: #fff0f0;
     color: #c53030;
+    transform: translateY(-1px);
 }
 
 /* ── Botón: Revisar Entregas ──────────────────────────────────────────────── */

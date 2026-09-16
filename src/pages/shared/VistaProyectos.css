@@ -384,10 +384,16 @@
     flex-shrink: 0;
 }
 
+.btnEliminar img {
+    width: 20px;
+    height: 20px;
+}
+
 .btnEliminar:hover {
     background: #fff0f0;
     color: #c53030;
     border-color: #e53e3e;
+    transform: translateY(-1px);
 }
 
 /* ── Info Tip ────────────────────────────────────────────── */
