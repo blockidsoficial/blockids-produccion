@@ -538,8 +538,8 @@ const Register = () => {
                                             autoComplete="new-password"
                                             minLength={PASSWORD_MIN}
                                             maxLength={PASSWORD_MAX}
-                                            title={`Mínimo ${PASSWORD_MIN} caracteres. Puedes usar espacios, acentos y emojis.`}
-                                            placeholder="Puede ser una frase, ej: mi gato azul salta alto"
+                                            title={`Mínimo ${PASSWORD_MIN} caracteres.`}
+                                            placeholder="Escribe tu clave de acceso"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
                                             className={`${styles.input} ${styles.inputWithEye}`}

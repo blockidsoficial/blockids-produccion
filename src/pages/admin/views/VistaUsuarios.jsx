@@ -483,12 +483,12 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                 <>
 
                                     <div className={styles.fieldGroup}>
-                                        <label className={styles.fieldLabel}>Contraseña Temporal</label>
+                                        <label className={styles.fieldLabel}>Contraseña </label>
                                         <div className={styles.passwordWrapper}>
                                             <input
                                                 type={showPassword ? 'text' : 'password'}
                                                 className={styles.fieldInput}
-                                                placeholder={`Mínimo ${PASS_MIN} caracteres — puede llevar espacios`}
+                                                placeholder={`Mínimo ${PASS_MIN} caracteres, Escribe una contraseña segura`}
                                                 maxLength={PASS_MAX}
                                                 autoComplete="new-password"
                                                 value={fPassword} onChange={e => setFPassword(e.target.value)} />
@@ -501,7 +501,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                     </div>
 
                                     <div className={styles.fieldGroup}>
-                                        <label className={styles.fieldLabel}>Confirmar Contraseña Temporal</label>
+                                        <label className={styles.fieldLabel}>Confirmar Contraseña </label>
                                         <div className={styles.passwordWrapper}>
                                             <input
                                                 type={showConfirmPassword ? 'text' : 'password'}

@@ -616,16 +616,16 @@
 .btnCrearUsuario:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(109,191,38,.4); }
 
 .usuariosTableScroll { overflow-x: auto; width: 100%; -webkit-overflow-scrolling: touch; }
-.usuariosGrid   { display: flex; flex-direction: column; gap: 0; min-width: 1160px; }
+.usuariosGrid   { display: flex; flex-direction: column; gap: 0; min-width: 1195px; }
 .usuariosHeader {
-    display: grid; grid-template-columns: 2fr 155px 1.4fr 1.8fr 110px 70px 100px;
+    display: grid; grid-template-columns: 2fr 190px 1.4fr 1.8fr 110px 70px 100px;
     padding: 12px 20px; background: #f8fafc; border-radius: var(--radio-md); margin-bottom: 4px;
     font-size: .7rem; font-weight: 700; color: var(--color-texto-muted);
     text-transform: uppercase; letter-spacing: .5px; font-family: var(--font-principal);
     text-align: left;
 }
 .usuarioRow {
-    display: grid; grid-template-columns: 2fr 155px 1.4fr 1.8fr 110px 70px 100px;
+    display: grid; grid-template-columns: 2fr 190px 1.4fr 1.8fr 110px 70px 100px;
     padding: 12px 20px; border-radius: var(--radio-md);
     border: 1.5px solid transparent; align-items: center;
     transition: background .15s, border-color .15s;
