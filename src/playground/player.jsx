@@ -12,10 +12,8 @@ import AppStateHOC from '../lib/app-state-hoc.jsx';
 
 import {setPlayer} from '../reducers/mode';
 
-if (process.env.NODE_ENV === 'production' && typeof window === 'object') {
-    // Advertir antes de abandonar la página
-    window.onbeforeunload = () => true;
-}
+// La advertencia de "salir de la página" la maneja project-saver-hoc.jsx
+// (solo cuando hay cambios reales sin guardar en el editor).
 
 import styles from './player.css';
 

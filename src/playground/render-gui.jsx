@@ -58,10 +58,11 @@ export default appTarget => {
         }
     }
 
-    if (process.env.NODE_ENV === 'production' && typeof window === 'object') {
-        // Advertir antes de abandonar la página
-        window.onbeforeunload = () => true;
-    }
+    // La advertencia de "salir de la página" la maneja project-saver-hoc.jsx
+    // (solo cuando hay cambios reales sin guardar en el editor). Poner un
+    // window.onbeforeunload incondicional aquí la disparaba en TODA la app
+    // (login, dashboards, etc.), porque este archivo es el punto de arranque
+    // de todo el router, no solo del editor.
 
     // Le damos el control total a tu Enrutador
     ReactDOM.render(<App />, appTarget);
