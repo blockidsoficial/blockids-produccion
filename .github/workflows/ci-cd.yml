@@ -49,6 +49,7 @@ jobs:
               env:
                 NODE_OPTIONS: --max-old-space-size=4000
                 NODE_ENV: production
+                BUILD_MODE: dist
                 SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
                 SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
               run: npm run build

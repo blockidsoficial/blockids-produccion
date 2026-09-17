@@ -195,10 +195,15 @@ const buildConfig = baseConfig.clone()
 // It roughly doubles build time and isn't needed for `scratch-gui` development
 // If you need non-production `dist/` for local dev, such as for `scratch-www` work, you can run something like:
 // `BUILD_MODE=dist npm run build`
-// On Vercel (which sets NODE_ENV=production automatically) we only ever deploy `build/`,
-// so skip the extra `dist/` library build there to avoid doubling the build time.
-const buildDist = !process.env.VERCEL &&
-    (process.env.NODE_ENV === 'production' || process.env.BUILD_MODE === 'dist');
+// "npm run build" ahora fuerza NODE_ENV=production (vía cross-env, ver
+// package.json) para que webpack SIEMPRE minifique y quite sourcemaps del
+// sitio sin importar qué plataforma de hosting lo corra (antes, Cloudflare
+// no ponía NODE_ENV=production por su cuenta, así que el build salía sin
+// minificar — 26.5MB en vez de 16.9MB por archivo). Por eso ya no se puede
+// usar NODE_ENV para decidir si además se construye dist/: ahora sería
+// siempre "production" y dist/ se construiría de más en cada deploy. Solo
+// BUILD_MODE=dist dispara ese build extra, explícitamente.
+const buildDist = !process.env.VERCEL && process.env.BUILD_MODE === 'dist';
 
 // No generar source maps en producción: evita exponer el código fuente en el navegador
 if (process.env.NODE_ENV === 'production') {
