@@ -130,11 +130,15 @@ const distConfig = baseConfig.clone()
 const buildConfig = baseConfig.clone()
     .enableDevServer(process.env.PORT || 8601)
     .merge({
+        // Antes traía también blocksonly/compatibilitytesting/player — eran las
+        // páginas de ejemplo del Scratch GUI original (blocks-only.html,
+        // compatibility-testing.html, player.html). BLOCKIDS no enlaza a
+        // ninguna (verificado: cero referencias en src/), así que solo eran
+        // ~80MB de peso muerto compilándose y desplegándose en cada build sin
+        // que nadie los usara — y el causante directo de que blocksonly.js
+        // (26.5MB) pasara el límite de 25MB por archivo de Cloudflare Pages.
         entry: {
-            gui: './src/playground/index.jsx',
-            blocksonly: './src/playground/blocks-only.jsx',
-            compatibilitytesting: './src/playground/compatibility-testing.jsx',
-            player: './src/playground/player.jsx'
+            gui: './src/playground/index.jsx'
         },
         output: {
             path: path.resolve(__dirname, 'build')
@@ -148,27 +152,6 @@ const buildConfig = baseConfig.clone()
         chunks: ['gui'],
         template: 'src/playground/index.ejs',
         title: 'BLOCKIDS'
-    }))
-    .addPlugin(new HtmlWebpackPlugin({
-        ...commonHtmlWebpackPluginOptions,
-        chunks: ['blocksonly'],
-        filename: 'blocks-only.html',
-        template: 'src/playground/index.ejs',
-        title: 'BLOCKIDS: Blocks Only Example'
-    }))
-    .addPlugin(new HtmlWebpackPlugin({
-        ...commonHtmlWebpackPluginOptions,
-        chunks: ['compatibilitytesting'],
-        filename: 'compatibility-testing.html',
-        template: 'src/playground/index.ejs',
-        title: 'BLOCKIDS: Compatibility Testing'
-    }))
-    .addPlugin(new HtmlWebpackPlugin({
-        ...commonHtmlWebpackPluginOptions,
-        chunks: ['player'],
-        filename: 'player.html',
-        template: 'src/playground/index.ejs',
-        title: 'BLOCKIDS: Player Example'
     }))
     .addPlugin(new CopyWebpackPlugin({
         patterns: [
