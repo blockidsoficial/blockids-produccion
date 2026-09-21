@@ -24,43 +24,25 @@ const MS_POR_DIA = 1000 * 60 * 60 * 24;
 const diffDias = (desde, hasta) =>
     Math.round((inicioDelDia(hasta) - inicioDelDia(desde)) / MS_POR_DIA);
 
-// ── Racha real estilo Duolingo ───────────────────────────────────────────────
-// `ultimo_login` en `perfiles` es un único timestamp: sirve para saber cuántos
-// días lleva sin entrar, pero no para contar días consecutivos. Guardamos el
-// contador de la racha en localStorage por usuario y lo reconciliamos con el
-// último acceso registrado en el perfil:
-//   • entró hoy otra vez           -> se mantiene la racha
-//   • su último acceso fue ayer    -> +1 día de racha
-//   • lleva 2+ días sin entrar     -> la racha se reinicia a 1
-const claveRacha = (uid) => `bk_racha_${uid}`;
-
-const calcularRacha = (uid, ultimoLoginISO) => {
-    let guardado = { dias: 0, fecha: null };
-    try {
-        const raw = localStorage.getItem(claveRacha(uid));
-        if (raw) guardado = JSON.parse(raw);
-    } catch (_) { /* storage no disponible: se recalcula desde el perfil */ }
-
-    const hoy = new Date();
-    const referencia = guardado.fecha
-        ? new Date(guardado.fecha)
-        : (ultimoLoginISO ? new Date(ultimoLoginISO) : null);
-
-    let dias;
-    if (!referencia) {
-        dias = 1;
-    } else {
-        const brecha = diffDias(referencia, hoy);
-        if (brecha <= 0)       dias = Math.max(1, guardado.dias || 1); // mismo día
-        else if (brecha === 1) dias = (guardado.dias || 1) + 1;        // día seguido
-        else                   dias = 1;                               // se rompió
+// La racha diaria la calcula el SERVIDOR (función SQL registrar_actividad_diaria,
+// migración 20260921010000_racha_diaria.sql): compara con su propia fecha, suma o
+// reinicia y da bono de XP. Aquí solo se muestra lo que devuelve.
+// Una sola llamada por carga de página, aunque el Header se monte varias veces.
+let registroDiarioPromesa = null;
+const registrarActividadDiaria = () => {
+    if (!registroDiarioPromesa) {
+        registroDiarioPromesa = supabase.rpc('registrar_actividad_diaria')
+            .then(({ data, error }) => {
+                if (error) throw error;
+                return data;
+            })
+            .catch((err) => {
+                registroDiarioPromesa = null; // permitir reintento en el próximo montaje
+                console.error('[BLOCKIDS] Error registrando actividad diaria:', err);
+                return null;
+            });
     }
-
-    try {
-        localStorage.setItem(claveRacha(uid), JSON.stringify({ dias, fecha: hoy.toISOString() }));
-    } catch (_) { /* noop */ }
-
-    return dias;
+    return registroDiarioPromesa;
 };
 
 const formatearXP = (n) => (n || 0).toLocaleString('es-MX');
@@ -106,6 +88,8 @@ const Header = ({
     const [saliendo, setSaliendo]   = useState(false);
     const [notifAbiertas, setNotifAbiertas]   = useState(false);
     const [cuentaAbierta, setCuentaAbierta]   = useState(false);
+    // { racha, ultimaActividad ('AAAA-MM-DD'), nuevoDia, bonoXP, nuevoXP } del servidor
+    const [actividad, setActividad] = useState(null);
 
     // ── Carga del perfil desde la sesión activa ──────────────────────────────
     useEffect(() => {
@@ -125,18 +109,30 @@ const Header = ({
             if (!vivo || error || !data) return;
 
             setPerfil(data);
-
-            // Registrar el acceso de hoy DESPUÉS de leer el valor anterior
-            // (ya lo usamos para calcular la racha en el render).
-            supabase
-                .from('perfiles')
-                .update({ ultimo_login: new Date().toISOString() })
-                .eq('id', session.user.id)
-                .then(() => {}, () => {});
         })();
 
         return () => { vivo = false; };
     }, [perfilProp]);
+
+    // ── Racha diaria (servidor) ──────────────────────────────────────────────
+    useEffect(() => {
+        let vivo = true;
+        (async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session || !vivo) return;
+
+            const resultado = await registrarActividadDiaria();
+            if (!vivo || !resultado) return;
+
+            setActividad(resultado);
+            // Si hubo bono de XP, reflejarlo sin recargar el perfil completo.
+            if (resultado.bonoXP > 0) {
+                setPerfil(p => (p ? { ...p, puntos_xp: resultado.nuevoXP } : p));
+            }
+        })();
+
+        return () => { vivo = false; };
+    }, []);
 
     // ── Cierre de sesión ────────────────────────────────────────────────────
     const cerrarSesion = useCallback(async () => {
@@ -158,11 +154,13 @@ const Header = ({
     // a alumnos y profesores (admins ven la cabecera formal, sin insignias).
     let gamificacion = null;
     if (perfil && (esAlumno || esProfesor)) {
-        const diasInactivo = perfil.ultimo_login
-            ? diffDias(new Date(perfil.ultimo_login), new Date())
+        // Sin respuesta del servidor todavía (o sin conexión) no se dibuja la
+        // racha: mejor nada que un número inventado.
+        const diasInactivo = actividad && actividad.ultimaActividad
+            ? diffDias(new Date(`${actividad.ultimaActividad}T00:00:00`), new Date())
             : 0;
         const rachaActiva = diasInactivo <= 1; // entró hoy o ayer
-        const racha = calcularRacha(perfil.username || 'anon', perfil.ultimo_login);
+        const racha = actividad ? actividad.racha : 0;
 
         const tituloRacha = rachaActiva
             ? `¡Llevas ${racha} ${racha === 1 ? 'día' : 'días'} seguidos! No la pierdas.`
@@ -187,6 +185,7 @@ const Header = ({
                 )}
 
                 {/* Racha / inactividad — alumno y profesor */}
+                {actividad && (
                 <div
                     className={`${styles.pill} ${styles.pillStreak} ${rachaActiva ? '' : styles.pillStreakOff}`}
                     title={tituloRacha}
@@ -198,6 +197,7 @@ const Header = ({
                     </span>
                     {!rachaActiva && <span className={styles.streakAlert} aria-hidden="true" />}
                 </div>
+                )}
             </div>
         );
     }
