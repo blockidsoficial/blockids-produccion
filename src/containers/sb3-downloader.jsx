@@ -4,6 +4,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {projectTitleInitialState} from '../reducers/project-title';
 import downloadBlob from '../lib/download-blob';
+import {emitirEventoEditor} from '../lib/logro-eventos';
 /**
  * Project saver component passes a downloadProject function to its child.
  * It expects this child to be a function with the signature
@@ -31,6 +32,7 @@ class SB3Downloader extends React.Component {
                 this.props.onSaveFinished();
             }
             downloadBlob(this.props.projectFilename, content);
+            emitirEventoEditor('descargar_proyecto');
         });
     }
     render () {

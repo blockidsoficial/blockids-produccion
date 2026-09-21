@@ -149,10 +149,6 @@ const VistaCalificaciones = ({ userId }) => {
         setGuardandoNota(true);
         setErrorGuardado('');
 
-        // Se otorga XP solo la primera vez que la entrega pasa a "calificado"
-        // (no cada vez que se re-edita la nota de algo que ya estaba calificado).
-        const yaEstabaCalificada = entregaEditando.entrega?.estado === 'calificado';
-
         const { error } = entregaEditando.entrega
             ? await supabase
                 .from('entregas_proyectos')
@@ -174,19 +170,9 @@ const VistaCalificaciones = ({ userId }) => {
             return;
         }
 
-        // El XP se otorga vía RPC (único camino que el trigger de seguridad
-        // de "perfiles" permite tocar puntos_xp/nivel) — nunca con un UPDATE
-        // directo, que quedaría bloqueado.
-        if (!yaEstabaCalificada) {
-            const xp = entregaEditando.tarea.puntos_recompensa || 0;
-            if (xp > 0) {
-                const { error: xpError } = await supabase.rpc('otorgar_xp', {
-                    p_user_id: entregaEditando.alumno.id,
-                    p_cantidad: xp,
-                });
-                if (xpError) console.error('Error al otorgar XP:', xpError);
-            }
-        }
+        // El XP de la tarea lo suma el servidor: un trigger en entregas_proyectos
+        // lo otorga la primera vez que la entrega pasa a "calificado" (y solo si
+        // quien califica es personal). Aquí ya no se llama a otorgar_xp.
 
         setGuardandoNota(false);
         cerrarModal();

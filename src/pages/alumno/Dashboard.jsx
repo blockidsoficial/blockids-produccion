@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { supabase } from '../../config/supabaseClient';
 import DashboardLayout from '../../layouts/DashboardLayout';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
-import { desbloquearLogro } from '../../services/gamificationService';
+import { celebrarLogrosNuevos } from '../../services/gamificationService';
 
 import VistaInicio     from './views/VistaInicio';
 import VistaTareas     from './views/VistaTareas';
@@ -202,9 +202,9 @@ const DashboardAlumno = () => {
             return;
         }
 
-        // Logro "Nuevo en la Clase": misma lógica que el modal de Mis Aulas.
-        // desbloquearLogro es idempotente (no re-otorga si ya lo tiene).
-        desbloquearLogro(userId, 'Nuevo en la Clase', 30);
+        // Logro "Nuevo en la Clase": lo otorga un trigger del servidor al
+        // inscribirse; aquí solo se celebra.
+        celebrarLogrosNuevos();
 
         setExito(`¡Bienvenido a "${aula.nombre}"!`);
         setCodigoIngresado('');

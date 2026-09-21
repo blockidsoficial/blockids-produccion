@@ -7,6 +7,7 @@ import decksLibraryContent from '../lib/libraries/decks/index.jsx';
 import tutorialTags from '../lib/libraries/tutorial-tags';
 
 import analytics from '../lib/analytics';
+import {emitirEventoEditor} from '../lib/logro-eventos';
 import {notScratchDesktop} from '../lib/isScratchDesktop';
 
 import LibraryComponent from '../components/library/library.jsx';
@@ -35,6 +36,10 @@ class TipsLibrary extends React.PureComponent {
         bindAll(this, [
             'handleItemSelect'
         ]);
+    }
+    componentDidMount () {
+        // Este contenedor solo se monta cuando el alumno abre Tutoriales.
+        emitirEventoEditor('abrir_tutoriales');
     }
     handleItemSelect (item) {
         analytics.event({

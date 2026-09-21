@@ -6,6 +6,7 @@ import VM from 'scratch-vm';
 
 import spriteLibraryContent from '../lib/libraries/sprites.json';
 import randomizeSpritePosition from '../lib/randomize-sprite-position';
+import {emitirEventoEditor} from '../lib/logro-eventos';
 import spriteTags from '../lib/libraries/sprite-tags';
 
 import LibraryComponent from '../components/library/library.jsx';
@@ -28,6 +29,7 @@ class SpriteLibrary extends React.PureComponent {
     handleItemSelect (item) {
         randomizeSpritePosition(item);
         this.props.vm.addSprite(JSON.stringify(item)).then(() => {
+            emitirEventoEditor('agregar_objeto');
             this.props.onActivateBlocksTab();
         });
     }

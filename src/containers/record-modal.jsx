@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {encodeAndAddSoundToVM} from '../lib/audio/audio-util.js';
 
 import RecordModalComponent from '../components/record-modal/record-modal.jsx';
+import {emitirEventoEditor} from '../lib/logro-eventos';
 
 import {
     closeSoundRecorder
@@ -74,6 +75,7 @@ class RecordModal extends React.Component {
 
             encodeAndAddSoundToVM(this.props.vm, clippedSamples, this.state.sampleRate, 'recording1',
                 () => {
+                    emitirEventoEditor('grabar_sonido');
                     this.props.onClose();
                     this.props.onNewSound();
                 });

@@ -3,7 +3,7 @@ import { supabase } from '../../../config/supabaseClient';
 import styles from './VistaMisAulas.css';
 import xolotlIdea from '../../../assets/xolotl/xolotl-idea.svg';
 import iconCurso   from '../../../assets/iconos-ui/ui-curso.svg';
-import { desbloquearLogro } from '../../../services/gamificationService';
+import { celebrarLogrosNuevos } from '../../../services/gamificationService';
 
 const VistaMisAulas = ({ userId, misAulas, aulaIds, onAulasUpdated, onNavigate }) => {
 
@@ -69,7 +69,8 @@ const VistaMisAulas = ({ userId, misAulas, aulaIds, onAulasUpdated, onNavigate }
                 .insert({ aula_id: aula.id, alumno_id: userId, joined_at: new Date().toISOString() });
             if (insertError) throw insertError;
 
-            await desbloquearLogro(userId, 'Nuevo en la Clase', 30);
+            // "Nuevo en la Clase" lo otorga un trigger del servidor al inscribirse.
+            await celebrarLogrosNuevos();
 
             setExito(`¡Te uniste a "${aula.nombre}"!`);
             setTimeout(() => {

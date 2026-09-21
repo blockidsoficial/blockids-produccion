@@ -2,7 +2,8 @@
 import { useHistory, useLocation } from 'react-router-dom';
 import { supabase } from '../../config/supabaseClient';
 import styles from './EntornoWrapper.css';
-import { otorgarXP, desbloquearLogro } from '../../services/gamificationService';
+import { celebrarLogrosNuevos, desbloquearLogroEditor } from '../../services/gamificationService';
+import { EVENTO_EDITOR } from '../../lib/logro-eventos';
 import LogroCelebracion from '../../components/logro-celebracion/LogroCelebracion';
 
 import xolotlSorprendido from '../../assets/xolotl/xolotl-sorprendido.svg';
@@ -36,31 +37,21 @@ const EntornoWrapper = ({ children }) => {
         setEntregaId(params.get('entregaId') || null);
     }, [location.search]);
 
-    // ── Logro "Primer Vuelo": el alumno abre el entorno por primera vez ──────
-    // (no cuenta el modo revisión del profesor). desbloquearLogro es idempotente:
-    // solo otorga (y suma XP) la primera vez.
+    // ── Logros del editor ────────────────────────────────────────────────────
+    // "Primer Vuelo" (abrir el entorno) y los logros de acciones dentro del
+    // editor (agregar objeto, grabar sonido, etc.). Los componentes del editor
+    // solo anuncian el evento (lib/logro-eventos); aquí se le reporta al
+    // servidor, que decide si corresponde (solo alumnos, una vez por logro).
+    // El modo revisión del profesor (?entregaId=) no cuenta.
     useEffect(() => {
         const esRevision = Boolean(new URLSearchParams(location.search).get('entregaId'));
-        let vivo = true;
+        if (esRevision) return undefined;
 
-        if (!esRevision) {
-            (async () => {
-                const { data: { user }, error } = await supabase.auth.getUser();
-                if (!vivo || error || !user) return;
+        desbloquearLogroEditor('entorno_primera_vez');
 
-                const { data: perfil } = await supabase
-                    .from('perfiles')
-                    .select('rol')
-                    .eq('id', user.id)
-                    .single();
-
-                if (vivo && perfil && perfil.rol === 'alumno') {
-                    desbloquearLogro(user.id, 'Primer Vuelo', 50);
-                }
-            })();
-        }
-
-        return () => { vivo = false; };
+        const alEventoEditor = (e) => desbloquearLogroEditor(e.detail && e.detail.tipo);
+        window.addEventListener(EVENTO_EDITOR, alEventoEditor);
+        return () => window.removeEventListener(EVENTO_EDITOR, alEventoEditor);
     }, []);
 
     // ── Cargar entrega previa cuando el alumno retoma una tarea ─────────────
@@ -192,7 +183,8 @@ const EntornoWrapper = ({ children }) => {
                     .eq('id', existente.id);
 
                 if (updateError) throw updateError;
-                await otorgarXP(alumnoId, 100);
+                // El XP de la re-entrega lo suma el servidor (trigger en entregas_proyectos).
+                celebrarLogrosNuevos();
                 setToast({ mensaje: '¡Proyecto actualizado y re-entregado!', exito: true });
                 return;
             }
@@ -208,7 +200,8 @@ const EntornoWrapper = ({ children }) => {
                 });
 
             if (insertError) throw insertError;
-            await desbloquearLogro(alumnoId, 'Primeros Pasos', 100);
+            // El logro "Primeros Pasos" y su XP los otorga el servidor (trigger).
+            await celebrarLogrosNuevos();
             setToast({ mensaje: '¡Tarea Entregada Exitosamente!', exito: true });
 
         } catch (err) {

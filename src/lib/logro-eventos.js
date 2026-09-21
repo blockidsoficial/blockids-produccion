@@ -1,7 +1,7 @@
 // ============================================================================
 // BLOCKIDS — Bus de eventos para celebraciones de logros
 // ----------------------------------------------------------------------------
-// `desbloquearLogro()` (services/gamificationService) llama a `emitirLogro()`
+// `celebrarLogrosNuevos()` (services/gamificationService) llama a `emitirLogro()`
 // cuando un alumno consigue un logro nuevo. El componente <LogroCelebracion />
 // (montado en el panel del alumno y en el entorno) escucha estos eventos y
 // muestra el popup de celebración.
@@ -59,4 +59,27 @@ export const consumirLogrosPendientes = () => {
     const cola = leerCola();
     if (cola.length) escribirCola([]);
     return cola;
+};
+
+// ── Eventos del editor de bloques ───────────────────────────────────────────
+// Los componentes del editor (sprite-library, record-modal, etc.) no conocen
+// Supabase: solo anuncian "el alumno hizo X". EntornoWrapper escucha este
+// evento y se lo reporta al servidor (desbloquearLogroEditor).
+
+export const EVENTO_EDITOR = 'blockids:evento-editor';
+
+// Cada acción se anuncia una sola vez por carga de página; el servidor es
+// idempotente, esto solo evita llamadas repetidas (p. ej. cada trazo de dibujo).
+const eventosEditorEmitidos = new Set();
+
+/**
+ * @param {string} tipo tipo_requisito del logro (ej. 'agregar_objeto').
+ */
+export const emitirEventoEditor = (tipo) => {
+    if (!tipo || eventosEditorEmitidos.has(tipo)) return;
+    eventosEditorEmitidos.add(tipo);
+
+    if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+        window.dispatchEvent(new CustomEvent(EVENTO_EDITOR, { detail: { tipo } }));
+    }
 };

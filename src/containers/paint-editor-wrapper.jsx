@@ -4,6 +4,7 @@ import bindAll from 'lodash.bindall';
 import VM from 'scratch-vm';
 import PaintEditor from 'scratch-paint';
 import {inlineSvgFonts} from 'scratch-svg-renderer';
+import {emitirEventoEditor} from '../lib/logro-eventos';
 
 import {connect} from 'react-redux';
 
@@ -24,6 +25,7 @@ class PaintEditorWrapper extends React.Component {
         this.props.vm.renameCostume(this.props.selectedCostumeIndex, name);
     }
     handleUpdateImage (isVector, image, rotationCenterX, rotationCenterY) {
+        emitirEventoEditor('editar_disfraz');
         if (isVector) {
             this.props.vm.updateSvg(
                 this.props.selectedCostumeIndex,

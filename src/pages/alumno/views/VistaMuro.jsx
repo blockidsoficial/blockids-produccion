@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../../../config/supabaseClient';
 import styles from './VistaMuro.css';
-import { desbloquearLogro } from '../../../services/gamificationService';
+import { celebrarLogrosNuevos } from '../../../services/gamificationService';
 
 import xolotlIdea from '../../../assets/xolotl/xolotl-idea.svg';
 import iconMuro   from '../../../assets/iconos-ui/ui-contacto.svg';
@@ -83,8 +83,9 @@ const VistaMuro = ({ userId, misAulas, aulaInicial }) => {
         setNuevoMensaje('');
         cargarMensajes();
 
-        // Gamificacion en segundo plano (no bloquea el refresco del muro)
-        desbloquearLogro(userId, 'Rompehielos', 20);
+        // Los logros del muro ("Rompehielos", "Voz del Aula") los otorga un
+        // trigger del servidor; aquí solo se celebra, en segundo plano.
+        celebrarLogrosNuevos();
     };
 
     // ── Sin aulas ─────────────────────────────────────────────────────────────

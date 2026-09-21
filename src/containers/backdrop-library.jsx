@@ -6,6 +6,7 @@ import VM from 'scratch-vm';
 
 import backdropLibraryContent from '../lib/libraries/backdrops.json';
 import backdropTags from '../lib/libraries/backdrop-tags';
+import {emitirEventoEditor} from '../lib/logro-eventos';
 import LibraryComponent from '../components/library/library.jsx';
 
 const messages = defineMessages({
@@ -34,6 +35,7 @@ class BackdropLibrary extends React.Component {
         };
         // No cambies al escenario, solo añade el fondo de pantalla
         this.props.vm.addBackdrop(item.md5ext, vmBackdrop);
+        emitirEventoEditor('cambiar_fondo');
     }
     render () {
         return (

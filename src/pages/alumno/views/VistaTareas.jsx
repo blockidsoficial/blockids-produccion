@@ -1,6 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { supabase } from '../../../config/supabaseClient';
+import { celebrarLogrosNuevos } from '../../../services/gamificationService';
 import styles from './VistaTareas.css';
 
 import xolotlIdea     from '../../../assets/xolotl/xolotl-idea.svg';
@@ -180,6 +181,7 @@ const VistaTareas = ({ userId, aulaIds }) => {
                 if (insertError) throw insertError;
             }
 
+            celebrarLogrosNuevos();
             setAlertaModal({ tipo: 'success', texto: '¡Tarea entregada exitosamente!' });
             setArchivoSubir(null);
             setTimeout(() => { cerrarModal(); cargarDatos(); }, 1500);

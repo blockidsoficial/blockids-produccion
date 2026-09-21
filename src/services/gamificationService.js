@@ -1,103 +1,53 @@
 import { supabase } from '../config/supabaseClient';
 import { emitirLogro } from '../lib/logro-eventos';
 
-// La curva de nivel (XP por nivel) vive ahora en la función SQL otorgar_xp().
+// El XP y los logros los otorga el SERVIDOR (triggers y funciones SQL de
+// supabase/migrations/20260921000000_logros_y_xp_en_servidor.sql). El
+// navegador ya no decide cuánto XP se gana: solo avisa de lo que pasa en el
+// editor y muestra la celebración de lo que el servidor ya otorgó.
 
 /**
- * Suma XP al usuario y recalcula su nivel.
- *
- * El cálculo y la escritura ocurren en la función SECURITY DEFINER
- * `otorgar_xp()` de Supabase: las columnas puntos_xp / nivel ya NO son
- * editables directamente desde el cliente (las bloquea un trigger).
- *
- * Devuelve { exito, subioDeNivel, nuevoNivel, nuevoXP }.
+ * Pide al servidor los logros recién ganados (y los marca como vistos) y lanza
+ * el popup de celebración por cada uno. Llamar después de una acción que pudo
+ * desbloquear algo: crear proyecto, entregar tarea, unirse a un aula, etc.
+ * Devuelve cuántos logros nuevos había.
  */
-export const otorgarXP = async (userId, cantidadXP) => {
-    if (!userId || !cantidadXP || cantidadXP <= 0) return { exito: false, razon: 'params_invalidos' };
-
+export const celebrarLogrosNuevos = async () => {
     try {
-        const { data, error } = await supabase.rpc('otorgar_xp', {
-            p_user_id:  userId,
-            p_cantidad: cantidadXP,
-        });
-
+        const { data, error } = await supabase.rpc('tomar_logros_nuevos');
         if (error) throw error;
 
-        if (data?.subioDeNivel) {
-            console.log(`[BLOCKIDS] Subida de nivel: ${data.nuevoNivel}`);
-        }
-
-        return {
-            exito:        true,
-            subioDeNivel: data?.subioDeNivel ?? false,
-            nuevoNivel:   data?.nuevoNivel,
-            nuevoXP:      data?.nuevoXP,
-        };
+        const nuevos = data || [];
+        nuevos.forEach(l => emitirLogro({
+            nombre:      l.nombre,
+            descripcion: l.descripcion,
+            iconoUrl:    l.icono_url,
+            bonoXP:      l.xp_recompensa,
+        }));
+        return nuevos.length;
     } catch (err) {
-        console.error('[BLOCKIDS] Error otorgando XP:', err);
-        return { exito: false, error: err };
+        console.error('[BLOCKIDS] Error consultando logros nuevos:', err);
+        return 0;
     }
 };
 
 /**
- * Desbloquea un logro buscándolo por nombre exacto (columna UNIQUE).
- * Si ya estaba desbloqueado, no hace nada.
- * Al desbloquear, otorga bonoXP adicional (por defecto 100).
- * Devuelve { exito, razon? }.
+ * Reporta un logro que solo ocurre dentro del editor de bloques (ver la lista
+ * blanca en la función SQL desbloquear_logro_editor). Es idempotente y solo
+ * aplica a alumnos: para otros roles el servidor simplemente no hace nada.
+ * Devuelve true si el logro se acaba de desbloquear.
  */
-export const desbloquearLogro = async (userId, nombreLogro, bonoXP = 100) => {
-    if (!userId || !nombreLogro) return { exito: false, razon: 'params_invalidos' };
+export const desbloquearLogroEditor = async (tipo) => {
+    if (!tipo) return false;
 
     try {
-        const { data: logro, error: logroError } = await supabase
-            .from('logros')
-            .select('id, nombre, descripcion, icono_url')
-            .eq('nombre', nombreLogro)
-            .maybeSingle();
+        const { data, error } = await supabase.rpc('desbloquear_logro_editor', { p_tipo: tipo });
+        if (error) throw error;
 
-        if (logroError || !logro) {
-            console.warn(
-                `[BLOCKIDS] Logro "${nombreLogro}" no está en el catálogo public.logros ` +
-                `(¿se aplicó la migración 20260906_fix_logros_alumno.sql?).`,
-                logroError || ''
-            );
-            return { exito: false, razon: 'logro_no_encontrado' };
-        }
-
-        const { data: yaExiste } = await supabase
-            .from('usuario_logros')
-            .select('id')
-            .eq('perfil_id', userId)
-            .eq('logro_id', logro.id)
-            .maybeSingle();
-
-        if (yaExiste) {
-            return { exito: false, razon: 'ya_desbloqueado' };
-        }
-
-        const { error: insertError } = await supabase
-            .from('usuario_logros')
-            .insert({ perfil_id: userId, logro_id: logro.id });
-
-        if (insertError) throw insertError;
-
-        console.log(`[BLOCKIDS] Logro desbloqueado: ${nombreLogro}`);
-
-        if (bonoXP > 0) {
-            await otorgarXP(userId, bonoXP);
-        }
-
-        // Dispara la celebración (popup) en el panel del alumno / entorno.
-        emitirLogro({
-            nombre:      logro.nombre,
-            descripcion: logro.descripcion,
-            iconoUrl:    logro.icono_url,
-            bonoXP,
-        });
-
-        return { exito: true, logroId: logro.id };
+        if (data) await celebrarLogrosNuevos();
+        return Boolean(data);
     } catch (err) {
-        console.error('[BLOCKIDS] Error desbloqueando logro:', err);
-        return { exito: false, error: err };
+        console.error(`[BLOCKIDS] Error desbloqueando logro "${tipo}":`, err);
+        return false;
     }
 };

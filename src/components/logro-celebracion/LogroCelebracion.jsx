@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 import styles from './LogroCelebracion.css';
 import { EVENTO_LOGRO, consumirLogrosPendientes } from '../../lib/logro-eventos';
+import { celebrarLogrosNuevos } from '../../services/gamificationService';
 
 import xolotlLogro from '../../assets/xolotl/xolotl-logro.svg';
 
@@ -53,6 +54,10 @@ const LogroCelebracion = () => {
     // Cola pendiente al montar (venimos de otra pantalla) + eventos en vivo.
     useEffect(() => {
         encolar(consumirLogrosPendientes());
+
+        // Logros que se ganaron mientras el alumno no estaba (p. ej. subir de nivel
+        // cuando el profesor califica): el servidor los guarda y se celebran al entrar.
+        celebrarLogrosNuevos();
 
         // En vivo: vaciamos también la cola de sessionStorage (emitirLogro deja
         // el logro en ambos sitios) para que no se re-muestre al cambiar de

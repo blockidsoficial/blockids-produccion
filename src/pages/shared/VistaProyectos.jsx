@@ -7,7 +7,7 @@ import xolotlIdea from '../../assets/xolotl/xolotl-idea.svg';
 import iconVideo    from '../../assets/iconos-ui/ui-video.svg';
 import iconEliminar from '../../assets/iconos-ui/eliminar.svg';
 
-import { desbloquearLogro } from '../../services/gamificationService';
+import { celebrarLogrosNuevos, desbloquearLogroEditor } from '../../services/gamificationService';
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -131,7 +131,8 @@ const VistaProyectos = ({ userId }) => {
 
             if (error) throw error;
 
-            await desbloquearLogro(userId, 'Mi Primer Proyecto', 50);
+            // El logro lo otorga un trigger del servidor al insertar el proyecto.
+            await celebrarLogrosNuevos();
 
             history.push(`/entorno?proyectoId=${nuevoProj.id}`);
         } catch (err) {
@@ -187,6 +188,7 @@ const VistaProyectos = ({ userId }) => {
             setProyectos(prev => prev.map(p =>
                 p.id === id ? { ...p, nombre, updated_at: new Date().toISOString() } : p
             ));
+            desbloquearLogroEditor('renombrar_proyecto');
         }
         cancelarEdicion();
     };

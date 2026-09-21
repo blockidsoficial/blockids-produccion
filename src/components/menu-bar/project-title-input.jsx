@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {defineMessages, intlShape, injectIntl} from 'react-intl';
 import {setProjectTitle} from '../../reducers/project-title';
+import {emitirEventoEditor} from '../../lib/logro-eventos';
 
 import BufferedInputHOC from '../forms/buffered-input-hoc.jsx';
 import Input from '../forms/input.jsx';
@@ -48,7 +49,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onSubmit: title => dispatch(setProjectTitle(title))
+    onSubmit: title => {
+        dispatch(setProjectTitle(title));
+        if (title && title.trim()) emitirEventoEditor('renombrar_proyecto');
+    }
 });
 
 export default injectIntl(connect(
