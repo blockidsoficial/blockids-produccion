@@ -30,7 +30,7 @@ const sufijoAleatorio = () => (Math.random().toString(36) + '000').slice(2, 5);
 // resto de la app (alumno/Dashboard, admin/VistaEscuelas).
 const normalizarCodigo = (v) => v.replace(/\s+/g, '').toUpperCase();
 
-// Clave de acceso: SIN restricción de caracteres — se acepta espacios,
+// Contraseña: SIN restricción de caracteres — se acepta espacios,
 // acentos, emojis, cualquier símbolo (una frase larga tipo "mi gato azul
 // salta alto" es más segura y más fácil de recordar que "Ab3!" con reglas
 // raras). Solo se limita la longitud: mínimo 6 (lo que exige Supabase Auth
@@ -179,10 +179,10 @@ const Register = () => {
         // intermedios de una frase-clave se respetan tal cual.
         const passwordFinal = password.trim();
         if (passwordFinal.length < PASSWORD_MIN || passwordFinal.length > PASSWORD_MAX) {
-            return setError(`La clave de acceso debe tener entre ${PASSWORD_MIN} y ${PASSWORD_MAX} caracteres.`);
+            return setError(`La contraseña debe tener entre ${PASSWORD_MIN} y ${PASSWORD_MAX} caracteres.`);
         }
         if (passwordFinal !== confirmPassword.trim()) {
-            return setError('Las claves de acceso no coinciden');
+            return setError('Las contraseñas no coinciden');
         }
         if (!esAlumno && !RE_EMAIL.test(email.trim())) {
             return setError('Ingresa un correo electrónico válido para poder recuperar tu cuenta.');
@@ -525,10 +525,10 @@ const Register = () => {
                                     </div>
                                 )}
 
-                                {/* Clave de acceso */}
+                                {/* Contraseña */}
                                 <div className={styles.fieldGroup}>
                                     <label className={styles.label} htmlFor="reg-password">
-                                        Clave de acceso
+                                        Contraseña
                                     </label>
                                     <div className={styles.passwordWrapper}>
                                         <input
@@ -539,7 +539,7 @@ const Register = () => {
                                             minLength={PASSWORD_MIN}
                                             maxLength={PASSWORD_MAX}
                                             title={`Mínimo ${PASSWORD_MIN} caracteres.`}
-                                            placeholder="Escribe tu clave de acceso"
+                                            placeholder="Crea una contraseña segura"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
                                             className={`${styles.input} ${styles.inputWithEye}`}
@@ -555,14 +555,14 @@ const Register = () => {
                                         </button>
                                     </div>
                                     <p className={styles.helperText}>
-                                        Mínimo {PASSWORD_MIN} caracteres. Entre más larga, mejor — puedes usar una frase con espacios.
+                                        Mínimo {PASSWORD_MIN} caracteres.
                                     </p>
                                 </div>
 
-                                {/* Confirmar clave */}
+                                {/* Confirmar contraseña */}
                                 <div className={styles.fieldGroup}>
                                     <label className={styles.label} htmlFor="reg-confirm-password">
-                                        Confirmar clave
+                                        Confirmar contraseña
                                     </label>
                                     <div className={styles.passwordWrapper}>
                                         <input
@@ -572,7 +572,7 @@ const Register = () => {
                                             autoComplete="new-password"
                                             minLength={PASSWORD_MIN}
                                             maxLength={PASSWORD_MAX}
-                                            placeholder="Confirma tu clave"
+                                            placeholder="Confirma tu contraseña"
                                             value={confirmPassword}
                                             onChange={(e) => setConfirmPassword(e.target.value)}
                                             className={`${styles.input} ${styles.inputWithEye}`}
@@ -591,7 +591,7 @@ const Register = () => {
 
                                 {esAlumno && (
                                     <p className={styles.passwordWarning}>
-                                        Guarda tu clave en un lugar seguro. No podrás recuperarla si la olvidas.
+                                        Guarda tu contraseña en un lugar seguro. No podrás recuperarla si la olvidas.
                                     </p>
                                 )}
 
