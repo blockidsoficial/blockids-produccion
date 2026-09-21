@@ -53,3 +53,6 @@ npm-*
 # Esquema de base de datos y políticas RLS: no exponer la estructura de la BD
 /supabase/migrations
 /supabase/tests
+
+# SVG de trabajo para la librería de objetos (ya subidos al bucket)
+/src/assets/svg-temporales-libreria-objetos/
