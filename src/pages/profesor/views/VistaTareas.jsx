@@ -542,22 +542,16 @@ const VistaTareas = ({ userId }) => {
                 </div>
                 {aulas.length > 0 && (
                     <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                        {aulas.length > 1 && (
-                            <div className={styles.filtroAulaWrap}>
-                                <label htmlFor="filtro-aula-tareas" className={styles.filtroAulaLabel}>Aula</label>
-                                <select
-                                    id="filtro-aula-tareas"
-                                    className={styles.filtroSelect}
-                                    value={filtroAula}
-                                    onChange={e => setFiltroAula(e.target.value)}
-                                >
-                                    <option value="todas">Todas las aulas</option>
-                                    {aulas.map(a => (
-                                        <option key={a.id} value={a.id}>{a.nombre}</option>
-                                    ))}
-                                </select>
-                            </div>
-                        )}
+                        <select
+                            className={styles.filtroSelect}
+                            value={filtroAula}
+                            onChange={e => setFiltroAula(e.target.value)}
+                        >
+                            <option value="todas">Todas las aulas</option>
+                            {aulas.map(a => (
+                                <option key={a.id} value={a.id}>{a.nombre}</option>
+                            ))}
+                        </select>
                         <button
                             className={styles.btnProbarEntorno}
                             onClick={() => history.push('/entorno')}

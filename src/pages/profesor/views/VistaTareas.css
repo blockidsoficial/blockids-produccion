@@ -1,18 +1,4 @@
 /* ── Filtro por aula ──────────────────────────────────────────────────────── */
-.filtroAulaWrap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.filtroAulaLabel {
-    font-size: .78rem;
-    font-weight: 700;
-    color: var(--color-texto-suave);
-    font-family: var(--font-principal);
-    white-space: nowrap;
-}
-
 .filtroSelect {
     padding: 9px 14px;
     background: var(--color-blanco);
