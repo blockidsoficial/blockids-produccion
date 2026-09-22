@@ -22,7 +22,7 @@
         "rate": 22050
     },
     {
-        "name": "Ladrón",
+        "name": "Ladrido",
         "tags": [
             "blockids"
         ],
@@ -33,7 +33,7 @@
         "rate": 22050
     },
     {
-        "name": "Basketball",
+        "name": "Balon",
         "tags": [
             "blockids"
         ],
@@ -77,7 +77,7 @@
         "rate": 48000
     },
     {
-        "name": "Cueva",
+        "name": "Videojuego Retro",
         "tags": [
             "blockids"
         ],
@@ -121,7 +121,7 @@
         "rate": 11025
     },
     {
-        "name": "Conetar",
+        "name": "Conectar",
         "tags": [
             "blockids"
         ],
