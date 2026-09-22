@@ -305,7 +305,7 @@ const VistaTareas = ({ userId }) => {
                             <button className={dash.modalClose} onClick={cerrarModal} disabled={enviando}>✕</button>
                         </div>
 
-                        <form onSubmit={handleGuardarTarea}>
+                        <form onSubmit={handleGuardarTarea} className={dash.modalForm}>
                             <div className={dash.modalBody}>
                                 <div className={dash.fieldGroup}>
                                     <label className={dash.fieldLabel} htmlFor="aula-tarea">Aula</label>

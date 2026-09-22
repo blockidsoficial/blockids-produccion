@@ -105,7 +105,9 @@ Deno.serve(async (req) => {
       nombre, apellido_paterno, apellido_materno,
     } = await req.json();
 
-    if (!username || !password || !rol) {
+    // El username es opcional SOLO para alumnos: si viene vacío se genera uno
+    // automático y libre (generar_username_alumno, ej. "nube482").
+    if (!password || !rol || (!username && rol !== 'alumno')) {
       return json({ error: 'Faltan campos: username, password, rol.' }, 400);
     }
     // Trim SOLO en las puntas (accidente de copiar/pegar) — no se restringe
@@ -147,30 +149,51 @@ Deno.serve(async (req) => {
       return json({ error: 'Solo un superadmin puede crear otro superadmin.' }, 403);
     }
 
-    const usernameNorm = normalizarUsername(username);
-    const errorUsername = validarUsername(usernameNorm, rol);
-    if (errorUsername) {
-      return json({ error: errorUsername }, 400);
-    }
-    const emailFantasia = `${usernameNorm}@blockids.com`;
-
     const supabaseAdmin = createClient(
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
       { auth: { autoRefreshToken: false, persistSession: false } }
     );
 
-    const { data, error: createError } = await supabaseAdmin.auth.admin.createUser({
-      email:         emailFantasia,
-      password:      passwordFinal,
-      email_confirm: true,
-      user_metadata: { username: usernameNorm, rol, escuela_id: escuela_id || null },
-    });
+    let usernameNorm = normalizarUsername(username);
+    const usernameAutomatico = !usernameNorm && rol === 'alumno';
+    if (!usernameAutomatico) {
+      const errorUsername = validarUsername(usernameNorm, rol);
+      if (errorUsername) {
+        return json({ error: errorUsername }, 400);
+      }
+    }
 
-    if (createError) {
-      const msg = createError.message.toLowerCase().includes('already')
+    // Con username automático se reintenta unas veces por si otro alta
+    // simultánea toma el mismo nombre entre generarlo y crear la cuenta.
+    let data = null;
+    let createError = null;
+    for (let intento = 0; intento < 4 && !data; intento++) {
+      if (usernameAutomatico) {
+        const { data: generado, error: errorGenerar } = await supabaseAdmin.rpc('generar_username_alumno');
+        if (errorGenerar || !generado) {
+          return json({ error: `No se pudo generar un usuario automático: ${errorGenerar?.message || 'sin resultado'}` }, 500);
+        }
+        usernameNorm = generado;
+      }
+
+      const resultado = await supabaseAdmin.auth.admin.createUser({
+        email:         `${usernameNorm}@blockids.com`,
+        password:      passwordFinal,
+        email_confirm: true,
+        user_metadata: { username: usernameNorm, rol, escuela_id: escuela_id || null },
+      });
+      data = resultado.data?.user ? resultado.data : null;
+      createError = resultado.error;
+
+      const yaExiste = createError?.message?.toLowerCase().includes('already');
+      if (!data && !(usernameAutomatico && yaExiste)) break;
+    }
+
+    if (!data) {
+      const msg = createError?.message?.toLowerCase().includes('already')
         ? `El usuario "@${usernameNorm}" ya existe.`
-        : createError.message;
+        : (createError?.message || 'No se pudo crear el usuario.');
       return json({ error: msg }, 400);
     }
 

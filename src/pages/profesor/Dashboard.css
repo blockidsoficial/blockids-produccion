@@ -320,7 +320,7 @@
 
 /* ══ MODAL ═════════════════════════════════════════════════ */
 .modalOverlay {
-    position: fixed; inset: 0;
+    position: fixed; top: 0; right: 0; bottom: 0; left: 0;
     background: rgba(15, 23, 42, .50);
     display: flex; align-items: center; justify-content: center;
     z-index: 200; padding: 20px;
@@ -341,6 +341,7 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 22px 26px 18px;
     border-bottom: 1.5px solid var(--color-borde-suave);
+    flex-shrink: 0;
 }
 .modalHeaderLeft { display: flex; align-items: center; gap: 12px; }
 .modalIconWrap {
@@ -359,6 +360,8 @@
 }
 .modalClose:hover:not(:disabled) { background: var(--color-rosa-claro); color: #c5221f; }
 .modalClose:disabled { opacity: .4; cursor: not-allowed; }
+
+.modalForm { display: flex; flex-direction: column; flex: 1; min-height: 0; }
 
 /* ── Body del modal ──────────────────────────────────────── */
 .modalBody { padding: 24px 26px; overflow-y: auto; flex: 1; min-height: 0; }
@@ -388,6 +391,7 @@
     display: flex; justify-content: flex-end; gap: 10px;
     padding: 16px 26px 22px;
     border-top: 1.5px solid var(--color-borde-suave);
+    flex-shrink: 0;
 }
 .btnCancelar {
     padding: 10px 22px; background: #f1f3f4; color: var(--color-texto-suave);

@@ -172,7 +172,7 @@ const VistaMisAulas = ({ userId, escuelaId }) => {
                             </div>
                             <button className={dash.modalClose} onClick={cerrarModal} disabled={enviando}>✕</button>
                         </div>
-                        <form onSubmit={handleCrearAula}>
+                        <form onSubmit={handleCrearAula} className={dash.modalForm}>
                             <div className={dash.modalBody}>
                                 <div className={dash.fieldGroup}>
                                     <label className={dash.fieldLabel} htmlFor="nombre-aula">Nombre del Aula</label>
@@ -218,7 +218,7 @@ const VistaMisAulas = ({ userId, escuelaId }) => {
                             </div>
                             <button className={dash.modalClose} onClick={cerrarModalEditar} disabled={enviando}>✕</button>
                         </div>
-                        <form onSubmit={handleEditarAula}>
+                        <form onSubmit={handleEditarAula} className={dash.modalForm}>
                             <div className={dash.modalBody}>
                                 <div className={dash.fieldGroup}>
                                     <label className={dash.fieldLabel} htmlFor="editar-nombre-aula">Nombre del Aula</label>

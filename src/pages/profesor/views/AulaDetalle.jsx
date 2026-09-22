@@ -236,7 +236,7 @@ const AulaDetalle = () => {
                             <button className={styles.modalClose} onClick={cerrarModalTarea} disabled={enviandoTarea}>✕</button>
                         </div>
 
-                        <form onSubmit={handleCrearTarea}>
+                        <form onSubmit={handleCrearTarea} className={styles.modalForm}>
                             <div className={styles.modalBody}>
                                 <div className={styles.fieldGroup}>
                                     <label className={styles.fieldLabel} htmlFor="tarea-titulo">Título</label>

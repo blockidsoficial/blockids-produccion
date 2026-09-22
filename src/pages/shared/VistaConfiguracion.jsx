@@ -3,6 +3,7 @@ import { supabase } from '../../config/supabaseClient';
 import { marcarCambiosSinGuardar } from '../../lib/navGuard';
 import styles from './VistaConfiguracion.css';
 import IconoOjo from '../../components/IconoOjo/IconoOjo';
+import { AVATARES, avatarDePerfil, EVENTO_AVATAR } from '../../lib/avatares';
 
 const ROL_LABEL = {
     alumno:        'Alumno',
@@ -28,6 +29,7 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
     // Datos de solo lectura
     const [infoCuenta, setInfoCuenta] = useState({ rol: '', escuela: '', creado: '' });
     const [rolRaw, setRolRaw] = useState('');
+    const [avatarActual, setAvatarActual] = useState(null);
     const [email,  setEmail]  = useState('');
 
     // Cambio de contraseña
@@ -52,6 +54,21 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
         }
     };
 
+    // ── Elegir avatar (solo alumnos): se guarda al instante ──────────────────
+    const handleElegirAvatar = async (id) => {
+        const anterior = avatarActual;
+        setAvatarActual(id);
+        const { error } = await supabase.from('perfiles').update({ avatar_url: id }).eq('id', userId);
+        if (error) {
+            console.error('[BLOCKIDS] Error guardando avatar:', error);
+            setAvatarActual(anterior);
+            mostrarMensaje('error', 'No se pudo cambiar tu avatar. Intenta de nuevo.');
+            return;
+        }
+        window.dispatchEvent(new CustomEvent(EVENTO_AVATAR, { detail: id }));
+        mostrarMensaje('success', '¡Avatar actualizado!');
+    };
+
     // ── Carga segura del perfil ───────────────────────────────────────────────
     useEffect(() => {
         if (!userId) {
@@ -63,7 +80,7 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
             try {
                 const { data, error } = await supabase
                     .from('perfiles')
-                    .select('nombre, apellido_paterno, apellido_materno, username, rol, created_at, escuelas(nombre)')
+                    .select('nombre, apellido_paterno, apellido_materno, username, rol, avatar_url, created_at, escuelas(nombre)')
                     .eq('id', userId)
                     .single();
                 if (error) throw error;
@@ -78,6 +95,7 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
                 setUsername(data?.username || '');
                 setIniciales({ nombre: n, apellidoPaterno: ap, apellidoMaterno: am });
                 setRolRaw(data?.rol || '');
+                setAvatarActual(data?.avatar_url || null);
 
                 // Email de la sesión (para verificar la contraseña actual)
                 const { data: authData } = await supabase.auth.getUser();
@@ -215,6 +233,34 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
                 </div>
             )}
 
+             {/* ── Tarjeta: avatar (solo alumnos) ── */}
+            {rolRaw === 'alumno' && (
+                <div className={`${styles.card} ${styles.cardStacked}`}>
+                    <div className={styles.cardHeader}>
+                        <h2 className={styles.cardTitle}>Mi avatar</h2>
+                        <p className={styles.cardSubtitle}>Elige a tu Xolotl favorito</p>
+                    </div>
+                    <div className={styles.avatarGrid}>
+                        {AVATARES.map(a => {
+                            const seleccionado = avatarDePerfil(avatarActual, username).id === a.id;
+                            return (
+                                <button
+                                    key={a.id}
+                                    type="button"
+                                    className={`${styles.avatarOpcion} ${seleccionado ? styles.avatarOpcionActiva : ''}`}
+                                    onClick={() => handleElegirAvatar(a.id)}
+                                    aria-label={`Avatar: ${a.nombre}`}
+                                    aria-pressed={seleccionado}
+                                    title={a.nombre}
+                                >
+                                    <img src={a.src} alt="" className={styles.avatarImg} />
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
+
             {/* ── Tarjeta: datos de la cuenta (solo lectura) ── */}
             <div className={`${styles.card} ${styles.cardStacked}`}>
                 <div className={styles.cardHeader}>
@@ -236,6 +282,7 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
                     </div>
                 </div>
             </div>
+            <br />
             {/* ── Tarjeta: datos personales ── */}
             <div className={styles.card}>
                 <div className={styles.cardHeader}>
@@ -317,6 +364,34 @@ const VistaConfiguracion = ({ userId, mostrarAlerta, onPerfilActualizado }) => {
                     </div>
                 </form>
             </div>
+
+            {/* ── Tarjeta: avatar (solo alumnos) ──
+            {rolRaw === 'alumno' && (
+                <div className={`${styles.card} ${styles.cardStacked}`}>
+                    <div className={styles.cardHeader}>
+                        <h2 className={styles.cardTitle}>Mi avatar</h2>
+                        <p className={styles.cardSubtitle}>Elige a tu Xolotl favorito</p>
+                    </div>
+                    <div className={styles.avatarGrid}>
+                        {AVATARES.map(a => {
+                            const seleccionado = avatarDePerfil(avatarActual, username).id === a.id;
+                            return (
+                                <button
+                                    key={a.id}
+                                    type="button"
+                                    className={`${styles.avatarOpcion} ${seleccionado ? styles.avatarOpcionActiva : ''}`}
+                                    onClick={() => handleElegirAvatar(a.id)}
+                                    aria-label={`Avatar: ${a.nombre}`}
+                                    aria-pressed={seleccionado}
+                                    title={a.nombre}
+                                >
+                                    <img src={a.src} alt="" className={styles.avatarImg} />
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+            )} */}
 
             {/* ── Tarjeta: seguridad (el alumno no cambia su propia contraseña) ── */}
             {puedeCambiarPass && (

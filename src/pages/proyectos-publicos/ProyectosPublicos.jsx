@@ -54,6 +54,66 @@ const yaDioLike = (idProyecto) => {
     }
 };
 
+// Tarjeta de proyecto reutilizada tanto en el podio general (con medalla)
+// como en el bloque "por escuela" (sin medalla).
+const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, onVer, style }) => {
+    const yaLiked = yaDioLike(proyecto.id);
+    const autor = proyecto.username || 'anónimo';
+
+    return (
+        <article className={styles.card} style={style}>
+            {medalla && <img src={medalla} alt="" className={styles.medalla} />}
+
+            <div
+                className={styles.thumb}
+                style={!proyecto.thumbnail_url ? { background: degradado } : undefined}
+            >
+                {proyecto.thumbnail_url ? (
+                    <img src={proyecto.thumbnail_url} alt={proyecto.nombre || 'Proyecto destacado'} className={styles.thumbImg} />
+                ) : (
+                    <img src={proyectoPlaceholder} alt="" className={styles.thumbPlaceholder} />
+                )}
+            </div>
+
+            <div className={styles.cardBody}>
+                <h3 className={styles.cardNombre} title={proyecto.nombre}>
+                    {proyecto.nombre || 'Proyecto sin título'}
+                </h3>
+                <p className={styles.cardAutor}>
+                    @{autor}{proyecto.escuela_nombre && <> · {proyecto.escuela_nombre}</>}
+                </p>
+
+                <div className={styles.cardFooter}>
+                    <button
+                        type="button"
+                        className={`${styles.btnLike} ${yaLiked ? styles.btnLikeActivo : ''}`}
+                        onClick={() => onLike(proyecto)}
+                        disabled={yaLiked}
+                        aria-pressed={yaLiked}
+                        title={yaLiked ? 'Ya diste like a este proyecto' : 'Me gusta'}
+                    >
+                        <img src={iconoLike} alt="" className={styles.likeIcon} />
+                        <span>{proyecto.likes || 0}</span>
+                    </button>
+
+                    <button type="button" className={styles.btnVer} onClick={() => onVer(proyecto)}>
+                        Ver proyecto
+                    </button>
+                </div>
+            </div>
+        </article>
+    );
+};
+
+TarjetaProyecto.propTypes = {
+    proyecto: PropTypes.object.isRequired,
+    medalla: PropTypes.string,
+    degradado: PropTypes.string,
+    onLike: PropTypes.func.isRequired,
+    onVer: PropTypes.func.isRequired,
+    style: PropTypes.object,
+};
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 const ProyectosPublicos = ({ session, rolPerfil }) => {
@@ -63,50 +123,82 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
     const urlDashboard = session ? rutaDashboard(rolPerfil) : '/registro';
 
     const [proyectos, setProyectos] = useState([]);
+    const [porEscuela, setPorEscuela] = useState([]); // [{ escuela, proyectos: [...] }]
     const [cargando, setCargando]   = useState(true);
     const [error, setError]         = useState(false);
 
     useEffect(() => {
         let vivo = true;
 
-        const cargarTop3 = async () => {
+        const cargar = async () => {
             setCargando(true);
             setError(false);
 
-            // RPC en vez de .select('*, perfiles(username)'): un SELECT directo
-            // sobre `perfiles` obligaría a abrir esa tabla a `anon` (nombre,
-            // apellidos, correo de contacto de menores...). Esta función solo
-            // devuelve el username. Sin parámetro a propósito: el tope de 3
-            // queda fijo del lado de la base de datos (ver
-            // sql/proyectos_publicos_policies.sql), coherente con que la
-            // página está diseñada para exactamente 3 tarjetas/medallas.
-            const { data, error: errorConsulta } = await supabase
-                .rpc('obtener_top_proyectos_publicos');
+            // RPCs en vez de .select('*, perfiles(username)'): un SELECT directo
+            // sobre `perfiles`/`escuelas` obligaría a abrir esas tablas a `anon`
+            // (nombre, apellidos, correo de contacto de menores...). Ambas solo
+            // devuelven username/nombre de escuela. El podio general sale de
+            // obtener_podio_salon_fama (top 3 entre TODAS las escuelas, ya
+            // aprobados por el admin — ver migración salon_fama); el bloque de
+            // abajo agrupa el resultado de obtener_top_por_escuela_salon_fama
+            // por escuela en el cliente.
+            const [podio, todosAprobados] = await Promise.all([
+                supabase.rpc('obtener_podio_salon_fama'),
+                supabase.rpc('obtener_top_por_escuela_salon_fama'),
+            ]);
 
             if (!vivo) return;
 
-            if (errorConsulta) {
-                console.error('[BLOCKIDS] Error cargando proyectos destacados:', errorConsulta);
+            if (podio.error || todosAprobados.error) {
+                console.error('[BLOCKIDS] Error cargando el Salón de la Fama:', podio.error || todosAprobados.error);
                 setError(true);
                 setProyectos([]);
-            } else {
-                setProyectos(data || []);
+                setPorEscuela([]);
+                setCargando(false);
+                return;
             }
+
+            setProyectos(podio.data || []);
+
+            // Agrupar por escuela (el RPC ya viene ordenado por escuela, likes desc)
+            // y quitar del bloque "por escuela" los que ya salen en el podio general,
+            // para no repetir la misma tarjeta dos veces en la página.
+            const idsEnPodio = new Set((podio.data || []).map(p => p.id));
+            const grupos = [];
+            (todosAprobados.data || []).forEach(p => {
+                if (idsEnPodio.has(p.id)) return;
+                let grupo = grupos.find(g => g.escuela === p.escuela_nombre);
+                if (!grupo) {
+                    grupo = { escuela: p.escuela_nombre, proyectos: [] };
+                    grupos.push(grupo);
+                }
+                grupo.proyectos.push(p);
+            });
+            setPorEscuela(grupos);
+
             setCargando(false);
         };
 
-        cargarTop3();
+        cargar();
         return () => { vivo = false; };
     }, []);
 
     // ── Me gusta: optimista en pantalla, persistido en BD, 1 vez por navegador ──
+    // Actualiza el proyecto tanto en el podio general como en el bloque por
+    // escuela, dondequiera que esté la tarjeta.
+    const actualizarLikesEnEstado = (proyectoId, likes) => {
+        setProyectos(prev => prev.map(p => (p.id === proyectoId ? { ...p, likes } : p)));
+        setPorEscuela(prev => prev.map(g => ({
+            ...g,
+            proyectos: g.proyectos.map(p => (p.id === proyectoId ? { ...p, likes } : p)),
+        })));
+    };
+
     const handleLike = async (proyecto) => {
         if (yaDioLike(proyecto.id)) return;
 
         // Optimista: refleja el +1 de inmediato en pantalla.
-        setProyectos(prev => prev.map(p =>
-            p.id === proyecto.id ? { ...p, likes: (p.likes || 0) + 1 } : p
-        ));
+        actualizarLikesEnEstado(proyecto.id, (proyecto.likes || 0) + 1);
         try {
             window.localStorage.setItem(claveLike(proyecto.id), '1');
         } catch (_) { /* modo privado / storage bloqueado: el like igual se cuenta esta vez */ }
@@ -127,15 +219,15 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
         // Sincroniza con el valor real del servidor, por si alguien más le
         // dio like al mismo tiempo.
         if (typeof likesReales === 'number') {
-            setProyectos(prev => prev.map(p =>
-                p.id === proyecto.id ? { ...p, likes: likesReales } : p
-            ));
+            actualizarLikesEnEstado(proyecto.id, likesReales);
         }
     };
 
     const verProyecto = (proyecto) => {
         history.push(`/entorno?proyectoId=${proyecto.id}`);
     };
+
+    const sinResultados = !cargando && !error && proyectos.length === 0 && porEscuela.length === 0;
 
     return (
         <div className={styles.pagina}>
@@ -182,7 +274,7 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                         </div>
                     )}
 
-                    {!cargando && !error && proyectos.length === 0 && (
+                    {sinResultados && (
                         <div className={styles.estadoVacio}>
                             <img src={xolotlIdea} alt="" className={styles.estadoXolotl} />
                             <h2 className={styles.estadoTitulo}>Aún no hay proyectos destacados</h2>
@@ -194,78 +286,46 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
 
                     {!cargando && !error && proyectos.length > 0 && (
                         <div className={styles.grid}>
-                            {proyectos.map((proyecto, idx) => {
-                                const yaLiked = yaDioLike(proyecto.id);
-                                const autor = proyecto.username || 'anónimo';
-
-                                return (
-                                    <article
-                                        key={proyecto.id}
-                                        className={styles.card}
-                                        style={{ animationDelay: `${idx * 0.08}s` }}
-                                    >
-                                        <img
-                                            src={MEDALLAS[idx] || medallaEspecial}
-                                            alt={`Puesto ${idx + 1}`}
-                                            className={styles.medalla}
-                                        />
-
-                                        <div
-                                            className={styles.thumb}
-                                            style={!proyecto.thumbnail_url
-                                                ? { background: DEGRADADOS_PLACEHOLDER[idx % DEGRADADOS_PLACEHOLDER.length] }
-                                                : undefined}
-                                        >
-                                            {proyecto.thumbnail_url ? (
-                                                <img
-                                                    src={proyecto.thumbnail_url}
-                                                    alt={proyecto.nombre || 'Proyecto destacado'}
-                                                    className={styles.thumbImg}
-                                                />
-                                            ) : (
-                                                <img
-                                                    src={proyectoPlaceholder}
-                                                    alt=""
-                                                    className={styles.thumbPlaceholder}
-                                                />
-                                            )}
-                                        </div>
-
-                                        <div className={styles.cardBody}>
-                                            <h3 className={styles.cardNombre} title={proyecto.nombre}>
-                                                {proyecto.nombre || 'Proyecto sin título'}
-                                            </h3>
-                                            <p className={styles.cardAutor}>@{autor}</p>
-
-                                            <div className={styles.cardFooter}>
-                                                <button
-                                                    type="button"
-                                                    className={`${styles.btnLike} ${yaLiked ? styles.btnLikeActivo : ''}`}
-                                                    onClick={() => handleLike(proyecto)}
-                                                    disabled={yaLiked}
-                                                    aria-pressed={yaLiked}
-                                                    title={yaLiked ? 'Ya diste like a este proyecto' : 'Me gusta'}
-                                                >
-                                                    <img src={iconoLike} alt="" className={styles.likeIcon} />
-                                                    <span>{proyecto.likes || 0}</span>
-                                                </button>
-
-                                                <button
-                                                    type="button"
-                                                    className={styles.btnVer}
-                                                    onClick={() => verProyecto(proyecto)}
-                                                >
-                                                    Ver proyecto
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </article>
-                                );
-                            })}
+                            {proyectos.map((proyecto, idx) => (
+                                <TarjetaProyecto
+                                    key={proyecto.id}
+                                    proyecto={proyecto}
+                                    medalla={MEDALLAS[idx] || medallaEspecial}
+                                    degradado={DEGRADADOS_PLACEHOLDER[idx % DEGRADADOS_PLACEHOLDER.length]}
+                                    onLike={handleLike}
+                                    onVer={verProyecto}
+                                    style={{ animationDelay: `${idx * 0.08}s` }}
+                                />
+                            ))}
                         </div>
                     )}
                 </div>
             </section>
+
+            {/* ══════════ POR ESCUELA ══════════ */}
+            {!cargando && !error && porEscuela.length > 0 && (
+                <section className={styles.contenido}>
+                    <div className={styles.container}>
+                        <h2 className={styles.seccionTitulo}>Destacados por escuela</h2>
+                        {porEscuela.map(grupo => (
+                            <div key={grupo.escuela} className={styles.escuelaGrupo}>
+                                <h3 className={styles.escuelaNombre}>{grupo.escuela}</h3>
+                                <div className={styles.grid}>
+                                    {grupo.proyectos.map((proyecto, idx) => (
+                                        <TarjetaProyecto
+                                            key={proyecto.id}
+                                            proyecto={proyecto}
+                                            degradado={DEGRADADOS_PLACEHOLDER[idx % DEGRADADOS_PLACEHOLDER.length]}
+                                            onLike={handleLike}
+                                            onVer={verProyecto}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            )}
 
             <Footer />
         </div>

@@ -10,6 +10,7 @@ import VistaCalificaciones from './views/VistaCalificaciones';
 import VistaReportes       from './views/VistaReportes';
 import VistaConfiguracion  from '../shared/VistaConfiguracion';
 import VistaProyectos      from '../shared/VistaProyectos';
+import VistaSalonFama      from './views/VistaSalonFama';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
 import { fraseDelDia, fraseAnimoProfesor } from '../../lib/frase-del-dia';
 import xolotlMotivacional from '../../assets/xolotl/xolotl-excelente.svg';
@@ -23,6 +24,7 @@ import iconCalif      from '../../assets/iconos-ui/ui-favorito.svg';
 import iconReportes   from '../../assets/iconos-ui/ui-descargar.svg';
 import iconConfig     from '../../assets/iconos-ui/ui-configuracion.svg';
 import iconProyectos  from '../../assets/iconos-ui/ui-video.svg';
+import iconSalonFama  from '../../assets/iconos/icono-medalla-oro.svg';
 import styles from './Dashboard.css';
 
 const formatearFecha = (iso) => {
@@ -45,6 +47,7 @@ const VISTA_A_NAV = {
     'reportes':       'Reportes',
     'configuracion':  'Configuración',
     'proyectos':      'Mis Proyectos',
+    'salon-fama':     'Salón de la Fama',
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -64,7 +67,7 @@ const DashboardProfesor = () => {
     const [escuelaId, setEscuelaId]         = useState(null);
 
     // ── Vista activa ──────────────────────────────────────────────────────────
-    const VISTAS_VALIDAS_PROFESOR = new Set(['inicio', 'mis-aulas', 'tareas', 'muro', 'estudiantes', 'calificaciones', 'reportes', 'proyectos', 'configuracion']);
+    const VISTAS_VALIDAS_PROFESOR = new Set(['inicio', 'mis-aulas', 'tareas', 'muro', 'estudiantes', 'calificaciones', 'reportes', 'proyectos', 'salon-fama', 'configuracion']);
     const _vistaParamProfesor = new URLSearchParams(location.search).get('vista');
     const vistaInicial = (_vistaParamProfesor && VISTAS_VALIDAS_PROFESOR.has(_vistaParamProfesor))
         ? _vistaParamProfesor
@@ -216,6 +219,7 @@ const DashboardProfesor = () => {
         { label: 'Calificaciones', icon: iconCalif,      to: '#', onClick: () => irA('calificaciones') },
         { label: 'Reportes',       icon: iconReportes,   to: '#', onClick: () => irA('reportes') },
         { label: 'Mis Proyectos',  icon: iconProyectos,  to: '#', onClick: () => irA('proyectos') },
+        { label: 'Salón de la Fama', icon: iconSalonFama, to: '#', onClick: () => irA('salon-fama') },
         { label: 'Configuración',  icon: iconConfig,     to: '#', onClick: () => irA('configuracion') },
     ];
 
@@ -348,6 +352,11 @@ const DashboardProfesor = () => {
             {/* ══════════ VISTA: MIS PROYECTOS ══════════ */}
             {vistaActual === 'proyectos' && (
                 <VistaProyectos userId={userId} />
+            )}
+
+            {/* ══════════ VISTA: SALÓN DE LA FAMA ══════════ */}
+            {vistaActual === 'salon-fama' && (
+                <VistaSalonFama userId={userId} />
             )}
 
             {/* ══════════ VISTA: CONFIGURACIÓN ══════════ */}

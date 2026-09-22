@@ -56,3 +56,15 @@ npm-*
 
 # SVG de trabajo para la librería de objetos (ya subidos al bucket)
 /src/assets/svg-temporales-libreria-objetos/
+
+# Archivos renombrados por hash, listos para subir al bucket (los genera scripts/preparar-assets.mjs)
+/assets-por-subir/
+
+# Fondos y sonidos propios de la librería: se suben al bucket (scripts/preparar-assets.mjs).
+# Los fondo-*.svg son decoración de la landing y sí van en git.
+/src/assets/fondos/*
+!/src/assets/fondos/fondo-*.svg
+/src/assets/audios/
+
+# Herramienta local para preparar assets
+/scripts/preparar-assets.mjs

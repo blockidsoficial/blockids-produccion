@@ -6,10 +6,13 @@ import { celebrarLogrosNuevos } from '../../../services/gamificationService';
 import xolotlIdea from '../../../assets/xolotl/xolotl-idea.svg';
 import iconMuro   from '../../../assets/iconos-ui/ui-contacto.svg';
 
+const ROLES_STAFF = ['profesor', 'admin_escuela', 'superadmin', 'admin'];
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 const VistaMuro = ({ userId, misAulas, aulaInicial }) => {
     const [mensajes,         setMensajes]         = useState([]);
+    const [nombresStaff,     setNombresStaff]     = useState({});
     const [cargando,         setCargando]         = useState(true);
     const [publicando,       setPublicando]       = useState(false);
     const [nuevoMensaje,     setNuevoMensaje]     = useState('');
@@ -33,8 +36,6 @@ const VistaMuro = ({ userId, misAulas, aulaInicial }) => {
                 contenido,
                 fecha_creacion,
                 perfiles!autor_id (
-                    nombre,
-                    apellido_paterno,
                     username,
                     rol
                 )
@@ -47,6 +48,23 @@ const VistaMuro = ({ userId, misAulas, aulaInicial }) => {
             setMensajes([]);
         } else {
             setMensajes(data || []);
+
+            // Privacidad: los alumnos se ven entre sí solo por su @usuario. Solo
+            // se pide el nombre real de quienes son personal (profesor/admin).
+            const idsStaff = [...new Set(
+                (data || []).filter(m => ROLES_STAFF.includes(m.perfiles?.rol)).map(m => m.autor_id)
+            )];
+            if (idsStaff.length) {
+                const { data: staff } = await supabase
+                    .from('perfiles')
+                    .select('id, nombre, apellido_paterno')
+                    .in('id', idsStaff);
+                const mapa = {};
+                (staff || []).forEach(p => {
+                    mapa[p.id] = [p.nombre, p.apellido_paterno].filter(Boolean).join(' ');
+                });
+                setNombresStaff(mapa);
+            }
         }
 
         setCargando(false);
@@ -152,12 +170,10 @@ const VistaMuro = ({ userId, misAulas, aulaInicial }) => {
                 <div className={styles.mensajesLista}>
                     {mensajes.map(m => {
                         const esMio      = m.autor_id === userId;
-                        const esProfesor = !esMio && (
-                            m.perfiles?.rol === 'profesor'
-                            || m.perfiles?.rol === 'admin_escuela'
-                            || m.perfiles?.rol === 'superadmin'
-                            || m.perfiles?.rol === 'admin'
-                        );
+                        const esProfesor = !esMio && ROLES_STAFF.includes(m.perfiles?.rol);
+                        const nombreAutor = esProfesor && nombresStaff[m.autor_id]
+                            ? nombresStaff[m.autor_id]
+                            : `@${m.perfiles?.username || 'alumno'}`;
 
                         const clasesFila = `${styles.mensajeFila} ${esMio ? styles.filaMio : styles.filaOtro}`;
                         const clasesBurbuja = `${styles.burbuja} ${
@@ -172,7 +188,7 @@ const VistaMuro = ({ userId, misAulas, aulaInicial }) => {
                                     {!esMio && (
                                         <div className={styles.mensajeHeader}>
                                             <span className={styles.autorNombre}>
-                                                {m.perfiles?.nombre} {m.perfiles?.apellido_paterno}
+                                                {nombreAutor}
                                             </span>
                                             {esProfesor && (
                                                 <span className={styles.badgeProfesor}>PROFESOR</span>
@@ -201,7 +217,7 @@ const VistaMuro = ({ userId, misAulas, aulaInicial }) => {
                 <form onSubmit={handlePublicar} className={styles.publicarForm}>
                     <textarea
                         className={styles.mensajeInput}
-                        placeholder="Escribe un mensaje para la clase en el muro ..."
+                        placeholder="Escribe un mensaje para toda la clase en el muro ..."
                         value={nuevoMensaje}
                         onChange={e => setNuevoMensaje(e.target.value)}
                         disabled={publicando}

@@ -104,6 +104,32 @@
     gap: 1.75rem;
 }
 
+/* ── Por escuela ──────────────────────────────────────────── */
+.seccionTitulo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-texto-oscuro);
+    margin: 0 0 2rem;
+    text-align: center;
+}
+
+.escuelaGrupo {
+    margin-bottom: 3rem;
+}
+
+.escuelaGrupo:last-child {
+    margin-bottom: 0;
+}
+
+.escuelaNombre {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-texto-oscuro);
+    margin: 0 0 1.25rem;
+    padding-left: 12px;
+    border-left: 4px solid var(--color-verde-primario, #6bcb77);
+}
+
 /* ── Card ─────────────────────────────────────────────────── */
 .card {
     position: relative;

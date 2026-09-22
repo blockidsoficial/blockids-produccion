@@ -1,0 +1,204 @@
+/* BLOCKIDS — Profesor / VistaSalonFama */
+
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: fadeSlideUp .4s ease both;
+}
+
+.cargando {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--color-texto-muted);
+    font-size: .9rem;
+    font-family: var(--font-principal);
+}
+
+/* ── Header ────────────────────────────────────────────────── */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.headerLeft {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.headerIcon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.titulo {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--color-texto-oscuro);
+    margin: 0 0 4px;
+    font-family: var(--font-principal);
+}
+
+.subtitulo {
+    font-size: .85rem;
+    color: var(--color-texto-suave);
+    margin: 0;
+    max-width: 520px;
+    line-height: 1.5;
+    font-family: var(--font-principal);
+}
+
+/* ── Alerta ────────────────────────────────────────────────── */
+.alerta {
+    padding: 12px 18px;
+    border-radius: var(--radio-md);
+    font-size: .86rem;
+    font-weight: 600;
+    font-family: var(--font-principal);
+}
+.alertaSuccess { background: var(--color-verde-bg); color: #137333; border: 1.5px solid #a8d5b5; }
+.alertaError   { background: var(--color-rosa-claro); color: #c5221f; border: 1.5px solid #f4b8b5; }
+
+/* ── Grid de proyectos ─────────────────────────────────────── */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.proyectoCard {
+    background: var(--color-blanco);
+    border-radius: var(--radio-lg);
+    overflow: hidden;
+    border: 1.5px solid var(--color-borde-suave);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: box-shadow .2s, transform .2s;
+}
+
+.proyectoCard:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.09);
+    transform: translateY(-2px);
+}
+
+.thumb {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background-color: var(--color-fondo-claro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.proyectoInfo {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.proyectoNombre {
+    font-size: .92rem;
+    font-weight: 700;
+    color: var(--color-texto-oscuro);
+    margin: 0;
+    font-family: var(--font-principal);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.proyectoAutor {
+    font-size: .78rem;
+    color: var(--color-texto-suave);
+    margin: 0 0 4px;
+    font-family: var(--font-principal);
+}
+
+.btnNominar {
+    padding: 8px 14px;
+    background: var(--color-verde-primario);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: var(--radio-md);
+    font-size: .82rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    transition: background .2s, transform .2s;
+}
+
+.btnNominar:hover:not(:disabled) {
+    background: var(--color-verde-hover);
+    transform: translateY(-1px);
+}
+
+.btnNominar:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+/* ── Badges de estado ──────────────────────────────────────── */
+.badge {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: var(--radio-pill);
+    font-size: .74rem;
+    font-weight: 700;
+    font-family: var(--font-principal);
+}
+
+.badgeNominado  { background: var(--color-amarillo-bg); color: #92400e; }
+.badgeAprobado  { background: var(--color-verde-bg); color: #137333; }
+.badgeRechazado { background: var(--color-rosa-claro); color: #c5221f; }
+
+/* ── Estado vacío ──────────────────────────────────────────── */
+.emptyState {
+    background: var(--color-blanco);
+    border-radius: var(--radio-xl);
+    border: 2px dashed var(--color-borde-suave);
+    padding: 60px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+}
+
+.xolotl {
+    width: 90px;
+    object-fit: contain;
+}
+
+.emptyTitle {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-texto-oscuro);
+    margin: 0;
+    font-family: var(--font-principal);
+}
+
+.emptyDesc {
+    font-size: .85rem;
+    color: var(--color-texto-muted);
+    margin: 0;
+    max-width: 380px;
+    line-height: 1.5;
+    font-family: var(--font-principal);
+}

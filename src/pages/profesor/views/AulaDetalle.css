@@ -532,7 +532,7 @@
 }
 
 .modalOverlay {
-    position: fixed; inset: 0;
+    position: fixed; top: 0; right: 0; bottom: 0; left: 0;
     background: rgba(15, 23, 42, .50);
     display: flex; align-items: center; justify-content: center;
     z-index: 200; padding: 20px;
@@ -575,6 +575,8 @@
 }
 .modalClose:hover:not(:disabled) { background: var(--color-rosa-claro); color: #c5221f; }
 .modalClose:disabled { opacity: .4; cursor: not-allowed; }
+
+.modalForm { display: flex; flex-direction: column; flex: 1; min-height: 0; }
 
 .modalBody {
     padding: 22px 26px;

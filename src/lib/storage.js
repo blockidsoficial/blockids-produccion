@@ -2,7 +2,7 @@ import {ScratchStorage} from 'scratch-storage';
 
 import defaultProject from './default-project';
 
-const BLOCKIDS_ASSET_HOST = 'https://pvvqtqwjacgwwdsesymx.supabase.co/storage/v1/object/public/blockids-assets/';
+const BLOCKIDS_ASSET_HOST = `${process.env.SUPABASE_URL}/storage/v1/object/public/blockids-assets/`;
 
 class Storage extends ScratchStorage {
     constructor () {

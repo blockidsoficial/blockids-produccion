@@ -125,7 +125,12 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
 
     // ── Crear usuario vía Edge Function ───────────────────────────────────────
     const handleCreateUser = async () => {
-        if (!fUsername.trim()) return mostrarAlerta('error', 'Escribe un nombre de usuario válido.');
+        const rolFinal = esSuperAdmin
+            ? fRol
+            : (fRol === 'profesor' || fRol === 'alumno') ? fRol : 'alumno';
+
+        // Alumno sin usuario escrito = la Edge Function le asigna uno automático (ej. nube482).
+        if (!fUsername.trim() && rolFinal !== 'alumno') return mostrarAlerta('error', 'Escribe un nombre de usuario válido.');
         // Trim SOLO en las puntas — los espacios intermedios de una
         // frase-clave se respetan tal cual (no se restringe ningún carácter).
         const fPasswordFinal = fPassword.trim();
@@ -133,10 +138,6 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
             return mostrarAlerta('error', `La contraseña debe tener entre ${PASS_MIN} y ${PASS_MAX} caracteres.`);
         }
         if (fPasswordFinal !== fConfirmPassword.trim()) return mostrarAlerta('error', 'Las contraseñas no coinciden.');
-
-        const rolFinal = esSuperAdmin
-            ? fRol
-            : (fRol === 'profesor' || fRol === 'alumno') ? fRol : 'alumno';
 
         // Un superadmin no pertenece a ninguna escuela — solo se exige escuela_id
         // para el resto de los roles, que sí viven dentro de una institución.
@@ -147,7 +148,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
         if (rolFinal !== 'superadmin' && !escuelaIdFinal) return mostrarAlerta('error', 'Selecciona una escuela.');
 
         const usernameNorm = normalizarUsername(fUsername);
-        const errorUsername = validarUsername(usernameNorm, { rol: rolFinal });
+        const errorUsername = usernameNorm ? validarUsername(usernameNorm, { rol: rolFinal }) : null;
         if (errorUsername) return mostrarAlerta('error', errorUsername);
 
         const payload = {
@@ -196,7 +197,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
             }
         }
 
-        mostrarAlerta('success', `Usuario @${usernameNorm} creado con rol ${ROL_CONFIG[rolFinal]?.label}.`);
+        mostrarAlerta('success', `Usuario @${data?.username || usernameNorm} creado con rol ${ROL_CONFIG[rolFinal]?.label}.`);
         cerrarModal();
         cargarUsuarios();
         onRefreshDatos?.();
@@ -448,7 +449,7 @@ const VistaUsuarios = ({ perfil, esSuperAdmin, escuelasActivas, miEscuela, mostr
                                 </label>
                                 {modoModal === 'crear' ? (
                                     <input type="text" className={styles.fieldInput}
-                                        placeholder="Crear usuario (sin espacios ni acentos)"
+                                        placeholder={fRol === 'alumno' ? 'Usuario automatico' : 'Crear usuario'}
                                         value={fUsername} onChange={e => setFUsername(e.target.value)} />
                                 ) : (
                                     <div className={styles.fieldReadonly}>@{usuarioEditando?.username}</div>

@@ -9,6 +9,7 @@ import log from '../lib/log';
 import storage from '../lib/storage';
 import dataURItoBlob from '../lib/data-uri-to-blob';
 import saveProjectToSupabase from '../lib/save-project-to-supabase';
+import saveProjectThumbnailToSupabase from '../lib/save-project-thumbnail-to-supabase';
 
 import {
     showAlertWithTimeout,
@@ -385,7 +386,8 @@ const ProjectSaverHOC = function (WrappedComponent) {
         onRemixing: () => {},
         onSetProjectThumbnailer: () => {},
         onSetProjectSaver: () => {},
-        onUpdateProjectData: saveProjectToSupabase
+        onUpdateProjectData: saveProjectToSupabase,
+        onUpdateProjectThumbnail: saveProjectThumbnailToSupabase
     };
     const mapStateToProps = (state, ownProps) => {
         const loadingState = state.scratchGui.projectState.loadingState;

@@ -10,6 +10,7 @@ import VistaUsuarios       from './views/VistaUsuarios';
 import VistaConfiguracion  from '../shared/VistaConfiguracion';
 import VistaProyectos      from '../shared/VistaProyectos';
 import VistaReportes       from './views/VistaReportes';
+import VistaSalonFama      from './views/VistaSalonFama';
 
 import iconInicio     from '../../assets/iconos-ui/ui-inicio.svg';
 import iconProyectos  from '../../assets/iconos-ui/ui-video.svg';
@@ -20,6 +21,7 @@ import iconPadres   from '../../assets/iconos-ui/ui-padres.svg';
 import iconConfig   from '../../assets/iconos-ui/ui-configuracion.svg';
 import iconDescargar from '../../assets/iconos-ui/ui-descargar.svg';
 import iconNotif    from '../../assets/iconos-ui/ui-notificaciones.svg';
+import iconSalonFama from '../../assets/iconos/icono-medalla-oro.svg';
 
 import styles from './Dashboard.css';
 
@@ -71,6 +73,7 @@ const DashboardAdmin = () => {
         'aulas':          'Aulas',
         'profesores':     'Profesores',
         'proyectos':      'Proyectos',
+        'salon-fama':     'SalonFama',
         'reportes':       'Reportes',
         'configuracion':  'Configuración',
     };
@@ -355,6 +358,7 @@ const DashboardAdmin = () => {
         { label: 'Aulas',            icon: iconCurso,   to: '#', onClick: ir('Aulas')            },
         { label: 'Profesores',       icon: iconPadres,  to: '#', onClick: ir('Profesores')       },
         { label: 'Mis Proyectos',    icon: iconProyectos, to: '#', onClick: ir('Proyectos')       },
+        { label: 'Salón de la Fama', icon: iconSalonFama, to: '#', onClick: ir('SalonFama')       },
         { label: 'Reportes',         icon: iconDescargar,  to: '#', onClick: ir('Reportes')         },
         { label: 'Configuración',    icon: iconConfig,  to: '#', onClick: ir('Configuración')    },
     ];
@@ -365,6 +369,7 @@ const DashboardAdmin = () => {
         { label: 'Aulas',         icon: iconCurso,   to: '#', onClick: ir('Aulas')         },
         { label: 'Usuarios',      icon: iconUsuario, to: '#', onClick: ir('Usuarios')      },
         { label: 'Mis Proyectos', icon: iconProyectos, to: '#', onClick: ir('Proyectos')    },
+        { label: 'Salón de la Fama', icon: iconSalonFama, to: '#', onClick: ir('SalonFama') },
         { label: 'Reportes',      icon: iconDescargar,  to: '#', onClick: ir('Reportes')      },
         { label: 'Configuración', icon: iconConfig,  to: '#', onClick: ir('Configuración') },
     ];
@@ -560,6 +565,10 @@ const DashboardAdmin = () => {
 
             {vistaActiva === 'Proyectos' && (
                 <VistaProyectos userId={perfil?.id} />
+            )}
+
+            {vistaActiva === 'SalonFama' && (
+                <VistaSalonFama perfil={perfil} esSuperAdmin={esSuperAdmin} mostrarAlerta={mostrarAlerta} />
             )}
 
             {vistaActiva === 'Reportes' && (

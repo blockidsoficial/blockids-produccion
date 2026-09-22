@@ -14,7 +14,7 @@ import internetConnectionIconURL from './internet-connection.svg';
 class LibraryItemComponent extends React.PureComponent {
     render () {
         const iconSource = this.props.iconMd5
-            ? `https://pvvqtqwjacgwwdsesymx.supabase.co/storage/v1/object/public/blockids-assets/${this.props.iconMd5}`
+            ? `${process.env.SUPABASE_URL}/storage/v1/object/public/blockids-assets/${this.props.iconMd5}`
             : this.props.iconRawURL;
         return this.props.featured ? (
             <div

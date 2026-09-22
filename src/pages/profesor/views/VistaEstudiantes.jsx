@@ -208,8 +208,9 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
             setAlertaCrear({ tipo: 'error', texto: 'No se encontró tu escuela. Recarga la página.' });
             return;
         }
+        // Vacío = la Edge Function le asigna uno automático y libre (ej. nube482).
         const usernameNorm = normalizarUsername(cUsername);
-        const errorUsername = validarUsername(usernameNorm, { rol: 'alumno' });
+        const errorUsername = usernameNorm ? validarUsername(usernameNorm, { rol: 'alumno' }) : null;
         if (errorUsername) {
             setAlertaCrear({ tipo: 'error', texto: errorUsername });
             return;
@@ -266,11 +267,12 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
 
         setCreando(false);
         const aulaNombre = aulas.find(x => x.id === cAula)?.nombre;
+        const usernameCreado = data?.username || usernameNorm;
         setAlertaCrear({
             tipo: 'success',
             texto: cAula
-                ? `Alumno @${usernameNorm} creado y asignado a ${aulaNombre}. Comparte la contraseña con el alumno.`
-                : `Alumno @${usernameNorm} creado. Comparte la contraseña con el alumno.`,
+                ? `Alumno @${usernameCreado} creado y asignado a ${aulaNombre}. Comparte su usuario y contraseña con el alumno.`
+                : `Alumno @${usernameCreado} creado. Comparte su usuario y contraseña con el alumno.`,
         });
         setCUsername(''); setCNombre(''); setCApellidoP(''); setCApellidoM('');
         setCPassword(''); setCConfirm('');
@@ -486,11 +488,11 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
                         <div className={`${dash.modalBody} ${styles.resetBody}`}>
 
                             <div className={dash.fieldGroup}>
-                                <label className={dash.fieldLabel}>Crear usuario </label>
+                                <label className={dash.fieldLabel}>Usuario</label>
                                 <input
                                     type="text"
                                     className={dash.fieldInput}
-                                    placeholder="Nombre de usuario sin espacios ni acentos"
+                                    placeholder="Crea un usuario para el alumno"
                                     value={cUsername}
                                     onChange={e => { setCUsername(e.target.value); setAlertaCrear(null); }}
                                     disabled={creando}
@@ -586,7 +588,7 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
                             </div>
 
                             <div className={dash.fieldGroup}>
-                                <label className={dash.fieldLabel}>Asignar a un aula (opcional)</label>
+                                <label className={dash.fieldLabel}>Asignar a un aula </label>
                                 <select
                                     className={dash.fieldInput}
                                     value={cAula}
@@ -614,7 +616,7 @@ const VistaEstudiantes = ({ userId, escuelaId }) => {
                             <button
                                 className={styles.btnResetSubmit}
                                 onClick={handleCrearAlumno}
-                                disabled={creando || !cUsername || !cPassword || !cConfirm}
+                                disabled={creando || !cPassword || !cConfirm}
                             >
                                 {creando ? 'Creando...' : 'Crear alumno'}
                             </button>

@@ -88,7 +88,32 @@ const Register = () => {
     // Username automático a partir del nombre; el usuario final es el que se
     // guarda (editado o no) ya normalizado a slug.
     const usernameAuto = aSlug(`${nombre} ${apellidoPaterno} ${apellidoMaterno}`);
-    const usernameFinal = usernameEditado ? aSlug(username) : usernameAuto;
+
+    // Alumno: el usuario lo asigna la base de datos (palabra + número, ej.
+    // "nube482", libre y sin datos personales). Si el RPC falla (por ejemplo
+    // una migración sin aplicar) se cae al usuario derivado del nombre.
+    const [usernameAsignado, setUsernameAsignado] = useState('');
+    const [generandoUsername, setGenerandoUsername] = useState(false);
+
+    const pedirUsernameAsignado = async () => {
+        setGenerandoUsername(true);
+        const { data, error: errorRpc } = await supabase.rpc('generar_username_alumno');
+        if (errorRpc || !data) {
+            console.error('[BLOCKIDS] No se pudo generar el usuario automático:', errorRpc);
+            setUsernameAsignado('');
+        } else {
+            setUsernameAsignado(data);
+        }
+        setGenerandoUsername(false);
+    };
+
+    useEffect(() => {
+        if (esAlumno && !usernameAsignado) pedirUsernameAsignado();
+    }, [esAlumno]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const usernameFinal = esAlumno && usernameAsignado
+        ? usernameAsignado
+        : (usernameEditado ? aSlug(username) : usernameAuto);
 
     // Mientras no lo hayan editado a mano, el campo sigue al nombre.
     useEffect(() => {
@@ -452,32 +477,52 @@ const Register = () => {
                                 </div>
 
                                 {/* Nombre de usuario: autogenerado, pero editable/acortable */}
-                                <div className={styles.fieldGroup}>
-                                    <label className={styles.label} htmlFor="reg-username">
-                                        Nombre de usuario
-                                    </label>
-                                    <input
-                                        id="reg-username"
-                                        type="text"
-                                        value={usernameEditado ? username : usernameAuto}
-                                        onChange={(e) => { setUsername(e.target.value); setUsernameEditado(true); }}
-                                        className={styles.input}
-                                        maxLength={24}
-                                        autoComplete="off"
-                                    />
-                                    <p className={styles.usernamePreview}>
-                                        Iniciarás sesión como: <strong>@{usernameFinal || 'tu-nombre'}</strong>
-                                        {usernameEditado && (
+                                {esAlumno && usernameAsignado ? (
+                                    <div className={styles.fieldGroup}>
+                                        <label className={styles.label}>Tu nombre de usuario</label>
+                                        <p className={styles.usernamePreview}>
+                                            Iniciarás sesión como: <strong>@{usernameAsignado}</strong>
                                             <button
                                                 type="button"
                                                 className={styles.btnLink}
-                                                onClick={() => { setUsernameEditado(false); setUsername(usernameAuto); }}
+                                                onClick={pedirUsernameAsignado}
+                                                disabled={generandoUsername}
                                             >
-                                                usar el automático
+                                                {generandoUsername ? 'buscando…' : 'quiero otro'}
                                             </button>
-                                        )}
-                                    </p>
-                                </div>
+                                        </p>
+                                        <p className={styles.helperText}>
+                                            Anótalo: lo necesitarás para entrar.
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <div className={styles.fieldGroup}>
+                                        <label className={styles.label} htmlFor="reg-username">
+                                            Nombre de usuario
+                                        </label>
+                                        <input
+                                            id="reg-username"
+                                            type="text"
+                                            value={usernameEditado ? username : usernameAuto}
+                                            onChange={(e) => { setUsername(e.target.value); setUsernameEditado(true); }}
+                                            className={styles.input}
+                                            maxLength={24}
+                                            autoComplete="off"
+                                        />
+                                        <p className={styles.usernamePreview}>
+                                            Iniciarás sesión como: <strong>@{usernameFinal || 'tu-nombre'}</strong>
+                                            {usernameEditado && (
+                                                <button
+                                                    type="button"
+                                                    className={styles.btnLink}
+                                                    onClick={() => { setUsernameEditado(false); setUsername(usernameAuto); }}
+                                                >
+                                                    usar el automático
+                                                </button>
+                                            )}
+                                        </p>
+                                    </div>
+                                )}
 
                                 <div className={styles.buttonGroup}>
                                     <button type="submit" className={styles.button}>

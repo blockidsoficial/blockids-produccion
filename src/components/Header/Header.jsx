@@ -2,6 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { supabase } from '../../config/supabaseClient';
 import { puedeNavegar } from '../../lib/navGuard';
+import { EVENTO_AVATAR } from '../../lib/avatares';
+import useNotificaciones from '../../lib/useNotificaciones';
+import AvatarUsuario from '../AvatarUsuario/AvatarUsuario';
 
 import styles from './Header.css';
 import iconNotif   from '../../assets/iconos-ui/ui-notificaciones.svg';
@@ -50,6 +53,15 @@ const formatearXP = (n) => (n || 0).toLocaleString('es-MX');
 // El código de registro guarda 'alumno'/'profesor'/'admin_escuela'/'superadmin'
 // en minúsculas; el layout muestra "Alumno"/"Profesor"/… con mayúscula.
 const normalizarRol = (rol) => (rol || '').toString().trim().toLowerCase();
+
+// "hace 5 min", "hace 2 h", "hace 3 d" para la lista de notificaciones.
+const haceCuanto = (fechaISO) => {
+    const min = Math.max(0, Math.round((Date.now() - new Date(fechaISO).getTime()) / 60000));
+    if (min < 1) return 'ahora';
+    if (min < 60) return `hace ${min} min`;
+    if (min < 60 * 24) return `hace ${Math.round(min / 60)} h`;
+    return `hace ${Math.round(min / (60 * 24))} d`;
+};
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -102,7 +114,7 @@ const Header = ({
 
             const { data, error } = await supabase
                 .from('perfiles')
-                .select('username, puntos_xp, nivel, ultimo_login, rol')
+                .select('username, puntos_xp, nivel, ultimo_login, rol, avatar_url')
                 .eq('id', session.user.id)
                 .single();
 
@@ -113,6 +125,15 @@ const Header = ({
 
         return () => { vivo = false; };
     }, [perfilProp]);
+
+    // Cuando el alumno cambia su avatar en Configuración, se refleja al instante.
+    useEffect(() => {
+        const alCambiarAvatar = (e) => {
+            setPerfil(p => (p ? { ...p, avatar_url: e.detail } : p));
+        };
+        window.addEventListener(EVENTO_AVATAR, alCambiarAvatar);
+        return () => window.removeEventListener(EVENTO_AVATAR, alCambiarAvatar);
+    }, []);
 
     // ── Racha diaria (servidor) ──────────────────────────────────────────────
     useEffect(() => {
@@ -145,6 +166,23 @@ const Header = ({
 
     // ── Datos derivados ─────────────────────────────────────────────────────
     const nombreUsuario = userName || (perfil && perfil.username ? `@${perfil.username}` : '');
+
+    // ── Notificaciones ──────────────────────────────────────────────────────
+    const { items: notificaciones, noLeidas, marcarLeida, marcarTodas } = useNotificaciones();
+
+    const abrirNotificacion = (n) => {
+        if (!n.leida) marcarLeida(n.id);
+        setNotifAbiertas(false);
+        if (!n.url || !puedeNavegar()) return;
+        // Los dashboards leen ?vista= solo al montarse: si ya estamos en esa
+        // ruta, se recarga para que abra la vista correcta.
+        const [ruta] = n.url.split('?');
+        if (history.location.pathname === ruta) {
+            window.location.assign(n.url);
+        } else {
+            history.push(n.url);
+        }
+    };
     const rolNormalizado = normalizarRol(perfil && perfil.rol ? perfil.rol : role);
     const esAlumno   = rolNormalizado === 'alumno';
     const esProfesor = rolNormalizado === 'profesor';
@@ -233,7 +271,9 @@ const Header = ({
                         type="button"
                         className={styles.iconBtn}
                         title="Notificaciones"
-                        aria-label="Abrir notificaciones"
+                        aria-label={noLeidas > 0
+                            ? `Abrir notificaciones, ${noLeidas} sin leer`
+                            : 'Abrir notificaciones'}
                         aria-expanded={notifAbiertas}
                         onClick={() => {
                             setNotifAbiertas(v => !v);
@@ -241,11 +281,39 @@ const Header = ({
                         }}
                     >
                         <img src={iconNotif} alt="" className={styles.iconImg} />
+                        {noLeidas > 0 && (
+                            <span className={styles.notifBadge}>{noLeidas > 9 ? '9+' : noLeidas}</span>
+                        )}
                     </button>
                     {notifAbiertas && (
-                        <div className={styles.popover}>
-                            <h2 className={styles.popoverTitle}>Notificaciones</h2>
-                            <p className={styles.popoverEmpty}>No tienes notificaciones nuevas.</p>
+                        <div className={`${styles.popover} ${styles.notifPopover}`}>
+                            <div className={styles.notifCabecera}>
+                                <h2 className={styles.popoverTitle}>Notificaciones</h2>
+                                {noLeidas > 0 && (
+                                    <button type="button" className={styles.notifMarcarTodas} onClick={marcarTodas}>
+                                        Marcar todas como leídas
+                                    </button>
+                                )}
+                            </div>
+                            {notificaciones.length === 0 ? (
+                                <p className={styles.popoverEmpty}>No tienes notificaciones nuevas.</p>
+                            ) : (
+                                <ul className={styles.notifLista}>
+                                    {notificaciones.map(n => (
+                                        <li key={n.id}>
+                                            <button
+                                                type="button"
+                                                className={`${styles.notifItem} ${n.leida ? '' : styles.notifItemNueva}`}
+                                                onClick={() => abrirNotificacion(n)}
+                                            >
+                                                <span className={styles.notifTitulo}>{n.titulo}</span>
+                                                {n.mensaje && <span className={styles.notifMensaje}>{n.mensaje}</span>}
+                                                <span className={styles.notifHora}>{haceCuanto(n.created_at)}</span>
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
                     )}
                 </div>
@@ -263,7 +331,15 @@ const Header = ({
                             setNotifAbiertas(false);
                         }}
                     >
-                        <img src={iconUsuario} alt="" className={styles.userAvatarImg} />
+                        {normalizarRol(perfil?.rol) === 'alumno' ? (
+                            <AvatarUsuario
+                                avatarUrl={perfil.avatar_url}
+                                username={perfil.username}
+                                size={34}
+                            />
+                        ) : (
+                            <img src={iconUsuario} alt="" className={styles.userAvatarImg} />
+                        )}
                         <span className={styles.userInfo}>
                             <span className={styles.userName}>{nombreUsuario}</span>
                             {role && <span className={styles.userRole}>{role}</span>}
