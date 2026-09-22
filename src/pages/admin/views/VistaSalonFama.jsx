@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '../../../config/supabaseClient';
 import styles from './VistaSalonFama.css';
+import dash from '../Dashboard.css';
 import iconTrofeo from '../../../assets/iconos/icono-medalla-oro.svg';
 import xolotlIdea from '../../../assets/xolotl/xolotl-idea.svg';
 
@@ -14,6 +15,8 @@ const VistaSalonFama = ({ perfil, esSuperAdmin, mostrarAlerta }) => {
     const [filas, setFilas]       = useState([]);
     const [procesando, setProcesando] = useState(null);
     const [cerrandoEdicion, setCerrandoEdicion] = useState(false);
+    const [modalCerrarAbierto, setModalCerrarAbierto] = useState(false);
+    const [tituloNuevaEdicion, setTituloNuevaEdicion] = useState('');
     const cerrandoRef = useRef(false);
 
     const cargar = useCallback(async () => {
@@ -79,31 +82,31 @@ const VistaSalonFama = ({ perfil, esSuperAdmin, mostrarAlerta }) => {
         cargar();
     };
 
-    const cerrarEdicion = async () => {
-        // Guardia contra doble clic / doble invocación: bloquea de inmediato,
-        // antes de cualquier diálogo, para que un segundo clic mientras el
-        // primero sigue en curso no dispare otro cierre de edición.
+    // Abre el modal propio en vez del window.confirm/prompt del navegador
+    // (esos diálogos genéricos llevan a confusiones y clics de más).
+    const abrirModalCerrar = () => {
         if (cerrandoRef.current) return;
+        setTituloNuevaEdicion('');
+        setModalCerrarAbierto(true);
+    };
 
-        if (filas.length === 0) {
-            if (!window.confirm('Esta edición no tiene nominaciones todavía. ¿Seguro que quieres cerrarla de todos modos?')) return;
-        } else if (!window.confirm('¿Cerrar esta edición? El podio actual queda guardado y empieza una nueva vacía.')) {
-            return;
-        }
+    const cerrarModalCerrar = () => {
+        if (cerrandoEdicion) return; // no se cierra mientras se está procesando
+        setModalCerrarAbierto(false);
+    };
 
-        // Opcional: nombre de la siguiente edición. Cancelar el prompt (null)
-        // deja el nombre automático "Edición N"; texto vacío también.
-        const tituloNuevo = window.prompt(
-            '¿Cómo se llama la nueva edición? (déjalo vacío para "Edición N" automático)',
-            ''
-        );
-        if (tituloNuevo === null) return;
-
+    const confirmarCerrarEdicion = async () => {
+        // Guardia contra doble clic / doble invocación: bloquea de inmediato
+        // para que un segundo clic mientras el primero sigue en curso no
+        // dispare otro cierre de edición.
+        if (cerrandoRef.current) return;
         cerrandoRef.current = true;
         setCerrandoEdicion(true);
+
         const { error } = await supabase.rpc('cerrar_edicion_salon_fama', {
-            p_titulo_nueva: tituloNuevo.trim() || null,
+            p_titulo_nueva: tituloNuevaEdicion.trim() || null,
         });
+
         setCerrandoEdicion(false);
         cerrandoRef.current = false;
 
@@ -111,6 +114,7 @@ const VistaSalonFama = ({ perfil, esSuperAdmin, mostrarAlerta }) => {
             mostrarAlerta?.('error', error.message || 'No se pudo cerrar la edición.');
             return;
         }
+        setModalCerrarAbierto(false);
         mostrarAlerta?.('success', 'Edición cerrada. Empezó una nueva.');
         cargar();
     };
@@ -159,11 +163,63 @@ const VistaSalonFama = ({ perfil, esSuperAdmin, mostrarAlerta }) => {
                     </div>
                 </div>
                 {esSuperAdmin && edicion && (
-                    <button type="button" className={styles.btnCerrarEdicion} onClick={cerrarEdicion} disabled={cerrandoEdicion}>
+                    <button type="button" className={styles.btnCerrarEdicion} onClick={abrirModalCerrar} disabled={cerrandoEdicion}>
                         {cerrandoEdicion ? 'Cerrando...' : 'Cerrar edición'}
                     </button>
                 )}
             </div>
+
+            {modalCerrarAbierto && (
+                <div className={dash.modalOverlay} onClick={cerrarModalCerrar}>
+                    <div className={dash.modalCard} onClick={e => e.stopPropagation()}>
+                        <div className={dash.modalHeader}>
+                            <div className={dash.modalHeaderLeft}>
+                                <div className={dash.modalIcon}>
+                                    <img src={iconTrofeo} alt="" className={dash.modalIconImg} />
+                                </div>
+                                <div>
+                                    <h3 className={dash.modalTitle}>Cerrar edición actual</h3>
+                                    <p className={dash.modalSubtitle}>
+                                        {filas.length === 0
+                                            ? 'Esta edición todavía no tiene nominaciones'
+                                            : 'El podio actual queda guardado y empieza una nueva vacía'}
+                                    </p>
+                                </div>
+                            </div>
+                            <button className={dash.modalClose} onClick={cerrarModalCerrar} disabled={cerrandoEdicion}>✕</button>
+                        </div>
+
+                        <div className={dash.modalBody}>
+                            {filas.length === 0 && (
+                                <p className={styles.emptyDesc} style={{ margin: '0 0 14px' }}>
+                                    ¿Seguro que quieres cerrarla de todos modos? No hay ningún proyecto nominado todavía.
+                                </p>
+                            )}
+                            <div className={dash.fieldGroup} style={{ marginBottom: 0 }}>
+                                <label className={dash.fieldLabel}>Nombre de la nueva edición (opcional)</label>
+                                <input
+                                    type="text"
+                                    className={dash.fieldInput}
+                                    placeholder='Déjalo vacío para "Edición N" automático'
+                                    value={tituloNuevaEdicion}
+                                    onChange={e => setTituloNuevaEdicion(e.target.value)}
+                                    disabled={cerrandoEdicion}
+                                    autoFocus
+                                />
+                            </div>
+                        </div>
+
+                        <div className={dash.modalFooter}>
+                            <button className={dash.btnCancelar} onClick={cerrarModalCerrar} disabled={cerrandoEdicion}>
+                                Cancelar
+                            </button>
+                            <button className={dash.btnSubmit} onClick={confirmarCerrarEdicion} disabled={cerrandoEdicion}>
+                                {cerrandoEdicion ? <><span className={dash.btnSpinner} />Cerrando...</> : 'Cerrar edición'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {filas.length === 0 ? (
                 <div className={styles.emptyState}>
