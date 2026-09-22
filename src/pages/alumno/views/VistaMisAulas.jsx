@@ -1,4 +1,5 @@
 ﻿import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import { supabase } from '../../../config/supabaseClient';
 import styles from './VistaMisAulas.css';
 import xolotlIdea from '../../../assets/xolotl/xolotl-idea.svg';
@@ -86,7 +87,10 @@ const VistaMisAulas = ({ userId, misAulas, aulaIds, onAulasUpdated, onNavigate }
     };
 
     // ── Modal reutilizable ────────────────────────────────────────────────────
-    const renderModal = () => (
+    // Se monta con un portal directo a document.body para que su
+    // position:fixed sea siempre relativo a la ventana completa, sin
+    // importar animaciones o estilos de los contenedores padre.
+    const renderModal = () => ReactDOM.createPortal((
         <div className={styles.modalOverlay} onClick={cerrarModal}>
             <div className={styles.modalCard} onClick={e => e.stopPropagation()}>
 
@@ -148,7 +152,7 @@ const VistaMisAulas = ({ userId, misAulas, aulaIds, onAulasUpdated, onNavigate }
                 </form>
             </div>
         </div>
-    );
+    ), document.body);
 
     // ── Estado vacío ──────────────────────────────────────────────────────────
     if (misAulas.length === 0) {

@@ -1,4 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { useHistory } from 'react-router-dom';
 import { supabase } from '../../../config/supabaseClient';
 import { celebrarLogrosNuevos } from '../../../services/gamificationService';
@@ -227,7 +228,10 @@ const VistaTareas = ({ userId, aulaIds }) => {
         <div className={styles.wrapper}>
 
             {/* ══ Modal: Detalles de Tarea ══ */}
-            {tareaSeleccionada && (
+            {/* Portal directo a document.body: su position:fixed debe ser
+                relativo a la ventana completa, no a .wrapper (que anima con
+                transform y puede quedar como contenedor de referencia). */}
+            {tareaSeleccionada && ReactDOM.createPortal((
                 <div className={styles.modalOverlay} onClick={cerrarModal}>
                     <div className={styles.modalCard} onClick={e => e.stopPropagation()}>
 
@@ -326,7 +330,7 @@ const VistaTareas = ({ userId, aulaIds }) => {
                         </div>
                     </div>
                 </div>
-            )}
+            ), document.body)}
 
             {/* ══ Header ══ */}
             <div className={styles.header}>
