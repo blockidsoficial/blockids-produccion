@@ -74,7 +74,7 @@ const VistaSalonFama = ({ userId }) => {
         if (edicion?.id && entregasData?.length) {
             const { data: noms } = await supabase
                 .from('salon_fama')
-                .select('entrega_id, estado')
+                .select('id, entrega_id, estado, titulo_publico')
                 .eq('edicion_id', edicion.id)
                 .in('entrega_id', entregasData.map(e => e.id));
             const mapa = {};
@@ -104,12 +104,12 @@ const VistaSalonFama = ({ userId }) => {
             return;
         }
 
-        const { error } = await supabase.from('salon_fama').insert({
+        const { data: fila, error } = await supabase.from('salon_fama').insert({
             edicion_id: edicionId,
             entrega_id: entrega.id,
             escuela_id: escuelaId,
             nominado_por: userId,
-        });
+        }).select('id').single();
 
         setNominando(null);
 
@@ -118,8 +118,27 @@ const VistaSalonFama = ({ userId }) => {
             return;
         }
 
-        setNominaciones(prev => ({ ...prev, [entrega.id]: { entrega_id: entrega.id, estado: 'nominado' } }));
+        setNominaciones(prev => ({ ...prev, [entrega.id]: { id: fila.id, entrega_id: entrega.id, estado: 'nominado', titulo_publico: null } }));
         setAlerta({ tipo: 'success', texto: `"${entrega.tarea.titulo}" de @${entrega.alumno?.username} fue nominado. Un admin de tu escuela lo revisará.` });
+    };
+
+    const editarNombre = async (nom, tituloActual) => {
+        const nuevo = window.prompt('Nombre público de este proyecto en el Salón de la Fama:', nom.titulo_publico || tituloActual);
+        if (nuevo === null) return; // canceló
+
+        const { error } = await supabase.rpc('editar_titulo_publico_salon_fama', {
+            p_id: nom.id,
+            p_titulo: nuevo,
+        });
+
+        if (error) {
+            setAlerta({ tipo: 'error', texto: error.message || 'No se pudo cambiar el nombre.' });
+            return;
+        }
+
+        const guardado = nuevo.trim() || null;
+        setNominaciones(prev => ({ ...prev, [nom.entrega_id]: { ...prev[nom.entrega_id], titulo_publico: guardado } }));
+        setAlerta({ tipo: 'success', texto: 'Nombre actualizado.' });
     };
 
     const verProyecto = (entrega) => {
@@ -207,7 +226,7 @@ const VistaSalonFama = ({ userId }) => {
                                     {entrega.thumbnail_url && <img src={entrega.thumbnail_url} alt="" />}
                                 </div>
                                 <div className={styles.proyectoInfo}>
-                                    <p className={styles.proyectoNombre}>{entrega.tarea?.titulo}</p>
+                                    <p className={styles.proyectoNombre}>{nom?.titulo_publico || entrega.tarea?.titulo}</p>
                                     <p className={styles.proyectoAutor}>
                                         @{entrega.alumno?.username || 'alumno'} · {entrega.tarea?.aula?.nombre}
                                         {entrega.calificacion != null && <> · Calificación: {entrega.calificacion}</>}
@@ -216,6 +235,15 @@ const VistaSalonFama = ({ userId }) => {
                                         <button type="button" className={styles.btnVer} onClick={() => verProyecto(entrega)}>
                                             Ver proyecto
                                         </button>
+                                        {nom && (
+                                            <button
+                                                type="button"
+                                                className={styles.btnVer}
+                                                onClick={() => editarNombre(nom, entrega.tarea?.titulo)}
+                                            >
+                                                Editar nombre
+                                            </button>
+                                        )}
                                         {estado ? (
                                             <span className={`${styles.badge} ${styles[estado.clase]}`}>{estado.texto}</span>
                                         ) : (

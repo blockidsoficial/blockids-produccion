@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '../../../config/supabaseClient';
 import styles from './VistaSalonFama.css';
 import iconTrofeo from '../../../assets/iconos/icono-medalla-oro.svg';
@@ -14,6 +14,7 @@ const VistaSalonFama = ({ perfil, esSuperAdmin, mostrarAlerta }) => {
     const [filas, setFilas]       = useState([]);
     const [procesando, setProcesando] = useState(null);
     const [cerrandoEdicion, setCerrandoEdicion] = useState(false);
+    const cerrandoRef = useRef(false);
 
     const cargar = useCallback(async () => {
         setCargando(true);
@@ -34,7 +35,7 @@ const VistaSalonFama = ({ perfil, esSuperAdmin, mostrarAlerta }) => {
         let query = supabase
             .from('salon_fama')
             .select(`
-                id, estado, escuela_id, created_at,
+                id, estado, escuela_id, created_at, titulo_publico,
                 entrega:entregas_proyectos(
                     id, thumbnail_url, likes, calificacion,
                     tarea:tareas(titulo),
@@ -79,7 +80,16 @@ const VistaSalonFama = ({ perfil, esSuperAdmin, mostrarAlerta }) => {
     };
 
     const cerrarEdicion = async () => {
-        if (!window.confirm('¿Cerrar esta edición? El podio actual queda guardado y empieza una nueva vacía.')) return;
+        // Guardia contra doble clic / doble invocación: bloquea de inmediato,
+        // antes de cualquier diálogo, para que un segundo clic mientras el
+        // primero sigue en curso no dispare otro cierre de edición.
+        if (cerrandoRef.current) return;
+
+        if (filas.length === 0) {
+            if (!window.confirm('Esta edición no tiene nominaciones todavía. ¿Seguro que quieres cerrarla de todos modos?')) return;
+        } else if (!window.confirm('¿Cerrar esta edición? El podio actual queda guardado y empieza una nueva vacía.')) {
+            return;
+        }
 
         // Opcional: nombre de la siguiente edición. Cancelar el prompt (null)
         // deja el nombre automático "Edición N"; texto vacío también.
@@ -89,17 +99,39 @@ const VistaSalonFama = ({ perfil, esSuperAdmin, mostrarAlerta }) => {
         );
         if (tituloNuevo === null) return;
 
+        cerrandoRef.current = true;
         setCerrandoEdicion(true);
         const { error } = await supabase.rpc('cerrar_edicion_salon_fama', {
             p_titulo_nueva: tituloNuevo.trim() || null,
         });
         setCerrandoEdicion(false);
+        cerrandoRef.current = false;
 
         if (error) {
             mostrarAlerta?.('error', error.message || 'No se pudo cerrar la edición.');
             return;
         }
         mostrarAlerta?.('success', 'Edición cerrada. Empezó una nueva.');
+        cargar();
+    };
+
+    const editarNombre = async (fila) => {
+        const nuevo = window.prompt(
+            'Nombre público de este proyecto en el Salón de la Fama:',
+            fila.titulo_publico || fila.entrega?.tarea?.titulo || ''
+        );
+        if (nuevo === null) return; // canceló
+
+        const { error } = await supabase.rpc('editar_titulo_publico_salon_fama', {
+            p_id: fila.id,
+            p_titulo: nuevo,
+        });
+
+        if (error) {
+            mostrarAlerta?.('error', error.message || 'No se pudo cambiar el nombre.');
+            return;
+        }
+        mostrarAlerta?.('success', 'Nombre actualizado.');
         cargar();
     };
 
@@ -165,7 +197,7 @@ const VistaSalonFama = ({ perfil, esSuperAdmin, mostrarAlerta }) => {
                                             {f.entrega?.thumbnail_url && <img src={f.entrega.thumbnail_url} alt="" />}
                                         </div>
                                         <div className={styles.cardInfo}>
-                                            <p className={styles.proyectoNombre}>{f.entrega?.tarea?.titulo || 'Tarea'}</p>
+                                            <p className={styles.proyectoNombre}>{f.titulo_publico || f.entrega?.tarea?.titulo || 'Tarea'}</p>
                                             <p className={styles.meta}>
                                                 @{f.entrega?.alumno?.username || 'alumno'} · nominado por @{f.profesor?.username || 'profesor'}
                                                 {f.entrega?.calificacion != null && <> · Calificación: {f.entrega.calificacion}</>}
@@ -179,6 +211,9 @@ const VistaSalonFama = ({ perfil, esSuperAdmin, mostrarAlerta }) => {
                                                     Ver proyecto
                                                 </button>
                                             )}
+                                            <button type="button" className={styles.btnVer} onClick={() => editarNombre(f)}>
+                                                Editar nombre
+                                            </button>
                                             {f.estado === 'nominado' ? (
                                                 <div className={styles.acciones}>
                                                     <button
