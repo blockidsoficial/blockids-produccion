@@ -281,6 +281,44 @@
     color: var(--color-texto-oscuro);
 }
 
+/* ── Ver proyecto / posibles nominaciones ─────────────────────────────────── */
+.accionesEntrega {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 0 0 16px;
+}
+
+.btnVerProyecto, .btnVerNominaciones {
+    padding: 8px 14px;
+    border-radius: var(--radio-md);
+    font-size: .8rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    transition: background .2s;
+}
+
+.btnVerProyecto {
+    background: none;
+    color: var(--color-azul-fuerte);
+    border: 1.5px solid var(--color-azul-claro);
+}
+
+.btnVerProyecto:hover {
+    background: var(--color-azul-bg);
+}
+
+.btnVerNominaciones {
+    background: none;
+    color: #92400e;
+    border: 1.5px solid var(--color-amarillo-bg, #fde68a);
+}
+
+.btnVerNominaciones:hover {
+    background: var(--color-amarillo-bg, #fef3c7);
+}
+
 .selectorEstrellas {
     display: flex;
     gap: 6px;

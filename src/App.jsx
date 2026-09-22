@@ -263,15 +263,22 @@ const App = () => {
                 </Route>
 
                 {/* ── EDITOR SCRATCH ── */}
-                <Route path="/entorno">
-                    {session ? (
-                        <EntornoWrapper>
-                            <ScratchEnvironment canEditTitle canSave canCreateNew />
-                        </EntornoWrapper>
-                    ) : (
-                        <Redirect to="/login" />
-                    )}
-                </Route>
+                <Route
+                    path="/entorno"
+                    render={({ location }) => {
+                        if (!session) return <Redirect to="/login" />;
+                        // Modo revisión (?entregaId=): un profesor/admin puede abrir el
+                        // proyecto de un alumno para interactuar con él y confirmar que
+                        // funciona (bandera verde, clics...), pero nunca guardar encima
+                        // ni crear uno nuevo desde ahí.
+                        const esRevision = Boolean(new URLSearchParams(location.search).get('entregaId'));
+                        return (
+                            <EntornoWrapper>
+                                <ScratchEnvironment canEditTitle canSave={!esRevision} canCreateNew={!esRevision} />
+                            </EntornoWrapper>
+                        );
+                    }}
+                />
 
                 {/* ── CERRAR SESIÓN ── */}
                 <Route path="/salir">

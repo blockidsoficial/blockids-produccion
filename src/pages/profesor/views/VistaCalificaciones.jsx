@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { supabase } from '../../../config/supabaseClient';
 import dash   from '../Dashboard.css';
 import styles from './VistaCalificaciones.css';
@@ -12,6 +13,7 @@ const nombreCompleto = (p) => {
 };
 
 const VistaCalificaciones = ({ userId }) => {
+    const history = useHistory();
     const [aulas,            setAulas]            = useState([]);
     const [aulaSeleccionada, setAulaSeleccionada] = useState('');
     const [alumnos,          setAlumnos]          = useState([]);
@@ -205,6 +207,27 @@ const VistaCalificaciones = ({ userId }) => {
                             <p className={styles.modalInfo}>
                                 Alumno: <span className={styles.modalInfoNegrita}>{nombreCompleto(entregaEditando.alumno)}</span>
                             </p>
+
+                            {entregaEditando.entrega && (
+                                <div className={styles.accionesEntrega}>
+                                    <button
+                                        type="button"
+                                        className={styles.btnVerProyecto}
+                                        onClick={() => window.open(`/entorno?entregaId=${entregaEditando.entrega.id}`, '_blank', 'noopener')}
+                                    >
+                                        Ver proyecto
+                                    </button>
+                                    {entregaEditando.entrega.estado === 'calificado' && (
+                                        <button
+                                            type="button"
+                                            className={styles.btnVerNominaciones}
+                                            onClick={() => history.push('/profesor?vista=salon-fama')}
+                                        >
+                                            Ver posibles nominaciones
+                                        </button>
+                                    )}
+                                </div>
+                            )}
 
                             {/* Selector de 10 estrellas */}
                             <div className={styles.selectorEstrellas}>

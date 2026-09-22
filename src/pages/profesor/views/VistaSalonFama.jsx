@@ -10,15 +10,18 @@ const ESTADO_LABEL = {
     rechazado: { texto: 'No aprobado esta vez',          clase: 'badgeRechazado' },
 };
 
-// Vista del profesor: elige proyectos de sus propios alumnos (de cualquiera
-// de sus aulas) para nominarlos al Salón de la Fama. La aprobación final la
+// Vista del profesor: elige, de entre las tareas YA CALIFICADAS de sus
+// propias aulas, cuáles nominar al Salón de la Fama. La aprobación final la
 // da el admin de la escuela (máx. 3 por escuela y edición).
 const VistaSalonFama = ({ userId }) => {
     const [cargando, setCargando]   = useState(true);
-    const [proyectos, setProyectos] = useState([]);
-    const [nominaciones, setNominaciones] = useState({}); // proyecto_id -> fila de salon_fama
+    const [aulas, setAulas]         = useState([]);
+    const [aulaFiltro, setAulaFiltro] = useState('todas');
+    const [busqueda, setBusqueda]   = useState('');
+    const [entregas, setEntregas]   = useState([]);
+    const [nominaciones, setNominaciones] = useState({}); // entrega_id -> fila de salon_fama
     const [edicionId, setEdicionId] = useState(null);
-    const [nominando, setNominando] = useState(null); // id del proyecto en vuelo
+    const [nominando, setNominando] = useState(null); // id de la entrega en vuelo
     const [alerta, setAlerta]       = useState(null);
 
     const cargar = useCallback(async () => {
@@ -32,55 +35,50 @@ const VistaSalonFama = ({ userId }) => {
             .maybeSingle();
         setEdicionId(edicion?.id || null);
 
-        const { data: aulas } = await supabase
+        const { data: aulasData } = await supabase
             .from('aulas')
-            .select('id')
+            .select('id, nombre, escuela_id')
             .eq('profesor_id', userId);
-        const aulaIds = (aulas || []).map(a => a.id);
+        setAulas(aulasData || []);
+        const aulaIds = (aulasData || []).map(a => a.id);
 
         if (aulaIds.length === 0) {
-            setProyectos([]);
+            setEntregas([]);
             setNominaciones({});
             setCargando(false);
             return;
         }
 
-        const { data: aa } = await supabase
-            .from('aula_alumnos')
-            .select('alumno_id')
-            .in('aula_id', aulaIds);
-        const alumnoIds = [...new Set((aa || []).map(x => x.alumno_id))];
-
-        if (alumnoIds.length === 0) {
-            setProyectos([]);
-            setNominaciones({});
-            setCargando(false);
-            return;
-        }
-
-        const { data: proys, error } = await supabase
-            .from('proyectos')
-            .select('id, nombre, thumbnail_url, likes, escuela_id, updated_at, alumno:perfiles!proyectos_alumno_id_fkey(username)')
-            .in('alumno_id', alumnoIds)
+        // Solo entregas YA CALIFICADAS: son las que el profesor ya revisó, y
+        // el único criterio razonable para poder nominarlas.
+        const { data: entregasData, error } = await supabase
+            .from('entregas_proyectos')
+            .select(`
+                id, calificacion, thumbnail_url, updated_at,
+                tarea:tareas!inner(id, titulo, aula_id, aula:aulas!inner(nombre)),
+                alumno:perfiles!entregas_proyectos_estudiante_id_fkey(username)
+            `)
+            .eq('estado', 'calificado')
+            .in('tarea.aula_id', aulaIds)
             .order('updated_at', { ascending: false });
 
         if (error) {
-            console.error('[BLOCKIDS] Error cargando proyectos:', error);
-            setProyectos([]);
+            console.error('[BLOCKIDS] Error cargando entregas calificadas:', error);
+            setEntregas([]);
             setCargando(false);
             return;
         }
 
-        setProyectos(proys || []);
+        setEntregas(entregasData || []);
 
-        if (edicion?.id && proys?.length) {
+        if (edicion?.id && entregasData?.length) {
             const { data: noms } = await supabase
                 .from('salon_fama')
-                .select('proyecto_id, estado')
+                .select('entrega_id, estado')
                 .eq('edicion_id', edicion.id)
-                .in('proyecto_id', proys.map(p => p.id));
+                .in('entrega_id', entregasData.map(e => e.id));
             const mapa = {};
-            (noms || []).forEach(n => { mapa[n.proyecto_id] = n; });
+            (noms || []).forEach(n => { mapa[n.entrega_id] = n; });
             setNominaciones(mapa);
         } else {
             setNominaciones({});
@@ -91,18 +89,25 @@ const VistaSalonFama = ({ userId }) => {
 
     useEffect(() => { cargar(); }, [cargar]);
 
-    const nominar = async (proyecto) => {
+    const nominar = async (entrega) => {
         if (!edicionId) {
             setAlerta({ tipo: 'error', texto: 'No hay una edición activa del Salón de la Fama en este momento.' });
             return;
         }
-        setNominando(proyecto.id);
+        setNominando(entrega.id);
         setAlerta(null);
+
+        const escuelaId = aulas.find(a => a.id === entrega.tarea.aula_id)?.escuela_id;
+        if (!escuelaId) {
+            setNominando(null);
+            setAlerta({ tipo: 'error', texto: 'No se pudo determinar la escuela de esta aula.' });
+            return;
+        }
 
         const { error } = await supabase.from('salon_fama').insert({
             edicion_id: edicionId,
-            proyecto_id: proyecto.id,
-            escuela_id: proyecto.escuela_id,
+            entrega_id: entrega.id,
+            escuela_id: escuelaId,
             nominado_por: userId,
         });
 
@@ -113,12 +118,23 @@ const VistaSalonFama = ({ userId }) => {
             return;
         }
 
-        setNominaciones(prev => ({ ...prev, [proyecto.id]: { proyecto_id: proyecto.id, estado: 'nominado' } }));
-        setAlerta({ tipo: 'success', texto: `"${proyecto.nombre}" fue nominado. Un admin de tu escuela lo revisará.` });
+        setNominaciones(prev => ({ ...prev, [entrega.id]: { entrega_id: entrega.id, estado: 'nominado' } }));
+        setAlerta({ tipo: 'success', texto: `"${entrega.tarea.titulo}" de @${entrega.alumno?.username} fue nominado. Un admin de tu escuela lo revisará.` });
     };
 
+    const verProyecto = (entrega) => {
+        window.open(`/entorno?entregaId=${entrega.id}`, '_blank', 'noopener');
+    };
+
+    const entregasFiltradas = entregas.filter(e => {
+        if (aulaFiltro !== 'todas' && e.tarea?.aula_id !== aulaFiltro) return false;
+        if (!busqueda.trim()) return true;
+        const term = busqueda.trim().toLowerCase();
+        return `${e.alumno?.username || ''} ${e.tarea?.titulo || ''}`.toLowerCase().includes(term);
+    });
+
     if (cargando) {
-        return <div className={styles.cargando}>Cargando proyectos...</div>;
+        return <div className={styles.cargando}>Cargando entregas calificadas...</div>;
     }
 
     return (
@@ -129,11 +145,33 @@ const VistaSalonFama = ({ userId }) => {
                     <div>
                         <h2 className={styles.titulo}>Salón de la Fama</h2>
                         <p className={styles.subtitulo}>
-                            Nomina el mejor trabajo de tus alumnos. El admin de tu escuela aprueba hasta 3 por edición.
+                            Nomina el mejor trabajo entre las tareas que ya calificaste. El admin de tu escuela aprueba hasta 3 por edición.
                         </p>
                     </div>
                 </div>
             </div>
+
+            {aulas.length > 0 && (
+                <div className={styles.filtros}>
+                    <select
+                        className={styles.filtroSelect}
+                        value={aulaFiltro}
+                        onChange={e => setAulaFiltro(e.target.value)}
+                    >
+                        <option value="todas">Todas mis aulas</option>
+                        {aulas.map(a => (
+                            <option key={a.id} value={a.id}>{a.nombre}</option>
+                        ))}
+                    </select>
+                    <input
+                        type="text"
+                        className={styles.buscador}
+                        placeholder="Buscar por alumno o tarea..."
+                        value={busqueda}
+                        onChange={e => setBusqueda(e.target.value)}
+                    />
+                </div>
+            )}
 
             {alerta && (
                 <div className={`${styles.alerta} ${alerta.tipo === 'success' ? styles.alertaSuccess : styles.alertaError}`}>
@@ -141,42 +179,56 @@ const VistaSalonFama = ({ userId }) => {
                 </div>
             )}
 
-            {proyectos.length === 0 ? (
+            {entregas.length === 0 ? (
                 <div className={styles.emptyState}>
                     <img src={xolotlIdea} alt="" className={styles.xolotl} />
-                    <h3 className={styles.emptyTitle}>Aún no hay proyectos para nominar</h3>
+                    <h3 className={styles.emptyTitle}>Aún no hay tareas calificadas</h3>
                     <p className={styles.emptyDesc}>
-                        Cuando tus alumnos guarden proyectos en sus aulas, aparecerán aquí.
+                        Cuando califiques una entrega en "Calificaciones", podrás nominarla aquí.
                     </p>
+                </div>
+            ) : entregasFiltradas.length === 0 ? (
+                <div className={styles.emptyState}>
+                    <img src={xolotlIdea} alt="" className={styles.xolotl} />
+                    <h3 className={styles.emptyTitle}>Sin resultados</h3>
+                    <p className={styles.emptyDesc}>Prueba con otra aula o busca otro nombre.</p>
                 </div>
             ) : (
                 <div className={styles.grid}>
-                    {proyectos.map(p => {
-                        const nom = nominaciones[p.id];
+                    {entregasFiltradas.map(entrega => {
+                        const nom = nominaciones[entrega.id];
                         const estado = nom ? ESTADO_LABEL[nom.estado] : null;
                         return (
-                            <div key={p.id} className={styles.proyectoCard}>
+                            <div key={entrega.id} className={styles.proyectoCard}>
                                 <div
                                     className={styles.thumb}
-                                    style={!p.thumbnail_url ? { background: 'linear-gradient(135deg, #a569ff, #4D96FF)' } : undefined}
+                                    style={!entrega.thumbnail_url ? { background: 'linear-gradient(135deg, #a569ff, #4D96FF)' } : undefined}
                                 >
-                                    {p.thumbnail_url && <img src={p.thumbnail_url} alt="" />}
+                                    {entrega.thumbnail_url && <img src={entrega.thumbnail_url} alt="" />}
                                 </div>
                                 <div className={styles.proyectoInfo}>
-                                    <p className={styles.proyectoNombre}>{p.nombre}</p>
-                                    <p className={styles.proyectoAutor}>@{p.alumno?.username || 'alumno'}</p>
-                                    {estado ? (
-                                        <span className={`${styles.badge} ${styles[estado.clase]}`}>{estado.texto}</span>
-                                    ) : (
-                                        <button
-                                            type="button"
-                                            className={styles.btnNominar}
-                                            disabled={nominando === p.id}
-                                            onClick={() => nominar(p)}
-                                        >
-                                            {nominando === p.id ? 'Nominando...' : '🏆 Nominar'}
+                                    <p className={styles.proyectoNombre}>{entrega.tarea?.titulo}</p>
+                                    <p className={styles.proyectoAutor}>
+                                        @{entrega.alumno?.username || 'alumno'} · {entrega.tarea?.aula?.nombre}
+                                        {entrega.calificacion != null && <> · Calificación: {entrega.calificacion}</>}
+                                    </p>
+                                    <div className={styles.acciones}>
+                                        <button type="button" className={styles.btnVer} onClick={() => verProyecto(entrega)}>
+                                            Ver proyecto
                                         </button>
-                                    )}
+                                        {estado ? (
+                                            <span className={`${styles.badge} ${styles[estado.clase]}`}>{estado.texto}</span>
+                                        ) : (
+                                            <button
+                                                type="button"
+                                                className={styles.btnNominar}
+                                                disabled={nominando === entrega.id}
+                                                onClick={() => nominar(entrega)}
+                                            >
+                                                {nominando === entrega.id ? 'Nominando...' : '🏆 Nominar'}
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         );

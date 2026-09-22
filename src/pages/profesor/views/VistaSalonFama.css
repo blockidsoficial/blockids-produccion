@@ -59,6 +59,41 @@
     font-family: var(--font-principal);
 }
 
+/* ── Filtro por aula + buscador ───────────────────────────────*/
+.filtros {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filtroSelect, .buscador {
+    padding: 10px 14px;
+    background: var(--color-blanco);
+    border: 1.5px solid var(--color-borde-suave);
+    border-radius: var(--radio-md);
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+}
+
+.filtroSelect {
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.buscador {
+    flex: 1;
+    min-width: 200px;
+    font-weight: 500;
+}
+
+.filtroSelect:focus, .buscador:focus {
+    outline: none;
+    border-color: var(--color-verde-primario);
+    box-shadow: 0 0 0 3px rgba(109, 191, 38, 0.15);
+}
+
 /* ── Alerta ────────────────────────────────────────────────── */
 .alerta {
     padding: 12px 18px;
@@ -129,6 +164,31 @@
     color: var(--color-texto-suave);
     margin: 0 0 4px;
     font-family: var(--font-principal);
+}
+
+.acciones {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.btnVer {
+    padding: 8px 14px;
+    background: none;
+    color: var(--color-azul-fuerte);
+    border: 1.5px solid var(--color-azul-claro);
+    border-radius: var(--radio-md);
+    font-size: .82rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    transition: background .2s;
+}
+
+.btnVer:hover {
+    background: var(--color-azul-bg);
 }
 
 .btnNominar {

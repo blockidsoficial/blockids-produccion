@@ -35,7 +35,11 @@ const VistaSalonFama = ({ perfil, esSuperAdmin, mostrarAlerta }) => {
             .from('salon_fama')
             .select(`
                 id, estado, escuela_id, created_at,
-                proyecto:proyectos(id, nombre, thumbnail_url, likes, alumno:perfiles!proyectos_alumno_id_fkey(username)),
+                entrega:entregas_proyectos(
+                    id, thumbnail_url, likes, calificacion,
+                    tarea:tareas(titulo),
+                    alumno:perfiles!entregas_proyectos_estudiante_id_fkey(username)
+                ),
                 escuela:escuelas(nombre),
                 profesor:perfiles!salon_fama_nominado_por_fkey(username)
             `)
@@ -107,7 +111,7 @@ const VistaSalonFama = ({ perfil, esSuperAdmin, mostrarAlerta }) => {
                     <div>
                         <h2 className={styles.titulo}>Salón de la Fama</h2>
                         <p className={styles.subtitulo}>
-                            {edicion ? `${edicion.titulo} · máximo ${CUPO_POR_ESCUELA} proyectos aprobados por escuela` : 'Sin edición activa'}
+                            {edicion ? `${edicion.titulo} · máximo ${CUPO_POR_ESCUELA} trabajos aprobados por escuela` : 'Sin edición activa'}
                         </p>
                     </div>
                 </div>
@@ -138,22 +142,32 @@ const VistaSalonFama = ({ perfil, esSuperAdmin, mostrarAlerta }) => {
                                 </div>
                             )}
                             {!esSuperAdmin && (
-                                <p className={styles.cupoTexto}>{aprobados}/{CUPO_POR_ESCUELA} proyectos aprobados en esta edición</p>
+                                <p className={styles.cupoTexto}>{aprobados}/{CUPO_POR_ESCUELA} trabajos aprobados en esta edición</p>
                             )}
                             <div className={styles.grid}>
                                 {filasEscuela.map(f => (
                                     <div key={f.id} className={styles.card}>
                                         <div
                                             className={styles.thumb}
-                                            style={!f.proyecto?.thumbnail_url ? { background: 'linear-gradient(135deg, #a569ff, #4D96FF)' } : undefined}
+                                            style={!f.entrega?.thumbnail_url ? { background: 'linear-gradient(135deg, #a569ff, #4D96FF)' } : undefined}
                                         >
-                                            {f.proyecto?.thumbnail_url && <img src={f.proyecto.thumbnail_url} alt="" />}
+                                            {f.entrega?.thumbnail_url && <img src={f.entrega.thumbnail_url} alt="" />}
                                         </div>
                                         <div className={styles.cardInfo}>
-                                            <p className={styles.proyectoNombre}>{f.proyecto?.nombre || 'Proyecto'}</p>
+                                            <p className={styles.proyectoNombre}>{f.entrega?.tarea?.titulo || 'Tarea'}</p>
                                             <p className={styles.meta}>
-                                                @{f.proyecto?.alumno?.username || 'alumno'} · nominado por @{f.profesor?.username || 'profesor'}
+                                                @{f.entrega?.alumno?.username || 'alumno'} · nominado por @{f.profesor?.username || 'profesor'}
+                                                {f.entrega?.calificacion != null && <> · Calificación: {f.entrega.calificacion}</>}
                                             </p>
+                                            {f.entrega?.id && (
+                                                <button
+                                                    type="button"
+                                                    className={styles.btnVer}
+                                                    onClick={() => window.open(`/entorno?entregaId=${f.entrega.id}`, '_blank', 'noopener')}
+                                                >
+                                                    Ver proyecto
+                                                </button>
+                                            )}
                                             {f.estado === 'nominado' ? (
                                                 <div className={styles.acciones}>
                                                     <button

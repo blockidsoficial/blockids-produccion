@@ -168,6 +168,25 @@
     flex-wrap: wrap;
 }
 
+.btnVer {
+    display: inline-block;
+    padding: 7px 12px;
+    margin-bottom: 6px;
+    background: none;
+    color: var(--color-azul-fuerte);
+    border: 1.5px solid var(--color-azul-claro);
+    border-radius: var(--radio-md);
+    font-size: .78rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    transition: background .2s;
+}
+
+.btnVer:hover {
+    background: var(--color-azul-bg);
+}
+
 .btnAprobar, .btnRechazar, .btnRevertir {
     padding: 7px 12px;
     border-radius: var(--radio-md);

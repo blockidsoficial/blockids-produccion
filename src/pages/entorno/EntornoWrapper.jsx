@@ -5,12 +5,47 @@ import styles from './EntornoWrapper.css';
 import { celebrarLogrosNuevos, desbloquearLogroEditor } from '../../services/gamificationService';
 import { EVENTO_EDITOR } from '../../lib/logro-eventos';
 import LogroCelebracion from '../../components/logro-celebracion/LogroCelebracion';
+import dataURItoBlob from '../../lib/data-uri-to-blob';
 
 import xolotlSorprendido from '../../assets/xolotl/xolotl-sorprendido.svg';
 import logoHorizontal   from '../../assets/logos/logo-horizontal-colores.svg';
 import iconModoRevision from '../../assets/iconos/icon-modo-revision.svg';
 
 const BREAKPOINT = 900;
+
+// Genera y guarda la miniatura de una entrega la primera vez que alguien la
+// revisa (profesor, admin o el propio alumno) — mismo mecanismo de captura
+// que usa el guardado normal de "Mis Proyectos" (ver project-saver-hoc.jsx).
+// Best-effort: si falla, la próxima revisión lo vuelve a intentar (nunca
+// bloquea ni afecta lo que ve quien está revisando).
+const generarMiniaturaEntrega = (entregaId, vm) => {
+    try {
+        vm.postIOData('video', { forceTransparentPreview: true });
+        vm.renderer.requestSnapshot(async dataURI => {
+            vm.postIOData('video', { forceTransparentPreview: false });
+            try {
+                const blob = dataURItoBlob(dataURI);
+                const path = `${entregaId}.png`;
+                const { error: uploadError } = await supabase.storage
+                    .from('entrega-miniaturas')
+                    .upload(path, blob, { upsert: true, contentType: blob.type || 'image/png' });
+                if (uploadError) throw uploadError;
+
+                const { data: { publicUrl } } = supabase.storage.from('entrega-miniaturas').getPublicUrl(path);
+                const { error: rpcError } = await supabase.rpc('guardar_miniatura_entrega', {
+                    p_entrega_id: entregaId,
+                    p_thumbnail_url: `${publicUrl}?v=${Date.now()}`,
+                });
+                if (rpcError) throw rpcError;
+            } catch (err) {
+                console.error('[BLOCKIDS] No se pudo guardar la miniatura de la entrega:', err);
+            }
+        });
+        vm.renderer.draw();
+    } catch (err) {
+        console.error('[BLOCKIDS] No se pudo generar la miniatura de la entrega:', err);
+    }
+};
 
 const EntornoWrapper = ({ children }) => {
     const history  = useHistory();
@@ -97,46 +132,62 @@ const EntornoWrapper = ({ children }) => {
         cargarEntregaPrevia();
     }, [tareaId]);
 
-    // ── Modo revisión: cargar proyecto del alumno en el VM ────────────────────
+    // ── Modo revisión: cargar el trabajo del alumno en el VM (interactivo) ────
+    // Cubre las dos formas de entregar: JSON guardado directo desde el Entorno
+    // de Programación, o un archivo .sb3/.zip subido a Storage (URL) — en ese
+    // caso se descarga y se carga igual que "Cargar desde tu computadora".
+    // Si a la entrega todavía le falta miniatura, se genera aquí mismo la
+    // primera vez que alguien la revisa (ver guardar-miniatura-entrega.js).
     useEffect(() => {
         if (!entregaId) return;
+        let vivo = true;
 
         const cargar = async () => {
             setCargandoEntrega(true);
             try {
                 const { data, error } = await supabase
                     .from('entregas_proyectos')
-                    .select('codigo_espacio_trabajo, json_bloques')
+                    .select('codigo_espacio_trabajo, json_bloques, thumbnail_url')
                     .eq('id', entregaId)
                     .single();
 
                 if (error || !data) { setCargandoEntrega(false); return; }
 
                 const proyecto = data.codigo_espacio_trabajo || data.json_bloques;
+                if (!proyecto) { setCargandoEntrega(false); return; }
 
-                // Sin datos reales o es una URL → no hay proyecto cargable
-                if (!proyecto || typeof proyecto === 'string') {
-                    setCargandoEntrega(false);
-                    return;
+                let contenidoParaCargar;
+                if (typeof proyecto === 'string') {
+                    // Archivo subido: es una URL pública a un .sb3/.zip en Storage.
+                    const resp = await fetch(proyecto);
+                    if (!resp.ok) throw new Error('No se pudo descargar el archivo entregado.');
+                    contenidoParaCargar = await resp.arrayBuffer();
+                } else {
+                    contenidoParaCargar = JSON.stringify(proyecto);
                 }
 
                 const intentarCargar = () => {
                     const vm = window.blockidsVM;
-                    if (vm) {
-                        vm.loadProject(JSON.stringify(proyecto))
-                            .then(() => setCargandoEntrega(false))
-                            .catch(() => setCargandoEntrega(false));
-                    } else {
-                        setTimeout(intentarCargar, 300);
-                    }
+                    if (!vm) { setTimeout(intentarCargar, 300); return; }
+                    vm.loadProject(contenidoParaCargar)
+                        .then(() => {
+                            if (!vivo) return;
+                            setCargandoEntrega(false);
+                            if (!data.thumbnail_url) {
+                                generarMiniaturaEntrega(entregaId, vm);
+                            }
+                        })
+                        .catch(() => { if (vivo) setCargandoEntrega(false); });
                 };
                 intentarCargar();
-            } catch {
-                setCargandoEntrega(false);
+            } catch (err) {
+                console.error('[BLOCKIDS] Error cargando la entrega en modo revisión:', err);
+                if (vivo) setCargandoEntrega(false);
             }
         };
 
         cargar();
+        return () => { vivo = false; };
     }, [entregaId]);
 
     // ── Ocultar toast automáticamente ─────────────────────────────────────────

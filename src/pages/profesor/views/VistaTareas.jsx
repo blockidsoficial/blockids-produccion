@@ -428,7 +428,7 @@ const VistaTareas = ({ userId }) => {
                             <button className={dash.modalClose} onClick={cerrarRevision} disabled={!!calificandoId}>✕</button>
                         </div>
 
-                        <div className={dash.modalBody} style={{ maxHeight: '420px', overflowY: 'auto' }}>
+                        <div className={`${dash.modalBody} ${styles.modalBodyEntregas}`}>
                             {cargandoEntregas ? (
                                 <p style={{ textAlign: 'center', color: '#94a3b8', padding: '2rem 0' }}>
                                     Cargando entregas...
@@ -543,16 +543,20 @@ const VistaTareas = ({ userId }) => {
                 {aulas.length > 0 && (
                     <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                         {aulas.length > 1 && (
-                            <select
-                                className={styles.filtroSelect}
-                                value={filtroAula}
-                                onChange={e => setFiltroAula(e.target.value)}
-                            >
-                                <option value="todas">Todas las aulas</option>
-                                {aulas.map(a => (
-                                    <option key={a.id} value={a.id}>{a.nombre}</option>
-                                ))}
-                            </select>
+                            <div className={styles.filtroAulaWrap}>
+                                <label htmlFor="filtro-aula-tareas" className={styles.filtroAulaLabel}>Aula</label>
+                                <select
+                                    id="filtro-aula-tareas"
+                                    className={styles.filtroSelect}
+                                    value={filtroAula}
+                                    onChange={e => setFiltroAula(e.target.value)}
+                                >
+                                    <option value="todas">Todas las aulas</option>
+                                    {aulas.map(a => (
+                                        <option key={a.id} value={a.id}>{a.nombre}</option>
+                                    ))}
+                                </select>
+                            </div>
                         )}
                         <button
                             className={styles.btnProbarEntorno}

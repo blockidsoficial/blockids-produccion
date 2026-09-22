@@ -1,4 +1,18 @@
 /* ── Filtro por aula ──────────────────────────────────────────────────────── */
+.filtroAulaWrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filtroAulaLabel {
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--color-texto-suave);
+    font-family: var(--font-principal);
+    white-space: nowrap;
+}
+
 .filtroSelect {
     padding: 9px 14px;
     background: var(--color-blanco);
@@ -130,6 +144,32 @@
 .btnRevisar:hover {
     background: var(--color-azul-bg, #e8f0fe);
     border-color: var(--color-azul-fuerte, #3b5bdb);
+}
+
+/* ── Modal revisión: cuerpo con scroll (para cuando hay muchas entregas) ──── */
+.modalBodyEntregas {
+    max-height: min(58vh, 480px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-borde) transparent;
+}
+
+.modalBodyEntregas::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modalBodyEntregas::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modalBodyEntregas::-webkit-scrollbar-thumb {
+    background: var(--color-borde, #cbd5e1);
+    border-radius: 999px;
+}
+
+.modalBodyEntregas::-webkit-scrollbar-thumb:hover {
+    background: var(--color-texto-suave, #94a3b8);
 }
 
 /* ── Modal revisión: fila de entrega ──────────────────────────────────────── */

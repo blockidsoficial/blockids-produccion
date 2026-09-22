@@ -209,7 +209,7 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
         // dejaría reescribir nombre/thumbnail_url/es_publico de cualquier
         // proyecto ajeno. Ver sql/proyectos_publicos_policies.sql.
         const { data: likesReales, error: errorLike } = await supabase
-            .rpc('dar_like_proyecto', { p_proyecto_id: proyecto.id });
+            .rpc('dar_like_entrega', { p_entrega_id: proyecto.id });
 
         if (errorLike) {
             console.error('[BLOCKIDS] Error registrando like:', errorLike);
@@ -224,7 +224,12 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
     };
 
     const verProyecto = (proyecto) => {
-        history.push(`/entorno?proyectoId=${proyecto.id}`);
+        // `proyecto.id` aquí es el id de la entrega nominada (ver
+        // obtener_podio_salon_fama / obtener_top_por_escuela_salon_fama).
+        // Nota: /entorno exige sesión iniciada — un visitante sin cuenta
+        // rebota a /login en vez de ver el proyecto (limitación previa, no
+        // introducida aquí).
+        history.push(`/entorno?entregaId=${proyecto.id}`);
     };
 
     const sinResultados = !cargando && !error && proyectos.length === 0 && porEscuela.length === 0;
