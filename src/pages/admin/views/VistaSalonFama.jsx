@@ -80,8 +80,19 @@ const VistaSalonFama = ({ perfil, esSuperAdmin, mostrarAlerta }) => {
 
     const cerrarEdicion = async () => {
         if (!window.confirm('¿Cerrar esta edición? El podio actual queda guardado y empieza una nueva vacía.')) return;
+
+        // Opcional: nombre de la siguiente edición. Cancelar el prompt (null)
+        // deja el nombre automático "Edición N"; texto vacío también.
+        const tituloNuevo = window.prompt(
+            '¿Cómo se llama la nueva edición? (déjalo vacío para "Edición N" automático)',
+            ''
+        );
+        if (tituloNuevo === null) return;
+
         setCerrandoEdicion(true);
-        const { error } = await supabase.rpc('cerrar_edicion_salon_fama');
+        const { error } = await supabase.rpc('cerrar_edicion_salon_fama', {
+            p_titulo_nueva: tituloNuevo.trim() || null,
+        });
         setCerrandoEdicion(false);
 
         if (error) {

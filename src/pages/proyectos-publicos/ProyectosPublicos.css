@@ -104,6 +104,41 @@
     gap: 1.75rem;
 }
 
+/* ── Selector de edición (histórico) ─────────────────────────── */
+.edicionSelector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-bottom: 1.5rem;
+}
+
+.edicionLabel {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-texto-suave);
+}
+
+.edicionSelect {
+    padding: 8px 14px;
+    border: 1.5px solid var(--color-borde);
+    border-radius: var(--radio-md);
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: var(--color-blanco);
+    color: var(--color-texto-oscuro);
+    cursor: pointer;
+}
+
+.edicionCerradaTag {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #92400e;
+    background: #fef3c7;
+    padding: 4px 12px;
+    border-radius: var(--radio-pill);
+}
+
 /* ── Por escuela ──────────────────────────────────────────── */
 .seccionTitulo {
     font-size: 1.5rem;

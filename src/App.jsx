@@ -266,12 +266,19 @@ const App = () => {
                 <Route
                     path="/entorno"
                     render={({ location }) => {
-                        if (!session) return <Redirect to="/login" />;
-                        // Modo revisión (?entregaId=): un profesor/admin puede abrir el
-                        // proyecto de un alumno para interactuar con él y confirmar que
-                        // funciona (bandera verde, clics...), pero nunca guardar encima
-                        // ni crear uno nuevo desde ahí.
-                        const esRevision = Boolean(new URLSearchParams(location.search).get('entregaId'));
+                        const entregaId = new URLSearchParams(location.search).get('entregaId');
+                        // Modo revisión (?entregaId=): se deja pasar SIN sesión también,
+                        // para que un visitante de /proyectos-publicos pueda abrir un
+                        // proyecto ya aprobado sin necesitar cuenta. La base de datos es
+                        // quien de verdad decide qué se puede ver: la entrega solo carga
+                        // si es pública o si es del propio usuario (RLS "Ver entregas
+                        // propias o publicas" en entregas_proyectos, to public). Fuera de
+                        // este modo (crear/entregar un proyecto) sigue exigiendo sesión.
+                        if (!session && !entregaId) return <Redirect to="/login" />;
+                        // Un profesor/admin puede interactuar con el proyecto del alumno
+                        // (bandera verde, clics...) pero nunca guardar encima ni crear uno
+                        // nuevo desde ahí.
+                        const esRevision = Boolean(entregaId);
                         return (
                             <EntornoWrapper>
                                 <ScratchEnvironment canEditTitle canSave={!esRevision} canCreateNew={!esRevision} />

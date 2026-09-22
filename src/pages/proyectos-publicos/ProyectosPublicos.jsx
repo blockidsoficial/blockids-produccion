@@ -127,6 +127,24 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
     const [cargando, setCargando]   = useState(true);
     const [error, setError]         = useState(false);
 
+    // ── Histórico de ediciones (por defecto: la activa) ───────────────────────
+    const [ediciones, setEdiciones]       = useState([]);
+    const [edicionId, setEdicionId]       = useState(null); // null = la activa
+    const edicionActual = ediciones.find(e => e.id === edicionId) || ediciones.find(e => e.activa);
+
+    useEffect(() => {
+        let vivo = true;
+        supabase.rpc('obtener_ediciones_salon_fama').then(({ data, error: errorEdiciones }) => {
+            if (!vivo) return;
+            if (errorEdiciones) {
+                console.error('[BLOCKIDS] Error cargando ediciones del Salón de la Fama:', errorEdiciones);
+                return;
+            }
+            setEdiciones(data || []);
+        });
+        return () => { vivo = false; };
+    }, []);
+
     useEffect(() => {
         let vivo = true;
 
@@ -141,10 +159,11 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
             // obtener_podio_salon_fama (top 3 entre TODAS las escuelas, ya
             // aprobados por el admin — ver migración salon_fama); el bloque de
             // abajo agrupa el resultado de obtener_top_por_escuela_salon_fama
-            // por escuela en el cliente.
+            // por escuela en el cliente. Sin edicionId (null) usan la edición
+            // activa; con uno elegido, se ve el podio congelado de esa edición.
             const [podio, todosAprobados] = await Promise.all([
-                supabase.rpc('obtener_podio_salon_fama'),
-                supabase.rpc('obtener_top_por_escuela_salon_fama'),
+                supabase.rpc('obtener_podio_salon_fama', { p_edicion_id: edicionId }),
+                supabase.rpc('obtener_top_por_escuela_salon_fama', { p_edicion_id: edicionId }),
             ]);
 
             if (!vivo) return;
@@ -181,7 +200,7 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
 
         cargar();
         return () => { vivo = false; };
-    }, []);
+    }, [edicionId]);
 
     // ── Me gusta: optimista en pantalla, persistido en BD, 1 vez por navegador ──
     // Actualiza el proyecto tanto en el podio general como en el bloque por
@@ -251,6 +270,32 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                     </div>
                 </div>
             </section>
+
+            {/* ══════════ SELECTOR DE EDICIÓN ══════════ */}
+            {ediciones.length > 1 && (
+                <section className={styles.contenido} style={{ paddingBottom: 0 }}>
+                    <div className={styles.container}>
+                        <div className={styles.edicionSelector}>
+                            <label htmlFor="sf-edicion" className={styles.edicionLabel}>Edición:</label>
+                            <select
+                                id="sf-edicion"
+                                className={styles.edicionSelect}
+                                value={edicionId || ''}
+                                onChange={e => setEdicionId(e.target.value || null)}
+                            >
+                                {ediciones.map(ed => (
+                                    <option key={ed.id} value={ed.activa ? '' : ed.id}>
+                                        {ed.titulo}{ed.activa ? ' (actual)' : ''}
+                                    </option>
+                                ))}
+                            </select>
+                            {edicionActual && !edicionActual.activa && (
+                                <span className={styles.edicionCerradaTag}>Edición cerrada — podio histórico</span>
+                            )}
+                        </div>
+                    </div>
+                </section>
+            )}
 
             {/* ══════════ TOP 3 ══════════ */}
             <section className={styles.contenido}>
