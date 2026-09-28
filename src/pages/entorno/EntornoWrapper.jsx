@@ -47,6 +47,34 @@ const generarMiniaturaEntrega = (entregaId, vm) => {
     }
 };
 
+// La entrega se guarda como .sb3 (zip con project.json + imágenes y sonidos),
+// no solo con vm.toJSON(): el JSON solo trae el md5 de cada asset y el VM
+// genera assets nuevos que no existen en ningún bucket (p. ej. los fondos PNG
+// de la biblioteca como "Granja" se reescalan a bitmapResolution 2 con otro
+// md5, y los dibujos/imágenes subidas por el alumno). Al volver a cargar solo
+// el JSON, esos assets daban 400 y se veían como "?".
+const BUCKET_ENTREGAS = 'proyectos-blockids';
+
+const subirProyectoEntrega = async (vm, alumnoId) => {
+    const contenido = await vm.saveProjectSb3();
+    const path = `entregas/${alumnoId}_${Date.now()}_editor.sb3`;
+    const { error } = await supabase.storage
+        .from(BUCKET_ENTREGAS)
+        .upload(path, contenido, { contentType: 'application/zip' });
+    if (error) throw error;
+    const { data: { publicUrl } } = supabase.storage.from(BUCKET_ENTREGAS).getPublicUrl(path);
+    return publicUrl;
+};
+
+// codigo_espacio_trabajo puede ser un JSON del VM (entregas antiguas) o una
+// URL pública a un .sb3/.zip (entregas nuevas del editor o archivo subido).
+const contenidoEntrega = async (proyecto) => {
+    if (typeof proyecto !== 'string') return JSON.stringify(proyecto);
+    const resp = await fetch(proyecto);
+    if (!resp.ok) throw new Error('No se pudo descargar el archivo entregado.');
+    return resp.arrayBuffer();
+};
+
 const EntornoWrapper = ({ children }) => {
     const history  = useHistory();
     const location = useLocation();
@@ -109,14 +137,14 @@ const EntornoWrapper = ({ children }) => {
                 if (error || !data) return;
 
                 const proyecto = data.codigo_espacio_trabajo || data.json_bloques;
+                if (!proyecto) return;
 
-                // Sin datos o es una URL de archivo (no JSON del VM) → no cargar
-                if (!proyecto || typeof proyecto === 'string') return;
+                const contenidoParaCargar = await contenidoEntrega(proyecto);
 
                 const intentarCargar = () => {
                     const vm = window.blockidsVM;
                     if (vm) {
-                        vm.loadProject(JSON.stringify(proyecto)).catch(() => {
+                        vm.loadProject(contenidoParaCargar).catch(() => {
                             // Si falla, Scratch ya tiene su proyecto en blanco: no hacer nada
                         });
                     } else {
@@ -156,15 +184,7 @@ const EntornoWrapper = ({ children }) => {
                 const proyecto = data.codigo_espacio_trabajo || data.json_bloques;
                 if (!proyecto) { setCargandoEntrega(false); return; }
 
-                let contenidoParaCargar;
-                if (typeof proyecto === 'string') {
-                    // Archivo subido: es una URL pública a un .sb3/.zip en Storage.
-                    const resp = await fetch(proyecto);
-                    if (!resp.ok) throw new Error('No se pudo descargar el archivo entregado.');
-                    contenidoParaCargar = await resp.arrayBuffer();
-                } else {
-                    contenidoParaCargar = JSON.stringify(proyecto);
-                }
+                const contenidoParaCargar = await contenidoEntrega(proyecto);
 
                 const intentarCargar = () => {
                     const vm = window.blockidsVM;
@@ -208,9 +228,10 @@ const EntornoWrapper = ({ children }) => {
 
             const alumnoId = user.id;
 
-            // Capturar el JSON del proyecto Scratch desde el VM global
+            // Subir el proyecto completo (.sb3 con sus assets) desde el VM global
             const vm = window.blockidsVM;
-            const proyectoJSON = vm ? JSON.parse(vm.toJSON()) : null;
+            if (!vm) throw new Error('El editor todavía no está listo');
+            const proyectoUrl = await subirProyectoEntrega(vm, alumnoId);
 
             // Verificar si ya existe una entrega para esta tarea/alumno
             const { data: existente, error: buscarError } = await supabase
@@ -227,7 +248,7 @@ const EntornoWrapper = ({ children }) => {
                 const { error: updateError } = await supabase
                     .from('entregas_proyectos')
                     .update({
-                        codigo_espacio_trabajo: proyectoJSON,
+                        codigo_espacio_trabajo: proyectoUrl,
                         estado:     'entregado',
                         updated_at: new Date().toISOString(),
                     })
@@ -247,7 +268,7 @@ const EntornoWrapper = ({ children }) => {
                     tarea_id:               tareaId,
                     estudiante_id:          alumnoId,
                     estado:                 'entregado',
-                    codigo_espacio_trabajo: proyectoJSON,
+                    codigo_espacio_trabajo: proyectoUrl,
                 });
 
             if (insertError) throw insertError;
