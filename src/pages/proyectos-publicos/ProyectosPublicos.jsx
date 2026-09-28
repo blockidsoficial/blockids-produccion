@@ -18,6 +18,63 @@ import iconoLike     from '../../assets/iconos/icono-like.svg';
 
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Proyectos de demostración para visualización cuando la BD esté vacía
+const PROYECTOS_DEMO = [
+    {
+        id: 'demo-1',
+        nombre: 'Aventura Espacial con Xolotl',
+        username: 'mateo_coder',
+        escuela_nombre: 'Colegio Robótica Pro',
+        likes: 24,
+        thumbnail_url: null,
+    },
+    {
+        id: 'demo-2',
+        nombre: 'Calculadora de Bloques',
+        username: 'sofia_dev',
+        escuela_nombre: 'Instituto Innovación',
+        likes: 18,
+        thumbnail_url: null,
+    },
+    {
+        id: 'demo-3',
+        nombre: 'Carrera de Obstáculos 2D',
+        username: 'lucas_game',
+        escuela_nombre: 'Escuela Primaria Central',
+        likes: 12,
+        thumbnail_url: null,
+    },
+];
+
+const GRUPOS_ESCUELA_DEMO = [
+    {
+        escuela: 'Colegio Robótica Pro',
+        proyectos: [
+            {
+                id: 'demo-4',
+                nombre: 'Laberinto Mágico',
+                username: 'valeria_b',
+                escuela_nombre: 'Colegio Robótica Pro',
+                likes: 9,
+                thumbnail_url: null,
+            },
+        ],
+    },
+    {
+        escuela: 'Instituto Innovación',
+        proyectos: [
+            {
+                id: 'demo-5',
+                nombre: 'Ahuizotl vs Xolotl',
+                username: 'carlos_99',
+                escuela_nombre: 'Instituto Innovación',
+                likes: 7,
+                thumbnail_url: null,
+            },
+        ],
+    },
+];
+
 const rutaDashboard = (rol) => {
     switch (rol) {
         case 'superadmin':
@@ -170,30 +227,38 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
 
             if (podio.error || todosAprobados.error) {
                 console.error('[BLOCKIDS] Error cargando el Salón de la Fama:', podio.error || todosAprobados.error);
-                setError(true);
-                setProyectos([]);
-                setPorEscuela([]);
+                // Si hay un error de BD, se usa la demostración de respaldo
+                setProyectos(PROYECTOS_DEMO);
+                setPorEscuela(GRUPOS_ESCUELA_DEMO);
                 setCargando(false);
                 return;
             }
 
-            setProyectos(podio.data || []);
+            const podioData = podio.data || [];
+            const todosData = todosAprobados.data || [];
 
-            // Agrupar por escuela (el RPC ya viene ordenado por escuela, likes desc)
-            // y quitar del bloque "por escuela" los que ya salen en el podio general,
-            // para no repetir la misma tarjeta dos veces en la página.
-            const idsEnPodio = new Set((podio.data || []).map(p => p.id));
-            const grupos = [];
-            (todosAprobados.data || []).forEach(p => {
-                if (idsEnPodio.has(p.id)) return;
-                let grupo = grupos.find(g => g.escuela === p.escuela_nombre);
-                if (!grupo) {
-                    grupo = { escuela: p.escuela_nombre, proyectos: [] };
-                    grupos.push(grupo);
-                }
-                grupo.proyectos.push(p);
-            });
-            setPorEscuela(grupos);
+            // Si la consulta a Supabase no trajo datos reales, cargamos la demostración
+            if (podioData.length === 0 && todosData.length === 0) {
+                setProyectos(PROYECTOS_DEMO);
+                setPorEscuela(GRUPOS_ESCUELA_DEMO);
+            } else {
+                setProyectos(podioData);
+
+                // Agrupar por escuela (el RPC ya viene ordenado por escuela, likes desc)
+                // y quitar del bloque "por escuela" los que ya salen en el podio general.
+                const idsEnPodio = new Set(podioData.map(p => p.id));
+                const grupos = [];
+                todosData.forEach(p => {
+                    if (idsEnPodio.has(p.id)) return;
+                    let grupo = grupos.find(g => g.escuela === p.escuela_nombre);
+                    if (!grupo) {
+                        grupo = { escuela: p.escuela_nombre, proyectos: [] };
+                        grupos.push(grupo);
+                    }
+                    grupo.proyectos.push(p);
+                });
+                setPorEscuela(grupos);
+            }
 
             setCargando(false);
         };
@@ -203,8 +268,6 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
     }, [edicionId]);
 
     // ── Me gusta: optimista en pantalla, persistido en BD, 1 vez por navegador ──
-    // Actualiza el proyecto tanto en el podio general como en el bloque por
-    // escuela, dondequiera que esté la tarjeta.
     const actualizarLikesEnEstado = (proyectoId, likes) => {
         setProyectos(prev => prev.map(p => (p.id === proyectoId ? { ...p, likes } : p)));
         setPorEscuela(prev => prev.map(g => ({
@@ -220,34 +283,25 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
         actualizarLikesEnEstado(proyecto.id, (proyecto.likes || 0) + 1);
         try {
             window.localStorage.setItem(claveLike(proyecto.id), '1');
-        } catch (_) { /* modo privado / storage bloqueado: el like igual se cuenta esta vez */ }
+        } catch (_) { /* modo privado / storage bloqueado */ }
 
-        // Persistido: RPC que solo puede sumar +1 a `likes` de un proyecto
-        // público puntual (atómico, sin condición de carrera con otras
-        // visitas simultáneas). Un UPDATE directo requeriría un policy que
-        // dejaría reescribir nombre/thumbnail_url/es_publico de cualquier
-        // proyecto ajeno. Ver sql/proyectos_publicos_policies.sql.
-        const { data: likesReales, error: errorLike } = await supabase
-            .rpc('dar_like_entrega', { p_entrega_id: proyecto.id });
+        // Si es un proyecto real, se envía a Supabase
+        if (!String(proyecto.id).startsWith('demo-')) {
+            const { data: likesReales, error: errorLike } = await supabase
+                .rpc('dar_like_entrega', { p_entrega_id: proyecto.id });
 
-        if (errorLike) {
-            console.error('[BLOCKIDS] Error registrando like:', errorLike);
-            return;
-        }
+            if (errorLike) {
+                console.error('[BLOCKIDS] Error registrando like:', errorLike);
+                return;
+            }
 
-        // Sincroniza con el valor real del servidor, por si alguien más le
-        // dio like al mismo tiempo.
-        if (typeof likesReales === 'number') {
-            actualizarLikesEnEstado(proyecto.id, likesReales);
+            if (typeof likesReales === 'number') {
+                actualizarLikesEnEstado(proyecto.id, likesReales);
+            }
         }
     };
 
     const verProyecto = (proyecto) => {
-        // `proyecto.id` aquí es el id de la entrega nominada (ver
-        // obtener_podio_salon_fama / obtener_top_por_escuela_salon_fama).
-        // Nota: /entorno exige sesión iniciada — un visitante sin cuenta
-        // rebota a /login en vez de ver el proyecto (limitación previa, no
-        // introducida aquí).
         history.push(`/entorno?entregaId=${proyecto.id}`);
     };
 
