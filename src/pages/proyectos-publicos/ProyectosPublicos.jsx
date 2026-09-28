@@ -29,6 +29,7 @@ const PROYECTOS_DEMO = [
         instrucciones: 'Presiona Flecha Arriba y Abajo para mover a Xolotl. Evita los meteoritos.',
         likes: 24,
         thumbnail_url: null,
+        imagenes: []
     },
     {
         id: 'demo-2',
@@ -39,6 +40,7 @@ const PROYECTOS_DEMO = [
         instrucciones: 'Ingresa los dos números y haz clic en la operación que deseas realizar.',
         likes: 18,
         thumbnail_url: null,
+        imagenes: []
     },
     {
         id: 'demo-3',
@@ -49,6 +51,7 @@ const PROYECTOS_DEMO = [
         instrucciones: 'Usa la barra espaciadora para saltar.',
         likes: 12,
         thumbnail_url: null,
+        imagenes: []
     },
 ];
 
@@ -65,6 +68,7 @@ const GRUPOS_ESCUELA_DEMO = [
                 instrucciones: 'Mueve el personaje con el ratón.',
                 likes: 9,
                 thumbnail_url: null,
+                imagenes: []
             },
         ],
     },
@@ -80,6 +84,7 @@ const GRUPOS_ESCUELA_DEMO = [
                 instrucciones: 'Elige tu ataque haciendo clic en los botones de acción.',
                 likes: 7,
                 thumbnail_url: null,
+                imagenes: []
             },
         ],
     },
@@ -114,9 +119,10 @@ const yaDioLike = (idProyecto) => {
 };
 
 // Tarjeta de proyecto
-const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, onVer, style }) => {
+const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, onVer, style, cargandoId }) => {
     const yaLiked = yaDioLike(proyecto.id);
     const autor = proyecto.username || 'anónimo';
+    const estaCargando = cargandoId === proyecto.id;
 
     return (
         <article className={styles.card} style={style}>
@@ -154,8 +160,13 @@ const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, onVer, style })
                         <span>{proyecto.likes || 0}</span>
                     </button>
 
-                    <button type="button" className={styles.btnVer} onClick={() => onVer(proyecto)}>
-                        Ver detalle
+                    <button
+                        type="button"
+                        className={styles.btnVer}
+                        onClick={() => onVer(proyecto)}
+                        disabled={estaCargando}
+                    >
+                        {estaCargando ? 'Cargando...' : 'Ver detalle'}
                     </button>
                 </div>
             </div>
@@ -170,6 +181,7 @@ TarjetaProyecto.propTypes = {
     onLike: PropTypes.func.isRequired,
     onVer: PropTypes.func.isRequired,
     style: PropTypes.object,
+    cargandoId: PropTypes.string,
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -185,7 +197,8 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
     const [cargando, setCargando]   = useState(true);
     const [error, setError]         = useState(false);
 
-    // Estado para controlar qué proyecto se está viendo en el modal de detalle
+    // Estados para la carga del modal de detalle
+    const [cargandoDetalleId, setCargandoDetalleId] = useState(null);
     const [proyectoSeleccionado, setProyectoSeleccionado] = useState(null);
 
     // Histórico de ediciones
@@ -292,12 +305,47 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
         }
     };
 
-    // Al hacer clic en "Ver detalle", abrimos la ventana de información
-    const verProyecto = (proyecto) => {
-        setProyectoSeleccionado(proyecto);
+    // Función para obtener los detalles e imágenes desde Supabase al dar clic
+    const verProyecto = async (proyecto) => {
+        setCargandoDetalleId(proyecto.id);
+
+        // Si es un proyecto de demostración, se abre directo
+        if (String(proyecto.id).startsWith('demo-')) {
+            setTimeout(() => {
+                setProyectoSeleccionado(proyecto);
+                setCargandoDetalleId(null);
+            }, 300);
+            return;
+        }
+
+        try {
+            // Consulta de información extendida del proyecto en Supabase
+            const { data, error: errorDetalle } = await supabase
+                .from('entregas')
+                .select('id, nombre, descripcion, instrucciones, thumbnail_url, imagenes, likes, perfiles(username), escuelas(nombre)')
+                .eq('id', proyecto.id)
+                .single();
+
+            if (errorDetalle || !data) {
+                console.error('[BLOCKIDS] Error al cargar detalle del proyecto:', errorDetalle);
+                setProyectoSeleccionado(proyecto);
+            } else {
+                setProyectoSeleccionado({
+                    ...proyecto,
+                    descripcion: data.descripcion || 'Sin descripción disponible.',
+                    instrucciones: data.instrucciones || '',
+                    thumbnail_url: data.thumbnail_url || proyecto.thumbnail_url,
+                    imagenes: data.imagenes || []
+                });
+            }
+        } catch (e) {
+            console.error('[BLOCKIDS] Error de red:', e);
+            setProyectoSeleccionado(proyecto);
+        } finally {
+            setCargandoDetalleId(null);
+        }
     };
 
-    // Función si se desea ingresar a programar/probar en el editor
     const abrirEnEditor = (proyectoId) => {
         history.push(`/entorno?entregaId=${proyectoId}`);
     };
@@ -395,6 +443,7 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                                     degradado={DEGRADADOS_PLACEHOLDER[idx % DEGRADADOS_PLACEHOLDER.length]}
                                     onLike={handleLike}
                                     onVer={verProyecto}
+                                    cargandoId={cargandoDetalleId}
                                     style={{ animationDelay: `${idx * 0.08}s` }}
                                 />
                             ))}
@@ -419,6 +468,7 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                                             degradado={DEGRADADOS_PLACEHOLDER[idx % DEGRADADOS_PLACEHOLDER.length]}
                                             onLike={handleLike}
                                             onVer={verProyecto}
+                                            cargandoId={cargandoDetalleId}
                                         />
                                     ))}
                                 </div>
@@ -437,6 +487,7 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                         </button>
 
                         <div className={styles.modalGrid}>
+                            {/* Galería de imágenes e imagen principal */}
                             <div className={styles.modalImagenWrapper}>
                                 {proyectoSeleccionado.thumbnail_url ? (
                                     <img
@@ -452,8 +503,18 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                                         <img src={proyectoPlaceholder} alt="" />
                                     </div>
                                 )}
+
+                                {/* Tiras de imágenes adicionales si existen */}
+                                {proyectoSeleccionado.imagenes && proyectoSeleccionado.imagenes.length > 0 && (
+                                    <div className={styles.galeriaThumbs}>
+                                        {proyectoSeleccionado.imagenes.map((imgUrl, i) => (
+                                            <img key={i} src={imgUrl} alt={`Captura ${i + 1}`} className={styles.galeriaThumb} />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
 
+                            {/* Información detallada del proyecto */}
                             <div className={styles.modalInfo}>
                                 <h2 className={styles.modalTitulo}>{proyectoSeleccionado.nombre}</h2>
                                 <p className={styles.modalAutor}>
