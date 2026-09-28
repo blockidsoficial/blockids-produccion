@@ -18,13 +18,15 @@ import iconoLike     from '../../assets/iconos/icono-like.svg';
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-// Proyectos de demostración para visualización cuando la BD esté vacía
+// Proyectos de demostración con información detallada
 const PROYECTOS_DEMO = [
     {
         id: 'demo-1',
         nombre: 'Aventura Espacial con Xolotl',
         username: 'mateo_coder',
-        escuela_nombre: 'Colegio De Mexico',
+        escuela_nombre: 'Colegio Robótica Pro',
+        descripcion: 'Un divertido juego de esquivar asteroides en el espacio usando las flechas del teclado. ¡Consigue la puntuación más alta!',
+        instrucciones: 'Presiona Flecha Arriba y Abajo para mover a Xolotl. Evita los meteoritos.',
         likes: 24,
         thumbnail_url: null,
     },
@@ -33,6 +35,8 @@ const PROYECTOS_DEMO = [
         nombre: 'Calculadora de Bloques',
         username: 'sofia_dev',
         escuela_nombre: 'Instituto Innovación',
+        descripcion: 'Herramienta interactiva para sumar, restar y multiplicar números creada 100% con bloques.',
+        instrucciones: 'Ingresa los dos números y haz clic en la operación que deseas realizar.',
         likes: 18,
         thumbnail_url: null,
     },
@@ -40,7 +44,9 @@ const PROYECTOS_DEMO = [
         id: 'demo-3',
         nombre: 'Carrera de Obstáculos 2D',
         username: 'lucas_game',
-        escuela_nombre: 'Escuela Primaria Manuel',
+        escuela_nombre: 'Escuela Primaria Central',
+        descripcion: 'Juego de plataformas donde debes saltar obstáculos y llegar a la meta antes de que se agote el tiempo.',
+        instrucciones: 'Usa la barra espaciadora para saltar.',
         likes: 12,
         thumbnail_url: null,
     },
@@ -55,6 +61,8 @@ const GRUPOS_ESCUELA_DEMO = [
                 nombre: 'Laberinto Mágico',
                 username: 'valeria_b',
                 escuela_nombre: 'Colegio Robótica Pro',
+                descripcion: 'Encuentra la salida del laberinto sin tocar las paredes rojas.',
+                instrucciones: 'Mueve el personaje con el ratón.',
                 likes: 9,
                 thumbnail_url: null,
             },
@@ -68,6 +76,8 @@ const GRUPOS_ESCUELA_DEMO = [
                 nombre: 'Ahuizotl vs Xolotl',
                 username: 'carlos_99',
                 escuela_nombre: 'Instituto Innovación',
+                descripcion: 'Un juego de batalla por turnos inspirado en leyendas aztecas.',
+                instrucciones: 'Elige tu ataque haciendo clic en los botones de acción.',
                 likes: 7,
                 thumbnail_url: null,
             },
@@ -85,22 +95,14 @@ const rutaDashboard = (rol) => {
     }
 };
 
-// Medalla por puesto (1º, 2º, 3º) — si algún día se piden más de 3, el resto
-// cae en la estrella genérica en vez de romperse.
 const MEDALLAS = [medallaOro, medallaPlata, medallaCobre];
 
-// Degradados de respaldo cuando el proyecto no tiene thumbnail_url, uno por
-// puesto para que el Top 3 no se vea repetido.
 const DEGRADADOS_PLACEHOLDER = [
     'linear-gradient(135deg, #a569ff 0%, #4D96FF 100%)',
     'linear-gradient(135deg, #ff4fd8 0%, #FF9A3C 100%)',
     'linear-gradient(135deg, #6BCB77 0%, #4D96FF 100%)',
 ];
 
-// Un visitante solo puede dar like una vez por proyecto en este navegador
-// (no hay tabla de "quién le dio like a qué", así que se controla del lado
-// del cliente — suficiente para una vitrina pública, no es un conteo a prueba
-// de manipulación).
 const claveLike = (idProyecto) => `bk_like_proyecto_${idProyecto}`;
 
 const yaDioLike = (idProyecto) => {
@@ -111,8 +113,7 @@ const yaDioLike = (idProyecto) => {
     }
 };
 
-// Tarjeta de proyecto reutilizada tanto en el podio general (con medalla)
-// como en el bloque "por escuela" (sin medalla).
+// Tarjeta de proyecto
 const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, onVer, style }) => {
     const yaLiked = yaDioLike(proyecto.id);
     const autor = proyecto.username || 'anónimo';
@@ -154,7 +155,7 @@ const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, onVer, style })
                     </button>
 
                     <button type="button" className={styles.btnVer} onClick={() => onVer(proyecto)}>
-                        Ver proyecto
+                        Ver detalle
                     </button>
                 </div>
             </div>
@@ -180,13 +181,16 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
     const urlDashboard = session ? rutaDashboard(rolPerfil) : '/registro';
 
     const [proyectos, setProyectos] = useState([]);
-    const [porEscuela, setPorEscuela] = useState([]); // [{ escuela, proyectos: [...] }]
+    const [porEscuela, setPorEscuela] = useState([]);
     const [cargando, setCargando]   = useState(true);
     const [error, setError]         = useState(false);
 
-    // ── Histórico de ediciones (por defecto: la activa) ───────────────────────
-    const [ediciones, setEdiciones]       = useState([]);
-    const [edicionId, setEdicionId]       = useState(null); // null = la activa
+    // Estado para controlar qué proyecto se está viendo en el modal de detalle
+    const [proyectoSeleccionado, setProyectoSeleccionado] = useState(null);
+
+    // Histórico de ediciones
+    const [ediciones, setEdiciones] = useState([]);
+    const [edicionId, setEdicionId] = useState(null);
     const edicionActual = ediciones.find(e => e.id === edicionId) || ediciones.find(e => e.activa);
 
     useEffect(() => {
@@ -209,15 +213,6 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
             setCargando(true);
             setError(false);
 
-            // RPCs en vez de .select('*, perfiles(username)'): un SELECT directo
-            // sobre `perfiles`/`escuelas` obligaría a abrir esas tablas a `anon`
-            // (nombre, apellidos, correo de contacto de menores...). Ambas solo
-            // devuelven username/nombre de escuela. El podio general sale de
-            // obtener_podio_salon_fama (top 3 entre TODAS las escuelas, ya
-            // aprobados por el admin — ver migración salon_fama); el bloque de
-            // abajo agrupa el resultado de obtener_top_por_escuela_salon_fama
-            // por escuela en el cliente. Sin edicionId (null) usan la edición
-            // activa; con uno elegido, se ve el podio congelado de esa edición.
             const [podio, todosAprobados] = await Promise.all([
                 supabase.rpc('obtener_podio_salon_fama', { p_edicion_id: edicionId }),
                 supabase.rpc('obtener_top_por_escuela_salon_fama', { p_edicion_id: edicionId }),
@@ -227,7 +222,6 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
 
             if (podio.error || todosAprobados.error) {
                 console.error('[BLOCKIDS] Error cargando el Salón de la Fama:', podio.error || todosAprobados.error);
-                // Si hay un error de BD, se usa la demostración de respaldo
                 setProyectos(PROYECTOS_DEMO);
                 setPorEscuela(GRUPOS_ESCUELA_DEMO);
                 setCargando(false);
@@ -237,15 +231,12 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
             const podioData = podio.data || [];
             const todosData = todosAprobados.data || [];
 
-            // Si la consulta a Supabase no trajo datos reales, cargamos la demostración
             if (podioData.length === 0 && todosData.length === 0) {
                 setProyectos(PROYECTOS_DEMO);
                 setPorEscuela(GRUPOS_ESCUELA_DEMO);
             } else {
                 setProyectos(podioData);
 
-                // Agrupar por escuela (el RPC ya viene ordenado por escuela, likes desc)
-                // y quitar del bloque "por escuela" los que ya salen en el podio general.
                 const idsEnPodio = new Set(podioData.map(p => p.id));
                 const grupos = [];
                 todosData.forEach(p => {
@@ -267,25 +258,25 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
         return () => { vivo = false; };
     }, [edicionId]);
 
-    // ── Me gusta: optimista en pantalla, persistido en BD, 1 vez por navegador ──
     const actualizarLikesEnEstado = (proyectoId, likes) => {
         setProyectos(prev => prev.map(p => (p.id === proyectoId ? { ...p, likes } : p)));
         setPorEscuela(prev => prev.map(g => ({
             ...g,
             proyectos: g.proyectos.map(p => (p.id === proyectoId ? { ...p, likes } : p)),
         })));
+        if (proyectoSeleccionado && proyectoSeleccionado.id === proyectoId) {
+            setProyectoSeleccionado(prev => ({ ...prev, likes }));
+        }
     };
 
     const handleLike = async (proyecto) => {
         if (yaDioLike(proyecto.id)) return;
 
-        // Optimista: refleja el +1 de inmediato en pantalla.
         actualizarLikesEnEstado(proyecto.id, (proyecto.likes || 0) + 1);
         try {
             window.localStorage.setItem(claveLike(proyecto.id), '1');
-        } catch (_) { /* modo privado / storage bloqueado */ }
+        } catch (_) {}
 
-        // Si es un proyecto real, se envía a Supabase
         if (!String(proyecto.id).startsWith('demo-')) {
             const { data: likesReales, error: errorLike } = await supabase
                 .rpc('dar_like_entrega', { p_entrega_id: proyecto.id });
@@ -301,8 +292,14 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
         }
     };
 
+    // Al hacer clic en "Ver detalle", abrimos la ventana de información
     const verProyecto = (proyecto) => {
-        history.push(`/entorno?entregaId=${proyecto.id}`);
+        setProyectoSeleccionado(proyecto);
+    };
+
+    // Función si se desea ingresar a programar/probar en el editor
+    const abrirEnEditor = (proyectoId) => {
+        history.push(`/entorno?entregaId=${proyectoId}`);
     };
 
     const sinResultados = !cargando && !error && proyectos.length === 0 && porEscuela.length === 0;
@@ -383,7 +380,7 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                             <img src={xolotlIdea} alt="" className={styles.estadoXolotl} />
                             <h2 className={styles.estadoTitulo}>Aún no hay proyectos destacados</h2>
                             <p className={styles.estadoDesc}>
-                                el Top 3 aparecerá aquí.
+                                El Top 3 aparecerá aquí.
                             </p>
                         </div>
                     )}
@@ -429,6 +426,80 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                         ))}
                     </div>
                 </section>
+            )}
+
+            {/* ══════════ MODAL DE DETALLES DEL PROYECTO ══════════ */}
+            {proyectoSeleccionado && (
+                <div className={styles.modalOverlay} onClick={() => setProyectoSeleccionado(null)}>
+                    <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+                        <button className={styles.modalCerrar} onClick={() => setProyectoSeleccionado(null)}>
+                            &times;
+                        </button>
+
+                        <div className={styles.modalGrid}>
+                            <div className={styles.modalImagenWrapper}>
+                                {proyectoSeleccionado.thumbnail_url ? (
+                                    <img
+                                        src={proyectoSeleccionado.thumbnail_url}
+                                        alt={proyectoSeleccionado.nombre}
+                                        className={styles.modalImagen}
+                                    />
+                                ) : (
+                                    <div
+                                        className={styles.modalImagenPlaceholder}
+                                        style={{ background: DEGRADADOS_PLACEHOLDER[0] }}
+                                    >
+                                        <img src={proyectoPlaceholder} alt="" />
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className={styles.modalInfo}>
+                                <h2 className={styles.modalTitulo}>{proyectoSeleccionado.nombre}</h2>
+                                <p className={styles.modalAutor}>
+                                    Creado por: <strong>@{proyectoSeleccionado.username || 'anónimo'}</strong>
+                                </p>
+                                {proyectoSeleccionado.escuela_nombre && (
+                                    <p className={styles.modalEscuela}>
+                                        Escuela: <span>{proyectoSeleccionado.escuela_nombre}</span>
+                                    </p>
+                                )}
+
+                                <div className={styles.modalSeccion}>
+                                    <h4>Descripción del proyecto</h4>
+                                    <p>{proyectoSeleccionado.descripcion || 'Sin descripción disponible.'}</p>
+                                </div>
+
+                                {proyectoSeleccionado.instrucciones && (
+                                    <div className={styles.modalSeccion}>
+                                        <h4>Instrucciones / Cómo jugar</h4>
+                                        <p>{proyectoSeleccionado.instrucciones}</p>
+                                    </div>
+                                )}
+
+                                <div className={styles.modalAcciones}>
+                                    <button
+                                        type="button"
+                                        className={`${styles.btnLike} ${yaDioLike(proyectoSeleccionado.id) ? styles.btnLikeActivo : ''}`}
+                                        onClick={() => handleLike(proyectoSeleccionado)}
+                                        disabled={yaDioLike(proyectoSeleccionado.id)}
+                                    >
+                                        <img src={iconoLike} alt="" className={styles.likeIcon} />
+                                        <span>{proyectoSeleccionado.likes || 0} Likes</span>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        className={styles.btnAbrirEditor}
+                                        onClick={() => abrirEnEditor(proyectoSeleccionado.id)}
+                                    >
+                                        Abrir en el editor 🎮
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             )}
 
             <Footer />
