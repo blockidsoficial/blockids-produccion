@@ -184,6 +184,31 @@
     box-shadow: var(--sombra-panel);
 }
 
+/* ── Marcos Metálicos Top 3 ────────────────────────────────── */
+.marcoOro {
+    border: 3.5px solid transparent;
+    background: 
+        linear-gradient(var(--color-blanco), var(--color-blanco)) padding-box,
+        linear-gradient(135deg, #FFE57F 0%, #FFC107 50%, #FF8F00 100%) border-box;
+    box-shadow: 0 8px 24px rgba(255, 193, 7, 0.35), 0 0 12px rgba(255, 215, 0, 0.4);
+}
+
+.marcoPlata {
+    border: 3.5px solid transparent;
+    background: 
+        linear-gradient(var(--color-blanco), var(--color-blanco)) padding-box,
+        linear-gradient(135deg, #FFFFFF 0%, #B0BEC5 50%, #78909C 100%) border-box;
+    box-shadow: 0 8px 24px rgba(176, 190, 197, 0.35), 0 0 12px rgba(192, 192, 192, 0.4);
+}
+
+.marcoBronce {
+    border: 3.5px solid transparent;
+    background: 
+        linear-gradient(var(--color-blanco), var(--color-blanco)) padding-box,
+        linear-gradient(135deg, #FFCC80 0%, #CA7A44 50%, #8D4F28 100%) border-box;
+    box-shadow: 0 8px 24px rgba(202, 122, 68, 0.35), 0 0 12px rgba(205, 127, 50, 0.4);
+}
+
 .medalla {
     position: absolute;
     top: 0.85rem;
