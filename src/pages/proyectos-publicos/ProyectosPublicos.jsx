@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { supabase } from '../../config/supabaseClient';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
@@ -119,10 +119,9 @@ const yaDioLike = (idProyecto) => {
 };
 
 // Tarjeta de proyecto
-const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, onVer, style, cargandoId }) => {
+const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, style }) => {
     const yaLiked = yaDioLike(proyecto.id);
     const autor = proyecto.username || 'anónimo';
-    const estaCargando = cargandoId === proyecto.id;
 
     return (
         <article className={styles.card} style={style}>
@@ -160,14 +159,13 @@ const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, onVer, style, c
                         <span>{proyecto.likes || 0}</span>
                     </button>
 
-                    <button
-                        type="button"
+                    {/* BOTÓN REUTILIZADO CON LINK DE REDIRECCIÓN */}
+                    <Link
+                        to={`/proyectos/${proyecto.id}`}
                         className={styles.btnVer}
-                        onClick={() => onVer(proyecto)}
-                        disabled={estaCargando}
                     >
-                        {estaCargando ? 'Cargando...' : 'Ver detalle'}
-                    </button>
+                        Ver detalle
+                    </Link>
                 </div>
             </div>
         </article>
@@ -179,9 +177,7 @@ TarjetaProyecto.propTypes = {
     medalla: PropTypes.string,
     degradado: PropTypes.string,
     onLike: PropTypes.func.isRequired,
-    onVer: PropTypes.func.isRequired,
     style: PropTypes.object,
-    cargandoId: PropTypes.string,
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -197,8 +193,6 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
     const [cargando, setCargando]   = useState(true);
     const [error, setError]         = useState(false);
 
-    // Estados para la carga del modal de detalle
-    const [cargandoDetalleId, setCargandoDetalleId] = useState(null);
     const [proyectoSeleccionado, setProyectoSeleccionado] = useState(null);
 
     // Histórico de ediciones
@@ -305,47 +299,6 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
         }
     };
 
-    // Función para obtener los detalles e imágenes desde Supabase al dar clic
-    const verProyecto = async (proyecto) => {
-        setCargandoDetalleId(proyecto.id);
-
-        // Si es un proyecto de demostración, se abre directo
-        if (String(proyecto.id).startsWith('demo-')) {
-            setTimeout(() => {
-                setProyectoSeleccionado(proyecto);
-                setCargandoDetalleId(null);
-            }, 300);
-            return;
-        }
-
-        try {
-            // Consulta de información extendida del proyecto en Supabase
-            const { data, error: errorDetalle } = await supabase
-                .from('entregas')
-                .select('id, nombre, descripcion, instrucciones, thumbnail_url, imagenes, likes, perfiles(username), escuelas(nombre)')
-                .eq('id', proyecto.id)
-                .single();
-
-            if (errorDetalle || !data) {
-                console.error('[BLOCKIDS] Error al cargar detalle del proyecto:', errorDetalle);
-                setProyectoSeleccionado(proyecto);
-            } else {
-                setProyectoSeleccionado({
-                    ...proyecto,
-                    descripcion: data.descripcion || 'Sin descripción disponible.',
-                    instrucciones: data.instrucciones || '',
-                    thumbnail_url: data.thumbnail_url || proyecto.thumbnail_url,
-                    imagenes: data.imagenes || []
-                });
-            }
-        } catch (e) {
-            console.error('[BLOCKIDS] Error de red:', e);
-            setProyectoSeleccionado(proyecto);
-        } finally {
-            setCargandoDetalleId(null);
-        }
-    };
-
     const abrirEnEditor = (proyectoId) => {
         history.push(`/entorno?entregaId=${proyectoId}`);
     };
@@ -442,8 +395,6 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                                     medalla={MEDALLAS[idx] || medallaEspecial}
                                     degradado={DEGRADADOS_PLACEHOLDER[idx % DEGRADADOS_PLACEHOLDER.length]}
                                     onLike={handleLike}
-                                    onVer={verProyecto}
-                                    cargandoId={cargandoDetalleId}
                                     style={{ animationDelay: `${idx * 0.08}s` }}
                                 />
                             ))}
@@ -467,8 +418,6 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                                             proyecto={proyecto}
                                             degradado={DEGRADADOS_PLACEHOLDER[idx % DEGRADADOS_PLACEHOLDER.length]}
                                             onLike={handleLike}
-                                            onVer={verProyecto}
-                                            cargandoId={cargandoDetalleId}
                                         />
                                     ))}
                                 </div>
@@ -504,7 +453,6 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                                     </div>
                                 )}
 
-                                {/* Tiras de imágenes adicionales si existen */}
                                 {proyectoSeleccionado.imagenes && proyectoSeleccionado.imagenes.length > 0 && (
                                     <div className={styles.galeriaThumbs}>
                                         {proyectoSeleccionado.imagenes.map((imgUrl, i) => (
