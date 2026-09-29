@@ -1,0 +1,93 @@
+.pagina {
+    font-family: var(--font-principal);
+    background: var(--color-fondo-claro);
+    min-height: 100vh;
+    padding-top: 100px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+}
+
+.btnVolver {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: var(--color-morado-primario, #7c45c8);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.detalleCard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    background: #fff;
+    padding: 2rem;
+    border-radius: var(--radio-card, 16px);
+    border: 1px solid var(--color-borde, #e2e8f0);
+    box-shadow: var(--sombra-card);
+}
+
+.imagenWrapper {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--color-morado-bg, #f3e8ff);
+}
+
+.imagenPrincipal {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.placeholderImg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.placeholderImg img {
+    width: 4rem;
+}
+
+.titulo {
+    margin: 0 0 0.5rem;
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+
+.autor {
+    color: var(--color-morado-primario, #7c45c8);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.seccion {
+    margin-bottom: 1.5rem;
+}
+
+.seccion h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+}
+
+.btnEditor {
+    padding: 0.8rem 1.5rem;
+    background: var(--color-morado-primario, #7c45c8);
+    color: #fff;
+    border: none;
+    border-radius: var(--radio-pill, 50px);
+    font-weight: 800;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .detalleCard {
+        grid-template-columns: 1fr;
+    }
+}

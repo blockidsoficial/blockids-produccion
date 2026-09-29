@@ -7,6 +7,7 @@ import './styles/global.css';
 import LandingPage from './pages/landing/LandingPage.jsx';
 import Nosotros from './pages/nosotros/Nosotros.jsx';
 import ProyectosPublicos from './pages/proyectos-publicos/ProyectosPublicos.jsx';
+import DetalleProyecto from './pages/proyectos-publicos/DetalleProyecto.jsx';
 import Manuales from './pages/manuales/Manuales.jsx';
 import Register from './auth/Register.jsx';
 import Login from './auth/Login.jsx';
@@ -171,8 +172,13 @@ const App = () => {
                 </Route>
 
                 {/* ── PROYECTOS PÚBLICOS: Top 3 destacados (pública) ── */}
-                <Route path="/proyectos">
+                <Route exact path="/proyectos">
                     <ProyectosPublicos session={session} rolPerfil={perfil?.rol} />
+                </Route>
+
+                {/* ── DETALLE DE UN PROYECTO DEDICADO (pública) ── */}
+                <Route path="/proyectos/:id">
+                    <DetalleProyecto session={session} rolPerfil={perfil?.rol} />
                 </Route>
 
                 {/* ── MANUALES DE USO (pública) ── */}
