@@ -147,17 +147,12 @@ const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, onVer, style })
                 </p>
 
                 <div className={styles.cardFooter}>
-                    <button
-                        type="button"
-                        className={`${styles.btnLike} ${yaLiked ? styles.btnLikeActivo : ''}`}
-                        onClick={() => onLike(proyecto)}
-                        disabled={yaLiked}
-                        aria-pressed={yaLiked}
-                        title={yaLiked ? 'Ya diste like a este proyecto' : 'Me gusta'}
-                    >
-                        <img src={iconoLike} alt="" className={styles.likeIcon} />
-                        <span>{proyecto.likes || 0}</span>
-                    </button>
+                  <Link
+    to={`/proyectos/${proyecto.id}`}
+    className={styles.btnVer}
+>
+    Ver detalle
+</Link>
 
                     {/* Abre el modal de detalle (no existe una ruta /proyectos/:id) */}
                     <button type="button" className={styles.btnVer} onClick={() => onVer(proyecto)}>
