@@ -147,12 +147,14 @@ const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, onVer, style })
                 </p>
 
                 <div className={styles.cardFooter}>
-                  <Link
-    to={`/proyectos/${proyecto.id}`}
+                 <button
+    type="button"
     className={styles.btnVer}
+    onClick={() => onVer(proyecto)}
+    disabled={estaCargando}
 >
-    Ver detalle
-</Link>
+    {estaCargando ? 'Cargando...' : 'Ver detalle'}
+</button>
 
                     {/* Abre el modal de detalle (no existe una ruta /proyectos/:id) */}
                     <button type="button" className={styles.btnVer} onClick={() => onVer(proyecto)}>
