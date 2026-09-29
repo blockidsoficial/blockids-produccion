@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { supabase } from '../../config/supabaseClient';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
@@ -18,7 +18,6 @@ import iconoLike     from '../../assets/iconos/icono-like.svg';
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-// Proyectos de demostración con información detallada
 const PROYECTOS_DEMO = [
     {
         id: 'demo-1',
@@ -119,7 +118,7 @@ const yaDioLike = (idProyecto) => {
 };
 
 // Tarjeta de proyecto
-const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, onVer, style }) => {
+const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, style }) => {
     const yaLiked = yaDioLike(proyecto.id);
     const autor = proyecto.username || 'anónimo';
 
@@ -147,19 +146,22 @@ const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, onVer, style })
                 </p>
 
                 <div className={styles.cardFooter}>
-                 <button
-    type="button"
-    className={styles.btnVer}
-    onClick={() => onVer(proyecto)}
-    disabled={estaCargando}
->
-    {estaCargando ? 'Cargando...' : 'Ver detalle'}
-</button>
-
-                    {/* Abre el modal de detalle (no existe una ruta /proyectos/:id) */}
-                    <button type="button" className={styles.btnVer} onClick={() => onVer(proyecto)}>
-                        Ver detalle
+                    <button
+                        type="button"
+                        className={`${styles.btnLike} ${yaLiked ? styles.btnLikeActivo : ''}`}
+                        onClick={() => onLike(proyecto)}
+                        disabled={yaLiked}
+                        aria-pressed={yaLiked}
+                        title={yaLiked ? 'Ya diste like a este proyecto' : 'Me gusta'}
+                    >
+                        <img src={iconoLike} alt="" className={styles.likeIcon} />
+                        <span>{proyecto.likes || 0}</span>
                     </button>
+
+                    {/* REDIRECCIÓN DIRECTA A LA PÁGINA COMPLETA */}
+                    <Link to={`/proyectos/${proyecto.id}`} className={styles.btnVer}>
+                        Ver detalle
+                    </Link>
                 </div>
             </div>
         </article>
@@ -171,7 +173,6 @@ TarjetaProyecto.propTypes = {
     medalla: PropTypes.string,
     degradado: PropTypes.string,
     onLike: PropTypes.func.isRequired,
-    onVer: PropTypes.func.isRequired,
     style: PropTypes.object,
 };
 
@@ -180,15 +181,12 @@ TarjetaProyecto.propTypes = {
 const ProyectosPublicos = ({ session, rolPerfil }) => {
     useDocumentTitle('Proyectos Destacados');
 
-    const history = useHistory();
     const urlDashboard = session ? rutaDashboard(rolPerfil) : '/registro';
 
     const [proyectos, setProyectos] = useState([]);
     const [porEscuela, setPorEscuela] = useState([]);
     const [cargando, setCargando]   = useState(true);
     const [error, setError]         = useState(false);
-
-    const [proyectoSeleccionado, setProyectoSeleccionado] = useState(null);
 
     // Histórico de ediciones
     const [ediciones, setEdiciones] = useState([]);
@@ -266,9 +264,6 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
             ...g,
             proyectos: g.proyectos.map(p => (p.id === proyectoId ? { ...p, likes } : p)),
         })));
-        if (proyectoSeleccionado && proyectoSeleccionado.id === proyectoId) {
-            setProyectoSeleccionado(prev => ({ ...prev, likes }));
-        }
     };
 
     const handleLike = async (proyecto) => {
@@ -292,10 +287,6 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                 actualizarLikesEnEstado(proyecto.id, likesReales);
             }
         }
-    };
-
-    const abrirEnEditor = (proyectoId) => {
-        history.push(`/entorno?entregaId=${proyectoId}`);
     };
 
     const sinResultados = !cargando && !error && proyectos.length === 0 && porEscuela.length === 0;
@@ -390,7 +381,6 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                                     medalla={MEDALLAS[idx] || medallaEspecial}
                                     degradado={DEGRADADOS_PLACEHOLDER[idx % DEGRADADOS_PLACEHOLDER.length]}
                                     onLike={handleLike}
-                                    onVer={setProyectoSeleccionado}
                                     style={{ animationDelay: `${idx * 0.08}s` }}
                                 />
                             ))}
@@ -414,7 +404,6 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                                             proyecto={proyecto}
                                             degradado={DEGRADADOS_PLACEHOLDER[idx % DEGRADADOS_PLACEHOLDER.length]}
                                             onLike={handleLike}
-                                            onVer={setProyectoSeleccionado}
                                         />
                                     ))}
                                 </div>
@@ -422,93 +411,6 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                         ))}
                     </div>
                 </section>
-            )}
-
-            {/* ══════════ MODAL DE DETALLES DEL PROYECTO ══════════ */}
-            {proyectoSeleccionado && (
-                <div className={styles.modalOverlay} onClick={() => setProyectoSeleccionado(null)}>
-                    <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-                        <button className={styles.modalCerrar} onClick={() => setProyectoSeleccionado(null)}>
-                            &times;
-                        </button>
-
-                        <div className={styles.modalGrid}>
-                            {/* Galería de imágenes e imagen principal */}
-                            <div className={styles.modalImagenWrapper}>
-                                {proyectoSeleccionado.thumbnail_url ? (
-                                    <img
-                                        src={proyectoSeleccionado.thumbnail_url}
-                                        alt={proyectoSeleccionado.nombre}
-                                        className={styles.modalImagen}
-                                    />
-                                ) : (
-                                    <div
-                                        className={styles.modalImagenPlaceholder}
-                                        style={{ background: DEGRADADOS_PLACEHOLDER[0] }}
-                                    >
-                                        <img src={proyectoPlaceholder} alt="" />
-                                    </div>
-                                )}
-
-                                {proyectoSeleccionado.imagenes && proyectoSeleccionado.imagenes.length > 0 && (
-                                    <div className={styles.galeriaThumbs}>
-                                        {proyectoSeleccionado.imagenes.map((imgUrl, i) => (
-                                            <img key={i} src={imgUrl} alt={`Captura ${i + 1}`} className={styles.galeriaThumb} />
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Información detallada del proyecto */}
-                            <div className={styles.modalInfo}>
-                                <h2 className={styles.modalTitulo}>{proyectoSeleccionado.nombre}</h2>
-                                <p className={styles.modalAutor}>
-                                    Creado por: <strong>@{proyectoSeleccionado.username || 'anónimo'}</strong>
-                                </p>
-                                {proyectoSeleccionado.escuela_nombre && (
-                                    <p className={styles.modalEscuela}>
-                                        Escuela: <span>{proyectoSeleccionado.escuela_nombre}</span>
-                                    </p>
-                                )}
-
-                                <div className={styles.modalSeccion}>
-                                    <h4>Descripción del proyecto</h4>
-                                    <p>{proyectoSeleccionado.descripcion || 'Sin descripción disponible.'}</p>
-                                </div>
-
-                                {proyectoSeleccionado.instrucciones && (
-                                    <div className={styles.modalSeccion}>
-                                        <h4>Instrucciones / Cómo jugar</h4>
-                                        <p>{proyectoSeleccionado.instrucciones}</p>
-                                    </div>
-                                )}
-
-                                <div className={styles.modalAcciones}>
-                                    <button
-                                        type="button"
-                                        className={`${styles.btnLike} ${yaDioLike(proyectoSeleccionado.id) ? styles.btnLikeActivo : ''}`}
-                                        onClick={() => handleLike(proyectoSeleccionado)}
-                                        disabled={yaDioLike(proyectoSeleccionado.id)}
-                                    >
-                                        <img src={iconoLike} alt="" className={styles.likeIcon} />
-                                        <span>{proyectoSeleccionado.likes || 0} Likes</span>
-                                    </button>
-
-                                    {/* Los proyectos demo no tienen una entrega real que abrir */}
-                                    {!String(proyectoSeleccionado.id).startsWith('demo-') && (
-                                        <button
-                                            type="button"
-                                            className={styles.btnAbrirEditor}
-                                            onClick={() => abrirEnEditor(proyectoSeleccionado.id)}
-                                        >
-                                            Abrir en el editor 🎮
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             )}
 
             <Footer />
