@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { supabase } from '../../config/supabaseClient';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
@@ -119,7 +119,7 @@ const yaDioLike = (idProyecto) => {
 };
 
 // Tarjeta de proyecto
-const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, style }) => {
+const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, onVer, style }) => {
     const yaLiked = yaDioLike(proyecto.id);
     const autor = proyecto.username || 'anónimo';
 
@@ -159,13 +159,10 @@ const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, style }) => {
                         <span>{proyecto.likes || 0}</span>
                     </button>
 
-                    {/* BOTÓN REUTILIZADO CON LINK DE REDIRECCIÓN */}
-                    <Link
-                        to={`/proyectos/${proyecto.id}`}
-                        className={styles.btnVer}
-                    >
+                    {/* Abre el modal de detalle (no existe una ruta /proyectos/:id) */}
+                    <button type="button" className={styles.btnVer} onClick={() => onVer(proyecto)}>
                         Ver detalle
-                    </Link>
+                    </button>
                 </div>
             </div>
         </article>
@@ -177,6 +174,7 @@ TarjetaProyecto.propTypes = {
     medalla: PropTypes.string,
     degradado: PropTypes.string,
     onLike: PropTypes.func.isRequired,
+    onVer: PropTypes.func.isRequired,
     style: PropTypes.object,
 };
 
@@ -395,6 +393,7 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                                     medalla={MEDALLAS[idx] || medallaEspecial}
                                     degradado={DEGRADADOS_PLACEHOLDER[idx % DEGRADADOS_PLACEHOLDER.length]}
                                     onLike={handleLike}
+                                    onVer={setProyectoSeleccionado}
                                     style={{ animationDelay: `${idx * 0.08}s` }}
                                 />
                             ))}
@@ -418,6 +417,7 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                                             proyecto={proyecto}
                                             degradado={DEGRADADOS_PLACEHOLDER[idx % DEGRADADOS_PLACEHOLDER.length]}
                                             onLike={handleLike}
+                                            onVer={setProyectoSeleccionado}
                                         />
                                     ))}
                                 </div>
@@ -497,13 +497,16 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                                         <span>{proyectoSeleccionado.likes || 0} Likes</span>
                                     </button>
 
-                                    <button
-                                        type="button"
-                                        className={styles.btnAbrirEditor}
-                                        onClick={() => abrirEnEditor(proyectoSeleccionado.id)}
-                                    >
-                                        Abrir en el editor 🎮
-                                    </button>
+                                    {/* Los proyectos demo no tienen una entrega real que abrir */}
+                                    {!String(proyectoSeleccionado.id).startsWith('demo-') && (
+                                        <button
+                                            type="button"
+                                            className={styles.btnAbrirEditor}
+                                            onClick={() => abrirEnEditor(proyectoSeleccionado.id)}
+                                        >
+                                            Abrir en el editor 🎮
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>
