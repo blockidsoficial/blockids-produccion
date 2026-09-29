@@ -1,179 +1,180 @@
-/* ============================================================
-   BLOCKIDS — Vista Minijuegos (Zona Arcade) — "Próximamente"
-   ============================================================ */
-
-@keyframes flotarY {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50%      { transform: translateY(-14px) rotate(4deg); }
+.minijuegos-vista {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
-@keyframes flotarYInv {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50%      { transform: translateY(12px) rotate(-4deg); }
+.minijuegos-header h1 {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
 }
 
-@keyframes pulso {
-    0%, 100% { transform: scale(1); }
-    50%      { transform: scale(1.06); }
+.minijuegos-header p {
+  color: #7f8c8d;
+  margin-bottom: 2rem;
 }
 
-@keyframes entrar {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
+.grid-minijuegos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
 }
 
-.wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 70vh;
-    padding: 2rem 1rem;
-    overflow: hidden;
+.card-juego {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.8rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* ── Decoraciones flotantes ───────────────────────────────── */
-.deco {
-    position: absolute;
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.85;
+.card-juego:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
 }
 
-.decoB1 { top: 10%;  left: 8%;  width: 46px; animation: flotarY 5s ease-in-out infinite; }
-.decoB2 { top: 18%;  right: 10%; width: 38px; animation: flotarYInv 4.2s ease-in-out infinite; }
-.decoB3 { bottom: 14%; left: 12%; width: 42px; animation: flotarYInv 4.8s ease-in-out infinite; }
-.decoS1 { top: 8%;   right: 22%; width: 28px; animation: flotarY 3.6s ease-in-out infinite; }
-.decoS2 { bottom: 10%; right: 8%; width: 24px; animation: flotarY 4.4s ease-in-out infinite; }
-
-/* ── Card principal ───────────────────────────────────────── */
-.card {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 480px;
-    width: 100%;
-    padding: 3rem 2.25rem 2.5rem;
-    background: var(--color-blanco);
-    border: 1px solid var(--color-borde);
-    border-radius: var(--radio-card);
-    box-shadow: var(--sombra-panel);
-    animation: entrar 0.4s ease;
+.icon-juego {
+  font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
-.badge {
-    display: inline-block;
-    margin-bottom: 1.25rem;
-    padding: 0.4rem 1rem;
-    background: var(--color-amarillo-bg);
-    color: #b7791f;
-    border-radius: var(--radio-pill);
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+.card-juego h3 {
+  margin: 0.5rem 0;
+  color: #34495e;
 }
 
-.iconoCirculo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 110px;
-    height: 110px;
-    margin-bottom: 1.5rem;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--color-morado-primario), var(--color-azul-primario));
-    box-shadow: var(--sombra-morado);
-    animation: pulso 2.4s ease-in-out infinite;
+.card-juego p {
+  font-size: 0.9rem;
+  color: #666;
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
 }
 
-.icono {
-    width: 52px;
-    height: 52px;
-    /* El SVG viene en tinta oscura; lo volvemos blanco para que resalte
-       sobre el círculo degradado morado/azul. */
-    filter: brightness(0) invert(1);
+.btn-jugar, .btn-volver, .btn-reiniciar {
+  background-color: #22c55e;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.titulo {
-    margin: 0 0 0.75rem;
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    font-weight: 900;
-    line-height: 1.2;
-    color: var(--color-texto-oscuro);
+.btn-jugar:hover, .btn-volver:hover, .btn-reiniciar:hover {
+  background-color: #16a34a;
 }
 
-.desc {
-    margin: 0 0 1.75rem;
-    max-width: 380px;
-    color: var(--color-texto-medio);
-    font-size: 0.98rem;
-    line-height: 1.6;
+.btn-volver {
+  background-color: #64748b;
+  margin-bottom: 1.5rem;
 }
 
-.xolotl {
-    width: 120px;
-    height: auto;
-    margin-bottom: 1.75rem;
-    filter: drop-shadow(0 10px 18px rgba(124, 69, 200, 0.2));
+.btn-volver:hover {
+  background-color: #475569;
 }
 
-.btnVolver {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.9rem 2.25rem;
-    background: var(--color-verde-primario);
-    color: var(--color-blanco);
-    border: none;
-    border-radius: var(--radio-pill);
-    font-family: var(--font-principal);
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(109, 191, 38, 0.4);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+/* PANELS DE JUEGO */
+.panel-juego {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-.btnVolver:hover {
-    background: var(--color-verde-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(109, 191, 38, 0.5);
+.mensaje-status {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2563eb;
+  margin: 1rem 0;
 }
 
-/* ── Responsive ───────────────────────────────────────────── */
-@media (max-width: 640px) {
-    .wrapper {
-        min-height: 60vh;
-    }
-
-    .card {
-        padding: 2.25rem 1.5rem 2rem;
-    }
-
-    .deco {
-        display: none; /* menos ruido visual en pantallas chicas */
-    }
-
-    .iconoCirculo {
-        width: 90px;
-        height: 90px;
-    }
-
-    .icono {
-        width: 42px;
-        height: 42px;
-    }
-
-    .xolotl {
-        width: 96px;
-    }
-
-    .btnVolver {
-        width: 100%;
-        justify-content: center;
-    }
+/* FORM ADIVINA NUMERO */
+.form-adivina {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
+
+.form-adivina input {
+  padding: 0.5rem 1rem;
+  border: 2rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 120px;
+  text-align: center;
+}
+
+.form-adivina button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* MEMORIA */
+.grid-memoria {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.carta-memoria {
+  height: 70px;
+  background: #f1f5f9;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carta-memoria.revelada {
+  background: #dbeafe;
+  border-color: #3b82f6;
+  color: #1e40af;
+}
+
+/* SECUENCIA SIMON */
+.grid-simon {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-width: 250px;
+  margin: 0 auto 1.5rem;
+}
+
+.btn-simon {
+  height: 100px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.btn-simon.activo {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.btn-simon.rojo { background-color: #ef4444; }
+.btn-simon.verde { background-color: #10b981; }
+.btn-simon.azul { background-color: #3b82f6; }
+.btn-simon.amarillo { background-color: #eab308; }
