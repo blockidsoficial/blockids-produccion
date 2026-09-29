@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { supabase } from '../../config/supabaseClient';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
@@ -18,77 +18,6 @@ import iconoLike     from '../../assets/iconos/icono-like.svg';
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-const PROYECTOS_DEMO = [
-    {
-        id: 'demo-1',
-        nombre: 'Aventura Espacial con Xolotl',
-        username: 'mateo_coder',
-        escuela_nombre: 'Colegio Robótica Pro',
-        descripcion: 'Un divertido juego de esquivar asteroides en el espacio usando las flechas del teclado. ¡Consigue la puntuación más alta!',
-        instrucciones: 'Presiona Flecha Arriba y Abajo para mover a Xolotl. Evita los meteoritos.',
-        likes: 24,
-        thumbnail_url: null,
-        imagenes: []
-    },
-    {
-        id: 'demo-2',
-        nombre: 'Calculadora de Bloques',
-        username: 'sofia_dev',
-        escuela_nombre: 'Instituto Innovación',
-        descripcion: 'Herramienta interactiva para sumar, restar y multiplicar números creada 100% con bloques.',
-        instrucciones: 'Ingresa los dos números y haz clic en la operación que deseas realizar.',
-        likes: 18,
-        thumbnail_url: null,
-        imagenes: []
-    },
-    {
-        id: 'demo-3',
-        nombre: 'Carrera de Obstáculos 2D',
-        username: 'lucas_game',
-        escuela_nombre: 'Escuela Primaria Central',
-        descripcion: 'Juego de plataformas donde debes saltar obstáculos y llegar a la meta antes de que se agote el tiempo.',
-        instrucciones: 'Usa la barra espaciadora para saltar.',
-        likes: 12,
-        thumbnail_url: null,
-        imagenes: []
-    },
-];
-
-const GRUPOS_ESCUELA_DEMO = [
-    {
-        escuela: 'Colegio Robótica Pro',
-        proyectos: [
-            {
-                id: 'demo-4',
-                nombre: 'Laberinto Mágico',
-                username: 'valeria_b',
-                escuela_nombre: 'Colegio Robótica Pro',
-                descripcion: 'Encuentra la salida del laberinto sin tocar las paredes rojas.',
-                instrucciones: 'Mueve el personaje con el ratón.',
-                likes: 9,
-                thumbnail_url: null,
-                imagenes: []
-            },
-        ],
-    },
-    {
-        escuela: 'Instituto Innovación',
-        proyectos: [
-            {
-                id: 'demo-5',
-                nombre: 'Ahuizotl vs Xolotl',
-                username: 'carlos_99',
-                escuela_nombre: 'Instituto Innovación',
-                descripcion: 'Un juego de batalla por turnos inspirado en leyendas aztecas.',
-                instrucciones: 'Elige tu ataque haciendo clic en los botones de acción.',
-                likes: 7,
-                thumbnail_url: null,
-                imagenes: []
-            },
-        ],
-    },
-];
-
 const rutaDashboard = (rol) => {
     switch (rol) {
         case 'superadmin':
@@ -99,14 +28,22 @@ const rutaDashboard = (rol) => {
     }
 };
 
+// Medalla por puesto (1º, 2º, 3º) — si algún día se piden más de 3, el resto
+// cae en la estrella genérica en vez de romperse.
 const MEDALLAS = [medallaOro, medallaPlata, medallaCobre];
 
+// Degradados de respaldo cuando el proyecto no tiene thumbnail_url, uno por
+// puesto para que el Top 3 no se vea repetido.
 const DEGRADADOS_PLACEHOLDER = [
     'linear-gradient(135deg, #a569ff 0%, #4D96FF 100%)',
     'linear-gradient(135deg, #ff4fd8 0%, #FF9A3C 100%)',
     'linear-gradient(135deg, #6BCB77 0%, #4D96FF 100%)',
 ];
 
+// Un visitante solo puede dar like una vez por proyecto en este navegador
+// (no hay tabla de "quién le dio like a qué", así que se controla del lado
+// del cliente — suficiente para una vitrina pública, no es un conteo a prueba
+// de manipulación).
 const claveLike = (idProyecto) => `bk_like_proyecto_${idProyecto}`;
 
 const yaDioLike = (idProyecto) => {
@@ -117,8 +54,9 @@ const yaDioLike = (idProyecto) => {
     }
 };
 
-// Tarjeta de proyecto
-const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, style }) => {
+// Tarjeta de proyecto reutilizada tanto en el podio general (con medalla)
+// como en el bloque "por escuela" (sin medalla).
+const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, onVer, style }) => {
     const yaLiked = yaDioLike(proyecto.id);
     const autor = proyecto.username || 'anónimo';
 
@@ -158,10 +96,9 @@ const TarjetaProyecto = ({ proyecto, medalla, degradado, onLike, style }) => {
                         <span>{proyecto.likes || 0}</span>
                     </button>
 
-                    {/* REDIRECCIÓN DIRECTA A LA PÁGINA COMPLETA */}
-                    <Link to={`/proyectos/${proyecto.id}`} className={styles.btnVer}>
-                        Ver detalle
-                    </Link>
+                    <button type="button" className={styles.btnVer} onClick={() => onVer(proyecto)}>
+                        Ver proyecto
+                    </button>
                 </div>
             </div>
         </article>
@@ -173,6 +110,7 @@ TarjetaProyecto.propTypes = {
     medalla: PropTypes.string,
     degradado: PropTypes.string,
     onLike: PropTypes.func.isRequired,
+    onVer: PropTypes.func.isRequired,
     style: PropTypes.object,
 };
 
@@ -181,16 +119,17 @@ TarjetaProyecto.propTypes = {
 const ProyectosPublicos = ({ session, rolPerfil }) => {
     useDocumentTitle('Proyectos Destacados');
 
+    const history = useHistory();
     const urlDashboard = session ? rutaDashboard(rolPerfil) : '/registro';
 
     const [proyectos, setProyectos] = useState([]);
-    const [porEscuela, setPorEscuela] = useState([]);
+    const [porEscuela, setPorEscuela] = useState([]); // [{ escuela, proyectos: [...] }]
     const [cargando, setCargando]   = useState(true);
     const [error, setError]         = useState(false);
 
-    // Histórico de ediciones
-    const [ediciones, setEdiciones] = useState([]);
-    const [edicionId, setEdicionId] = useState(null);
+    // ── Histórico de ediciones (por defecto: la activa) ───────────────────────
+    const [ediciones, setEdiciones]       = useState([]);
+    const [edicionId, setEdicionId]       = useState(null); // null = la activa
     const edicionActual = ediciones.find(e => e.id === edicionId) || ediciones.find(e => e.activa);
 
     useEffect(() => {
@@ -213,6 +152,15 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
             setCargando(true);
             setError(false);
 
+            // RPCs en vez de .select('*, perfiles(username)'): un SELECT directo
+            // sobre `perfiles`/`escuelas` obligaría a abrir esas tablas a `anon`
+            // (nombre, apellidos, correo de contacto de menores...). Ambas solo
+            // devuelven username/nombre de escuela. El podio general sale de
+            // obtener_podio_salon_fama (top 3 entre TODAS las escuelas, ya
+            // aprobados por el admin — ver migración salon_fama); el bloque de
+            // abajo agrupa el resultado de obtener_top_por_escuela_salon_fama
+            // por escuela en el cliente. Sin edicionId (null) usan la edición
+            // activa; con uno elegido, se ve el podio congelado de esa edición.
             const [podio, todosAprobados] = await Promise.all([
                 supabase.rpc('obtener_podio_salon_fama', { p_edicion_id: edicionId }),
                 supabase.rpc('obtener_top_por_escuela_salon_fama', { p_edicion_id: edicionId }),
@@ -222,34 +170,30 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
 
             if (podio.error || todosAprobados.error) {
                 console.error('[BLOCKIDS] Error cargando el Salón de la Fama:', podio.error || todosAprobados.error);
-                setProyectos(PROYECTOS_DEMO);
-                setPorEscuela(GRUPOS_ESCUELA_DEMO);
+                setError(true);
+                setProyectos([]);
+                setPorEscuela([]);
                 setCargando(false);
                 return;
             }
 
-            const podioData = podio.data || [];
-            const todosData = todosAprobados.data || [];
+            setProyectos(podio.data || []);
 
-            if (podioData.length === 0 && todosData.length === 0) {
-                setProyectos(PROYECTOS_DEMO);
-                setPorEscuela(GRUPOS_ESCUELA_DEMO);
-            } else {
-                setProyectos(podioData);
-
-                const idsEnPodio = new Set(podioData.map(p => p.id));
-                const grupos = [];
-                todosData.forEach(p => {
-                    if (idsEnPodio.has(p.id)) return;
-                    let grupo = grupos.find(g => g.escuela === p.escuela_nombre);
-                    if (!grupo) {
-                        grupo = { escuela: p.escuela_nombre, proyectos: [] };
-                        grupos.push(grupo);
-                    }
-                    grupo.proyectos.push(p);
-                });
-                setPorEscuela(grupos);
-            }
+            // Agrupar por escuela (el RPC ya viene ordenado por escuela, likes desc)
+            // y quitar del bloque "por escuela" los que ya salen en el podio general,
+            // para no repetir la misma tarjeta dos veces en la página.
+            const idsEnPodio = new Set((podio.data || []).map(p => p.id));
+            const grupos = [];
+            (todosAprobados.data || []).forEach(p => {
+                if (idsEnPodio.has(p.id)) return;
+                let grupo = grupos.find(g => g.escuela === p.escuela_nombre);
+                if (!grupo) {
+                    grupo = { escuela: p.escuela_nombre, proyectos: [] };
+                    grupos.push(grupo);
+                }
+                grupo.proyectos.push(p);
+            });
+            setPorEscuela(grupos);
 
             setCargando(false);
         };
@@ -258,6 +202,9 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
         return () => { vivo = false; };
     }, [edicionId]);
 
+    // ── Me gusta: optimista en pantalla, persistido en BD, 1 vez por navegador ──
+    // Actualiza el proyecto tanto en el podio general como en el bloque por
+    // escuela, dondequiera que esté la tarjeta.
     const actualizarLikesEnEstado = (proyectoId, likes) => {
         setProyectos(prev => prev.map(p => (p.id === proyectoId ? { ...p, likes } : p)));
         setPorEscuela(prev => prev.map(g => ({
@@ -269,24 +216,39 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
     const handleLike = async (proyecto) => {
         if (yaDioLike(proyecto.id)) return;
 
+        // Optimista: refleja el +1 de inmediato en pantalla.
         actualizarLikesEnEstado(proyecto.id, (proyecto.likes || 0) + 1);
         try {
             window.localStorage.setItem(claveLike(proyecto.id), '1');
-        } catch (_) {}
+        } catch (_) { /* modo privado / storage bloqueado: el like igual se cuenta esta vez */ }
 
-        if (!String(proyecto.id).startsWith('demo-')) {
-            const { data: likesReales, error: errorLike } = await supabase
-                .rpc('dar_like_entrega', { p_entrega_id: proyecto.id });
+        // Persistido: RPC que solo puede sumar +1 a `likes` de un proyecto
+        // público puntual (atómico, sin condición de carrera con otras
+        // visitas simultáneas). Un UPDATE directo requeriría un policy que
+        // dejaría reescribir nombre/thumbnail_url/es_publico de cualquier
+        // proyecto ajeno. Ver sql/proyectos_publicos_policies.sql.
+        const { data: likesReales, error: errorLike } = await supabase
+            .rpc('dar_like_entrega', { p_entrega_id: proyecto.id });
 
-            if (errorLike) {
-                console.error('[BLOCKIDS] Error registrando like:', errorLike);
-                return;
-            }
-
-            if (typeof likesReales === 'number') {
-                actualizarLikesEnEstado(proyecto.id, likesReales);
-            }
+        if (errorLike) {
+            console.error('[BLOCKIDS] Error registrando like:', errorLike);
+            return;
         }
+
+        // Sincroniza con el valor real del servidor, por si alguien más le
+        // dio like al mismo tiempo.
+        if (typeof likesReales === 'number') {
+            actualizarLikesEnEstado(proyecto.id, likesReales);
+        }
+    };
+
+    const verProyecto = (proyecto) => {
+        // `proyecto.id` aquí es el id de la entrega nominada (ver
+        // obtener_podio_salon_fama / obtener_top_por_escuela_salon_fama).
+        // Nota: /entorno exige sesión iniciada — un visitante sin cuenta
+        // rebota a /login en vez de ver el proyecto (limitación previa, no
+        // introducida aquí).
+        history.push(`/entorno?entregaId=${proyecto.id}`);
     };
 
     const sinResultados = !cargando && !error && proyectos.length === 0 && porEscuela.length === 0;
@@ -367,7 +329,7 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                             <img src={xolotlIdea} alt="" className={styles.estadoXolotl} />
                             <h2 className={styles.estadoTitulo}>Aún no hay proyectos destacados</h2>
                             <p className={styles.estadoDesc}>
-                                El Top 3 aparecerá aquí.
+                                el Top 3 aparecerá aquí.
                             </p>
                         </div>
                     )}
@@ -381,6 +343,7 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                                     medalla={MEDALLAS[idx] || medallaEspecial}
                                     degradado={DEGRADADOS_PLACEHOLDER[idx % DEGRADADOS_PLACEHOLDER.length]}
                                     onLike={handleLike}
+                                    onVer={verProyecto}
                                     style={{ animationDelay: `${idx * 0.08}s` }}
                                 />
                             ))}
@@ -404,6 +367,7 @@ const ProyectosPublicos = ({ session, rolPerfil }) => {
                                             proyecto={proyecto}
                                             degradado={DEGRADADOS_PLACEHOLDER[idx % DEGRADADOS_PLACEHOLDER.length]}
                                             onLike={handleLike}
+                                            onVer={verProyecto}
                                         />
                                     ))}
                                 </div>
