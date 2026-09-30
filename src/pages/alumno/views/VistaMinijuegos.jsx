@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './VistaMinijuegos.css';
 
-// Asset imports with graceful fallback support
+// Asset imports con soporte seguro
 import iconoJuego from '../../../assets/iconos/icono-juego.svg';
 import xolotlProgramando from '../../../assets/xolotl/xolotl-programando.svg';
 import bloqueAzul from '../../../assets/elementos/bloque-azul.svg';
@@ -13,12 +13,12 @@ const VistaMinijuegos = ({ onVolver }) => {
   const [juegoActivo, setJuegoActivo] = useState(null);
   const [categoriaFiltro, setCategoriaFiltro] = useState('todos');
 
-  // Player Stats (Arcade Progress)
+  // Estadísticas del jugador
   const [puntosXP, setPuntosXP] = useState(350);
-  const [rachaDías, setRachaDias] = useState(3);
+  const [rachaDias, setRachaDias] = useState(3);
   const [nivelJugador, setNivelJugador] = useState(2);
 
-  // --- MINIJUEGO 1: ADIVINA EL NÚMERO / CÓDIGO ---
+  // --- MINIJUEGO 1: ADIVINA EL NÚMERO ---
   const [numSecreto, setNumSecreto] = useState(1);
   const [intento, setIntento] = useState('');
   const [mensajeNum, setMensajeNum] = useState('');
@@ -54,7 +54,7 @@ const VistaMinijuegos = ({ onVolver }) => {
       setMensajeNum('El número secreto es MAYOR ↑');
       pista = 'MAYOR ↑';
     } else {
-      setMensajeNum('El número secreto me MENOR ↓');
+      setMensajeNum('El número secreto es MENOR ↓');
       pista = 'MENOR ↓';
     }
 
@@ -162,7 +162,7 @@ const VistaMinijuegos = ({ onVolver }) => {
     }
   };
 
-  // Lista de catálogo de juegos
+  // Catálogo completo de minijuegos
   const listaJuegos = [
     {
       id: 1,
@@ -219,7 +219,7 @@ const VistaMinijuegos = ({ onVolver }) => {
       {estrellaAm && <img src={estrellaAm} alt="" aria-hidden="true" className="decoArcade decoS2" />}
 
       <div className="containerArcade">
-        {/* Banner Superior Principal */}
+        {/* Header Principal */}
         <header className="headerArcade">
           <div className="headerLeft">
             <div className="badgeArcade">
@@ -245,7 +245,7 @@ const VistaMinijuegos = ({ onVolver }) => {
               <div className="statItem" title="Racha de Días">
                 <span className="statIcon">🔥</span>
                 <div className="statText">
-                  <span className="statValue">{rachaDías} días</span>
+                  <span className="statValue">{rachaDias} días</span>
                   <span className="statLabel">Racha</span>
                 </div>
               </div>
@@ -267,7 +267,7 @@ const VistaMinijuegos = ({ onVolver }) => {
           </div>
         </header>
 
-        {/* CATÁLOGO DE JUEGOS */}
+        {/* CATÁLOGO DE TARJETAS */}
         {!juegoActivo ? (
           <main className="seccionCatalogo">
             {/* Barra de Filtros */}
@@ -305,7 +305,7 @@ const VistaMinijuegos = ({ onVolver }) => {
               </div>
             </div>
 
-            {/* Grid de Tarjetas */}
+            {/* Grid de Tarjetas (Cards) */}
             <div className="gridArcade">
               {juegosFiltrados.map((juego) => (
                 <article key={juego.id} className="cardArcade">
@@ -336,7 +336,7 @@ const VistaMinijuegos = ({ onVolver }) => {
             </div>
           </main>
         ) : (
-          /* PANELS DE JUEGO EN EJECUCIÓN */
+          /* PANELES DE JUEGO EN EJECUCIÓN */
           <section className="contenedorJuegoEnEjecucion">
             <button
               type="button"
@@ -378,7 +378,7 @@ const VistaMinijuegos = ({ onVolver }) => {
                     </div>
                   </form>
 
-                  {/* Contador y Metricas */}
+                  {/* Contador y Métricas */}
                   <div className="metricasJuego">
                     <div className="boxMetrica">
                       <span className="lblMetrica">Intentos:</span>
@@ -441,9 +441,7 @@ const VistaMinijuegos = ({ onVolver }) => {
                         }`}
                         onClick={() => seleccionarCarta(idx)}
                       >
-                        <span className="frontBackContent">
-                          {estaVolteada ? carta.texto : '⚡'}
-                        </span>
+                        <span>{estaVolteada ? carta.texto : '⚡'}</span>
                       </button>
                     );
                   })}
