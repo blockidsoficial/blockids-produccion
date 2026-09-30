@@ -424,4 +424,453 @@
     .filtro-btn {
         flex: 1;
     }
+
+    /* ============================================================
+   PANTALLA DE JUEGO
+   ============================================================ */
+
+.juegoPantalla {
+    min-height: 100vh;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 20px;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(124, 69, 200, 0.10),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(59, 130, 246, 0.10),
+            transparent 30%
+        ),
+        #f5f7fb;
+}
+
+
+.juegoPanel {
+    width: min(650px, 100%);
+
+    padding: 35px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 15px 40px rgba(16, 24, 40, 0.10);
+
+    text-align: center;
+}
+
+
+.btnVolverJuego {
+    display: block;
+
+    padding: 9px 15px;
+
+    background: #f4f5f7;
+
+    border: 1px solid #d9dee8;
+
+    border-radius: 9px;
+
+    color: #475467;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.btnVolverJuego:hover {
+    background: #eeeaff;
+
+    color: #6d3fd1;
+
+    border-color: #8b5cf6;
+}
+
+
+.granIcono {
+    width: 90px;
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 25px auto 15px;
+
+    background: linear-gradient(
+        135deg,
+        #ede9fe,
+        #e0e7ff
+    );
+
+    border-radius: 22px;
+
+    font-size: 45px;
+}
+
+
+.juegoPanel h1 {
+    margin: 0 0 10px;
+
+    font-size: 2rem;
+
+    color: #172033;
+}
+
+
+.juegoPanel > p {
+    color: #667085;
+
+    line-height: 1.6;
+}
+
+
+.intentos {
+    margin: 20px auto;
+
+    padding: 10px 16px;
+
+    width: fit-content;
+
+    background: #f4f5f7;
+
+    border-radius: 10px;
+
+    color: #475467;
+}
+
+
+/* ============================================================
+   ADIVINA EL NÚMERO
+   ============================================================ */
+
+.formNumero {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+.formNumero input {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 13px 15px;
+
+    border: 1px solid #d9dee8;
+
+    border-radius: 10px;
+
+    font-size: 1rem;
+
+    outline: none;
+}
+
+
+.formNumero input:focus {
+    border-color: #7c3aed;
+
+    box-shadow:
+        0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+
+
+.mensajeJuego {
+    margin: 20px 0;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background: #f8f7ff;
+
+    color: #4c3b78;
+
+    font-weight: 700;
+}
+
+
+.btnReiniciar {
+    margin-top: 20px;
+
+    padding: 11px 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #d9dee8;
+
+    border-radius: 10px;
+
+    color: #475467;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.btnReiniciar:hover {
+    background: #f4f1ff;
+
+    border-color: #8b5cf6;
+
+    color: #6d3fd1;
+}
+
+
+/* ============================================================
+   MEMORIA
+   ============================================================ */
+
+.memoriaGrid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 12px;
+
+    max-width: 480px;
+
+    margin: 25px auto;
+}
+
+
+.cartaMemoria {
+    aspect-ratio: 1 / 1;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #4f46e5
+    );
+
+    color: white;
+
+    font-size: 2rem;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s,
+        background 0.2s;
+}
+
+
+.cartaMemoria:hover {
+    transform: scale(1.04);
+}
+
+
+.cartaVolteada {
+    background: #f3f4f6;
+
+    color: #172033;
+
+    border: 2px solid #ddd6fe;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 4px;
+}
+
+
+.cartaVolteada small {
+    font-size: 0.72rem;
+
+    font-weight: 800;
+}
+
+
+.mensajeGanador {
+    padding: 14px;
+
+    margin-top: 15px;
+
+    background: #ecfdf3;
+
+    border: 1px solid #abefc6;
+
+    border-radius: 12px;
+
+    color: #067647;
+
+    font-weight: 800;
+}
+
+
+/* ============================================================
+   SECUENCIA
+   ============================================================ */
+
+.secuenciaMostrar {
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin: 30px 0;
+}
+
+
+.secuenciaMostrar span {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #f4f5f7;
+
+    font-size: 30px;
+}
+
+
+.secuenciaVisible {
+    opacity: 1;
+}
+
+
+.secuenciaOculta {
+    opacity: 0.15;
+}
+
+
+.botonesSecuencia {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 12px;
+
+    max-width: 400px;
+
+    margin: 20px auto;
+}
+
+
+.botonColor {
+    min-height: 65px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 15px;
+
+    background: #ffffff;
+
+    font-size: 32px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+
+.botonColor:hover:not(:disabled) {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 18px rgba(16, 24, 40, 0.10);
+}
+
+
+.botonColor:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}
+
+
+.progresoSecuencia {
+    margin-top: 15px;
+
+    color: #667085;
+
+    font-weight: 800;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+    .juegoPanel {
+        padding: 25px 18px;
+    }
+
+
+    .formNumero {
+        flex-direction: column;
+    }
+
+
+    .formNumero .btnJugar {
+        width: 100%;
+    }
+
+
+    .memoriaGrid {
+        gap: 8px;
+    }
+
+
+    .cartaMemoria {
+        font-size: 1.5rem;
+    }
+
+
+    .botonesSecuencia {
+        gap: 8px;
+    }
+
+
+    .botonColor {
+        min-height: 55px;
+
+        font-size: 26px;
+    }
+
+}
 }
