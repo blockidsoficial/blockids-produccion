@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './VistaMinijuegos.css';
 
-// Asset imports with optional fallbacks
+// Asset imports with graceful fallback support
 import iconoJuego from '../../../assets/iconos/icono-juego.svg';
 import xolotlProgramando from '../../../assets/xolotl/xolotl-programando.svg';
 import bloqueAzul from '../../../assets/elementos/bloque-azul.svg';
@@ -11,35 +11,55 @@ import estrellaAm from '../../../assets/elementos/estrella-amarilla.svg';
 
 const VistaMinijuegos = ({ onVolver }) => {
   const [juegoActivo, setJuegoActivo] = useState(null);
+  const [categoriaFiltro, setCategoriaFiltro] = useState('todos');
 
-  // --- MINIJUEGO 1: ADIVINA EL NÚMERO ---
+  // Player Stats (Arcade Progress)
+  const [puntosXP, setPuntosXP] = useState(350);
+  const [rachaDías, setRachaDias] = useState(3);
+  const [nivelJugador, setNivelJugador] = useState(2);
+
+  // --- MINIJUEGO 1: ADIVINA EL NÚMERO / CÓDIGO ---
   const [numSecreto, setNumSecreto] = useState(1);
   const [intento, setIntento] = useState('');
   const [mensajeNum, setMensajeNum] = useState('');
   const [intentosContador, setIntentosContador] = useState(0);
+  const [historialIntentos, setHistorialIntentos] = useState([]);
+  const [juegoCompletado1, setJuegoCompletado1] = useState(false);
 
   const iniciarAdivinaNumero = () => {
     setNumSecreto(Math.floor(Math.random() * 50) + 1);
-    setMensajeNum('Ingresa un número entre 1 y 50');
+    setMensajeNum('Ingresa un número del 1 al 50 para iniciar el rastreo.');
     setIntentosContador(0);
+    setHistorialIntentos([]);
     setIntento('');
+    setJuegoCompletado1(false);
   };
 
   const probarNumero = (e) => {
     e.preventDefault();
+    if (juegoCompletado1) return;
     const val = parseInt(intento, 10);
     if (isNaN(val) || val < 1 || val > 50) return;
 
     const nuevosIntentos = intentosContador + 1;
     setIntentosContador(nuevosIntentos);
 
+    let pista = '';
     if (val === numSecreto) {
-      setMensajeNum(`¡Excelente! 🎉 Lo descifraste en ${nuevosIntentos} intentos.`);
+      setMensajeNum(`¡Excelente trabajo! 🎉 Descifraste el código en ${nuevosIntentos} intento(s).`);
+      setJuegoCompletado1(true);
+      setPuntosXP((prev) => prev + 50);
+      pista = 'CORRECTO';
     } else if (val < numSecreto) {
       setMensajeNum('El número secreto es MAYOR ↑');
+      pista = 'MAYOR ↑';
     } else {
-      setMensajeNum('El número secreto es MENOR ↓');
+      setMensajeNum('El número secreto me MENOR ↓');
+      pista = 'MENOR ↓';
     }
+
+    setHistorialIntentos((prev) => [{ numero: val, pista }, ...prev.slice(0, 4)]);
+    setIntento('');
   };
 
   // --- MINIJUEGO 2: MEMORIA DE CÓDIGO ---
@@ -47,6 +67,7 @@ const VistaMinijuegos = ({ onVolver }) => {
   const [cartas, setCartas] = useState([]);
   const [seleccionadas, setSeleccionadas] = useState([]);
   const [parejasEncontradas, setParejasEncontradas] = useState([]);
+  const [movimientosMemoria, setMovimientosMemoria] = useState(0);
 
   const iniciarMemoria = () => {
     const mazo = [...conceptos, ...conceptos]
@@ -55,21 +76,31 @@ const VistaMinijuegos = ({ onVolver }) => {
     setCartas(mazo);
     setSeleccionadas([]);
     setParejasEncontradas([]);
+    setMovimientosMemoria(0);
   };
 
   const seleccionarCarta = (index) => {
-    if (seleccionadas.length === 2 || seleccionadas.includes(index) || parejasEncontradas.includes(cartas[index].texto)) return;
+    if (
+      seleccionadas.length === 2 ||
+      seleccionadas.includes(index) ||
+      parejasEncontradas.includes(cartas[index].texto)
+    ) return;
 
     const nuevas = [...seleccionadas, index];
     setSeleccionadas(nuevas);
 
     if (nuevas.length === 2) {
+      setMovimientosMemoria((prev) => prev + 1);
       const [p1, p2] = nuevas;
       if (cartas[p1].texto === cartas[p2].texto) {
-        setParejasEncontradas((prev) => [...prev, cartas[p1].texto]);
+        const parejasNuevas = [...parejasEncontradas, cartas[p1].texto];
+        setParejasEncontradas(parejasNuevas);
         setSeleccionadas([]);
+        if (parejasNuevas.length === conceptos.length) {
+          setPuntosXP((prev) => prev + 75);
+        }
       } else {
-        setTimeout(() => setSeleccionadas([]), 900);
+        setTimeout(() => setSeleccionadas([]), 850);
       }
     }
   };
@@ -81,11 +112,13 @@ const VistaMinijuegos = ({ onVolver }) => {
   const [mensajeSimon, setMensajeSimon] = useState('');
   const [bloqueado, setBloqueado] = useState(false);
   const [colorActivo, setColorActivo] = useState(null);
+  const [maxRondaSimon, setMaxRondaSimon] = useState(0);
 
   const iniciarSimon = () => {
     setSecuencia([]);
     setPasoJugador(0);
-    setMensajeSimon('¡Presta atención a la secuencia!');
+    setMaxRondaSimon(0);
+    setMensajeSimon('¡Presta atención al patrón de luces!');
     agregarColorSecuencia([]);
   };
 
@@ -101,7 +134,7 @@ const VistaMinijuegos = ({ onVolver }) => {
     sec.forEach((col, idx) => {
       setTimeout(() => {
         setColorActivo(col);
-        setTimeout(() => setColorActivo(null), 350);
+        setTimeout(() => setColorActivo(null), 380);
         if (idx === sec.length - 1) {
           setBloqueado(false);
         }
@@ -114,17 +147,61 @@ const VistaMinijuegos = ({ onVolver }) => {
 
     if (col === secuencia[pasoJugador]) {
       if (pasoJugador + 1 === secuencia.length) {
-        setMensajeSimon(`¡Muy bien! Nivel ${secuencia.length} superado.`);
+        const nuevaRonda = secuencia.length;
+        if (nuevaRonda > maxRondaSimon) setMaxRondaSimon(nuevaRonda);
+        setMensajeSimon(`¡Perfecto! Nivel ${nuevaRonda} completado.`);
         setPasoJugador(0);
+        setPuntosXP((prev) => prev + 15);
         setTimeout(() => agregarColorSecuencia(secuencia), 900);
       } else {
         setPasoJugador(pasoJugador + 1);
       }
     } else {
-      setMensajeSimon(`¡Ups! Perdiste en el Nivel ${secuencia.length}. Inténtalo de nuevo.`);
+      setMensajeSimon(`¡Ups! Perdiste en el Nivel ${secuencia.length}. Toca reiniciar.`);
       setSecuencia([]);
     }
   };
+
+  // Lista de catálogo de juegos
+  const listaJuegos = [
+    {
+      id: 1,
+      titulo: 'Adivina el Número',
+      categoria: 'logica',
+      categoriaLabel: 'Pensamiento Lógico',
+      dificultad: 'Fácil',
+      xp: '+50 XP',
+      icono: '🎯',
+      colorClase: 'bannerAmber',
+      descripcion: 'Ejercita la lógica deductiva encontrando el número secreto en los menores intentos.',
+    },
+    {
+      id: 2,
+      titulo: 'Memoria de Código',
+      categoria: 'sintaxis',
+      categoriaLabel: 'Sintaxis y Comandos',
+      dificultad: 'Intermedio',
+      xp: '+75 XP',
+      icono: '🧩',
+      colorClase: 'bannerBlue',
+      descripcion: 'Encuentra las parejas de instrucciones de programación asociadas.',
+    },
+    {
+      id: 3,
+      titulo: 'Secuencia Lógica',
+      categoria: 'patrones',
+      categoriaLabel: 'Algoritmos y Patrones',
+      dificultad: 'Desafío',
+      xp: '+100 XP',
+      icono: '🎨',
+      colorClase: 'bannerEmerald',
+      descripcion: 'Memoriza y repite el patrón secuencial de luces en el orden exacto.',
+    },
+  ];
+
+  const juegosFiltrados = categoriaFiltro === 'todos' 
+    ? listaJuegos 
+    : listaJuegos.filter(j => j.categoria === categoriaFiltro);
 
   useEffect(() => {
     if (juegoActivo === 1) iniciarAdivinaNumero();
@@ -133,108 +210,137 @@ const VistaMinijuegos = ({ onVolver }) => {
   }, [juegoActivo]);
 
   return (
-    <div className="wrapper">
-      {/* Decoraciones flotantes */}
-      {bloqueAzul && <img src={bloqueAzul} alt="" aria-hidden="true" className="deco decoB1" />}
-      {bloqueAmarillo && <img src={bloqueAmarillo} alt="" aria-hidden="true" className="deco decoB2" />}
-      {bloqueMorado && <img src={bloqueMorado} alt="" aria-hidden="true" className="deco decoB3" />}
-      {estrellaAm && <img src={estrellaAm} alt="" aria-hidden="true" className="deco decoS1" />}
-      {estrellaAm && <img src={estrellaAm} alt="" aria-hidden="true" className="deco decoS2" />}
+    <div className="wrapperArcade">
+      {/* Decoraciones de Fondo */}
+      {bloqueAzul && <img src={bloqueAzul} alt="" aria-hidden="true" className="decoArcade decoB1" />}
+      {bloqueAmarillo && <img src={bloqueAmarillo} alt="" aria-hidden="true" className="decoArcade decoB2" />}
+      {bloqueMorado && <img src={bloqueMorado} alt="" aria-hidden="true" className="decoArcade decoB3" />}
+      {estrellaAm && <img src={estrellaAm} alt="" aria-hidden="true" className="decoArcade decoS1" />}
+      {estrellaAm && <img src={estrellaAm} alt="" aria-hidden="true" className="decoArcade decoS2" />}
 
-      <div className="container">
-        {/* Header Principal */}
-        <header className="header">
-          <div className="headerText">
-            <div className="badge">
-              {iconoJuego && <img src={iconoJuego} alt="" className="iconoBadge" />}
-              Zona Arcade
+      <div className="containerArcade">
+        {/* Banner Superior Principal */}
+        <header className="headerArcade">
+          <div className="headerLeft">
+            <div className="badgeArcade">
+              {iconoJuego ? <img src={iconoJuego} alt="" className="iconoBadge" /> : <span>🕹️</span>}
+              Zona Arcade Blockids
             </div>
-            <h1 className="tituloHeader">Minijuegos de Lógica</h1>
-            <p className="subtituloHeader">
-              Practica resolución de problemas, patrones y algoritmos mientras juegas.
+            <h1 className="tituloArcade">Minijuegos de Lógica</h1>
+            <p className="subtituloArcade">
+              Fortalece tus habilidades de algoritmos, retención y análisis resolviendo retos interactivos.
             </p>
           </div>
 
-          <button type="button" className="btnVolverNav" onClick={onVolver}>
-            ← Volver al Inicio
-          </button>
+          <div className="headerRight">
+            <div className="statsBar">
+              <div className="statItem" title="Puntos de Experiencia">
+                <span className="statIcon">⭐</span>
+                <div className="statText">
+                  <span className="statValue">{puntosXP}</span>
+                  <span className="statLabel">XP Ganados</span>
+                </div>
+              </div>
+              <div className="statDivider" />
+              <div className="statItem" title="Racha de Días">
+                <span className="statIcon">🔥</span>
+                <div className="statText">
+                  <span className="statValue">{rachaDías} días</span>
+                  <span className="statLabel">Racha</span>
+                </div>
+              </div>
+              <div className="statDivider" />
+              <div className="statItem" title="Nivel de Jugador">
+                <span className="statIcon">🛡️</span>
+                <div className="statText">
+                  <span className="statValue">Nivel {nivelJugador}</span>
+                  <span className="statLabel">Rango</span>
+                </div>
+              </div>
+            </div>
+
+            {onVolver && (
+              <button type="button" className="btnVolverInicio" onClick={onVolver}>
+                ← Volver al Inicio
+              </button>
+            )}
+          </div>
         </header>
 
-        {/* VISTA CATÁLOGO DE JUEGOS */}
+        {/* CATÁLOGO DE JUEGOS */}
         {!juegoActivo ? (
-          <div className="gridJuegos">
-            {/* Tarjeta 1 */}
-            <article className="cardJuego">
-              <div className="cardBanner bannerAmber">
-                <span className="cardIcon">🔢</span>
-                <span className="difficultyBadge">Fácil</span>
-              </div>
-              <div className="cardContent">
-                <span className="cardCategory">Pensamiento Numérico</span>
-                <h2 className="cardTitle">Adivina el Número</h2>
-                <p className="cardDesc">
-                  Ejercita tu lógica deductiva encontrando el número secreto en los menores intentos posibles.
-                </p>
+          <main className="seccionCatalogo">
+            {/* Barra de Filtros */}
+            <div className="barFiltros">
+              <span className="labelFiltros">Filtrar por:</span>
+              <div className="grupoPills">
                 <button
                   type="button"
-                  className="btnJugar"
-                  onClick={() => setJuegoActivo(1)}
+                  className={`pillFiltro ${categoriaFiltro === 'todos' ? 'activa' : ''}`}
+                  onClick={() => setCategoriaFiltro('todos')}
                 >
-                  Jugar Ahora ➔
+                  Todos ({listaJuegos.length})
+                </button>
+                <button
+                  type="button"
+                  className={`pillFiltro ${categoriaFiltro === 'logica' ? 'activa' : ''}`}
+                  onClick={() => setCategoriaFiltro('logica')}
+                >
+                  🧠 Lógica
+                </button>
+                <button
+                  type="button"
+                  className={`pillFiltro ${categoriaFiltro === 'sintaxis' ? 'activa' : ''}`}
+                  onClick={() => setCategoriaFiltro('sintaxis')}
+                >
+                  💻 Sintaxis
+                </button>
+                <button
+                  type="button"
+                  className={`pillFiltro ${categoriaFiltro === 'patrones' ? 'activa' : ''}`}
+                  onClick={() => setCategoriaFiltro('patrones')}
+                >
+                  ⚡ Patrones
                 </button>
               </div>
-            </article>
+            </div>
 
-            {/* Tarjeta 2 */}
-            <article className="cardJuego">
-              <div className="cardBanner bannerBlue">
-                <span className="cardIcon">🧩</span>
-                <span className="difficultyBadge">Medio</span>
-              </div>
-              <div className="cardContent">
-                <span className="cardCategory">Sintaxis y Código</span>
-                <h2 className="cardTitle">Memoria de Código</h2>
-                <p className="cardDesc">
-                  Encuentra los pares de comandos y estructuras de programación en el menor número de movimientos.
-                </p>
-                <button
-                  type="button"
-                  className="btnJugar"
-                  onClick={() => setJuegoActivo(2)}
-                >
-                  Jugar Ahora ➔
-                </button>
-              </div>
-            </article>
+            {/* Grid de Tarjetas */}
+            <div className="gridArcade">
+              {juegosFiltrados.map((juego) => (
+                <article key={juego.id} className="cardArcade">
+                  <div className={`bannerArcade ${juego.colorClase}`}>
+                    <span className="iconBanner">{juego.icono}</span>
+                    <div className="badgesBanner">
+                      <span className="tagDificultad">{juego.dificultad}</span>
+                      <span className="tagXP">{juego.xp}</span>
+                    </div>
+                  </div>
 
-            {/* Tarjeta 3 */}
-            <article className="cardJuego">
-              <div className="cardBanner bannerEmerald">
-                <span className="cardIcon">🎨</span>
-                <span className="difficultyBadge">Desafío</span>
-              </div>
-              <div className="cardContent">
-                <span className="cardCategory">Algoritmos y Patrones</span>
-                <h2 className="cardTitle">Secuencia Lógica</h2>
-                <p className="cardDesc">
-                  Memoriza el patrón de colores en orden secuencial y pon a prueba tu capacidad de retención.
-                </p>
-                <button
-                  type="button"
-                  className="btnJugar"
-                  onClick={() => setJuegoActivo(3)}
-                >
-                  Jugar Ahora ➔
-                </button>
-              </div>
-            </article>
-          </div>
+                  <div className="cardCuerpo">
+                    <span className="categoriaTag">{juego.categoriaLabel}</span>
+                    <h2 className="tituloJuego">{juego.titulo}</h2>
+                    <p className="descJuego">{juego.descripcion}</p>
+
+                    <button
+                      type="button"
+                      className="btnJugarArcade"
+                      onClick={() => setJuegoActivo(juego.id)}
+                    >
+                      <span>Jugar Ahora</span>
+                      <span className="flechaBtn">➔</span>
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </main>
         ) : (
-          /* VISTA PANEL DE JUEGO EN EJECUCIÓN */
-          <div className="panelJuegoContainer">
+          /* PANELS DE JUEGO EN EJECUCIÓN */
+          <section className="contenedorJuegoEnEjecucion">
             <button
               type="button"
-              className="btnRegresarLista"
+              className="btnVolverCatalogo"
               onClick={() => setJuegoActivo(null)}
             >
               ← Volver al catálogo de juegos
@@ -242,106 +348,153 @@ const VistaMinijuegos = ({ onVolver }) => {
 
             {/* JUEGO 1: ADIVINA EL NÚMERO */}
             {juegoActivo === 1 && (
-              <div className="gamePanel">
-                <div className="gameHeaderBox">
-                  <span className="gameBigIcon">🔢</span>
-                  <h2>Adivina el Número</h2>
-                  <p className="gameStatusText">{mensajeNum}</p>
-                  <span className="attemptsCounter">
-                    Intentos acumulados: <strong>{intentosContador}</strong>
-                  </span>
+              <div className="panelJuegoEspecial">
+                <header className="headPanelJuego">
+                  <div className="iconoMascotaHead">🎯</div>
+                  <h2>Adivina el Número Secreto</h2>
+                  <p className="subHeadJuego">{mensajeNum}</p>
+                </header>
+
+                <div className="cuerpoJuegoAdivina">
+                  <form onSubmit={probarNumero} className="formAdivinaAvanzado">
+                    <div className="inputGroup">
+                      <input
+                        type="number"
+                        min="1"
+                        max="50"
+                        value={intento}
+                        onChange={(e) => setIntento(e.target.value)}
+                        placeholder="1 - 50"
+                        disabled={juegoCompletado1}
+                        className="inputGrandeNumero"
+                      />
+                      <button
+                        type="submit"
+                        disabled={juegoCompletado1}
+                        className="btnAccionEspecial"
+                      >
+                        Enviar Intento
+                      </button>
+                    </div>
+                  </form>
+
+                  {/* Contador y Metricas */}
+                  <div className="metricasJuego">
+                    <div className="boxMetrica">
+                      <span className="lblMetrica">Intentos:</span>
+                      <span className="valMetrica">{intentosContador}</span>
+                    </div>
+                    <div className="boxMetrica">
+                      <span className="lblMetrica">Rango:</span>
+                      <span className="valMetrica">1 a 50</span>
+                    </div>
+                  </div>
+
+                  {/* Historial Reciente */}
+                  {historialIntentos.length > 0 && (
+                    <div className="secHistorial">
+                      <h4>Últimos intentos:</h4>
+                      <div className="listaPistas">
+                        {historialIntentos.map((item, index) => (
+                          <div key={index} className="itemPista">
+                            <span className="numPista">Número: <strong>{item.numero}</strong></span>
+                            <span className={`tagPista ${item.pista.includes('MAYOR') ? 'pistaMayor' : item.pista.includes('MENOR') ? 'pistaMenor' : 'pistaExito'}`}>
+                              {item.pista}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                <form onSubmit={probarNumero} className="formAdivina">
-                  <input
-                    type="number"
-                    min="1"
-                    max="50"
-                    value={intento}
-                    onChange={(e) => setIntento(e.target.value)}
-                    placeholder="1 - 50"
-                    className="inputNumero"
-                  />
-                  <button type="submit" className="btnAccionPrimary">
-                    Probar
+                <footer className="footJuego">
+                  <button type="button" className="btnReiniciarJuego" onClick={iniciarAdivinaNumero}>
+                    🔄 Nueva partida
                   </button>
-                </form>
-
-                <div className="gameFooter">
-                  <button type="button" className="btnReiniciar" onClick={iniciarAdivinaNumero}>
-                    Reiniciar partida
-                  </button>
-                  {xolotlProgramando && <img src={xolotlProgramando} alt="Xolotl" className="xolotlMini" />}
-                </div>
+                  {xolotlProgramando && <img src={xolotlProgramando} alt="Xolotl" className="mascotaMini" />}
+                </footer>
               </div>
             )}
 
             {/* JUEGO 2: MEMORIA DE CÓDIGO */}
             {juegoActivo === 2 && (
-              <div className="gamePanel">
-                <div className="gameHeaderBox">
-                  <span className="gameBigIcon">🧩</span>
-                  <h2>Memoria de Código</h2>
-                  <p className="gameStatusText">
-                    Parejas encontradas: {parejasEncontradas.length} de {conceptos.length}
+              <div className="panelJuegoEspecial">
+                <header className="headPanelJuego">
+                  <div className="iconoMascotaHead">🧩</div>
+                  <h2>Memoria de Comandos</h2>
+                  <p className="subHeadJuego">
+                    Parejas encontradas: <strong>{parejasEncontradas.length}</strong> de {conceptos.length} | Movimientos: <strong>{movimientosMemoria}</strong>
                   </p>
-                </div>
+                </header>
 
-                <div className="gridMemoria">
+                <div className="gridCartasMemoria">
                   {cartas.map((carta, idx) => {
-                    const estaVolteada = seleccionadas.includes(idx) || parejasEncontradas.includes(carta.texto);
+                    const estaVolteada =
+                      seleccionadas.includes(idx) || parejasEncontradas.includes(carta.texto);
                     return (
                       <button
                         key={carta.id}
                         type="button"
-                        className={`cartaMemoria ${estaVolteada ? 'cartaVolteada' : ''}`}
+                        className={`cartaCode ${estaVolteada ? 'activa' : ''} ${
+                          parejasEncontradas.includes(carta.texto) ? 'emparejada' : ''
+                        }`}
                         onClick={() => seleccionarCarta(idx)}
                       >
-                        {estaVolteada ? carta.texto : '❓'}
+                        <span className="frontBackContent">
+                          {estaVolteada ? carta.texto : '⚡'}
+                        </span>
                       </button>
                     );
                   })}
                 </div>
 
-                <div className="gameFooter">
-                  <button type="button" className="btnReiniciar" onClick={iniciarMemoria}>
-                    Reiniciar partida
+                <footer className="footJuego">
+                  <button type="button" className="btnReiniciarJuego" onClick={iniciarMemoria}>
+                    🔄 Reiniciar tablero
                   </button>
-                  {xolotlProgramando && <img src={xolotlProgramando} alt="Xolotl" className="xolotlMini" />}
-                </div>
+                  {xolotlProgramando && <img src={xolotlProgramando} alt="Xolotl" className="mascotaMini" />}
+                </footer>
               </div>
             )}
 
             {/* JUEGO 3: SECUENCIA LÓGICA */}
             {juegoActivo === 3 && (
-              <div className="gamePanel">
-                <div className="gameHeaderBox">
-                  <span className="gameBigIcon">🎨</span>
-                  <h2>Secuencia Lógica</h2>
-                  <p className="gameStatusText">{mensajeSimon}</p>
+              <div className="panelJuegoEspecial">
+                <header className="headPanelJuego">
+                  <div className="iconoMascotaHead">🎨</div>
+                  <h2>Secuencia de Luces y Algoritmos</h2>
+                  <p className="subHeadJuego">{mensajeSimon}</p>
+                </header>
+
+                <div className="contenedorSimon">
+                  <div className="topSimonStats">
+                    <span>Nivel actual: <strong>{secuencia.length}</strong></span>
+                    <span>Récord: <strong>{maxRondaSimon}</strong></span>
+                  </div>
+
+                  <div className="padSimonGrid">
+                    {colores.map((col) => (
+                      <button
+                        key={col}
+                        type="button"
+                        className={`btnPadSimon ${col} ${colorActivo === col ? 'iluminado' : ''}`}
+                        onClick={() => presionarColor(col)}
+                        disabled={bloqueado}
+                      />
+                    ))}
+                  </div>
                 </div>
 
-                <div className="gridSimon">
-                  {colores.map((col) => (
-                    <button
-                      key={col}
-                      type="button"
-                      className={`btnSimon ${col} ${colorActivo === col ? 'activo' : ''}`}
-                      onClick={() => presionarColor(col)}
-                      disabled={bloqueado}
-                    />
-                  ))}
-                </div>
-
-                <div className="gameFooter">
-                  <button type="button" className="btnReiniciar" onClick={iniciarSimon}>
-                    Iniciar / Reiniciar
+                <footer className="footJuego">
+                  <button type="button" className="btnReiniciarJuego" onClick={iniciarSimon}>
+                    ▶️ Iniciar / Reiniciar
                   </button>
-                  {xolotlProgramando && <img src={xolotlProgramando} alt="Xolotl" className="xolotlMini" />}
-                </div>
+                  {xolotlProgramando && <img src={xolotlProgramando} alt="Xolotl" className="mascotaMini" />}
+                </footer>
               </div>
             )}
-          </div>
+          </section>
         )}
       </div>
     </div>

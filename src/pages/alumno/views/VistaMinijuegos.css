@@ -1,370 +1,673 @@
 /* ============================================================
-BLOCKIDS — Vista Minijuegos (Zona Arcade)
-============================================================ */
+   BLOCKIDS — Vista Minijuegos (Zona Arcade Profesional)
+   ============================================================ */
+
+/* ── Keyframes & Animaciones ─────────────────────────────── */
 @keyframes flotarY {
-0%, 100% { transform: translateY(0px) rotate(0deg); }
-50% { transform: translateY(-14px) rotate(4deg); }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%      { transform: translateY(-12px) rotate(3deg); }
 }
+
 @keyframes flotarYInv {
-0%, 100% { transform: translateY(0px) rotate(0deg); }
-50% { transform: translateY(12px) rotate(-4deg); }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%      { transform: translateY(10px) rotate(-3deg); }
 }
-@keyframes entrar {
-from { opacity: 0; transform: translateY(18px); }
-to { opacity: 1; transform: translateY(0); }
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: translateY(14px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
-.wrapper {
-position: relative;
-width: 100%;
-min-height: 80vh;
-padding: 1.5rem 1rem 3rem;
-overflow: hidden;
-font-family: var(--font-principal, system-ui, sans-serif);
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 rgba(124, 58, 237, 0); }
+  50%      { box-shadow: 0 0 20px rgba(124, 58, 237, 0.25); }
 }
-.container {
-max-width: 1080px;
-margin: 0 auto;
-position: relative;
-z-index: 1;
+
+/* ── Layout Contenedor ───────────────────────────────────── */
+.wrapperArcade {
+  position: relative;
+  width: 100%;
+  min-height: 85vh;
+  padding: 2rem 1.5rem 4rem;
+  background-color: var(--color-bg-base, #f8fafc);
+  font-family: var(--font-principal, system-ui, -apple-system, sans-serif);
+  overflow: hidden;
 }
+
+.containerArcade {
+  max-width: 1140px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
 /* ── Decoraciones flotantes ───────────────────────────────── */
-.deco {
-position: absolute;
-pointer-events: none;
-user-select: none;
-opacity: 0.85;
+.decoArcade {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.75;
+  z-index: 1;
 }
-.decoB1 { top: 6%; left: 3%; width: 44px; animation: flotarY 5s ease-in-out infinite; }
-.decoB2 { top: 12%; right: 4%; width: 38px; animation: flotarYInv 4.2s ease-in-out infinite; }
-.decoB3 { bottom: 8%; left: 4%; width: 42px; animation: flotarYInv 4.8s ease-in-out infinite; }
-.decoS1 { top: 4%; right: 18%; width: 28px; animation: flotarY 3.6s ease-in-out infinite; }
-.decoS2 { bottom: 6%; right: 5%; width: 24px; animation: flotarY 4.4s ease-in-out infinite; }
-/* ── Header ──────────────────────────────────────────────── */
-.header {
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-gap: 1.5rem;
-margin-bottom: 2rem;
-padding-bottom: 1.5rem;
-border-bottom: 1px solid var(--color-borde, #e2e8f0);
+
+.decoB1 { top: 4%;  left: 2%;  width: 42px; animation: flotarY 5s ease-in-out infinite; }
+.decoB2 { top: 8%;  right: 3%; width: 36px; animation: flotarYInv 4.5s ease-in-out infinite; }
+.decoB3 { bottom: 6%; left: 3%; width: 40px; animation: flotarYInv 5s ease-in-out infinite; }
+.decoS1 { top: 3%;   right: 15%; width: 26px; animation: flotarY 3.8s ease-in-out infinite; }
+.decoS2 { bottom: 4%; right: 4%; width: 22px; animation: flotarY 4.2s ease-in-out infinite; }
+
+/* ── Header Principal y Barra de Stats ───────────────────── */
+.headerArcade {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  background: #ffffff;
+  padding: 1.75rem 2rem;
+  border-radius: 24px;
+  border: 1px solid var(--color-borde, #e2e8f0);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05);
+  margin-bottom: 2rem;
 }
-.badge {
-display: inline-flex;
-align-items: center;
-gap: 0.4rem;
-margin-bottom: 0.75rem;
-padding: 0.35rem 0.9rem;
-background: var(--color-amarillo-bg, #fef3c7);
-color: #b7791f;
-border-radius: var(--radio-pill, 9999px);
-font-size: 0.8rem;
-font-weight: 800;
-letter-spacing: 0.05em;
-text-transform: uppercase;
+
+.badgeArcade {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.95rem;
+  background: #fef3c7;
+  color: #d97706;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
 }
+
 .iconoBadge {
-width: 16px;
-height: 16px;
+  width: 16px;
+  height: 16px;
 }
-.tituloHeader {
-font-size: clamp(1.6rem, 3vw, 2.2rem);
-font-weight: 900;
-color: var(--color-texto-oscuro, #0f172a);
-margin: 0 0 0.5rem;
+
+.tituloArcade {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 900;
+  color: #0f172a;
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.02em;
 }
-.subtituloHeader {
-font-size: 0.95rem;
-color: var(--color-texto-medio, #64748b);
-margin: 0;
-max-width: 600px;
+
+.subtituloArcade {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+  max-width: 540px;
+  line-height: 1.5;
 }
-.btnVolverNav {
-display: inline-flex;
-align-items: center;
-padding: 0.7rem 1.4rem;
-background: var(--color-blanco, #ffffff);
-color: var(--color-texto-oscuro, #0f172a);
-border: 1px solid var(--color-borde, #cbd5e1);
-border-radius: var(--radio-pill, 9999px);
-font-size: 0.9rem;
-font-weight: 700;
-cursor: pointer;
-white-space: nowrap;
-box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-transition: all 0.2s ease;
+
+.headerRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
 }
-.btnVolverNav:hover {
-background: #f8fafc;
-border-color: #94a3b8;
-transform: translateY(-2px);
+
+.statsBar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #f1f5f9;
+  padding: 0.6rem 1.25rem;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
 }
-/* ── Grid de Tarjetas de Juegos ───────────────────────────── */
-.gridJuegos {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-gap: 1.75rem;
-animation: entrar 0.4s ease;
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
-.cardJuego {
-background: var(--color-blanco, #ffffff);
-border: 1px solid var(--color-borde, #e2e8f0);
-border-radius: var(--radio-card, 20px);
-overflow: hidden;
-box-shadow: var(--sombra-panel, 0 10px 25px -5px rgba(0, 0, 0, 0.05));
-display: flex;
-flex-direction: column;
-transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+.statIcon {
+  font-size: 1.3rem;
 }
-.cardJuego:hover {
-transform: translateY(-6px);
-box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.12);
+
+.statText {
+  display: flex;
+  flex-direction: column;
 }
-.cardBanner {
-height: 120px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 1.25rem 1.5rem;
-position: relative;
+
+.statValue {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
 }
+
+.statLabel {
+  font-size: 0.7rem;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.statDivider {
+  width: 1px;
+  height: 24px;
+  background-color: #cbd5e1;
+}
+
+.btnVolverInicio {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.6rem 1.25rem;
+  background: #ffffff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnVolverInicio:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  transform: translateY(-2px);
+}
+
+/* ── Filtros de Categoría ────────────────────────────────── */
+.seccionCatalogo {
+  animation: fadeInScale 0.35s ease forwards;
+}
+
+.barFiltros {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.labelFiltros {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.grupoPills {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pillFiltro {
+  padding: 0.45rem 1rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pillFiltro:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.pillFiltro.activa {
+  background: #7c3aed;
+  color: #ffffff;
+  border-color: #7c3aed;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+}
+
+/* ── Grid de Tarjetas de Minijuegos ──────────────────────── */
+.gridArcade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.75rem;
+}
+
+.cardArcade {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cardArcade:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px -6px rgba(0, 0, 0, 0.1);
+}
+
+.bannerArcade {
+  height: 130px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+}
+
 .bannerAmber {
-background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
 }
+
 .bannerBlue {
-background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
 }
+
 .bannerEmerald {
-background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%);
 }
-.cardIcon {
-font-size: 3.5rem;
-filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+
+.iconBanner {
+  font-size: 3.2rem;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25));
 }
-.difficultyBadge {
-background: rgba(255, 255, 255, 0.25);
-backdrop-filter: blur(4px);
-color: #ffffff;
-padding: 0.3rem 0.75rem;
-border-radius: 20px;
-font-size: 0.75rem;
-font-weight: 800;
-text-transform: uppercase;
+
+.badgesBanner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
 }
-.cardContent {
-padding: 1.5rem;
-display: flex;
-flex-direction: column;
-flex: 1;
+
+.tagDificultad {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
 }
-.cardCategory {
-font-size: 0.75rem;
-font-weight: 800;
-text-transform: uppercase;
-color: var(--color-morado-primario, #7c3aed);
-letter-spacing: 0.05em;
-margin-bottom: 0.35rem;
+
+.tagXP {
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 0.75rem;
+  font-weight: 900;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
 }
-.cardTitle {
-font-size: 1.25rem;
-font-weight: 800;
-color: var(--color-texto-oscuro, #0f172a);
-margin: 0 0 0.6rem;
+
+.cardCuerpo {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
-.cardDesc {
-font-size: 0.9rem;
-color: var(--color-texto-medio, #64748b);
-line-height: 1.5;
-margin: 0 0 1.5rem;
-flex: 1;
+
+.categoriaTag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #7c3aed;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
 }
-.btnJugar {
-width: 100%;
-padding: 0.85rem;
-background: var(--color-verde-primario, #22c55e);
-color: #ffffff;
-border: none;
-border-radius: var(--radio-pill, 9999px);
-font-size: 0.95rem;
-font-weight: 800;
-cursor: pointer;
-box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
-transition: all 0.2s ease;
+
+.tituloJuego {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.5rem;
 }
-.btnJugar:hover {
-background: var(--color-verde-hover, #16a34a);
-transform: translateY(-2px);
+
+.descJuego {
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0 0 1.5rem;
+  flex: 1;
 }
-/* ── Panel de Juego ───────────────────────────────────────── */
-.panelJuegoContainer {
-animation: entrar 0.3s ease;
+
+.btnJugarArcade {
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  background: #22c55e;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
+  transition: all 0.2s ease;
 }
-.btnRegresarLista {
-background: transparent;
-border: none;
-color: var(--color-texto-medio, #64748b);
-font-weight: 700;
-font-size: 0.9rem;
-cursor: pointer;
-margin-bottom: 1.25rem;
-transition: color 0.2s;
+
+.btnJugarArcade:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.45);
 }
-.btnRegresarLista:hover {
-color: var(--color-texto-oscuro, #0f172a);
+
+.flechaBtn {
+  transition: transform 0.2s ease;
 }
-.gamePanel {
-background: var(--color-blanco, #ffffff);
-border: 1px solid var(--color-borde, #e2e8f0);
-border-radius: var(--radio-card, 24px);
-padding: 2.25rem 2rem;
-max-width: 580px;
-margin: 0 auto;
-box-shadow: var(--sombra-panel, 0 12px 30px rgba(0,0,0,0.06));
-text-align: center;
+
+.btnJugarArcade:hover .flechaBtn {
+  transform: translateX(4px);
 }
-.gameHeaderBox {
-margin-bottom: 1.75rem;
+
+/* ── Panel de Juego en Ejecución ──────────────────────────── */
+.contenedorJuegoEnEjecucion {
+  animation: fadeInScale 0.3s ease forwards;
 }
-.gameBigIcon {
-font-size: 3rem;
-display: block;
-margin-bottom: 0.5rem;
+
+.btnVolverCatalogo {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-weight: 800;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-bottom: 1.25rem;
+  transition: color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
-.gameHeaderBox h2 {
-font-size: 1.5rem;
-font-weight: 900;
-color: var(--color-texto-oscuro, #0f172a);
-margin: 0 0 0.5rem;
+
+.btnVolverCatalogo:hover {
+  color: #0f172a;
 }
-.gameStatusText {
-font-size: 1.05rem;
-font-weight: 700;
-color: var(--color-morado-primario, #7c3aed);
-margin: 0 0 0.5rem;
+
+.panelJuegoEspecial {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 2.25rem 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+  text-align: center;
 }
-.attemptsCounter {
-font-size: 0.85rem;
-color: var(--color-texto-medio, #64748b);
+
+.headPanelJuego {
+  margin-bottom: 1.75rem;
 }
+
+.iconoMascotaHead {
+  font-size: 3rem;
+  margin-bottom: 0.4rem;
+}
+
+.headPanelJuego h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #0f172a;
+  margin: 0 0 0.4rem;
+}
+
+.subHeadJuego {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #7c3aed;
+  margin: 0;
+}
+
 /* Formulario Adivina */
-.formAdivina {
-display: flex;
-justify-content: center;
-gap: 0.75rem;
-margin-bottom: 2rem;
+.cuerpoJuegoAdivina {
+  margin-bottom: 2rem;
 }
-.inputNumero {
-width: 120px;
-padding: 0.75rem;
-border: 2px solid var(--color-borde, #cbd5e1);
-border-radius: 12px;
-font-size: 1.2rem;
-font-weight: 800;
-text-align: center;
-outline: none;
+
+.formAdivinaAvanzado {
+  margin-bottom: 1.25rem;
 }
-.inputNumero:focus {
-border-color: var(--color-verde-primario, #22c55e);
+
+.inputGroup {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
 }
-.btnAccionPrimary {
-padding: 0.75rem 1.5rem;
-background: var(--color-verde-primario, #22c55e);
-color: white;
-border: none;
-border-radius: 12px;
-font-weight: 800;
-cursor: pointer;
+
+.inputGrandeNumero {
+  width: 130px;
+  padding: 0.75rem;
+  border: 2px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
 }
-/* Memoria de Código */
-.gridMemoria {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 0.75rem;
-margin-bottom: 2rem;
+
+.inputGrandeNumero:focus {
+  border-color: #22c55e;
 }
-.cartaMemoria {
-aspect-ratio: 1.2;
-background: #f8fafc;
-border: 2px solid var(--color-borde, #e2e8f0);
-border-radius: 12px;
-font-size: 0.85rem;
-font-weight: 800;
-color: var(--color-texto-oscuro, #0f172a);
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 0.25rem;
-transition: all 0.2s ease;
+
+.btnAccionEspecial {
+  padding: 0.75rem 1.5rem;
+  background: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
 }
-.cartaVolteada {
-background: #eff6ff;
-border-color: #3b82f6;
-color: #1d4ed8;
+
+.btnAccionEspecial:hover:not(:disabled) {
+  background: #16a34a;
 }
+
+.metricasJuego {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.boxMetrica {
+  background: #f8fafc;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  border: 1px solid #e2e8f0;
+}
+
+.lblMetrica {
+  color: #64748b;
+  margin-right: 0.3rem;
+}
+
+.valMetrica {
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.secHistorial {
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: left;
+}
+
+.secHistorial h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.listaPistas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.itemPista {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  background: white;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+}
+
+.tagPista {
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}
+
+.pistaMayor { background: #fef3c7; color: #d97706; }
+.pistaMenor { background: #e0f2fe; color: #0369a1; }
+.pistaExito { background: #dcfce7; color: #15803d; }
+
+/* Grid Memoria */
+.gridCartasMemoria {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.cartaCode {
+  aspect-ratio: 1.1;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #0f172a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.cartaCode.activa {
+  background: #eff6ff;
+  border-color: #3b82f6;
+  color: #1d4ed8;
+}
+
+.cartaCode.emparejada {
+  background: #f0fdf4;
+  border-color: #22c55e;
+  color: #15803d;
+}
+
 /* Simon */
-.gridSimon {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 1rem;
-max-width: 260px;
-margin: 0 auto 2rem;
+.contenedorSimon {
+  margin-bottom: 2rem;
 }
-.btnSimon {
-height: 100px;
-border-radius: 18px;
-border: none;
-cursor: pointer;
-opacity: 0.55;
-transition: opacity 0.2s, transform 0.1s;
+
+.topSimonStats {
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 1rem;
 }
-.btnSimon.activo {
-opacity: 1;
-transform: scale(1.05);
+
+.padSimonGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-width: 260px;
+  margin: 0 auto;
 }
-.btnSimon.rojo { background-color: #ef4444; }
-.btnSimon.verde { background-color: #10b981; }
-.btnSimon.azul { background-color: #3b82f6; }
-.btnSimon.amarillo { background-color: #f59e0b; }
-/* Footer de juego */
-.gameFooter {
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding-top: 1.5rem;
-border-top: 1px solid var(--color-borde, #f1f5f9);
+
+.btnPadSimon {
+  height: 100px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.2s, transform 0.1s;
 }
-.btnReiniciar {
-background: transparent;
-border: 1px solid var(--color-borde, #cbd5e1);
-color: var(--color-texto-medio, #64748b);
-padding: 0.5rem 1rem;
-border-radius: var(--radio-pill, 9999px);
-font-size: 0.85rem;
-font-weight: 700;
-cursor: pointer;
+
+.btnPadSimon.iluminado {
+  opacity: 1;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
 }
-.btnReiniciar:hover {
-background: #f8fafc;
-color: var(--color-texto-oscuro, #0f172a);
+
+.btnPadSimon.rojo { background-color: #ef4444; }
+.btnPadSimon.verde { background-color: #10b981; }
+.btnPadSimon.azul { background-color: #3b82f6; }
+.btnPadSimon.amarillo { background-color: #f59e0b; }
+
+/* Footer de Juego */
+.footJuego {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f1f5f9;
 }
-.xolotlMini {
-width: 50px;
-height: auto;
+
+.btnReiniciarJuego {
+  background: transparent;
+  border: 1px solid #cbd5e1;
+  color: #64748b;
+  padding: 0.5rem 1.1rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
 }
+
+.btnReiniciarJuego:hover {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.mascotaMini {
+  width: 52px;
+  height: auto;
+}
+
 /* ── Responsive ───────────────────────────────────────────── */
-@media (max-width: 640px) {
-.header {
-flex-direction: column;
-}
-.btnVolverNav {
-width: 100%;
-justify-content: center;
-}
-.gridMemoria {
-grid-template-columns: repeat(3, 1fr);
-}
-.deco {
-display: none;
-}
+@media (max-width: 768px) {
+  .headerArcade {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .headerRight {
+    align-items: stretch;
+  }
+
+  .statsBar {
+    justify-content: space-around;
+  }
+
+  .gridCartasMemoria {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .decoArcade {
+    display: none;
+  }
 }
