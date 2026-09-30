@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './VistaMinijuegos.css';
 
-export default function VistaMinijuegos() {
+// Asset imports with optional fallbacks
+import iconoJuego from '../../../assets/iconos/icono-juego.svg';
+import xolotlProgramando from '../../../assets/xolotl/xolotl-programando.svg';
+import bloqueAzul from '../../../assets/elementos/bloque-azul.svg';
+import bloqueAmarillo from '../../../assets/elementos/bloque-amarillo.svg';
+import bloqueMorado from '../../../assets/elementos/bloque-morado.svg';
+import estrellaAm from '../../../assets/elementos/estrella-amarilla.svg';
+
+const VistaMinijuegos = ({ onVolver }) => {
   const [juegoActivo, setJuegoActivo] = useState(null);
 
-  // --- ESTADOS JUEGO 1: ADIVINA EL NÚMERO ---
+  // --- MINIJUEGO 1: ADIVINA EL NÚMERO ---
   const [numSecreto, setNumSecreto] = useState(1);
   const [intento, setIntento] = useState('');
   const [mensajeNum, setMensajeNum] = useState('');
@@ -12,7 +20,7 @@ export default function VistaMinijuegos() {
 
   const iniciarAdivinaNumero = () => {
     setNumSecreto(Math.floor(Math.random() * 50) + 1);
-    setMensajeNum('Adivina un número entre 1 y 50');
+    setMensajeNum('Ingresa un número entre 1 y 50');
     setIntentosContador(0);
     setIntento('');
   };
@@ -20,13 +28,13 @@ export default function VistaMinijuegos() {
   const probarNumero = (e) => {
     e.preventDefault();
     const val = parseInt(intento, 10);
-    if (isNaN(val)) return;
-    
+    if (isNaN(val) || val < 1 || val > 50) return;
+
     const nuevosIntentos = intentosContador + 1;
     setIntentosContador(nuevosIntentos);
 
     if (val === numSecreto) {
-      setMensajeNum(`¡Felicidades! Logrado en ${nuevosIntentos} intentos.`);
+      setMensajeNum(`¡Excelente! 🎉 Lo descifraste en ${nuevosIntentos} intentos.`);
     } else if (val < numSecreto) {
       setMensajeNum('El número secreto es MAYOR ↑');
     } else {
@@ -34,12 +42,11 @@ export default function VistaMinijuegos() {
     }
   };
 
-  // --- ESTADOS JUEGO 2: MEMORIA DE CÓDIGO ---
+  // --- MINIJUEGO 2: MEMORIA DE CÓDIGO ---
+  const conceptos = ['if (...)', 'for (...)', 'function()', 'let x = 10', 'return', 'while (...)'];
   const [cartas, setCartas] = useState([]);
   const [seleccionadas, setSeleccionadas] = useState([]);
   const [parejasEncontradas, setParejasEncontradas] = useState([]);
-
-  const conceptos = ['if', 'else', 'for', 'while', 'function', 'return'];
 
   const iniciarMemoria = () => {
     const mazo = [...conceptos, ...conceptos]
@@ -62,22 +69,23 @@ export default function VistaMinijuegos() {
         setParejasEncontradas((prev) => [...prev, cartas[p1].texto]);
         setSeleccionadas([]);
       } else {
-        setTimeout(() => setSeleccionadas([]), 1000);
+        setTimeout(() => setSeleccionadas([]), 900);
       }
     }
   };
 
-  // --- ESTADOS JUEGO 3: SECUENCIA SIMON ---
+  // --- MINIJUEGO 3: SECUENCIA LÓGICA (SIMON) ---
   const colores = ['rojo', 'verde', 'azul', 'amarillo'];
   const [secuencia, setSecuencia] = useState([]);
   const [pasoJugador, setPasoJugador] = useState(0);
   const [mensajeSimon, setMensajeSimon] = useState('');
   const [bloqueado, setBloqueado] = useState(false);
+  const [colorActivo, setColorActivo] = useState(null);
 
   const iniciarSimon = () => {
     setSecuencia([]);
     setPasoJugador(0);
-    setMensajeSimon('¡Atento a la secuencia!');
+    setMensajeSimon('¡Presta atención a la secuencia!');
     agregarColorSecuencia([]);
   };
 
@@ -92,15 +100,12 @@ export default function VistaMinijuegos() {
     setBloqueado(true);
     sec.forEach((col, idx) => {
       setTimeout(() => {
-        const el = document.getElementById(`btn-${col}`);
-        if (el) {
-          el.classList.add('activo');
-          setTimeout(() => el.classList.remove('activo'), 400);
-        }
+        setColorActivo(col);
+        setTimeout(() => setColorActivo(null), 350);
         if (idx === sec.length - 1) {
           setBloqueado(false);
         }
-      }, (idx + 1) * 700);
+      }, (idx + 1) * 650);
     });
   };
 
@@ -109,19 +114,18 @@ export default function VistaMinijuegos() {
 
     if (col === secuencia[pasoJugador]) {
       if (pasoJugador + 1 === secuencia.length) {
-        setMensajeSimon(`¡Bien! Nivel ${secuencia.length} superado.`);
+        setMensajeSimon(`¡Muy bien! Nivel ${secuencia.length} superado.`);
         setPasoJugador(0);
-        setTimeout(() => agregarColorSecuencia(secuencia), 1000);
+        setTimeout(() => agregarColorSecuencia(secuencia), 900);
       } else {
         setPasoJugador(pasoJugador + 1);
       }
     } else {
-      setMensajeSimon(`¡Error! Llegaste hasta el nivel ${secuencia.length}.`);
+      setMensajeSimon(`¡Ups! Perdiste en el Nivel ${secuencia.length}. Inténtalo de nuevo.`);
       setSecuencia([]);
     }
   };
 
-  // Efectos al seleccionar juego
   useEffect(() => {
     if (juegoActivo === 1) iniciarAdivinaNumero();
     if (juegoActivo === 2) iniciarMemoria();
@@ -129,108 +133,219 @@ export default function VistaMinijuegos() {
   }, [juegoActivo]);
 
   return (
-    <div className="minijuegos-vista">
-      <header className="minijuegos-header">
-        <h1>🎮 Zona de Minijuegos</h1>
-        <p>Selecciona un reto para practicar tu lógica mientras te diviertes.</p>
-      </header>
+    <div className="wrapper">
+      {/* Decoraciones flotantes */}
+      {bloqueAzul && <img src={bloqueAzul} alt="" aria-hidden="true" className="deco decoB1" />}
+      {bloqueAmarillo && <img src={bloqueAmarillo} alt="" aria-hidden="true" className="deco decoB2" />}
+      {bloqueMorado && <img src={bloqueMorado} alt="" aria-hidden="true" className="deco decoB3" />}
+      {estrellaAm && <img src={estrellaAm} alt="" aria-hidden="true" className="deco decoS1" />}
+      {estrellaAm && <img src={estrellaAm} alt="" aria-hidden="true" className="deco decoS2" />}
 
-      {!juegoActivo ? (
-        <div className="grid-minijuegos">
-          {/* TARJETA JUEGO 1 */}
-          <div className="card-juego">
-            <div className="icon-juego">🔢</div>
-            <h3>Adivina el Número</h3>
-            <p>Ejercita tu lógica deduciendo el número secreto en los menores intentos posibles.</p>
-            <button className="btn-jugar" onClick={() => setJuegoActivo(1)}>Jugar</button>
+      <div className="container">
+        {/* Header Principal */}
+        <header className="header">
+          <div className="headerText">
+            <div className="badge">
+              {iconoJuego && <img src={iconoJuego} alt="" className="iconoBadge" />}
+              Zona Arcade
+            </div>
+            <h1 className="tituloHeader">Minijuegos de Lógica</h1>
+            <p className="subtituloHeader">
+              Practica resolución de problemas, patrones y algoritmos mientras juegas.
+            </p>
           </div>
 
-          {/* TARJETA JUEGO 2 */}
-          <div className="card-juego">
-            <div className="icon-juego">🧩</div>
-            <h3>Memoria de Código</h3>
-            <p>Encuentra las parejas de comandos de programación antes de que se acabe el tiempo.</p>
-            <button className="btn-jugar" onClick={() => setJuegoActivo(2)}>Jugar</button>
-          </div>
-
-          {/* TARJETA JUEGO 3 */}
-          <div className="card-juego">
-            <div className="icon-juego">🎨</div>
-            <h3>Secuencia Lógica</h3>
-            <p>Memoriza la secuencia de colores y repítela correctamente sin equivocarte.</p>
-            <button className="btn-jugar" onClick={() => setJuegoActivo(3)}>Jugar</button>
-          </div>
-        </div>
-      ) : (
-        <div className="contenedor-pantalla-juego">
-          <button className="btn-volver" onClick={() => setJuegoActivo(null)}>
-            ← Volver a la lista
+          <button type="button" className="btnVolverNav" onClick={onVolver}>
+            ← Volver al Inicio
           </button>
+        </header>
 
-          {/* AREA DE JUEGO 1 */}
-          {juegoActivo === 1 && (
-            <div className="panel-juego">
-              <h2>🔢 Adivina el Número</h2>
-              <p className="mensaje-status">{mensajeNum}</p>
-              <form onSubmit={probarNumero} className="form-adivina">
-                <input
-                  type="number"
-                  min="1"
-                  max="50"
-                  value={intento}
-                  onChange={(e) => setIntento(e.target.value)}
-                  placeholder="Tu número..."
-                />
-                <button type="submit">Probar</button>
-              </form>
-              <button className="btn-reiniciar" onClick={iniciarAdivinaNumero}>Reiniciar Juego</button>
-            </div>
-          )}
-
-          {/* AREA DE JUEGO 2 */}
-          {juegoActivo === 2 && (
-            <div className="panel-juego">
-              <h2>🧩 Memoria de Código</h2>
-              <p className="mensaje-status">Parejas encontradas: {parejasEncontradas.length} de {conceptos.length}</p>
-              <div className="grid-memoria">
-                {cartas.map((carta, idx) => {
-                  const estaVolteada = seleccionadas.includes(idx) || parejasEncontradas.includes(carta.texto);
-                  return (
-                    <button
-                      key={carta.id}
-                      className={`carta-memoria ${estaVolteada ? 'revelada' : ''}`}
-                      onClick={() => seleccionarCarta(idx)}
-                    >
-                      {estaVolteada ? carta.texto : '❓'}
-                    </button>
-                  );
-                })}
+        {/* VISTA CATÁLOGO DE JUEGOS */}
+        {!juegoActivo ? (
+          <div className="gridJuegos">
+            {/* Tarjeta 1 */}
+            <article className="cardJuego">
+              <div className="cardBanner bannerAmber">
+                <span className="cardIcon">🔢</span>
+                <span className="difficultyBadge">Fácil</span>
               </div>
-              <button className="btn-reiniciar" onClick={iniciarMemoria}>Reiniciar Juego</button>
-            </div>
-          )}
+              <div className="cardContent">
+                <span className="cardCategory">Pensamiento Numérico</span>
+                <h2 className="cardTitle">Adivina el Número</h2>
+                <p className="cardDesc">
+                  Ejercita tu lógica deductiva encontrando el número secreto en los menores intentos posibles.
+                </p>
+                <button
+                  type="button"
+                  className="btnJugar"
+                  onClick={() => setJuegoActivo(1)}
+                >
+                  Jugar Ahora ➔
+                </button>
+              </div>
+            </article>
 
-          {/* AREA DE JUEGO 3 */}
-          {juegoActivo === 3 && (
-            <div className="panel-juego">
-              <h2>🎨 Secuencia Lógica</h2>
-              <p className="mensaje-status">{mensajeSimon}</p>
-              <div className="grid-simon">
-                {colores.map((col) => (
-                  <button
-                    key={col}
-                    id={`btn-${col}`}
-                    className={`btn-simon ${col}`}
-                    onClick={() => presionarColor(col)}
-                    disabled={bloqueado}
+            {/* Tarjeta 2 */}
+            <article className="cardJuego">
+              <div className="cardBanner bannerBlue">
+                <span className="cardIcon">🧩</span>
+                <span className="difficultyBadge">Medio</span>
+              </div>
+              <div className="cardContent">
+                <span className="cardCategory">Sintaxis y Código</span>
+                <h2 className="cardTitle">Memoria de Código</h2>
+                <p className="cardDesc">
+                  Encuentra los pares de comandos y estructuras de programación en el menor número de movimientos.
+                </p>
+                <button
+                  type="button"
+                  className="btnJugar"
+                  onClick={() => setJuegoActivo(2)}
+                >
+                  Jugar Ahora ➔
+                </button>
+              </div>
+            </article>
+
+            {/* Tarjeta 3 */}
+            <article className="cardJuego">
+              <div className="cardBanner bannerEmerald">
+                <span className="cardIcon">🎨</span>
+                <span className="difficultyBadge">Desafío</span>
+              </div>
+              <div className="cardContent">
+                <span className="cardCategory">Algoritmos y Patrones</span>
+                <h2 className="cardTitle">Secuencia Lógica</h2>
+                <p className="cardDesc">
+                  Memoriza el patrón de colores en orden secuencial y pon a prueba tu capacidad de retención.
+                </p>
+                <button
+                  type="button"
+                  className="btnJugar"
+                  onClick={() => setJuegoActivo(3)}
+                >
+                  Jugar Ahora ➔
+                </button>
+              </div>
+            </article>
+          </div>
+        ) : (
+          /* VISTA PANEL DE JUEGO EN EJECUCIÓN */
+          <div className="panelJuegoContainer">
+            <button
+              type="button"
+              className="btnRegresarLista"
+              onClick={() => setJuegoActivo(null)}
+            >
+              ← Volver al catálogo de juegos
+            </button>
+
+            {/* JUEGO 1: ADIVINA EL NÚMERO */}
+            {juegoActivo === 1 && (
+              <div className="gamePanel">
+                <div className="gameHeaderBox">
+                  <span className="gameBigIcon">🔢</span>
+                  <h2>Adivina el Número</h2>
+                  <p className="gameStatusText">{mensajeNum}</p>
+                  <span className="attemptsCounter">
+                    Intentos acumulados: <strong>{intentosContador}</strong>
+                  </span>
+                </div>
+
+                <form onSubmit={probarNumero} className="formAdivina">
+                  <input
+                    type="number"
+                    min="1"
+                    max="50"
+                    value={intento}
+                    onChange={(e) => setIntento(e.target.value)}
+                    placeholder="1 - 50"
+                    className="inputNumero"
                   />
-                ))}
+                  <button type="submit" className="btnAccionPrimary">
+                    Probar
+                  </button>
+                </form>
+
+                <div className="gameFooter">
+                  <button type="button" className="btnReiniciar" onClick={iniciarAdivinaNumero}>
+                    Reiniciar partida
+                  </button>
+                  {xolotlProgramando && <img src={xolotlProgramando} alt="Xolotl" className="xolotlMini" />}
+                </div>
               </div>
-              <button className="btn-reiniciar" onClick={iniciarSimon}>Iniciar / Reiniciar</button>
-            </div>
-          )}
-        </div>
-      )}
+            )}
+
+            {/* JUEGO 2: MEMORIA DE CÓDIGO */}
+            {juegoActivo === 2 && (
+              <div className="gamePanel">
+                <div className="gameHeaderBox">
+                  <span className="gameBigIcon">🧩</span>
+                  <h2>Memoria de Código</h2>
+                  <p className="gameStatusText">
+                    Parejas encontradas: {parejasEncontradas.length} de {conceptos.length}
+                  </p>
+                </div>
+
+                <div className="gridMemoria">
+                  {cartas.map((carta, idx) => {
+                    const estaVolteada = seleccionadas.includes(idx) || parejasEncontradas.includes(carta.texto);
+                    return (
+                      <button
+                        key={carta.id}
+                        type="button"
+                        className={`cartaMemoria ${estaVolteada ? 'cartaVolteada' : ''}`}
+                        onClick={() => seleccionarCarta(idx)}
+                      >
+                        {estaVolteada ? carta.texto : '❓'}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="gameFooter">
+                  <button type="button" className="btnReiniciar" onClick={iniciarMemoria}>
+                    Reiniciar partida
+                  </button>
+                  {xolotlProgramando && <img src={xolotlProgramando} alt="Xolotl" className="xolotlMini" />}
+                </div>
+              </div>
+            )}
+
+            {/* JUEGO 3: SECUENCIA LÓGICA */}
+            {juegoActivo === 3 && (
+              <div className="gamePanel">
+                <div className="gameHeaderBox">
+                  <span className="gameBigIcon">🎨</span>
+                  <h2>Secuencia Lógica</h2>
+                  <p className="gameStatusText">{mensajeSimon}</p>
+                </div>
+
+                <div className="gridSimon">
+                  {colores.map((col) => (
+                    <button
+                      key={col}
+                      type="button"
+                      className={`btnSimon ${col} ${colorActivo === col ? 'activo' : ''}`}
+                      onClick={() => presionarColor(col)}
+                      disabled={bloqueado}
+                    />
+                  ))}
+                </div>
+
+                <div className="gameFooter">
+                  <button type="button" className="btnReiniciar" onClick={iniciarSimon}>
+                    Iniciar / Reiniciar
+                  </button>
+                  {xolotlProgramando && <img src={xolotlProgramando} alt="Xolotl" className="xolotlMini" />}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
-}
+};
+
+export default VistaMinijuegos;

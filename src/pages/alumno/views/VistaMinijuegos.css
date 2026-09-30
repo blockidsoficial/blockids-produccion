@@ -1,180 +1,370 @@
-.minijuegos-vista {
-  padding: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
-  text-align: center;
-  font-family: system-ui, -apple-system, sans-serif;
+/* ============================================================
+BLOCKIDS — Vista Minijuegos (Zona Arcade)
+============================================================ */
+@keyframes flotarY {
+0%, 100% { transform: translateY(0px) rotate(0deg); }
+50% { transform: translateY(-14px) rotate(4deg); }
 }
-
-.minijuegos-header h1 {
-  font-size: 2.2rem;
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
+@keyframes flotarYInv {
+0%, 100% { transform: translateY(0px) rotate(0deg); }
+50% { transform: translateY(12px) rotate(-4deg); }
 }
-
-.minijuegos-header p {
-  color: #7f8c8d;
-  margin-bottom: 2rem;
+@keyframes entrar {
+from { opacity: 0; transform: translateY(18px); }
+to { opacity: 1; transform: translateY(0); }
 }
-
-.grid-minijuegos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
+.wrapper {
+position: relative;
+width: 100%;
+min-height: 80vh;
+padding: 1.5rem 1rem 3rem;
+overflow: hidden;
+font-family: var(--font-principal, system-ui, sans-serif);
 }
-
-.card-juego {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 1.8rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.container {
+max-width: 1080px;
+margin: 0 auto;
+position: relative;
+z-index: 1;
 }
-
-.card-juego:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+/* ── Decoraciones flotantes ───────────────────────────────── */
+.deco {
+position: absolute;
+pointer-events: none;
+user-select: none;
+opacity: 0.85;
 }
-
-.icon-juego {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+.decoB1 { top: 6%; left: 3%; width: 44px; animation: flotarY 5s ease-in-out infinite; }
+.decoB2 { top: 12%; right: 4%; width: 38px; animation: flotarYInv 4.2s ease-in-out infinite; }
+.decoB3 { bottom: 8%; left: 4%; width: 42px; animation: flotarYInv 4.8s ease-in-out infinite; }
+.decoS1 { top: 4%; right: 18%; width: 28px; animation: flotarY 3.6s ease-in-out infinite; }
+.decoS2 { bottom: 6%; right: 5%; width: 24px; animation: flotarY 4.4s ease-in-out infinite; }
+/* ── Header ──────────────────────────────────────────────── */
+.header {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+gap: 1.5rem;
+margin-bottom: 2rem;
+padding-bottom: 1.5rem;
+border-bottom: 1px solid var(--color-borde, #e2e8f0);
 }
-
-.card-juego h3 {
-  margin: 0.5rem 0;
-  color: #34495e;
+.badge {
+display: inline-flex;
+align-items: center;
+gap: 0.4rem;
+margin-bottom: 0.75rem;
+padding: 0.35rem 0.9rem;
+background: var(--color-amarillo-bg, #fef3c7);
+color: #b7791f;
+border-radius: var(--radio-pill, 9999px);
+font-size: 0.8rem;
+font-weight: 800;
+letter-spacing: 0.05em;
+text-transform: uppercase;
 }
-
-.card-juego p {
-  font-size: 0.9rem;
-  color: #666;
-  flex-grow: 1;
-  margin-bottom: 1.5rem;
+.iconoBadge {
+width: 16px;
+height: 16px;
 }
-
-.btn-jugar, .btn-volver, .btn-reiniciar {
-  background-color: #22c55e;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s;
+.tituloHeader {
+font-size: clamp(1.6rem, 3vw, 2.2rem);
+font-weight: 900;
+color: var(--color-texto-oscuro, #0f172a);
+margin: 0 0 0.5rem;
 }
-
-.btn-jugar:hover, .btn-volver:hover, .btn-reiniciar:hover {
-  background-color: #16a34a;
+.subtituloHeader {
+font-size: 0.95rem;
+color: var(--color-texto-medio, #64748b);
+margin: 0;
+max-width: 600px;
 }
-
-.btn-volver {
-  background-color: #64748b;
-  margin-bottom: 1.5rem;
+.btnVolverNav {
+display: inline-flex;
+align-items: center;
+padding: 0.7rem 1.4rem;
+background: var(--color-blanco, #ffffff);
+color: var(--color-texto-oscuro, #0f172a);
+border: 1px solid var(--color-borde, #cbd5e1);
+border-radius: var(--radio-pill, 9999px);
+font-size: 0.9rem;
+font-weight: 700;
+cursor: pointer;
+white-space: nowrap;
+box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+transition: all 0.2s ease;
 }
-
-.btn-volver:hover {
-  background-color: #475569;
+.btnVolverNav:hover {
+background: #f8fafc;
+border-color: #94a3b8;
+transform: translateY(-2px);
 }
-
-/* PANELS DE JUEGO */
-.panel-juego {
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  max-width: 500px;
-  margin: 0 auto;
+/* ── Grid de Tarjetas de Juegos ───────────────────────────── */
+.gridJuegos {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 1.75rem;
+animation: entrar 0.4s ease;
 }
-
-.mensaje-status {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #2563eb;
-  margin: 1rem 0;
+.cardJuego {
+background: var(--color-blanco, #ffffff);
+border: 1px solid var(--color-borde, #e2e8f0);
+border-radius: var(--radio-card, 20px);
+overflow: hidden;
+box-shadow: var(--sombra-panel, 0 10px 25px -5px rgba(0, 0, 0, 0.05));
+display: flex;
+flex-direction: column;
+transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-
-/* FORM ADIVINA NUMERO */
-.form-adivina {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+.cardJuego:hover {
+transform: translateY(-6px);
+box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.12);
 }
-
-.form-adivina input {
-  padding: 0.5rem 1rem;
-  border: 2rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-size: 1rem;
-  width: 120px;
-  text-align: center;
+.cardBanner {
+height: 120px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 1.25rem 1.5rem;
+position: relative;
 }
-
-.form-adivina button {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
+.bannerAmber {
+background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
 }
-
-/* MEMORIA */
-.grid-memoria {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.8rem;
-  margin-bottom: 1.5rem;
+.bannerBlue {
+background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
 }
-
-.carta-memoria {
-  height: 70px;
-  background: #f1f5f9;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.bannerEmerald {
+background: linear-gradient(135deg, #10b981 0%, #047857 100%);
 }
-
-.carta-memoria.revelada {
-  background: #dbeafe;
-  border-color: #3b82f6;
-  color: #1e40af;
+.cardIcon {
+font-size: 3.5rem;
+filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
 }
-
-/* SECUENCIA SIMON */
-.grid-simon {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  max-width: 250px;
-  margin: 0 auto 1.5rem;
+.difficultyBadge {
+background: rgba(255, 255, 255, 0.25);
+backdrop-filter: blur(4px);
+color: #ffffff;
+padding: 0.3rem 0.75rem;
+border-radius: 20px;
+font-size: 0.75rem;
+font-weight: 800;
+text-transform: uppercase;
 }
-
-.btn-simon {
-  height: 100px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.6;
-  transition: opacity 0.2s, transform 0.1s;
+.cardContent {
+padding: 1.5rem;
+display: flex;
+flex-direction: column;
+flex: 1;
 }
-
-.btn-simon.activo {
-  opacity: 1;
-  transform: scale(1.05);
+.cardCategory {
+font-size: 0.75rem;
+font-weight: 800;
+text-transform: uppercase;
+color: var(--color-morado-primario, #7c3aed);
+letter-spacing: 0.05em;
+margin-bottom: 0.35rem;
 }
-
-.btn-simon.rojo { background-color: #ef4444; }
-.btn-simon.verde { background-color: #10b981; }
-.btn-simon.azul { background-color: #3b82f6; }
-.btn-simon.amarillo { background-color: #eab308; }
+.cardTitle {
+font-size: 1.25rem;
+font-weight: 800;
+color: var(--color-texto-oscuro, #0f172a);
+margin: 0 0 0.6rem;
+}
+.cardDesc {
+font-size: 0.9rem;
+color: var(--color-texto-medio, #64748b);
+line-height: 1.5;
+margin: 0 0 1.5rem;
+flex: 1;
+}
+.btnJugar {
+width: 100%;
+padding: 0.85rem;
+background: var(--color-verde-primario, #22c55e);
+color: #ffffff;
+border: none;
+border-radius: var(--radio-pill, 9999px);
+font-size: 0.95rem;
+font-weight: 800;
+cursor: pointer;
+box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
+transition: all 0.2s ease;
+}
+.btnJugar:hover {
+background: var(--color-verde-hover, #16a34a);
+transform: translateY(-2px);
+}
+/* ── Panel de Juego ───────────────────────────────────────── */
+.panelJuegoContainer {
+animation: entrar 0.3s ease;
+}
+.btnRegresarLista {
+background: transparent;
+border: none;
+color: var(--color-texto-medio, #64748b);
+font-weight: 700;
+font-size: 0.9rem;
+cursor: pointer;
+margin-bottom: 1.25rem;
+transition: color 0.2s;
+}
+.btnRegresarLista:hover {
+color: var(--color-texto-oscuro, #0f172a);
+}
+.gamePanel {
+background: var(--color-blanco, #ffffff);
+border: 1px solid var(--color-borde, #e2e8f0);
+border-radius: var(--radio-card, 24px);
+padding: 2.25rem 2rem;
+max-width: 580px;
+margin: 0 auto;
+box-shadow: var(--sombra-panel, 0 12px 30px rgba(0,0,0,0.06));
+text-align: center;
+}
+.gameHeaderBox {
+margin-bottom: 1.75rem;
+}
+.gameBigIcon {
+font-size: 3rem;
+display: block;
+margin-bottom: 0.5rem;
+}
+.gameHeaderBox h2 {
+font-size: 1.5rem;
+font-weight: 900;
+color: var(--color-texto-oscuro, #0f172a);
+margin: 0 0 0.5rem;
+}
+.gameStatusText {
+font-size: 1.05rem;
+font-weight: 700;
+color: var(--color-morado-primario, #7c3aed);
+margin: 0 0 0.5rem;
+}
+.attemptsCounter {
+font-size: 0.85rem;
+color: var(--color-texto-medio, #64748b);
+}
+/* Formulario Adivina */
+.formAdivina {
+display: flex;
+justify-content: center;
+gap: 0.75rem;
+margin-bottom: 2rem;
+}
+.inputNumero {
+width: 120px;
+padding: 0.75rem;
+border: 2px solid var(--color-borde, #cbd5e1);
+border-radius: 12px;
+font-size: 1.2rem;
+font-weight: 800;
+text-align: center;
+outline: none;
+}
+.inputNumero:focus {
+border-color: var(--color-verde-primario, #22c55e);
+}
+.btnAccionPrimary {
+padding: 0.75rem 1.5rem;
+background: var(--color-verde-primario, #22c55e);
+color: white;
+border: none;
+border-radius: 12px;
+font-weight: 800;
+cursor: pointer;
+}
+/* Memoria de Código */
+.gridMemoria {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 0.75rem;
+margin-bottom: 2rem;
+}
+.cartaMemoria {
+aspect-ratio: 1.2;
+background: #f8fafc;
+border: 2px solid var(--color-borde, #e2e8f0);
+border-radius: 12px;
+font-size: 0.85rem;
+font-weight: 800;
+color: var(--color-texto-oscuro, #0f172a);
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 0.25rem;
+transition: all 0.2s ease;
+}
+.cartaVolteada {
+background: #eff6ff;
+border-color: #3b82f6;
+color: #1d4ed8;
+}
+/* Simon */
+.gridSimon {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 1rem;
+max-width: 260px;
+margin: 0 auto 2rem;
+}
+.btnSimon {
+height: 100px;
+border-radius: 18px;
+border: none;
+cursor: pointer;
+opacity: 0.55;
+transition: opacity 0.2s, transform 0.1s;
+}
+.btnSimon.activo {
+opacity: 1;
+transform: scale(1.05);
+}
+.btnSimon.rojo { background-color: #ef4444; }
+.btnSimon.verde { background-color: #10b981; }
+.btnSimon.azul { background-color: #3b82f6; }
+.btnSimon.amarillo { background-color: #f59e0b; }
+/* Footer de juego */
+.gameFooter {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding-top: 1.5rem;
+border-top: 1px solid var(--color-borde, #f1f5f9);
+}
+.btnReiniciar {
+background: transparent;
+border: 1px solid var(--color-borde, #cbd5e1);
+color: var(--color-texto-medio, #64748b);
+padding: 0.5rem 1rem;
+border-radius: var(--radio-pill, 9999px);
+font-size: 0.85rem;
+font-weight: 700;
+cursor: pointer;
+}
+.btnReiniciar:hover {
+background: #f8fafc;
+color: var(--color-texto-oscuro, #0f172a);
+}
+.xolotlMini {
+width: 50px;
+height: auto;
+}
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 640px) {
+.header {
+flex-direction: column;
+}
+.btnVolverNav {
+width: 100%;
+justify-content: center;
+}
+.gridMemoria {
+grid-template-columns: repeat(3, 1fr);
+}
+.deco {
+display: none;
+}
+}
