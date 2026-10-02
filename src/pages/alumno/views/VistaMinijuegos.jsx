@@ -5,6 +5,7 @@ import bloqueAzul     from '../../../assets/elementos/bloque-azul.svg';
 import bloqueAmarillo from '../../../assets/elementos/bloque-amarillo.svg';
 import bloqueMorado   from '../../../assets/elementos/bloque-morado.svg';
 import estrellaAm     from '../../../assets/elementos/estrella-amarilla.svg';
+import { obtenerProgreso, completarJuego } from '../../../src/services/progresoMinijuegos';
 
 
 // ============================================================
@@ -14,16 +15,68 @@ import estrellaAm     from '../../../assets/elementos/estrella-amarilla.svg';
 const VistaMinijuegos = ({ onVolver }) => {
 
     const [juegoActivo, setJuegoActivo] = useState(null);
+    const [xp, setXp] = useState(0);
+    const [racha, setRacha] = useState(0);
+    const [nivel, setNivel] = useState(1);
+    const [cargandoProgreso, setCargandoProgreso] = useState(true);
 
-    const [xp, setXp] = useState(350);
+    // Cargar las estadísticas guardadas en Supabase al entrar.
+    useEffect(() => {
+        let componenteActivo = true;
 
+        const cargar = async () => {
+            try {
+                const progreso = await obtenerProgreso();
 
-    // ========================================================
-    // CUANDO TERMINA UN JUEGO
-    // ========================================================
+                if (componenteActivo) {
+                    setXp(progreso.xp ?? 0);
+                    setRacha(progreso.racha ?? 0);
+                    setNivel(progreso.nivel ?? 1);
+                }
+            } catch (error) {
+                console.error('No se pudo cargar el progreso de minijuegos:', error);
+            } finally {
+                if (componenteActivo) {
+                    setCargandoProgreso(false);
+                }
+            }
+        };
 
-    const ganarXP = (cantidad) => {
-        setXp(prev => prev + cantidad);
+        cargar();
+
+        return () => {
+            componenteActivo = false;
+        };
+    }, []);
+
+    // Registrar en Supabase el juego completado.
+    const ganarXP = async (juego) => {
+        try {
+            const resultado = await completarJuego(juego);
+
+            if (resultado?.progreso) {
+                setXp(resultado.progreso.xp ?? 0);
+                setRacha(resultado.progreso.racha ?? 0);
+                setNivel(resultado.progreso.nivel ?? 1);
+            }
+
+            if (resultado?.yaJugadoHoy) {
+                window.alert(
+                    'Ya ganaste XP con este minijuego hoy. Puedes volver a jugarlo mañana para ganar XP nuevamente.'
+                );
+            } else if (resultado?.xpGanada > 0) {
+                window.alert(`¡Completaste el juego y ganaste ${resultado.xpGanada} XP!`);
+            }
+
+            return resultado;
+        } catch (error) {
+            console.error('No se pudo guardar el progreso:', error);
+            window.alert(
+                error?.message ||
+                'No se pudo guardar tu progreso. Verifica que hayas iniciado sesión e inténtalo de nuevo.'
+            );
+            return null;
+        }
     };
 
 
@@ -35,7 +88,7 @@ const VistaMinijuegos = ({ onVolver }) => {
         return (
             <JuegoNumero
                 onVolver={() => setJuegoActivo(null)}
-                ganarXP={() => ganarXP(50)}
+                ganarXP={() => ganarXP('adivinaNumero')}
             />
         );
     }
@@ -44,7 +97,7 @@ const VistaMinijuegos = ({ onVolver }) => {
         return (
             <JuegoMemoria
                 onVolver={() => setJuegoActivo(null)}
-                ganarXP={() => ganarXP(75)}
+                ganarXP={() => ganarXP('memoriaCodigo')}
             />
         );
     }
@@ -53,7 +106,7 @@ const VistaMinijuegos = ({ onVolver }) => {
         return (
             <JuegoSecuencia
                 onVolver={() => setJuegoActivo(null)}
-                ganarXP={() => ganarXP(100)}
+                ganarXP={() => ganarXP('secuenciaLogica')}
             />
         );
     }
@@ -125,7 +178,7 @@ const VistaMinijuegos = ({ onVolver }) => {
 
                     <div className={styles.statInfo}>
                         <span>XP Ganados</span>
-                        <strong>{xp} XP</strong>
+                        <strong>{cargandoProgreso ? 'Cargando...' : `${xp} XP`}</strong>
                     </div>
 
                 </div>
@@ -139,7 +192,7 @@ const VistaMinijuegos = ({ onVolver }) => {
 
                     <div className={styles.statInfo}>
                         <span>Racha</span>
-                        <strong>3 días</strong>
+                        <strong>{cargandoProgreso ? 'Cargando...' : `${racha} ${racha === 1 ? 'día' : 'días'}`}</strong>
                     </div>
 
                 </div>
@@ -153,7 +206,7 @@ const VistaMinijuegos = ({ onVolver }) => {
 
                     <div className={styles.statInfo}>
                         <span>Nivel</span>
-                        <strong>Nivel 2</strong>
+                        <strong>{cargandoProgreso ? 'Cargando...' : `Nivel ${nivel}`}</strong>
                     </div>
 
                 </div>
