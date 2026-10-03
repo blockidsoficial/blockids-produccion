@@ -5,7 +5,7 @@ import bloqueAzul     from '../../../assets/elementos/bloque-azul.svg';
 import bloqueAmarillo from '../../../assets/elementos/bloque-amarillo.svg';
 import bloqueMorado   from '../../../assets/elementos/bloque-morado.svg';
 import estrellaAm     from '../../../assets/elementos/estrella-amarilla.svg';
-import { obtenerProgreso, completarJuego } from '../../../src/services/progresoMinijuegos';
+import { obtenerProgreso, completarJuego } from '../../../services/progresoMinijuegos';
 
 
 // ============================================================
