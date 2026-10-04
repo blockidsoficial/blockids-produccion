@@ -5,14 +5,12 @@ import bloqueAzul     from '../../../assets/elementos/bloque-azul.svg';
 import bloqueAmarillo from '../../../assets/elementos/bloque-amarillo.svg';
 import bloqueMorado   from '../../../assets/elementos/bloque-morado.svg';
 import estrellaAm     from '../../../assets/elementos/estrella-amarilla.svg';
-import { obtenerProgreso, completarJuego } from '../../../services/progresoMiniJnpm run builduegos';
-
-
+import { obtenerProgreso, completarJuego } from '../../../services/progresoMiniJuegos';
 // ============================================================
 // VISTA PRINCIPAL
 // ============================================================
 
-const VistaMinijuegos = ({ onVolver }) => {
+function VistaMinijuegos({ onVolver }) {
 
     const [juegoActivo, setJuegoActivo] = useState(null);
     const [xp, setXp] = useState(0);
@@ -83,13 +81,11 @@ const VistaMinijuegos = ({ onVolver }) => {
     // ========================================================
     // SI HAY UN JUEGO ABIERTO
     // ========================================================
-
     if (juegoActivo === 'numero') {
         return (
             <JuegoNumero
                 onVolver={() => setJuegoActivo(null)}
-                ganarXP={() => ganarXP('adivinaNumero')}
-            />
+                ganarXP={() => ganarXP('adivinaNumero')} />
         );
     }
 
@@ -97,8 +93,7 @@ const VistaMinijuegos = ({ onVolver }) => {
         return (
             <JuegoMemoria
                 onVolver={() => setJuegoActivo(null)}
-                ganarXP={() => ganarXP('memoriaCodigo')}
-            />
+                ganarXP={() => ganarXP('memoriaCodigo')} />
         );
     }
 
@@ -106,8 +101,7 @@ const VistaMinijuegos = ({ onVolver }) => {
         return (
             <JuegoSecuencia
                 onVolver={() => setJuegoActivo(null)}
-                ganarXP={() => ganarXP('secuenciaLogica')}
-            />
+                ganarXP={() => ganarXP('secuenciaLogica')} />
         );
     }
 
@@ -115,7 +109,6 @@ const VistaMinijuegos = ({ onVolver }) => {
     // ========================================================
     // PANTALLA DE MINIJUEGOS
     // ========================================================
-
     return (
         <div className={styles.minijuegos}>
 
@@ -125,29 +118,25 @@ const VistaMinijuegos = ({ onVolver }) => {
                 src={bloqueAzul}
                 alt=""
                 aria-hidden="true"
-                className={`${styles.deco} ${styles.decoB1}`}
-            />
+                className={`${styles.deco} ${styles.decoB1}`} />
 
             <img
                 src={bloqueAmarillo}
                 alt=""
                 aria-hidden="true"
-                className={`${styles.deco} ${styles.decoB2}`}
-            />
+                className={`${styles.deco} ${styles.decoB2}`} />
 
             <img
                 src={bloqueMorado}
                 alt=""
                 aria-hidden="true"
-                className={`${styles.deco} ${styles.decoB3}`}
-            />
+                className={`${styles.deco} ${styles.decoB3}`} />
 
             <img
                 src={estrellaAm}
                 alt=""
                 aria-hidden="true"
-                className={`${styles.deco} ${styles.decoS1}`}
-            />
+                className={`${styles.deco} ${styles.decoS1}`} />
 
 
             {/* ENCABEZADO */}
@@ -264,8 +253,8 @@ const VistaMinijuegos = ({ onVolver }) => {
 
 
                 {/* ================================
-                    ADIVINA EL NÚMERO
-                ================================= */}
+                ADIVINA EL NÚMERO
+            ================================= */}
 
                 <article className={styles.juegoCard}>
 
@@ -320,8 +309,8 @@ const VistaMinijuegos = ({ onVolver }) => {
 
 
                 {/* ================================
-                    MEMORIA
-                ================================= */}
+                MEMORIA
+            ================================= */}
 
                 <article className={styles.juegoCard}>
 
@@ -376,8 +365,8 @@ const VistaMinijuegos = ({ onVolver }) => {
 
 
                 {/* ================================
-                    SECUENCIA
-                ================================= */}
+                SECUENCIA
+            ================================= */}
 
                 <article className={styles.juegoCard}>
 
@@ -434,7 +423,7 @@ const VistaMinijuegos = ({ onVolver }) => {
 
         </div>
     );
-};
+}
 
 
 // ============================================================
