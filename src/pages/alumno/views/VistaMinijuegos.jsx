@@ -13,6 +13,7 @@ import { obtenerProgreso, completarJuego } from '../../../services/progresoMiniJ
 function VistaMinijuegos({ onVolver }) {
 
     const [juegoActivo, setJuegoActivo] = useState(null);
+    const [filtroActivo, setFiltroActivo] = useState('todos');
     const [xp, setXp] = useState(0);
     const [racha, setRacha] = useState(0);
     const [nivel, setNivel] = useState(1);
@@ -215,33 +216,52 @@ function VistaMinijuegos({ onVolver }) {
 
 
             {/* FILTROS */}
-
             <section className={styles.filtros}>
-
                 <div className={styles.filtrosTitulo}>
                     Filtrar por:
                 </div>
 
                 <div className={styles.filtrosBotones}>
-
-                    <button className={`${styles.filtroBtn} ${styles.activo}`}>
+                    <button
+                        type="button"
+                        className={`${styles.filtroBtn} ${
+                            filtroActivo === 'todos' ? styles.activo : ''
+                        }`}
+                        onClick={() => setFiltroActivo('todos')}
+                    >
                         Todos (3)
                     </button>
 
-                    <button className={styles.filtroBtn}>
+                    <button
+                        type="button"
+                        className={`${styles.filtroBtn} ${
+                            filtroActivo === 'logica' ? styles.activo : ''
+                        }`}
+                        onClick={() => setFiltroActivo('logica')}
+                    >
                         🧠 Lógica
                     </button>
 
-                    <button className={styles.filtroBtn}>
+                    <button
+                        type="button"
+                        className={`${styles.filtroBtn} ${
+                            filtroActivo === 'sintaxis' ? styles.activo : ''
+                        }`}
+                        onClick={() => setFiltroActivo('sintaxis')}
+                    >
                         💻 Sintaxis
                     </button>
 
-                    <button className={styles.filtroBtn}>
+                    <button
+                        type="button"
+                        className={`${styles.filtroBtn} ${
+                            filtroActivo === 'patrones' ? styles.activo : ''
+                        }`}
+                        onClick={() => setFiltroActivo('patrones')}
+                    >
                         ⚡ Patrones
                     </button>
-
                 </div>
-
             </section>
 
 
@@ -256,6 +276,7 @@ function VistaMinijuegos({ onVolver }) {
                 ADIVINA EL NÚMERO
             ================================= */}
 
+                {(filtroActivo === 'todos' || filtroActivo === 'logica') && (
                 <article className={styles.juegoCard}>
 
                     <div className={styles.juegoPortada}>
@@ -306,12 +327,14 @@ function VistaMinijuegos({ onVolver }) {
                     </div>
 
                 </article>
+                )}
 
 
                 {/* ================================
                 MEMORIA
             ================================= */}
 
+                {(filtroActivo === 'todos' || filtroActivo === 'sintaxis') && (
                 <article className={styles.juegoCard}>
 
                     <div className={styles.juegoPortada}>
@@ -362,12 +385,14 @@ function VistaMinijuegos({ onVolver }) {
                     </div>
 
                 </article>
+                )}
 
 
                 {/* ================================
                 SECUENCIA
             ================================= */}
 
+                {(filtroActivo === 'todos' || filtroActivo === 'patrones') && (
                 <article className={styles.juegoCard}>
 
                     <div className={styles.juegoPortada}>
@@ -418,6 +443,7 @@ function VistaMinijuegos({ onVolver }) {
                     </div>
 
                 </article>
+                )}
 
             </section>
 
