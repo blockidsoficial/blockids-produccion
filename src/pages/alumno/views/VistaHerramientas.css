@@ -1,276 +1,819 @@
+/* =========================================================
+   BLOCKIDS - HERRAMIENTAS
+========================================================= */
+
 .toolsContainer {
-    padding: 28px;
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    padding: 25px;
+    box-sizing: border-box;
 }
 
+/* =========================================================
+   ENCABEZADO
+========================================================= */
+
 .toolsHeader {
-    margin-bottom: 28px;
+    margin-bottom: 25px;
 }
 
 .toolsHeader h1 {
-    margin: 0;
-    font-size: 32px;
-    color: #263238;
+    margin: 0 0 8px;
+    font-size: 30px;
+    color: #1f2937;
 }
 
 .toolsHeader p {
-    margin-top: 8px;
-    color: #667085;
-    font-size: 16px;
+    margin: 0;
+    color: #6b7280;
+    font-size: 15px;
 }
+
+/* =========================================================
+   GRID DE HERRAMIENTAS
+========================================================= */
 
 .toolsGrid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(
+        2,
+        minmax(280px, 1fr)
+    );
     gap: 20px;
 }
 
+/* =========================================================
+   TARJETAS
+========================================================= */
+
 .toolCard {
     position: relative;
-    border: none;
-    border-radius: 20px;
-    padding: 25px;
+
     min-height: 190px;
+
+    padding: 25px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 18px;
+
+    background: white;
+
     text-align: left;
+
     cursor: pointer;
+
     display: flex;
+
     flex-direction: column;
+
+    align-items: flex-start;
+
     justify-content: flex-start;
-    transition: transform .2s ease, box-shadow .2s ease;
-    overflow: hidden;
+
+    gap: 12px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .toolCard:not(:disabled):hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, .12);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0, 0, 0, 0.08);
+
+    border-color: #2563eb;
 }
 
 .toolCard:disabled {
-    cursor: default;
-    opacity: .65;
+    cursor: not-allowed;
+
+    opacity: 0.65;
 }
 
-.documents {
-    background: #e8f1ff;
-}
-
-.spreadsheets {
-    background: #e9f8ee;
-}
-
-.presentations {
-    background: #fff1e8;
-}
-
-.designs {
-    background: #f2eaff;
-}
+/* =========================================================
+   ICONO
+========================================================= */
 
 .toolIcon {
     width: 58px;
+
     height: 58px;
-    border-radius: 16px;
-    background: white;
+
+    border-radius: 15px;
+
     display: flex;
+
     align-items: center;
+
     justify-content: center;
+
     font-size: 30px;
-    margin-bottom: 18px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .07);
+
+    background: #f3f4f6;
 }
 
+/* =========================================================
+   TEXTO DE TARJETAS
+========================================================= */
+
 .toolCard h2 {
-    margin: 0 0 7px;
-    color: #263238;
-    font-size: 21px;
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 20px;
 }
 
 .toolCard p {
-    margin: 0;
-    color: #667085;
+    margin: 6px 0 0;
+
+    color: #6b7280;
+
+    font-size: 14px;
+
     line-height: 1.5;
 }
 
-.openTool,
-.comingSoon {
-    position: absolute;
-    right: 22px;
-    bottom: 20px;
-    font-size: 13px;
-    font-weight: 700;
+/* =========================================================
+   ESTILOS POR HERRAMIENTA
+========================================================= */
+
+.documents .toolIcon {
+    background: #dbeafe;
 }
+
+.spreadsheets .toolIcon {
+    background: #dcfce7;
+}
+
+.presentations .toolIcon {
+    background: #fef3c7;
+}
+
+.designs .toolIcon {
+    background: #fce7f3;
+}
+
+/* =========================================================
+   ESTADOS
+========================================================= */
 
 .openTool {
-    color: #2575fc;
+    margin-top: auto;
+
+    font-weight: 700;
+
+    color: #2563eb;
+
+    font-size: 14px;
 }
 
 .comingSoon {
-    color: #7b8190;
+    margin-top: auto;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: #9ca3af;
+
+    background: #f3f4f6;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
 }
+
+/* =========================================================
+   INFO
+========================================================= */
 
 .infoBox {
     margin-top: 25px;
+
     padding: 18px 20px;
-    border-radius: 16px;
-    background: #fff;
-    border: 1px solid #e6e8ec;
+
+    border-radius: 14px;
+
+    background: #eff6ff;
+
+    border: 1px solid #dbeafe;
+
     display: flex;
-    gap: 14px;
+
     align-items: flex-start;
+
+    gap: 12px;
+
+    color: #374151;
 }
 
 .infoBox > span {
-    font-size: 25px;
+    font-size: 22px;
 }
 
 .infoBox strong {
-    color: #263238;
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #1e3a8a;
 }
 
 .infoBox p {
-    margin: 5px 0 0;
-    color: #667085;
+    margin: 0;
+
+    font-size: 14px;
+
+    line-height: 1.5;
 }
+
+/* =========================================================
+   EDITOR
+========================================================= */
 
 .editorContainer {
-    min-height: calc(100vh - 100px);
+    width: 100%;
+
+    min-height: 100vh;
+
     background: #f3f4f6;
-    margin: -20px;
+
+    box-sizing: border-box;
 }
+
+/* =========================================================
+   ENCABEZADO DEL EDITOR
+========================================================= */
 
 .editorHeader {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 20;
+
     min-height: 65px;
+
+    padding: 10px 18px;
+
     background: white;
-    border-bottom: 1px solid #ddd;
+
+    border-bottom: 1px solid #e5e7eb;
+
     display: flex;
-    justify-content: space-between;
+
     align-items: center;
-    padding: 10px 22px;
+
+    justify-content: space-between;
+
     gap: 15px;
+
+    box-sizing: border-box;
 }
 
-.editorHeader > div {
+.editorHeaderLeft {
     display: flex;
+
     align-items: center;
-    gap: 15px;
+
+    gap: 12px;
+
+    min-width: 0;
 }
 
 .backButton {
     border: none;
+
     background: transparent;
-    color: #2575fc;
+
+    color: #2563eb;
+
     font-weight: 700;
+
     cursor: pointer;
-    font-size: 14px;
+
+    padding: 8px 10px;
+
+    border-radius: 8px;
+
+    white-space: nowrap;
+}
+
+.backButton:hover {
+    background: #eff6ff;
 }
 
 .documentName {
     border: 1px solid transparent;
-    padding: 8px 10px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #263238;
-    border-radius: 7px;
+
     outline: none;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    color: #111827;
+
+    padding: 8px 10px;
+
+    border-radius: 8px;
+
+    width: 230px;
+
+    background: transparent;
 }
 
-.documentName:hover,
+.documentName:hover {
+    border-color: #d1d5db;
+}
+
 .documentName:focus {
-    border-color: #d5d9df;
-    background: #fafafa;
+    border-color: #2563eb;
+
+    background: white;
+}
+
+/* =========================================================
+   BOTONES DEL ENCABEZADO
+========================================================= */
+
+.headerActions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.secondaryButton,
+.wordButton,
+.downloadButton {
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 9px 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.secondaryButton:hover,
+.wordButton:hover,
+.downloadButton:hover {
+    transform: translateY(-1px);
+
+    opacity: 0.9;
+}
+
+.secondaryButton {
+    background: #f3f4f6;
+
+    color: #374151;
+}
+
+.wordButton {
+    background: #2563eb;
+
+    color: white;
 }
 
 .downloadButton {
-    border: none;
-    background: #2575fc;
+    background: #16a34a;
+
     color: white;
-    border-radius: 9px;
-    padding: 10px 18px;
-    font-weight: 700;
-    cursor: pointer;
 }
 
-.downloadButton:hover {
-    background: #1769e8;
-}
+/* =========================================================
+   BARRA DE HERRAMIENTAS
+========================================================= */
 
 .toolbar {
+    position: sticky;
+
+    top: 65px;
+
+    z-index: 19;
+
+    padding: 9px 14px;
+
     background: white;
-    border-bottom: 1px solid #ddd;
-    min-height: 55px;
+
+    border-bottom: 1px solid #e5e7eb;
+
     display: flex;
+
     align-items: center;
-    gap: 6px;
-    padding: 8px 20px;
+
     flex-wrap: wrap;
+
+    gap: 6px;
+
+    box-shadow:
+        0 2px 5px
+        rgba(0, 0, 0, 0.03);
 }
 
-.toolbar button,
+.toolbar button {
+    min-width: 36px;
+
+    height: 34px;
+
+    padding: 5px 9px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 7px;
+
+    background: white;
+
+    color: #374151;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.toolbar button:hover {
+    background: #f3f4f6;
+
+    border-color: #9ca3af;
+}
+
 .toolbar select {
     height: 34px;
-    border: 1px solid #d9dde4;
+
+    padding: 4px 8px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 7px;
+
     background: white;
-    border-radius: 6px;
-    padding: 0 10px;
+
+    color: #374151;
+
     cursor: pointer;
-    color: #263238;
+
+    outline: none;
 }
 
-.toolbar button:hover,
-.toolbar select:hover {
-    background: #f3f5f8;
+.toolbar select:focus {
+    border-color: #2563eb;
 }
+
+.toolbarGroup {
+    display: flex;
+
+    gap: 4px;
+}
+
+.toolbarSeparator {
+    width: 1px;
+
+    height: 25px;
+
+    background: #d1d5db;
+
+    margin: 0 3px;
+}
+
+/* =========================================================
+   COLOR
+========================================================= */
+
+.colorControl {
+    width: 36px;
+
+    height: 34px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 7px;
+
+    background: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    cursor: pointer;
+
+    overflow: hidden;
+}
+
+.colorControl span {
+    font-weight: 800;
+
+    font-size: 16px;
+
+    pointer-events: none;
+}
+
+.colorControl input {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    opacity: 0;
+
+    cursor: pointer;
+}
+
+/* =========================================================
+   PAPEL
+========================================================= */
 
 .paperWrapper {
-    padding: 35px;
-    overflow: auto;
-    min-height: calc(100vh - 220px);
+    width: 100%;
+
+    padding: 35px 20px 50px;
+
+    box-sizing: border-box;
+
+    overflow-x: auto;
 }
 
 .paper {
-    width: min(850px, 100%);
-    min-height: 1000px;
+    width: 850px;
+
+    min-height: 1100px;
+
     margin: 0 auto;
-    background: white;
+
     padding: 70px;
+
     box-sizing: border-box;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, .12);
-    outline: none;
+
+    background: white;
+
+    box-shadow:
+        0 4px 20px
+        rgba(0, 0, 0, 0.08);
+
+    color: #111827;
+
     font-family: Arial, sans-serif;
+
     font-size: 16px;
+
     line-height: 1.6;
-    color: #222;
+
+    outline: none;
+
+    overflow-wrap: break-word;
 }
 
 .paper:focus {
-    box-shadow: 0 3px 20px rgba(0, 0, 0, .16);
+    box-shadow:
+        0 4px 25px
+        rgba(37, 99, 235, 0.12);
+}
+
+.paper h1 {
+    font-size: 32px;
+
+    margin-top: 0;
+
+    margin-bottom: 20px;
+}
+
+.paper h2 {
+    font-size: 25px;
+
+    margin-top: 22px;
+}
+
+.paper h3 {
+    font-size: 21px;
+
+    margin-top: 18px;
+}
+
+.paper p {
+    margin: 0 0 14px;
+}
+
+.paper ul,
+.paper ol {
+    margin-top: 10px;
+
+    margin-bottom: 15px;
+
+    padding-left: 30px;
 }
 
 .paper img {
     max-width: 100%;
+
     height: auto;
+
+    display: block;
+
+    margin: 12px auto;
 }
 
-@media (max-width: 800px) {
+.paper table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin: 20px 0;
+}
+
+.paper td,
+.paper th {
+    border: 1px solid #999;
+
+    padding: 8px;
+
+    min-width: 60px;
+
+    vertical-align: top;
+}
+
+.paper td:focus,
+.paper th:focus {
+    outline: 2px solid #2563eb;
+}
+
+/* =========================================================
+   PIE DEL EDITOR
+========================================================= */
+
+.editorFooter {
+    width: 850px;
+
+    max-width: calc(100% - 40px);
+
+    margin: 0 auto 25px;
+
+    padding: 12px 16px;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+.editorFooter button {
+    border: none;
+
+    background: transparent;
+
+    color: #dc2626;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.editorFooter button:hover {
+    text-decoration: underline;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
     .toolsGrid {
         grid-template-columns: 1fr;
     }
 
     .editorHeader {
         flex-direction: column;
+
         align-items: stretch;
     }
 
-    .editorHeader > div {
-        flex-wrap: wrap;
+    .editorHeaderLeft {
+        width: 100%;
     }
 
-    .paperWrapper {
-        padding: 15px;
+    .headerActions {
+        width: 100%;
+
+        justify-content: flex-end;
+    }
+
+    .toolbar {
+        position: static;
     }
 
     .paper {
-        padding: 35px;
+        width: 100%;
+
+        min-width: 650px;
+
+        padding: 45px;
+    }
+
+    .paperWrapper {
+        overflow-x: auto;
+    }
+
+    .editorFooter {
+        width: calc(100% - 40px);
+
+        max-width: none;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .toolsContainer {
+        padding: 15px;
+    }
+
+    .toolCard {
+        min-height: 170px;
+
+        padding: 20px;
+    }
+
+    .editorHeaderLeft {
+        flex-wrap: wrap;
+    }
+
+    .documentName {
+        width: 100%;
+    }
+
+    .headerActions {
+        flex-wrap: wrap;
+
+        justify-content: flex-start;
+    }
+
+    .paper {
+        min-width: 600px;
+
+        padding: 30px;
+    }
+}
+
+/* =========================================================
+   IMPRESIÓN
+========================================================= */
+
+@media print {
+
+    .editorHeader,
+    .toolbar,
+    .editorFooter {
+        display: none !important;
+    }
+
+    .editorContainer {
+        background: white;
+    }
+
+    .paperWrapper {
+        padding: 0;
+    }
+
+    .paper {
+        width: 100%;
+
+        min-height: auto;
+
+        box-shadow: none;
+
+        padding: 0;
     }
 }
