@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './VistaHerramientas.css';
 
 import {
@@ -15,6 +15,83 @@ import {
     ImageRun
 } from 'docx';
 
+
+
+/* =========================================================
+   FUNCIONES DE HOJAS DE CÁLCULO
+========================================================= */
+
+const numeroAColumna = (numero) => {
+    let resultado = '';
+    while (numero > 0) {
+        numero--;
+        resultado = String.fromCharCode(65 + (numero % 26)) + resultado;
+        numero = Math.floor(numero / 26);
+    }
+    return resultado;
+};
+
+const columnaANumero = (columna) => {
+    let resultado = 0;
+    for (const letra of columna.toUpperCase()) {
+        resultado = resultado * 26 + letra.charCodeAt(0) - 64;
+    }
+    return resultado;
+};
+
+const obtenerCoordenadaCelda = (referencia) => {
+    const coincidencia = referencia.match(/^([A-Z]+)([1-9]\d*)$/i);
+    if (!coincidencia) return null;
+    return {
+        columna: columnaANumero(coincidencia[1]),
+        fila: Number(coincidencia[2])
+    };
+};
+
+const evaluarOperacionAritmetica = (expresion) => {
+    const texto = expresion.replace(/\s/g, '');
+    const tokens = texto.match(/\d+(?:\.\d+)?|[()+*/-]/g) || [];
+    if (!texto || tokens.join('') !== texto) throw new Error('Fórmula no válida');
+
+    let posicion = 0;
+    const factor = () => {
+        const token = tokens[posicion++];
+        if (token === '+') return factor();
+        if (token === '-') return -factor();
+        if (token === '(') {
+            const valor = suma();
+            if (tokens[posicion++] !== ')') throw new Error('Paréntesis no válido');
+            return valor;
+        }
+        const valor = Number(token);
+        if (!Number.isFinite(valor)) throw new Error('Número no válido');
+        return valor;
+    };
+    const producto = () => {
+        let valor = factor();
+        while (tokens[posicion] === '*' || tokens[posicion] === '/') {
+            const operador = tokens[posicion++];
+            const siguiente = factor();
+            if (operador === '/' && siguiente === 0) throw new Error('División entre cero');
+            valor = operador === '*' ? valor * siguiente : valor / siguiente;
+        }
+        return valor;
+    };
+    const suma = () => {
+        let valor = producto();
+        while (tokens[posicion] === '+' || tokens[posicion] === '-') {
+            const operador = tokens[posicion++];
+            const siguiente = producto();
+            valor = operador === '+' ? valor + siguiente : valor - siguiente;
+        }
+        return valor;
+    };
+
+    const resultado = suma();
+    if (posicion !== tokens.length || !Number.isFinite(resultado)) throw new Error('Resultado no válido');
+    return resultado;
+};
+
 const VistaHerramientas = () => {
     const [herramienta, setHerramienta] = useState(null);
     const [nombreDocumento, setNombreDocumento] =
@@ -22,6 +99,36 @@ const VistaHerramientas = () => {
 
     const editorRef = useRef(null);
     const imagenInputRef = useRef(null);
+
+    const [hojaCalculo, setHojaCalculo] = useState(() => {
+        try {
+            const guardado = localStorage.getItem('blockids_hoja_calculo_v1');
+            if (guardado) {
+                const datos = JSON.parse(guardado);
+                return {
+                    nombre: datos.nombre || 'Mi hoja de cálculo',
+                    celdas: datos.celdas || {},
+                    filas: Math.max(12, Number(datos.filas) || 12),
+                    columnas: Math.max(8, Number(datos.columnas) || 8),
+                    estilos: datos.estilos || {}
+                };
+            }
+        } catch (error) {
+            console.warn('No se pudo recuperar la hoja guardada.', error);
+        }
+        return { nombre: 'Mi hoja de cálculo', celdas: {}, filas: 12, columnas: 8, estilos: {} };
+    });
+    const [celdaActiva, setCeldaActiva] = useState('A1');
+    const [valorFormula, setValorFormula] = useState('');
+    const [celdaEnEdicion, setCeldaEnEdicion] = useState(null);
+
+    useEffect(() => {
+        try {
+            localStorage.setItem('blockids_hoja_calculo_v1', JSON.stringify(hojaCalculo));
+        } catch (error) {
+            console.warn('No se pudo guardar la hoja en este navegador.', error);
+        }
+    }, [hojaCalculo]);
 
     /* =========================================================
        FORMATO DEL EDITOR
@@ -905,8 +1012,304 @@ ${contenido}
     };
 
     /* =========================================================
+       LÓGICA DE HOJAS DE CÁLCULO
+    ========================================================= */
+
+    const actualizarNombreHoja = (nombre) => {
+        setHojaCalculo((anterior) => ({ ...anterior, nombre }));
+    };
+
+    const actualizarCelda = (referencia, valor) => {
+        setHojaCalculo((anterior) => ({
+            ...anterior,
+            celdas: { ...anterior.celdas, [referencia]: valor }
+        }));
+        if (referencia === celdaActiva) setValorFormula(valor);
+    };
+
+    const obtenerRango = (inicio, fin) => {
+        const a = obtenerCoordenadaCelda(inicio);
+        const b = obtenerCoordenadaCelda(fin);
+        if (!a || !b) throw new Error('Rango no válido');
+        const resultado = [];
+        const filaInicio = Math.min(a.fila, b.fila);
+        const filaFin = Math.max(a.fila, b.fila);
+        const colInicio = Math.min(a.columna, b.columna);
+        const colFin = Math.max(a.columna, b.columna);
+        if ((filaFin - filaInicio + 1) * (colFin - colInicio + 1) > 5000) {
+            throw new Error('Rango demasiado grande');
+        }
+        for (let fila = filaInicio; fila <= filaFin; fila++) {
+            for (let col = colInicio; col <= colFin; col++) {
+                resultado.push(`${numeroAColumna(col)}${fila}`);
+            }
+        }
+        return resultado;
+    };
+
+    const calcularCelda = (referencia, visitadas = []) => {
+        if (visitadas.includes(referencia)) throw new Error('Referencia circular');
+        const original = String(hojaCalculo.celdas[referencia] ?? '').trim();
+        if (!original) return 0;
+        if (!original.startsWith('=')) {
+            const numero = Number(original);
+            if (original !== '' && Number.isFinite(numero)) return numero;
+            throw new Error('La celda no es numérica');
+        }
+
+        const nuevasVisitadas = [...visitadas, referencia];
+        const formula = original.slice(1).trim();
+        const funcion = formula.match(/^(SUMA|PROMEDIO|MAX|MIN)\(\s*([A-Z]+[1-9]\d*)\s*:\s*([A-Z]+[1-9]\d*)\s*\)$/i);
+
+        if (funcion) {
+            const nombre = funcion[1].toUpperCase();
+            const referencias = obtenerRango(funcion[2].toUpperCase(), funcion[3].toUpperCase());
+            const valores = referencias.map((ref) => {
+                try { return calcularCelda(ref, nuevasVisitadas); }
+                catch { return NaN; }
+            }).filter(Number.isFinite);
+            if (nombre === 'SUMA') return valores.reduce((total, valor) => total + valor, 0);
+            if (!valores.length) throw new Error('No hay valores numéricos');
+            if (nombre === 'PROMEDIO') return valores.reduce((total, valor) => total + valor, 0) / valores.length;
+            if (nombre === 'MAX') return Math.max(...valores);
+            return Math.min(...valores);
+        }
+
+        const expresion = formula.replace(/\b([A-Z]+[1-9]\d*)\b/gi, (ref) => {
+            const valor = calcularCelda(ref.toUpperCase(), nuevasVisitadas);
+            return `(${valor})`;
+        });
+        return evaluarOperacionAritmetica(expresion);
+    };
+
+    const mostrarValorCelda = (referencia) => {
+        const original = String(hojaCalculo.celdas[referencia] ?? '');
+        if (!original.startsWith('=')) return original;
+        try {
+            const resultado = calcularCelda(referencia);
+            return Number.isInteger(resultado) ? String(resultado) : String(Number(resultado.toFixed(6)));
+        } catch {
+            return '#ERROR';
+        }
+    };
+
+    const seleccionarCelda = (referencia) => {
+        setCeldaActiva(referencia);
+        setValorFormula(String(hojaCalculo.celdas[referencia] ?? ''));
+        setCeldaEnEdicion(null);
+    };
+
+    const agregarFilaHoja = () => {
+        setHojaCalculo((anterior) => ({ ...anterior, filas: anterior.filas + 1 }));
+    };
+
+    const agregarColumnaHoja = () => {
+        setHojaCalculo((anterior) => ({ ...anterior, columnas: anterior.columnas + 1 }));
+    };
+
+    const cambiarEstiloCelda = (propiedad, valor) => {
+        setHojaCalculo((anterior) => ({
+            ...anterior,
+            estilos: {
+                ...anterior.estilos,
+                [celdaActiva]: { ...(anterior.estilos[celdaActiva] || {}), [propiedad]: valor }
+            }
+        }));
+    };
+
+    const limpiarHojaCalculo = () => {
+        if (!window.confirm('¿Seguro que quieres borrar todos los datos de esta hoja?')) return;
+        setHojaCalculo((anterior) => ({ ...anterior, celdas: {}, estilos: {} }));
+        setCeldaActiva('A1');
+        setValorFormula('');
+        setCeldaEnEdicion(null);
+    };
+
+    const descargarCSV = () => {
+        const filasCSV = [];
+        for (let fila = 1; fila <= hojaCalculo.filas; fila++) {
+            const valores = [];
+            for (let columna = 1; columna <= hojaCalculo.columnas; columna++) {
+                const referencia = `${numeroAColumna(columna)}${fila}`;
+                const valor = mostrarValorCelda(referencia);
+                valores.push(`"${String(valor).replace(/"/g, '""')}"`);
+            }
+            filasCSV.push(valores.join(';'));
+        }
+        const contenido = '\uFEFF' + filasCSV.join('\r\n');
+        const archivo = new Blob([contenido], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(archivo);
+        const enlace = document.createElement('a');
+        enlace.href = url;
+        enlace.download = `${(hojaCalculo.nombre || 'hoja-de-calculo').replace(/[\\\\/:*?"<>|]/g, '_')}.csv`;
+        document.body.appendChild(enlace);
+        enlace.click();
+        enlace.remove();
+        URL.revokeObjectURL(url);
+    };
+
+    const copiarCeldaHoja = async () => {
+        try {
+            await navigator.clipboard.writeText(String(hojaCalculo.celdas[celdaActiva] ?? ''));
+        } catch {
+            window.alert('No se pudo acceder al portapapeles. Puedes copiar el contenido desde la barra de fórmulas.');
+        }
+    };
+
+    const pegarCeldaHoja = async () => {
+        try {
+            const texto = await navigator.clipboard.readText();
+            actualizarCelda(celdaActiva, texto);
+            setValorFormula(texto);
+        } catch {
+            window.alert('El navegador no permitió pegar automáticamente. Usa la barra de fórmulas.');
+        }
+    };
+
+    const renderizarHojaCalculo = () => (
+        <div className={styles.sheetContainer}>
+            <header className={styles.sheetHeader}>
+                <div className={styles.sheetHeaderTop}>
+                    <button className={styles.backButton} onClick={() => setHerramienta(null)}>
+                        ← Herramientas
+                    </button>
+                    <input
+                        className={styles.sheetName}
+                        value={hojaCalculo.nombre}
+                        onChange={(e) => actualizarNombreHoja(e.target.value)}
+                        aria-label="Nombre de la hoja"
+                    />
+                </div>
+                <div className={styles.sheetActions}>
+                    <button onClick={agregarFilaHoja}>＋ Fila</button>
+                    <button onClick={agregarColumnaHoja}>＋ Columna</button>
+                    <button onClick={copiarCeldaHoja}>Copiar celda</button>
+                    <button onClick={pegarCeldaHoja}>Pegar celda</button>
+                    <button className={styles.exportButton} onClick={descargarCSV}>↓ Descargar CSV</button>
+                </div>
+            </header>
+
+            <div className={styles.formulaBar}>
+                <strong className={styles.cellReference}>{celdaActiva}</strong>
+                <span className={styles.fxLabel}>fx</span>
+                <input
+                    value={valorFormula}
+                    onChange={(e) => {
+                        setValorFormula(e.target.value);
+                        actualizarCelda(celdaActiva, e.target.value);
+                    }}
+                    placeholder="Escribe un valor o fórmula, por ejemplo =SUMA(A1:A5)"
+                    aria-label="Valor o fórmula de la celda seleccionada"
+                />
+            </div>
+
+            <div className={styles.formatBar}>
+                <label title="Color de fondo">
+                    Fondo
+                    <input
+                        type="color"
+                        value={(hojaCalculo.estilos[celdaActiva] || {}).fondo || '#ffffff'}
+                        onChange={(e) => cambiarEstiloCelda('fondo', e.target.value)}
+                    />
+                </label>
+                <button
+                    className={(hojaCalculo.estilos[celdaActiva] || {}).negrita ? styles.activeFormat : ''}
+                    onClick={() => cambiarEstiloCelda('negrita', !(hojaCalculo.estilos[celdaActiva] || {}).negrita)}
+                    title="Negrita"
+                ><strong>B</strong></button>
+                <label>
+                    Alinear
+                    <select
+                        value={(hojaCalculo.estilos[celdaActiva] || {}).alineacion || 'left'}
+                        onChange={(e) => cambiarEstiloCelda('alineacion', e.target.value)}
+                    >
+                        <option value="left">Izquierda</option>
+                        <option value="center">Centro</option>
+                        <option value="right">Derecha</option>
+                    </select>
+                </label>
+                <button className={styles.clearButton} onClick={limpiarHojaCalculo}>🗑 Limpiar hoja</button>
+            </div>
+
+            <div className={styles.gridWrapper}>
+                <table className={styles.spreadsheet}>
+                    <thead><tr>
+                        <th className={styles.cornerCell}>#</th>
+                        {Array.from({ length: hojaCalculo.columnas }, (_, indice) => (
+                            <th key={indice}>{numeroAColumna(indice + 1)}</th>
+                        ))}
+                    </tr></thead>
+                    <tbody>
+                        {Array.from({ length: hojaCalculo.filas }, (_, indiceFila) => {
+                            const fila = indiceFila + 1;
+                            return <tr key={fila}>
+                                <th className={styles.rowNumber}>{fila}</th>
+                                {Array.from({ length: hojaCalculo.columnas }, (_, indiceColumna) => {
+                                    const referencia = `${numeroAColumna(indiceColumna + 1)}${fila}`;
+                                    const estilo = hojaCalculo.estilos[referencia] || {};
+                                    const seleccionada = celdaActiva === referencia;
+                                    const editando = celdaEnEdicion === referencia;
+                                    return <td key={referencia} className={seleccionada ? styles.selectedCell : ''}>
+                                        <input
+                                            aria-label={`Celda ${referencia}`}
+                                            value={editando ? String(hojaCalculo.celdas[referencia] ?? '') : mostrarValorCelda(referencia)}
+                                            onFocus={(e) => {
+                                                seleccionarCelda(referencia);
+                                                setCeldaEnEdicion(referencia);
+                                                e.target.select();
+                                            }}
+                                            onChange={(e) => actualizarCelda(referencia, e.target.value)}
+                                            onBlur={() => setCeldaEnEdicion(null)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter') {
+                                                    e.preventDefault();
+                                                    setCeldaEnEdicion(null);
+                                                    const siguiente = `${numeroAColumna(indiceColumna + 1)}${Math.min(fila + 1, hojaCalculo.filas)}`;
+                                                    const elemento = e.currentTarget.closest('table')?.querySelector(`[aria-label="Celda ${siguiente}"]`);
+                                                    elemento?.focus();
+                                                }
+                                                if (e.key === 'Escape') {
+                                                    setCeldaEnEdicion(null);
+                                                    e.currentTarget.blur();
+                                                }
+                                            }}
+                                            style={{
+                                                backgroundColor: estilo.fondo || '#fff',
+                                                fontWeight: estilo.negrita ? 'bold' : 'normal',
+                                                textAlign: estilo.alineacion || 'left'
+                                            }}
+                                        />
+                                    </td>;
+                                })}
+                            </tr>;
+                        })}
+                    </tbody>
+                </table>
+            </div>
+
+            <footer className={styles.sheetFooter}>
+                <span>📊 Hoja de cálculo de Blockids</span>
+                <span>{hojaCalculo.filas} filas × {hojaCalculo.columnas} columnas</span>
+                <span>Guardado automático en este navegador</span>
+            </footer>
+            <div className={styles.helpBox}>
+                <strong>💡 Ejemplos de fórmulas</strong>
+                <p><code>=A1+B1</code> Suma dos celdas.</p>
+                <p><code>=A1*B1</code> Multiplica dos celdas.</p>
+                <p><code>=SUMA(A1:A5)</code> Suma un rango de celdas.</p>
+                <p><code>=PROMEDIO(A1:A5)</code> Calcula el promedio.</p>
+                <p><code>=MAX(A1:A5)</code> y <code>=MIN(A1:A5)</code> encuentran el mayor y el menor valor.</p>
+            </div>
+        </div>
+    );
+
+    /* =========================================================
        VISTA DEL EDITOR
     ========================================================= */
+
+    if (herramienta === 'hojas') {
+        return renderizarHojaCalculo();
+    }
 
     if (herramienta === 'documentos') {
 
@@ -1541,7 +1944,7 @@ ${contenido}
                         ${styles.toolCard}
                         ${styles.spreadsheets}
                     `}
-                    disabled
+                    onClick={() => setHerramienta('hojas')}
                 >
 
                     <div
@@ -1567,10 +1970,10 @@ ${contenido}
 
                     <span
                         className={
-                            styles.comingSoon
+                            styles.openTool
                         }
                     >
-                        Próximamente
+                        Abrir →
                     </span>
 
                 </button>

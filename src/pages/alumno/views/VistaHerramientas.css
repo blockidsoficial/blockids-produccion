@@ -817,3 +817,292 @@
         padding: 0;
     }
 }
+
+/* =========================================================
+   HOJAS DE CÁLCULO - BLOCKIDS
+========================================================= */
+
+.sheetContainer {
+    width: 100%;
+    min-height: 100vh;
+    padding: 22px;
+    box-sizing: border-box;
+    background: #f5f7fb;
+    color: #243047;
+}
+
+.sheetHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.sheetHeaderTop,
+.sheetActions,
+.formatBar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.sheetName {
+    flex: 1;
+    min-width: 180px;
+    max-width: 420px;
+    padding: 10px 12px;
+    border: 1px solid #d7deea;
+    border-radius: 8px;
+    background: #fff;
+    color: #243047;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.sheetActions button,
+.formatBar button {
+    padding: 9px 12px;
+    border: 1px solid #d7deea;
+    border-radius: 8px;
+    background: #fff;
+    color: #25344c;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.sheetActions button:hover,
+.formatBar button:hover {
+    background: #eef4ff;
+}
+
+.sheetActions .exportButton {
+    border-color: #16834a;
+    background: #16834a;
+    color: #fff;
+    font-weight: 700;
+}
+
+.sheetActions .exportButton:hover {
+    background: #116a3b;
+}
+
+.formulaBar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #dbe2ed;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.cellReference {
+    min-width: 48px;
+    padding: 8px;
+    border-radius: 6px;
+    background: #eaf1ff;
+    text-align: center;
+}
+
+.fxLabel {
+    color: #68758a;
+    font-weight: 700;
+    font-style: italic;
+}
+
+.formulaBar input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid #e0e5ed;
+    border-radius: 6px;
+    outline-color: #4b78e6;
+}
+
+.formatBar {
+    padding: 10px 12px;
+    border: 1px solid #dbe2ed;
+    border-radius: 10px 10px 0 0;
+    background: #fff;
+}
+
+.formatBar label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.formatBar input[type="color"] {
+    width: 34px;
+    height: 30px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.formatBar select {
+    padding: 7px;
+    border: 1px solid #d7deea;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.formatBar .activeFormat {
+    border-color: #648be7;
+    background: #dce8ff;
+}
+
+.formatBar .clearButton {
+    margin-left: auto;
+    color: #b91c1c;
+}
+
+.gridWrapper {
+    max-width: 100%;
+    max-height: 60vh;
+    overflow: auto;
+    border: 1px solid #dbe2ed;
+    border-top: 0;
+    background: #fff;
+}
+
+.spreadsheet {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    font-size: 14px;
+}
+
+.spreadsheet thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    min-width: 115px;
+    height: 34px;
+    border-right: 1px solid #dbe2ed;
+    border-bottom: 1px solid #cbd5e3;
+    background: #eaf0f8;
+    color: #40516a;
+    font-weight: 700;
+}
+
+.spreadsheet .cornerCell {
+    left: 0;
+    z-index: 4;
+    width: 45px;
+    min-width: 45px;
+}
+
+.spreadsheet .rowNumber {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    width: 45px;
+    min-width: 45px;
+    border-right: 1px solid #dbe2ed;
+    border-bottom: 1px solid #e2e7ef;
+    background: #eaf0f8;
+    color: #52627a;
+    font-weight: 600;
+}
+
+.spreadsheet td {
+    height: 34px;
+    padding: 0;
+    border-right: 1px solid #e2e7ef;
+    border-bottom: 1px solid #e2e7ef;
+}
+
+.spreadsheet td input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 115px;
+    height: 34px;
+    padding: 6px 8px;
+    border: 0;
+    outline: none;
+    color: #25344c;
+    font: inherit;
+}
+
+.spreadsheet td input:focus {
+    position: relative;
+    z-index: 1;
+    box-shadow: inset 0 0 0 2px #3975e8;
+}
+
+.spreadsheet .selectedCell {
+    outline: 2px solid #3975e8;
+    outline-offset: -2px;
+}
+
+.sheetFooter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid #dbe2ed;
+    border-top: 0;
+    border-radius: 0 0 10px 10px;
+    background: #fff;
+    color: #66748a;
+    font-size: 12px;
+}
+
+.helpBox {
+    margin-top: 18px;
+    padding: 16px 18px;
+    border: 1px solid #dbe6f8;
+    border-radius: 12px;
+    background: #edf4ff;
+    line-height: 1.5;
+}
+
+.helpBox strong {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.helpBox p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.helpBox code {
+    padding: 3px 6px;
+    border-radius: 4px;
+    background: #fff;
+    color: #2759b7;
+}
+
+@media (max-width: 700px) {
+    .sheetContainer {
+        padding: 12px;
+    }
+
+    .sheetName {
+        font-size: 16px;
+    }
+
+    .formulaBar {
+        gap: 6px;
+        padding: 7px;
+    }
+
+    .formatBar .clearButton {
+        margin-left: 0;
+    }
+
+    .sheetFooter {
+        flex-direction: column;
+        gap: 6px;
+    }
+}
+
