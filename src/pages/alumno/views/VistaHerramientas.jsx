@@ -237,10 +237,20 @@ const VistaHerramientas = () => {
 
     const renderizarPresentaciones = () => {
         const diapositiva = presentacion.diapositivas[diapositivaActiva] || presentacion.diapositivas[0];
+
+        // Estilos en línea: el tema no depende de clases CSS dinámicas.
+        const temasPresentacion = {
+            azul: { background: 'linear-gradient(135deg, #ffffff 0%, #eaf2ff 100%)', borderTopColor: '#2563eb', color: '#1e293b' },
+            morado: { background: 'linear-gradient(135deg, #ffffff 0%, #f3eaff 100%)', borderTopColor: '#8b5cf6', color: '#312e3e' },
+            verde: { background: 'linear-gradient(135deg, #ffffff 0%, #e8f8ed 100%)', borderTopColor: '#16a34a', color: '#173324' },
+            oscuro: { background: 'linear-gradient(135deg, #111827 0%, #29364a 100%)', borderTopColor: '#60a5fa', color: '#f8fafc' }
+        };
+        const estiloTemaActual = temasPresentacion[presentacion.tema] || temasPresentacion.azul;
+
         return (
             <div className={styles.presentationContainer}>
                 {modoPresentacion ? (
-                    <div className={`${styles.presentationStage} ${styles[`theme${presentacion.tema}`]}`}>
+                    <div className={styles.presentationStage} style={estiloTemaActual}>
                         <button className={styles.presentationExit} onClick={() => setModoPresentacion(false)}>✕ Salir</button>
                         <div className={styles.presentationSlideNumber}>{diapositivaActiva + 1} / {presentacion.diapositivas.length}</div>
                         <h1>{diapositiva.titulo || 'Sin título'}</h1>
@@ -276,7 +286,7 @@ const VistaHerramientas = () => {
                                 ))}
                             </aside>
                             <main className={styles.presentationEditorArea}>
-                                <div className={`${styles.presentationCanvas} ${styles[`theme${presentacion.tema}`]}`}>
+                                <div className={styles.presentationCanvas} style={estiloTemaActual}>
                                     <input className={styles.presentationTitleInput} value={diapositiva.titulo} onChange={e => actualizarDiapositiva('titulo', e.target.value)} placeholder="Título de la diapositiva" aria-label="Título de la diapositiva" />
                                     <textarea className={styles.presentationContentInput} value={diapositiva.contenido} onChange={e => actualizarDiapositiva('contenido', e.target.value)} placeholder="Escribe el contenido aquí. Puedes separar ideas en distintas líneas." aria-label="Contenido de la diapositiva" />
                                     <span className={styles.presentationCanvasNumber}>{diapositivaActiva + 1}</span>
