@@ -1106,3 +1106,276 @@
     }
 }
 
+
+
+/* =========================================================
+   PRESENTACIONES - BLOCKIDS
+========================================================= */
+.presentationContainer {
+    width: 100%;
+    min-height: 100%;
+    padding: 22px;
+    box-sizing: border-box;
+    background: #f3f6fb;
+    color: #1f2937;
+}
+
+.presentationHeader {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.presentationName {
+    flex: 1 1 220px;
+    min-width: 160px;
+    padding: 10px 12px;
+    border: 1px solid #d7deea;
+    border-radius: 9px;
+    background: #fff;
+    color: #1f2937;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.presentationSaved {
+    color: #16804a;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.presentationToolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+    background: #fff;
+    border: 1px solid #e1e7f0;
+    border-radius: 12px;
+}
+
+.presentationToolbar button,
+.presentationToolbar select,
+.presentationStageNav button,
+.presentationExit {
+    border: 1px solid #d7deea;
+    border-radius: 8px;
+    background: #fff;
+    color: #26364d;
+    padding: 9px 11px;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.presentationToolbar label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.presentationToolbar button:disabled,
+.presentationStageNav button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.presentationToolbar .presentationPrimary {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+    font-weight: 700;
+}
+
+.presentationWorkspace {
+    display: grid;
+    grid-template-columns: minmax(180px, 245px) minmax(0, 1fr);
+    gap: 18px;
+    align-items: start;
+}
+
+.presentationSidebar {
+    padding: 13px;
+    background: #fff;
+    border: 1px solid #e1e7f0;
+    border-radius: 12px;
+    max-height: 72vh;
+    overflow: auto;
+}
+
+.presentationSidebar h3 {
+    margin: 2px 0 12px;
+    font-size: 14px;
+}
+
+.presentationThumbnail {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr);
+    gap: 5px 8px;
+    width: 100%;
+    padding: 9px;
+    margin-bottom: 8px;
+    text-align: left;
+    border: 1px solid #dce3ee;
+    border-radius: 9px;
+    background: #f8fafc;
+    color: #26364d;
+    cursor: pointer;
+}
+
+.presentationThumbnailActive {
+    border: 2px solid #3975e8;
+    background: #edf4ff;
+}
+
+.presentationThumbnail span {
+    grid-row: span 2;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.presentationThumbnail strong,
+.presentationThumbnail small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.presentationThumbnail strong { font-size: 12px; }
+.presentationThumbnail small { color: #718096; font-size: 11px; }
+
+.presentationEditorArea { min-width: 0; }
+
+.presentationCanvas {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    min-height: 360px;
+    padding: clamp(24px, 5vw, 72px);
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 12px 32px #182d4a20;
+    border-top: 10px solid #2563eb;
+    box-sizing: border-box;
+}
+
+.themeazul { background: linear-gradient(135deg, #ffffff 0%, #eaf2ff 100%); border-top-color: #2563eb; }
+.thememorado { background: linear-gradient(135deg, #ffffff 0%, #f3eaff 100%); border-top-color: #8b5cf6; }
+.themeverde { background: linear-gradient(135deg, #ffffff 0%, #e8f8ed 100%); border-top-color: #16a34a; }
+.themeoscuro { background: linear-gradient(135deg, #111827 0%, #29364a 100%); border-top-color: #60a5fa; color: #f8fafc; }
+
+.presentationTitleInput {
+    width: 100%;
+    padding: 4px 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: clamp(24px, 3.2vw, 42px);
+    font-weight: 800;
+}
+
+.presentationTitleInput::placeholder,
+.presentationContentInput::placeholder { color: #8995a7; opacity: .8; }
+
+.presentationContentInput {
+    width: 100%;
+    min-height: 140px;
+    resize: vertical;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: clamp(15px, 1.7vw, 22px);
+    line-height: 1.65;
+}
+
+.presentationCanvasNumber {
+    position: absolute;
+    right: 22px;
+    bottom: 16px;
+    opacity: .65;
+    font-size: 12px;
+}
+
+.presentationHint {
+    margin: 12px 2px;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.presentationStage {
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+    padding: clamp(24px, 8vw, 120px);
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.presentationStage h1 {
+    max-width: 1100px;
+    margin: 0;
+    font-size: clamp(36px, 6vw, 76px);
+    line-height: 1.12;
+    overflow-wrap: anywhere;
+}
+
+.presentationSlideContent {
+    max-width: 1050px;
+    font-size: clamp(20px, 3vw, 34px);
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.presentationSlideNumber {
+    position: absolute;
+    right: 30px;
+    top: 25px;
+    font-size: 14px;
+    opacity: .7;
+}
+
+.presentationExit {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1;
+}
+
+.presentationStageNav {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+}
+
+@media (max-width: 760px) {
+    .presentationContainer { padding: 12px; }
+    .presentationWorkspace { grid-template-columns: 1fr; }
+    .presentationSidebar { max-height: 220px; }
+    .presentationSidebar h3 { position: sticky; top: 0; background: #fff; }
+    .presentationThumbnail { display: inline-grid; width: min(220px, 75%); vertical-align: top; margin-right: 8px; }
+    .presentationCanvas { min-height: 300px; aspect-ratio: auto; }
+    .presentationToolbar button { flex: 1 1 auto; }
+    .presentationStage { padding: 65px 22px 25px; }
+}

@@ -122,6 +122,174 @@ const VistaHerramientas = () => {
     const [valorFormula, setValorFormula] = useState('');
     const [celdaEnEdicion, setCeldaEnEdicion] = useState(null);
 
+    /* =========================================================
+       ESTADO DE PRESENTACIONES
+    ========================================================= */
+    const [presentacion, setPresentacion] = useState(() => {
+        try {
+            const guardada = localStorage.getItem('blockids_presentacion_v1');
+            if (guardada) {
+                const datos = JSON.parse(guardada);
+                return {
+                    nombre: datos.nombre || 'Mi presentación',
+                    tema: datos.tema || 'azul',
+                    diapositivas: Array.isArray(datos.diapositivas) && datos.diapositivas.length
+                        ? datos.diapositivas
+                        : [{ id: 1, titulo: 'Mi primera diapositiva', contenido: 'Escribe aquí las ideas principales de tu presentación.' }]
+                };
+            }
+        } catch (error) {
+            console.warn('No se pudo recuperar la presentación guardada.', error);
+        }
+        return {
+            nombre: 'Mi presentación',
+            tema: 'azul',
+            diapositivas: [{ id: 1, titulo: 'Mi primera diapositiva', contenido: 'Escribe aquí las ideas principales de tu presentación.' }]
+        };
+    });
+    const [diapositivaActiva, setDiapositivaActiva] = useState(0);
+    const [modoPresentacion, setModoPresentacion] = useState(false);
+
+    useEffect(() => {
+        try {
+            localStorage.setItem('blockids_presentacion_v1', JSON.stringify(presentacion));
+        } catch (error) {
+            console.warn('No se pudo guardar la presentación en este navegador.', error);
+        }
+    }, [presentacion]);
+
+    const actualizarDiapositiva = (campo, valor) => {
+        setPresentacion(actual => ({
+            ...actual,
+            diapositivas: actual.diapositivas.map((diapositiva, indice) =>
+                indice === diapositivaActiva
+                    ? { ...diapositiva, [campo]: valor }
+                    : diapositiva
+            )
+        }));
+    };
+
+    const agregarDiapositiva = () => {
+        setPresentacion(actual => {
+            const nuevas = [...actual.diapositivas, {
+                id: Date.now(),
+                titulo: `Diapositiva ${actual.diapositivas.length + 1}`,
+                contenido: 'Agrega aquí el contenido de esta diapositiva.'
+            }];
+            return { ...actual, diapositivas: nuevas };
+        });
+        setDiapositivaActiva(presentacion.diapositivas.length);
+        setModoPresentacion(false);
+    };
+
+    const eliminarDiapositiva = () => {
+        if (presentacion.diapositivas.length <= 1) {
+            alert('La presentación debe tener al menos una diapositiva.');
+            return;
+        }
+        if (!window.confirm('¿Quieres eliminar esta diapositiva?')) return;
+        const nuevas = presentacion.diapositivas.filter((_, indice) => indice !== diapositivaActiva);
+        setPresentacion(actual => ({ ...actual, diapositivas: nuevas }));
+        setDiapositivaActiva(Math.max(0, diapositivaActiva - 1));
+    };
+
+    const moverDiapositiva = (direccion) => {
+        const destino = diapositivaActiva + direccion;
+        if (destino < 0 || destino >= presentacion.diapositivas.length) return;
+        setPresentacion(actual => {
+            const nuevas = [...actual.diapositivas];
+            [nuevas[diapositivaActiva], nuevas[destino]] = [nuevas[destino], nuevas[diapositivaActiva]];
+            return { ...actual, diapositivas: nuevas };
+        });
+        setDiapositivaActiva(destino);
+    };
+
+    const descargarPresentacion = () => {
+        const escapar = (texto) => String(texto || '').replace(/[&<>"']/g, caracter => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[caracter]));
+        const temas = {
+            azul: ['#173b73', '#eaf2ff', '#2563eb'],
+            morado: ['#43246b', '#f3eaff', '#8b5cf6'],
+            verde: ['#14532d', '#e8f8ed', '#16a34a'],
+            oscuro: ['#111827', '#1f2937', '#60a5fa']
+        };
+        const colores = temas[presentacion.tema] || temas.azul;
+        const diapositivasHTML = presentacion.diapositivas.map((diapositiva, indice) => `
+            <section class="slide">
+                <div class="number">${indice + 1} / ${presentacion.diapositivas.length}</div>
+                <h1>${escapar(diapositiva.titulo)}</h1>
+                <div class="content">${escapar(diapositiva.contenido).replace(/\n/g, '<br>')}</div>
+            </section>`).join('');
+        const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapar(presentacion.nombre)}</title><style>
+            *{box-sizing:border-box}body{margin:0;background:${colores[1]};font-family:Arial,sans-serif;color:#172033}.toolbar{position:sticky;top:0;padding:12px;text-align:center;background:#fff;box-shadow:0 2px 8px #0001;z-index:2}.toolbar button{padding:10px 16px;border:0;border-radius:8px;background:${colores[2]};color:#fff;font-weight:bold;cursor:pointer}.slide{position:relative;width:min(1100px,94vw);min-height:620px;margin:28px auto;padding:70px 8%;background:white;border-radius:18px;box-shadow:0 10px 30px #0002;page-break-after:always;display:flex;flex-direction:column;justify-content:center;border-top:12px solid ${colores[2]}}h1{font-size:clamp(32px,5vw,58px);color:${colores[0]};margin:0 0 35px;white-space:pre-wrap}.content{font-size:clamp(20px,2.5vw,30px);line-height:1.6;white-space:normal;overflow-wrap:anywhere}.number{position:absolute;right:28px;bottom:20px;color:#64748b;font-size:14px}@media print{body{background:white}.toolbar{display:none}.slide{width:100%;height:100vh;min-height:0;margin:0;border-radius:0;box-shadow:none;break-after:page}}
+            </style></head><body><div class="toolbar"><strong>${escapar(presentacion.nombre)}</strong> &nbsp; <button onclick="window.print()">Imprimir / Guardar como PDF</button></div>${diapositivasHTML}</body></html>`;
+        const archivo = new Blob([html], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(archivo);
+        const enlace = document.createElement('a');
+        enlace.href = url;
+        enlace.download = `${(presentacion.nombre || 'presentacion').replace(/[\/:*?"<>|]/g, '_')}.html`;
+        document.body.appendChild(enlace);
+        enlace.click();
+        enlace.remove();
+        URL.revokeObjectURL(url);
+    };
+
+    const renderizarPresentaciones = () => {
+        const diapositiva = presentacion.diapositivas[diapositivaActiva] || presentacion.diapositivas[0];
+        return (
+            <div className={styles.presentationContainer}>
+                {modoPresentacion ? (
+                    <div className={`${styles.presentationStage} ${styles[`theme${presentacion.tema}`]}`}>
+                        <button className={styles.presentationExit} onClick={() => setModoPresentacion(false)}>✕ Salir</button>
+                        <div className={styles.presentationSlideNumber}>{diapositivaActiva + 1} / {presentacion.diapositivas.length}</div>
+                        <h1>{diapositiva.titulo || 'Sin título'}</h1>
+                        <div className={styles.presentationSlideContent}>{diapositiva.contenido}</div>
+                        <div className={styles.presentationStageNav}>
+                            <button onClick={() => setDiapositivaActiva(i => Math.max(0, i - 1))} disabled={diapositivaActiva === 0}>← Anterior</button>
+                            <button onClick={() => setDiapositivaActiva(i => Math.min(presentacion.diapositivas.length - 1, i + 1))} disabled={diapositivaActiva === presentacion.diapositivas.length - 1}>Siguiente →</button>
+                        </div>
+                    </div>
+                ) : (
+                    <>
+                        <header className={styles.presentationHeader}>
+                            <button className={styles.backButton} onClick={() => setHerramienta(null)}>← Herramientas</button>
+                            <input className={styles.presentationName} value={presentacion.nombre} onChange={e => setPresentacion(actual => ({ ...actual, nombre: e.target.value }))} aria-label="Nombre de la presentación" />
+                            <span className={styles.presentationSaved}>✓ Guardado automático</span>
+                        </header>
+                        <div className={styles.presentationToolbar}>
+                            <label>Tema <select value={presentacion.tema} onChange={e => setPresentacion(actual => ({ ...actual, tema: e.target.value }))}><option value="azul">Azul</option><option value="morado">Morado</option><option value="verde">Verde</option><option value="oscuro">Oscuro</option></select></label>
+                            <button onClick={agregarDiapositiva}>＋ Nueva diapositiva</button>
+                            <button onClick={() => moverDiapositiva(-1)} disabled={diapositivaActiva === 0}>↑ Subir</button>
+                            <button onClick={() => moverDiapositiva(1)} disabled={diapositivaActiva === presentacion.diapositivas.length - 1}>↓ Bajar</button>
+                            <button onClick={eliminarDiapositiva}>🗑 Eliminar</button>
+                            <button onClick={descargarPresentacion}>⇩ Exportar presentación</button>
+                            <button className={styles.presentationPrimary} onClick={() => setModoPresentacion(true)}>▶ Presentar</button>
+                        </div>
+                        <div className={styles.presentationWorkspace}>
+                            <aside className={styles.presentationSidebar}>
+                                <h3>Diapositivas ({presentacion.diapositivas.length})</h3>
+                                {presentacion.diapositivas.map((item, indice) => (
+                                    <button key={item.id} className={`${styles.presentationThumbnail} ${indice === diapositivaActiva ? styles.presentationThumbnailActive : ''}`} onClick={() => setDiapositivaActiva(indice)}>
+                                        <span>{indice + 1}</span><strong>{item.titulo || 'Sin título'}</strong><small>{item.contenido || 'Sin contenido'}</small>
+                                    </button>
+                                ))}
+                            </aside>
+                            <main className={styles.presentationEditorArea}>
+                                <div className={`${styles.presentationCanvas} ${styles[`theme${presentacion.tema}`]}`}>
+                                    <input className={styles.presentationTitleInput} value={diapositiva.titulo} onChange={e => actualizarDiapositiva('titulo', e.target.value)} placeholder="Título de la diapositiva" aria-label="Título de la diapositiva" />
+                                    <textarea className={styles.presentationContentInput} value={diapositiva.contenido} onChange={e => actualizarDiapositiva('contenido', e.target.value)} placeholder="Escribe el contenido aquí. Puedes separar ideas en distintas líneas." aria-label="Contenido de la diapositiva" />
+                                    <span className={styles.presentationCanvasNumber}>{diapositivaActiva + 1}</span>
+                                </div>
+                                <p className={styles.presentationHint}>Consejo: usa una diapositiva por idea principal y frases breves para que tu exposición sea clara.</p>
+                            </main>
+                        </div>
+                    </>
+                )}
+            </div>
+        );
+    };
+
     useEffect(() => {
         try {
             localStorage.setItem('blockids_hoja_calculo_v1', JSON.stringify(hojaCalculo));
@@ -1311,6 +1479,10 @@ ${contenido}
         return renderizarHojaCalculo();
     }
 
+    if (herramienta === 'presentaciones') {
+        return renderizarPresentaciones();
+    }
+
     if (herramienta === 'documentos') {
 
         return (
@@ -1985,7 +2157,7 @@ ${contenido}
                         ${styles.toolCard}
                         ${styles.presentations}
                     `}
-                    disabled
+                    onClick={() => setHerramienta('presentaciones')}
                 >
 
                     <div
@@ -2011,10 +2183,10 @@ ${contenido}
 
                     <span
                         className={
-                            styles.comingSoon
+                            styles.openTool
                         }
                     >
-                        Próximamente
+                        Abrir →
                     </span>
 
                 </button>
