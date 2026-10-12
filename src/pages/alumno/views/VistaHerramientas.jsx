@@ -237,16 +237,15 @@ const VistaHerramientas = () => {
 
     const renderizarPresentaciones = () => {
         const diapositiva = presentacion.diapositivas[diapositivaActiva] || presentacion.diapositivas[0];
-
-        // Estilos en línea: el tema no depende de clases CSS dinámicas.
-        const temasPresentacion = {
+        // Los temas se aplican mediante estilos en línea para que funcionen
+        // aunque el proyecto procese la hoja como CSS Modules.
+        const estilosTemas = {
             azul: { background: 'linear-gradient(135deg, #ffffff 0%, #eaf2ff 100%)', borderTopColor: '#2563eb', color: '#1e293b' },
             morado: { background: 'linear-gradient(135deg, #ffffff 0%, #f3eaff 100%)', borderTopColor: '#8b5cf6', color: '#312e3e' },
             verde: { background: 'linear-gradient(135deg, #ffffff 0%, #e8f8ed 100%)', borderTopColor: '#16a34a', color: '#173324' },
             oscuro: { background: 'linear-gradient(135deg, #111827 0%, #29364a 100%)', borderTopColor: '#60a5fa', color: '#f8fafc' }
         };
-        const estiloTemaActual = temasPresentacion[presentacion.tema] || temasPresentacion.azul;
-
+        const estiloTemaActual = estilosTemas[presentacion.tema] || estilosTemas.azul;
         return (
             <div className={styles.presentationContainer}>
                 {modoPresentacion ? (
