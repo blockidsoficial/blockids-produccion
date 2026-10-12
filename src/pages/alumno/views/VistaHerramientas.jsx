@@ -130,11 +130,23 @@ const VistaHerramientas = () => {
             const guardada = localStorage.getItem('blockids_presentacion_v1');
             if (guardada) {
                 const datos = JSON.parse(guardada);
+                const temasPermitidos = ['azul', 'morado', 'verde', 'oscuro'];
+                const diapositivasGuardadas = Array.isArray(datos.diapositivas)
+                    ? datos.diapositivas
+                        .filter(item => item && typeof item === 'object')
+                        .map((item, indice) => ({
+                            id: item.id ?? Date.now() + indice,
+                            titulo: typeof item.titulo === 'string' ? item.titulo : '',
+                            contenido: typeof item.contenido === 'string' ? item.contenido : ''
+                        }))
+                    : [];
                 return {
-                    nombre: datos.nombre || 'Mi presentación',
-                    tema: datos.tema || 'azul',
-                    diapositivas: Array.isArray(datos.diapositivas) && datos.diapositivas.length
-                        ? datos.diapositivas
+                    nombre: typeof datos.nombre === 'string' && datos.nombre.trim()
+                        ? datos.nombre
+                        : 'Mi presentación',
+                    tema: temasPermitidos.includes(datos.tema) ? datos.tema : 'azul',
+                    diapositivas: diapositivasGuardadas.length
+                        ? diapositivasGuardadas
                         : [{ id: 1, titulo: 'Mi primera diapositiva', contenido: 'Escribe aquí las ideas principales de tu presentación.' }]
                 };
             }
@@ -236,7 +248,18 @@ const VistaHerramientas = () => {
     };
 
     const renderizarPresentaciones = () => {
-        const diapositiva = presentacion.diapositivas[diapositivaActiva] || presentacion.diapositivas[0];
+        const diapositivasSeguras = Array.isArray(presentacion.diapositivas) && presentacion.diapositivas.length
+            ? presentacion.diapositivas.filter(item => item && typeof item === 'object')
+            : [{ id: 1, titulo: 'Mi primera diapositiva', contenido: 'Escribe aquí las ideas principales de tu presentación.' }];
+        const indiceSeguro = Math.min(
+            Math.max(0, diapositivaActiva),
+            diapositivasSeguras.length - 1
+        );
+        const diapositiva = diapositivasSeguras[indiceSeguro] || {
+            id: 1,
+            titulo: '',
+            contenido: ''
+        };
         // Los temas se aplican mediante estilos en línea para que funcionen
         // aunque el proyecto procese la hoja como CSS Modules.
         const estilosTemas = {
@@ -267,7 +290,7 @@ const VistaHerramientas = () => {
                             <span className={styles.presentationSaved}>✓ Guardado automático</span>
                         </header>
                         <div className={styles.presentationToolbar}>
-                            <label>Tema <select value={presentacion.tema} onChange={e => setPresentacion(actual => ({ ...actual, tema: e.target.value }))}><option value="azul">Azul</option><option value="morado">Morado</option><option value="verde">Verde</option><option value="oscuro">Oscuro</option></select></label>
+                            <label>Tema <select value={['azul', 'morado', 'verde', 'oscuro'].includes(presentacion.tema) ? presentacion.tema : 'azul'} onChange={e => { const temaSeleccionado = e?.currentTarget?.value; if (['azul', 'morado', 'verde', 'oscuro'].includes(temaSeleccionado)) setPresentacion(actual => ({ ...actual, tema: temaSeleccionado })); }}><option value="azul">Azul</option><option value="morado">Morado</option><option value="verde">Verde</option><option value="oscuro">Oscuro</option></select></label>
                             <button onClick={agregarDiapositiva}>＋ Nueva diapositiva</button>
                             <button onClick={() => moverDiapositiva(-1)} disabled={diapositivaActiva === 0}>↑ Subir</button>
                             <button onClick={() => moverDiapositiva(1)} disabled={diapositivaActiva === presentacion.diapositivas.length - 1}>↓ Bajar</button>
