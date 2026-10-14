@@ -858,14 +858,17 @@ const JuegoMemoria = ({ onVolver, ganarXP }) => {
 
 const JuegoSecuencia = ({ onVolver, ganarXP }) => {
 
-    const generarSecuencia = (longitud = 4) => {
+   
+const generarSecuencia = () => {
+    // Elige aleatoriamente una longitud de 4, 5 o 6 colores.
+    const longitud = Math.floor(Math.random() * 3) + 4;
 
-        return Array.from(
-            { length: longitud },
-            () => Math.floor(Math.random() * 4)
-        );
+    return Array.from(
+        { length: longitud },
+        () => Math.floor(Math.random() * 4)
+    );
+};
 
-    };
 
 
     const [secuencia, setSecuencia] = useState(
@@ -890,7 +893,7 @@ const JuegoSecuencia = ({ onVolver, ganarXP }) => {
             setMostrar(false);
             setMensaje('Ahora repite la secuencia.');
 
-        }, 1800);
+        }, 2500);
 
 
         return () => clearTimeout(tiempo);
@@ -1017,8 +1020,8 @@ const JuegoSecuencia = ({ onVolver, ganarXP }) => {
                                     : styles.secuenciaOculta
                             }
                         >
-                            {colores[numero]}
-                        </span>
+                   {mostrar ? colores[numero] : ''}                     
+                         </span>
 
                     ))}
 
