@@ -278,7 +278,7 @@ const VistaHerramientas = () => {
             <div className={styles.designEditor}>
                 <header className={styles.designHeader}>
                     <button className={styles.designBack} onClick={() => setHerramienta(null)}>← Herramientas</button>
-                    <input aria-label="Nombre del diseño" value={diseno.nombre} onChange={e => setDiseno(a => ({ ...a, nombre: e.target.value }))} />
+                    <input aria-label="Nombre del diseño" value={diseno.nombre} onChange={e => { const valor = e.currentTarget.value; setDiseno(a => ({ ...a, nombre: valor })); }} />
                     <span>✓ Guardado automático</span>
                 </header>
                 <div className={styles.designToolbar}>
@@ -290,7 +290,7 @@ const VistaHerramientas = () => {
                     <button onClick={() => agregarElementoDiseno('circulo')}>● Círculo</button>
                     <button onClick={() => imagenDisenoInputRef.current?.click()}>🖼️ Imagen</button>
                     <input ref={imagenDisenoInputRef} type="file" accept="image/*" hidden onChange={agregarImagenDiseno} />
-                    <label className={styles.designColorLabel}>Fondo <input type="color" value={diseno.fondo} onChange={e => setDiseno(a => ({ ...a, fondo: e.target.value }))} /></label>
+                    <label className={styles.designColorLabel}>Fondo <input type="color" value={diseno.fondo} onChange={e => { const colorSeleccionado = e.currentTarget.value; setDiseno(a => ({ ...a, fondo: colorSeleccionado })); }} /></label>
                     <button onClick={exportarDisenoSVG}>⇩ Exportar diseño</button>
                 </div>
                 <div className={styles.designLayout}>
