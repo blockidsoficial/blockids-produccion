@@ -162,6 +162,164 @@ const VistaHerramientas = () => {
     const [diapositivaActiva, setDiapositivaActiva] = useState(0);
     const [modoPresentacion, setModoPresentacion] = useState(false);
 
+    /* =========================================================
+       ESTADO DEL EDITOR DE DISEÑOS
+    ========================================================= */
+    const [diseno, setDiseno] = useState(() => {
+        try {
+            const guardado = localStorage.getItem('blockids_diseno_v1');
+            if (guardado) {
+                const datos = JSON.parse(guardado);
+                return {
+                    nombre: typeof datos.nombre === 'string' ? datos.nombre : 'Mi diseño',
+                    fondo: typeof datos.fondo === 'string' ? datos.fondo : '#fff7ed',
+                    elementos: Array.isArray(datos.elementos) ? datos.elementos.filter(e => e && typeof e === 'object') : []
+                };
+            }
+        } catch (error) {
+            console.warn('No se pudo recuperar el diseño guardado.', error);
+        }
+        return {
+            nombre: 'Mi diseño',
+            fondo: '#fff7ed',
+            elementos: [
+                { id: 1, tipo: 'texto', texto: '¡Mi gran idea!', x: 8, y: 12, ancho: 78, tamano: 38, color: '#7c2d12', negrita: true, alineacion: 'center' },
+                { id: 2, tipo: 'texto', texto: 'Escribe aquí tu mensaje', x: 12, y: 43, ancho: 70, tamano: 22, color: '#44403c', negrita: false, alineacion: 'center' }
+            ]
+        };
+    });
+    const [elementoDisenoActivo, setElementoDisenoActivo] = useState(1);
+    const imagenDisenoInputRef = useRef(null);
+
+    useEffect(() => {
+        try {
+            localStorage.setItem('blockids_diseno_v1', JSON.stringify(diseno));
+        } catch (error) {
+            console.warn('No se pudo guardar el diseño en este navegador.', error);
+        }
+    }, [diseno]);
+
+    const actualizarElementoDiseno = (id, cambios) => {
+        setDiseno(actual => ({
+            ...actual,
+            elementos: actual.elementos.map(elemento => elemento.id === id ? { ...elemento, ...cambios } : elemento)
+        }));
+    };
+
+    const agregarElementoDiseno = (tipo) => {
+        const id = Date.now();
+        const nuevo = tipo === 'texto'
+            ? { id, tipo, texto: 'Escribe tu texto', x: 12, y: 35, ancho: 65, tamano: 28, color: '#1f2937', negrita: true, alineacion: 'center' }
+            : { id, tipo: 'forma', forma: tipo, x: 35, y: 30, ancho: 28, alto: 25, color: tipo === 'circulo' ? '#f59e0b' : '#60a5fa' };
+        setDiseno(actual => ({ ...actual, elementos: [...actual.elementos, nuevo] }));
+        setElementoDisenoActivo(id);
+    };
+
+    const agregarImagenDiseno = (e) => {
+        const archivo = e.target.files && e.target.files[0];
+        if (!archivo) return;
+        if (!archivo.type.startsWith('image/')) { alert('Selecciona un archivo de imagen.'); e.target.value = ''; return; }
+        const lector = new FileReader();
+        lector.onload = () => {
+            const id = Date.now();
+            setDiseno(actual => ({ ...actual, elementos: [...actual.elementos, { id, tipo: 'imagen', src: lector.result, x: 28, y: 25, ancho: 42, alto: 38 }] }));
+            setElementoDisenoActivo(id);
+        };
+        lector.readAsDataURL(archivo);
+        e.target.value = '';
+    };
+
+    const eliminarElementoDiseno = () => {
+        setDiseno(actual => ({ ...actual, elementos: actual.elementos.filter(e => e.id !== elementoDisenoActivo) }));
+        setElementoDisenoActivo(null);
+    };
+
+    const aplicarPlantillaDiseno = (plantilla) => {
+        const plantillas = {
+            cartel: { nombre: 'Mi cartel', fondo: '#fff7ed', elementos: [
+                { id: Date.now(), tipo: 'texto', texto: '¡ATENCIÓN!', x: 8, y: 10, ancho: 84, tamano: 42, color: '#c2410c', negrita: true, alineacion: 'center' },
+                { id: Date.now()+1, tipo: 'texto', texto: 'Escribe aquí el tema de tu cartel', x: 10, y: 38, ancho: 80, tamano: 25, color: '#292524', negrita: true, alineacion: 'center' },
+                { id: Date.now()+2, tipo: 'texto', texto: 'Agrega fecha, lugar e información importante', x: 10, y: 68, ancho: 80, tamano: 17, color: '#57534e', negrita: false, alineacion: 'center' }
+            ] },
+            portada: { nombre: 'Mi portada', fondo: '#eff6ff', elementos: [
+                { id: Date.now(), tipo: 'texto', texto: 'NOMBRE DE LA ESCUELA', x: 8, y: 10, ancho: 84, tamano: 20, color: '#1d4ed8', negrita: true, alineacion: 'center' },
+                { id: Date.now()+1, tipo: 'texto', texto: 'TÍTULO DEL PROYECTO', x: 8, y: 35, ancho: 84, tamano: 34, color: '#1e3a8a', negrita: true, alineacion: 'center' },
+                { id: Date.now()+2, tipo: 'texto', texto: 'Nombre del alumno · Grupo · Fecha', x: 8, y: 73, ancho: 84, tamano: 18, color: '#334155', negrita: false, alineacion: 'center' }
+            ] },
+            infografia: { nombre: 'Mi infografía', fondo: '#f0fdf4', elementos: [
+                { id: Date.now(), tipo: 'texto', texto: 'TEMA DE LA INFOGRAFÍA', x: 5, y: 7, ancho: 90, tamano: 30, color: '#166534', negrita: true, alineacion: 'center' },
+                { id: Date.now()+1, tipo: 'texto', texto: '01 · IDEA PRINCIPAL', x: 7, y: 28, ancho: 40, tamano: 20, color: '#15803d', negrita: true, alineacion: 'center' },
+                { id: Date.now()+2, tipo: 'texto', texto: '02 · DATO IMPORTANTE', x: 53, y: 28, ancho: 40, tamano: 20, color: '#15803d', negrita: true, alineacion: 'center' },
+                { id: Date.now()+3, tipo: 'texto', texto: 'Explica aquí la primera idea con palabras breves.', x: 7, y: 48, ancho: 40, tamano: 16, color: '#14532d', negrita: false, alineacion: 'center' },
+                { id: Date.now()+4, tipo: 'texto', texto: 'Añade una cifra, ejemplo o conclusión.', x: 53, y: 48, ancho: 40, tamano: 16, color: '#14532d', negrita: false, alineacion: 'center' }
+            ] }
+        };
+        const elegida = plantillas[plantilla];
+        if (elegida) { setDiseno(elegida); setElementoDisenoActivo(elegida.elementos[0]?.id ?? null); }
+    };
+
+    const exportarDisenoSVG = () => {
+        const escapar = texto => String(texto || '').replace(/[&<>\"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;' }[c]));
+        const elementosSVG = diseno.elementos.map(e => {
+            const x = (Number(e.x) || 0) * 10; const y = (Number(e.y) || 0) * 6;
+            if (e.tipo === 'texto') return `<text x="${x + (Number(e.ancho)||50)*5}" y="${y + (Number(e.tamano)||20)}" text-anchor="${e.alineacion === 'left' ? 'start' : e.alineacion === 'right' ? 'end' : 'middle'}" font-family="Arial,sans-serif" font-size="${Number(e.tamano)||20}" font-weight="${e.negrita ? '700' : '400'}" fill="${e.color || '#222'}">${escapar(e.texto)}</text>`;
+            if (e.tipo === 'forma') return e.forma === 'circulo' ? `<ellipse cx="${x+140}" cy="${y+70}" rx="${(Number(e.ancho)||20)*3}" ry="${(Number(e.alto)||20)*3}" fill="${e.color}"/>` : `<rect x="${x}" y="${y}" width="${(Number(e.ancho)||20)*5}" height="${(Number(e.alto)||20)*6}" rx="12" fill="${e.color}"/>`;
+            if (e.tipo === 'imagen') return `<image href="${e.src}" x="${x}" y="${y}" width="${(Number(e.ancho)||30)*5}" height="${(Number(e.alto)||30)*6}" preserveAspectRatio="xMidYMid meet"/>`;
+            return '';
+        }).join('');
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600"><rect width="1000" height="600" fill="${diseno.fondo}"/>${elementosSVG}</svg>`;
+        const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml;charset=utf-8' }));
+        const a = document.createElement('a'); a.href = url; a.download = `${(diseno.nombre || 'diseno').replace(/[\/:*?"<>|]/g, '_')}.svg`; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    };
+
+    const renderizarDisenos = () => {
+        const activo = diseno.elementos.find(e => e.id === elementoDisenoActivo);
+        return (
+            <div className={styles.designEditor}>
+                <header className={styles.designHeader}>
+                    <button className={styles.designBack} onClick={() => setHerramienta(null)}>← Herramientas</button>
+                    <input aria-label="Nombre del diseño" value={diseno.nombre} onChange={e => setDiseno(a => ({ ...a, nombre: e.target.value }))} />
+                    <span>✓ Guardado automático</span>
+                </header>
+                <div className={styles.designToolbar}>
+                    <button onClick={() => aplicarPlantillaDiseno('cartel')}>🪧 Cartel</button>
+                    <button onClick={() => aplicarPlantillaDiseno('portada')}>📘 Portada</button>
+                    <button onClick={() => aplicarPlantillaDiseno('infografia')}>📊 Infografía</button>
+                    <button onClick={() => agregarElementoDiseno('texto')}>＋ Texto</button>
+                    <button onClick={() => agregarElementoDiseno('rectangulo')}>▰ Rectángulo</button>
+                    <button onClick={() => agregarElementoDiseno('circulo')}>● Círculo</button>
+                    <button onClick={() => imagenDisenoInputRef.current?.click()}>🖼️ Imagen</button>
+                    <input ref={imagenDisenoInputRef} type="file" accept="image/*" hidden onChange={agregarImagenDiseno} />
+                    <label className={styles.designColorLabel}>Fondo <input type="color" value={diseno.fondo} onChange={e => setDiseno(a => ({ ...a, fondo: e.target.value }))} /></label>
+                    <button onClick={exportarDisenoSVG}>⇩ Exportar diseño</button>
+                </div>
+                <div className={styles.designLayout}>
+                    <main className={styles.designCanvasWrap}>
+                        <div className={styles.designCanvas} style={{ background: diseno.fondo }} onDragOver={e => e.preventDefault()} onDrop={e => { e.preventDefault(); const id = Number(e.dataTransfer.getData('text/plain')); const rect = e.currentTarget.getBoundingClientRect(); const x = Math.max(0, Math.min(90, ((e.clientX - rect.left) / rect.width) * 100)); const y = Math.max(0, Math.min(85, ((e.clientY - rect.top) / rect.height) * 100)); actualizarElementoDiseno(id, { x, y }); }}>
+                            {diseno.elementos.map(elemento => {
+                                const estilo = { left: `${elemento.x}%`, top: `${elemento.y}%`, width: `${elemento.ancho || 30}%`, fontSize: `${elemento.tamano || 20}px`, color: elemento.color || '#222', fontWeight: elemento.negrita ? 700 : 400, textAlign: elemento.alineacion || 'center' };
+                                if (elemento.tipo === 'texto') return <div key={elemento.id} draggable onDragStart={e => e.dataTransfer.setData('text/plain', String(elemento.id))} onClick={() => setElementoDisenoActivo(elemento.id)} className={`${styles.designElement} ${elementoDisenoActivo === elemento.id ? styles.designElementActive : ''}`} style={estilo}><span contentEditable suppressContentEditableWarning onBlur={e => actualizarElementoDiseno(elemento.id, { texto: e.currentTarget.textContent || '' })} onClick={e => { e.stopPropagation(); setElementoDisenoActivo(elemento.id); }}>{elemento.texto}</span></div>;
+                                if (elemento.tipo === 'imagen') return <div key={elemento.id} draggable onDragStart={e => e.dataTransfer.setData('text/plain', String(elemento.id))} onClick={() => setElementoDisenoActivo(elemento.id)} className={`${styles.designElement} ${elementoDisenoActivo === elemento.id ? styles.designElementActive : ''}`} style={{ ...estilo, height: `${elemento.alto || 30}%`, width: `${elemento.ancho || 30}%` }}><img src={elemento.src} alt="Elemento del diseño" /></div>;
+                                return <div key={elemento.id} draggable onDragStart={e => e.dataTransfer.setData('text/plain', String(elemento.id))} onClick={() => setElementoDisenoActivo(elemento.id)} className={`${styles.designElement} ${elementoDisenoActivo === elemento.id ? styles.designElementActive : ''} ${elemento.forma === 'circulo' ? styles.designCircle : styles.designRectangle}`} style={{ ...estilo, height: `${elemento.alto || 25}%`, background: elemento.color }} />;
+                            })}
+                        </div>
+                    </main>
+                    <aside className={styles.designProperties}>
+                        <h3>Editar elemento</h3>
+                        {!activo ? <p>Selecciona un elemento del lienzo para editarlo. Arrástralo para moverlo.</p> : (
+                            <>
+                                {activo.tipo === 'texto' && <><label>Texto<textarea value={activo.texto} onChange={e => actualizarElementoDiseno(activo.id, { texto: e.target.value })} /></label><label>Tamaño <input type="number" min="10" max="100" value={activo.tamano || 20} onChange={e => actualizarElementoDiseno(activo.id, { tamano: Math.max(10, Math.min(100, Number(e.target.value) || 10)) })} /></label><label>Color <input type="color" value={activo.color || '#222222'} onChange={e => actualizarElementoDiseno(activo.id, { color: e.target.value })} /></label><label>Alineación <select value={activo.alineacion || 'center'} onChange={e => actualizarElementoDiseno(activo.id, { alineacion: e.target.value })}><option value="left">Izquierda</option><option value="center">Centro</option><option value="right">Derecha</option></select></label><label><input type="checkbox" checked={!!activo.negrita} onChange={e => actualizarElementoDiseno(activo.id, { negrita: e.target.checked })} /> Negrita</label></>}
+                                {(activo.tipo === 'forma' || activo.tipo === 'imagen') && <><label>Ancho (%) <input type="number" min="5" max="90" value={activo.ancho || 30} onChange={e => actualizarElementoDiseno(activo.id, { ancho: Math.max(5, Math.min(90, Number(e.target.value) || 5)) })} /></label><label>Color <input type="color" value={activo.color || '#60a5fa'} onChange={e => actualizarElementoDiseno(activo.id, { color: e.target.value })} /></label></>}
+                                <button className={styles.designDelete} onClick={eliminarElementoDiseno}>🗑 Eliminar elemento</button>
+                            </>
+                        )}
+                        <p className={styles.designSavedNote}>Los cambios se guardan en este navegador automáticamente.</p>
+                    </aside>
+                </div>
+            </div>
+        );
+    };
+
     useEffect(() => {
         try {
             localStorage.setItem('blockids_presentacion_v1', JSON.stringify(presentacion));
@@ -1515,6 +1673,10 @@ ${contenido}
         return renderizarPresentaciones();
     }
 
+    if (herramienta === 'disenos') {
+        return renderizarDisenos();
+    }
+
     if (herramienta === 'documentos') {
 
         return (
@@ -2230,7 +2392,7 @@ ${contenido}
                         ${styles.toolCard}
                         ${styles.designs}
                     `}
-                    disabled
+                    onClick={() => setHerramienta('disenos')}
                 >
 
                     <div
@@ -2259,7 +2421,7 @@ ${contenido}
                             styles.comingSoon
                         }
                     >
-                        Próximamente
+                        Abrir →
                     </span>
 
                 </button>

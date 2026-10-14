@@ -1379,3 +1379,38 @@
     .presentationToolbar button { flex: 1 1 auto; }
     .presentationStage { padding: 65px 22px 25px; }
 }
+
+
+/* =========================================================
+   EDITOR DE DISEÑOS - LIENZO TIPO CANVA
+========================================================= */
+.designEditor { min-height: 100vh; padding: 18px; background: #f3f5f9; color: #1f2937; box-sizing: border-box; }
+.designHeader { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 12px 16px; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; }
+.designHeader input { flex: 1; min-width: 180px; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 9px; font-size: 17px; font-weight: 700; }
+.designHeader span { color: #15803d; font-size: 13px; }
+.designBack, .designToolbar button, .designProperties button { border: 1px solid #dbe1ea; border-radius: 9px; padding: 9px 12px; background: #fff; color: #1f2937; cursor: pointer; font-weight: 600; }
+.designToolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 14px 0; padding: 12px; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; }
+.designToolbar button:hover, .designBack:hover { background: #eff6ff; border-color: #93c5fd; }
+.designColorLabel { display: flex; align-items: center; gap: 8px; padding: 5px 10px; border: 1px solid #dbe1ea; border-radius: 9px; font-size: 13px; font-weight: 700; }
+.designColorLabel input { width: 32px; height: 28px; border: 0; background: transparent; cursor: pointer; }
+.designLayout { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 16px; align-items: start; }
+.designCanvasWrap { min-width: 0; padding: clamp(10px, 2vw, 24px); background: #e5e7eb; border-radius: 14px; overflow: auto; }
+.designCanvas { position: relative; width: 100%; max-width: 1000px; aspect-ratio: 5 / 3; min-height: 360px; margin: auto; overflow: hidden; border-radius: 5px; box-shadow: 0 8px 25px #11182725; }
+.designElement { position: absolute; box-sizing: border-box; cursor: grab; user-select: none; overflow-wrap: anywhere; }
+.designElement:active { cursor: grabbing; }
+.designElement span { display: block; width: 100%; min-height: 1em; outline: none; white-space: pre-wrap; }
+.designElementActive { outline: 2px dashed #2563eb; outline-offset: 3px; }
+.designElement img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.designRectangle { min-height: 35px; border-radius: 10px; opacity: .92; }
+.designCircle { min-height: 35px; border-radius: 50%; opacity: .92; }
+.designProperties { padding: 16px; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; }
+.designProperties h3 { margin: 0 0 14px; font-size: 17px; }
+.designProperties label { display: flex; flex-direction: column; gap: 6px; margin: 12px 0; color: #4b5563; font-size: 13px; font-weight: 700; }
+.designProperties input:not([type="checkbox"]):not([type="color"]), .designProperties textarea, .designProperties select { width: 100%; box-sizing: border-box; padding: 9px; border: 1px solid #d1d5db; border-radius: 8px; color: #111827; background: #fff; font: inherit; }
+.designProperties textarea { min-height: 90px; resize: vertical; }
+.designProperties input[type="color"] { width: 100%; height: 36px; border: 0; background: transparent; cursor: pointer; }
+.designProperties label:has(input[type="checkbox"]) { flex-direction: row; align-items: center; }
+.designDelete { width: 100%; margin-top: 10px; color: #b91c1c !important; border-color: #fecaca !important; }
+.designSavedNote { margin-top: 18px; color: #6b7280; font-size: 12px; line-height: 1.5; }
+@media (max-width: 850px) { .designLayout { grid-template-columns: 1fr; } .designProperties { order: -1; } .designCanvas { min-height: 320px; } }
+@media (max-width: 520px) { .designEditor { padding: 8px; } .designCanvas { min-height: 280px; } .designToolbar button { flex: 1 1 auto; } .designHeader input { order: 2; flex-basis: 100%; } }
