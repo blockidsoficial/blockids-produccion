@@ -622,56 +622,63 @@ const JuegoNumero = ({ onVolver, ganarXP }) => {
 
 const JuegoMemoria = ({ onVolver, ganarXP }) => {
 
-    const parejasOriginales = [
-        ['if', '🔀'],
-        ['for', '🔁'],
-        ['array', '📦'],
-        ['function', '⚙️'],
-        ['if', '🔀'],
-        ['for', '🔁'],
-        ['array', '📦'],
-        ['function', '⚙️']
+    // 14 parejas disponibles: cada ronda elige aleatoriamente 4, 5 o 6.
+    const opcionesParejas = [
+        { nombre: 'if', icono: '🔀' },
+        { nombre: 'for', icono: '🔁' },
+        { nombre: 'array', icono: '📦' },
+        { nombre: 'function', icono: '⚙️' },
+        { nombre: 'while', icono: '🔄' },
+        { nombre: 'return', icono: '↩️' },
+        { nombre: 'variable', icono: '📌' },
+        { nombre: 'string', icono: '🔤' },
+        { nombre: 'number', icono: '🔢' },
+        { nombre: 'boolean', icono: '☑️' },
+        { nombre: 'class', icono: '🏷️' },
+        { nombre: 'object', icono: '🧰' },
+        { nombre: 'import', icono: '📥' },
+        { nombre: 'print', icono: '🖨️' }
     ];
 
-
-    const barajar = () => {
-
-        return [...parejasOriginales]
+    const crearCartas = () => {
+        const cantidadParejas = [4, 5, 6][Math.floor(Math.random() * 3)];
+        const parejasElegidas = [...opcionesParejas]
             .sort(() => Math.random() - 0.5)
-            .map((valor, indice) => ({
-                id: indice,
-                nombre: valor[0],
-                icono: valor[1],
+            .slice(0, cantidadParejas);
+
+        const cartasNuevas = parejasElegidas.flatMap((pareja, indice) => ([
+            {
+                id: `${indice}-a-${Math.random().toString(36).slice(2)}`,
+                nombre: pareja.nombre,
+                icono: pareja.icono,
                 volteada: false,
                 encontrada: false
-            }));
+            },
+            {
+                id: `${indice}-b-${Math.random().toString(36).slice(2)}`,
+                nombre: pareja.nombre,
+                icono: pareja.icono,
+                volteada: false,
+                encontrada: false
+            }
+        ]));
 
+        return cartasNuevas.sort(() => Math.random() - 0.5);
     };
 
-
-    const [cartas, setCartas] = useState(barajar);
-
+    const [cartas, setCartas] = useState(crearCartas);
     const [seleccionadas, setSeleccionadas] = useState([]);
-
     const [movimientos, setMovimientos] = useState(0);
-
     const [ganado, setGanado] = useState(false);
 
-
     useEffect(() => {
-
-        if (seleccionadas.length !== 2) {
-            return;
-        }
-
+        if (seleccionadas.length !== 2) return;
 
         const [primera, segunda] = seleccionadas;
+        setMovimientos(prev => prev + 1);
 
-
-        if (primera.nombre === segunda.nombre) {
-
-            setTimeout(() => {
-
+        if (primera.nombre === segunda.nombre && primera.id !== segunda.id) {
+            const temporizador = setTimeout(() => {
                 setCartas(prev =>
                     prev.map(carta =>
                         carta.nombre === primera.nombre
@@ -679,97 +686,57 @@ const JuegoMemoria = ({ onVolver, ganarXP }) => {
                             : carta
                     )
                 );
-
                 setSeleccionadas([]);
-
             }, 500);
 
-        } else {
-
-            setTimeout(() => {
-
-                setCartas(prev =>
-                    prev.map(carta =>
-                        seleccionadas.some(s => s.id === carta.id)
-                            ? { ...carta, volteada: false }
-                            : carta
-                    )
-                );
-
-                setSeleccionadas([]);
-
-            }, 800);
-
+            return () => clearTimeout(temporizador);
         }
 
+        const temporizador = setTimeout(() => {
+            setCartas(prev =>
+                prev.map(carta =>
+                    seleccionadas.some(s => s.id === carta.id)
+                        ? { ...carta, volteada: false }
+                        : carta
+                )
+            );
+            setSeleccionadas([]);
+        }, 800);
 
-        setMovimientos(prev => prev + 1);
-
+        return () => clearTimeout(temporizador);
     }, [seleccionadas]);
 
-
     useEffect(() => {
-
-        if (
-            cartas.length > 0 &&
-            cartas.every(carta => carta.encontrada)
-        ) {
-
-            if (!ganado) {
-                ganarXP();
-                setGanado(true);
-            }
-
+        if (cartas.length > 0 && cartas.every(carta => carta.encontrada) && !ganado) {
+            ganarXP();
+            setGanado(true);
         }
-
     }, [cartas, ganado, ganarXP]);
 
-
     const voltear = (id) => {
-
-        if (seleccionadas.length >= 2) {
-            return;
-        }
-
+        if (seleccionadas.length >= 2 || ganado) return;
 
         const carta = cartas.find(c => c.id === id);
-
-
-        if (!carta || carta.volteada || carta.encontrada) {
-            return;
-        }
-
+        if (!carta || carta.volteada || carta.encontrada) return;
 
         setCartas(prev =>
-            prev.map(c =>
-                c.id === id
-                    ? { ...c, volteada: true }
-                    : c
-            )
+            prev.map(c => c.id === id ? { ...c, volteada: true } : c)
         );
-
-
         setSeleccionadas(prev => [...prev, carta]);
-
     };
 
-
     const reiniciar = () => {
-
-        setCartas(barajar());
+        setCartas(crearCartas());
         setSeleccionadas([]);
         setMovimientos(0);
         setGanado(false);
-
     };
 
+    const cantidadParejas = cartas.length / 2;
 
     return (
-
         <div className={styles.juegoPantalla}>
-
             <div className={styles.juegoPanel}>
-
                 <button
                     className={styles.btnVolverJuego}
                     onClick={onVolver}
@@ -777,77 +744,67 @@ const JuegoMemoria = ({ onVolver, ganarXP }) => {
                     ← Volver a Minijuegos
                 </button>
 
+                <div className={styles.granIcono}>🧩</div>
 
-                <div className={styles.granIcono}>
-                    🧩
-                </div>
-
-
-                <h1>
-                    Memoria de Código
-                </h1>
-
+                <h1>Memoria de Código</h1>
 
                 <p>
                     Encuentra todas las parejas de programación.
                 </p>
 
-
                 <div className={styles.intentos}>
+                    Parejas: <strong>{cantidadParejas}</strong>
+                    {' · '}
                     Movimientos: <strong>{movimientos}</strong>
                 </div>
 
-
-                <div className={styles.memoriaGrid}>
-
+                <div
+                    className={styles.memoriaGrid}
+                    style={{
+                        gridTemplateColumns: `repeat(${cantidadParejas <= 4 ? 4 : 4}, minmax(0, 1fr))`
+                    }}
+                >
                     {cartas.map(carta => (
-
                         <button
                             key={carta.id}
+                            type="button"
                             className={`${styles.cartaMemoria} ${
                                 carta.volteada || carta.encontrada
                                     ? styles.cartaVolteada
                                     : ''
                             }`}
                             onClick={() => voltear(carta.id)}
+                            disabled={carta.encontrada || ganado}
+                            aria-label={
+                                carta.volteada || carta.encontrada
+                                    ? `${carta.nombre}, ${carta.icono}`
+                                    : 'Carta oculta'
+                            }
                         >
-
                             {carta.volteada || carta.encontrada ? (
                                 <>
                                     <span>{carta.icono}</span>
                                     <small>{carta.nombre}</small>
                                 </>
-                            ) : (
-                                '?'
-                            )}
-
+                            ) : '?'}
                         </button>
-
                     ))}
-
                 </div>
 
-
                 {ganado && (
-
                     <div className={styles.mensajeGanador}>
-                        🎉 ¡Completaste todas las parejas! +75 XP
+                        🎉 ¡Completaste las {cantidadParejas} parejas! +75 XP
                     </div>
-
                 )}
-
 
                 <button
                     className={styles.btnReiniciar}
                     onClick={reiniciar}
                 >
-                    🔄 Reiniciar Juego
+                    🔄 Nueva partida
                 </button>
-
             </div>
-
         </div>
-
     );
 };
 
