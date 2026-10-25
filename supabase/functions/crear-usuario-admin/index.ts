@@ -116,8 +116,8 @@ Deno.serve(async (req) => {
     // debajo); no es arbitrario, todo lo que pase de eso se ignora al
     // hashear de cualquier forma.
     const passwordFinal = String(password).trim();
-    if (passwordFinal.length < 6 || passwordFinal.length > 72) {
-      return json({ error: 'La contraseña debe tener entre 6 y 72 caracteres.' }, 400);
+    if (passwordFinal.length < 8 || passwordFinal.length > 72) {
+      return json({ error: 'La contraseña debe tener entre 8 y 72 caracteres.' }, 400);
     }
     const rolesValidos = ['superadmin', 'admin_escuela', 'profesor', 'alumno'];
     if (!rolesValidos.includes(rol)) {

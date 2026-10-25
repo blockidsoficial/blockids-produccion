@@ -30,15 +30,7 @@ const sufijoAleatorio = () => (Math.random().toString(36) + '000').slice(2, 5);
 // resto de la app (alumno/Dashboard, admin/VistaEscuelas).
 const normalizarCodigo = (v) => v.replace(/\s+/g, '').toUpperCase();
 
-// Contraseña: SIN restricción de caracteres — se acepta espacios,
-// acentos, emojis, cualquier símbolo (una frase larga tipo "mi gato azul
-// salta alto" es más segura y más fácil de recordar que "Ab3!" con reglas
-// raras). Solo se limita la longitud: mínimo 6 (lo que exige Supabase Auth
-// por defecto) y máximo 72 — no es un capricho, es el límite real de bcrypt
-// (el algoritmo que usa Supabase Auth por debajo): todo lo que pases de 72
-// bytes se ignora en silencio al hashear, así que permitir más solo
-// engañaría al usuario haciéndole creer que agregó seguridad que no cuenta.
-const PASSWORD_MIN = 6;
+const PASSWORD_MIN = 8;
 const PASSWORD_MAX = 72;
 const RE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

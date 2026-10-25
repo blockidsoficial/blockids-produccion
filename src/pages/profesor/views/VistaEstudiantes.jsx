@@ -20,7 +20,7 @@ const inicial = (nombre, username) => {
 const COLORES_AVATAR = ['#3b5bdb', '#7048e8', '#0ca678', '#e67700', '#c92a2a', '#1098ad'];
 const colorAvatar = (str = '') => COLORES_AVATAR[str.charCodeAt(0) % COLORES_AVATAR.length];
 
-const PASS_MIN = 6;
+const PASS_MIN = 8;
 const PASS_MAX = 72; // límite real de bcrypt (lo que usa Supabase Auth por debajo)
 
 const IconoLlave = () => (

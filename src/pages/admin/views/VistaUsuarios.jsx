@@ -10,7 +10,7 @@ import local  from './VistaUsuarios.css';
 import { normalizarUsername, validarUsername } from '../../../lib/username-rules';
 import IconoOjo from '../../../components/IconoOjo/IconoOjo';
 
-const PASS_MIN = 6;
+const PASS_MIN = 8;
 const PASS_MAX = 72; // límite real de bcrypt (lo que usa Supabase Auth por debajo)
 
 const ROL_CONFIG = {
