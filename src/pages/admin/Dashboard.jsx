@@ -583,7 +583,7 @@ const DashboardAdmin = () => {
                 />
             )}
 
-            {!['Dashboard', 'Escuelas', 'Profesores', 'Aulas', 'Usuarios', 'Proyectos', 'Reportes', 'Configuración'].includes(vistaActiva) && (
+            {!['Dashboard', 'Escuelas', 'Profesores', 'Aulas', 'Usuarios', 'Proyectos', 'SalonFama', 'Reportes', 'Configuración'].includes(vistaActiva) && (
                 <div className={styles.proximamente}>
                     <p className={styles.proximamenteLabel}>Sección en desarrollo</p>
                     <p className={styles.proximamenteDesc}>Esta vista estará disponible próximamente.</p>
