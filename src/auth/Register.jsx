@@ -468,7 +468,7 @@ const Register = () => {
                                     </div>
                                 </div>
 
-                                {/* Nombre de usuario: autogenerado, pero editable/acortable */}
+                               
                                 {esAlumno && usernameAsignado ? (
                                     <div className={styles.fieldGroup}>
                                         <label className={styles.label}>Tu nombre de usuario</label>
@@ -484,7 +484,7 @@ const Register = () => {
                                             </button>
                                         </p>
                                         <p className={styles.helperText}>
-                                            Anótalo: lo necesitarás para entrar.
+                                            Anótalo: lo necesitarás para iniciar sesión.
                                         </p>
                                     </div>
                                 ) : (
