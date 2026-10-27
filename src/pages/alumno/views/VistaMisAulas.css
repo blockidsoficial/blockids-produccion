@@ -1,117 +1,55 @@
-﻿/* BLOCKIDS — Alumno / VistaMisAulas */
+﻿
+/* ============================================================
+   BLOCKIDS — Alumno / VistaMisAulas
+   Estilos originales + evaluaciones de profesores
+============================================================ */
+
+/* ── Animaciones ───────────────────────────────────────────── */
 
 @keyframes fadeSlideUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
 @keyframes scaleIn {
-    from { opacity: 0; transform: scale(.95) translateY(16px); }
-    to   { opacity: 1; transform: scale(1)   translateY(0); }
+    from {
+        opacity: 0;
+        transform: scale(.95) translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── Contenedor principal ──────────────────────────────────── */
 
 .wrapper {
     animation: fadeSlideUp .35s ease both;
 }
 
 .pageTitle {
-    font-size: 1.35rem; font-weight: 800;
+    font-size: 1.35rem;
+    font-weight: 800;
     color: var(--color-texto-oscuro);
     margin: 0 0 20px;
     font-family: var(--font-principal);
 }
 
-.aulasGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-}
+/* ── Encabezado ────────────────────────────────────────────── */
 
-.aulaCard {
-    background: var(--color-blanco);
-    border-radius: var(--radio-lg);
-    padding: 20px;
-    display: flex; align-items: center; gap: 14px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--color-borde-suave);
-    transition: box-shadow .2s, transform .2s;
-}
-.aulaCard:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.09);
-    transform: translateY(-2px);
-}
-
-.aulaIconWrap {
-    width: 44px; height: 44px;
-    background: var(--color-verde-bg);
-    border-radius: var(--radio-md);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-}
-.aulaIcon { width: 22px; height: 22px; opacity: .8; }
-
-.aulaInfo { flex: 1; min-width: 0; }
-.aulaNombre {
-    font-size: .95rem; font-weight: 700;
-    color: var(--color-texto-oscuro);
-    margin: 0 0 4px;
-    font-family: var(--font-principal);
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.aulaCodigo {
-    font-family: 'Courier New', monospace;
-    font-size: .78rem; font-weight: 700; letter-spacing: 1.5px;
-    color: var(--color-azul-fuerte); background: var(--color-azul-bg);
-    padding: 2px 8px; border-radius: var(--radio-sm);
-    border: 1px solid var(--color-azul-claro);
-    display: inline-block;
-}
-
-.btnVerAula {
-    padding: 9px 18px;
-    background: var(--color-verde-primario);
-    color: var(--color-blanco);
-    border: none; border-radius: var(--radio-md);
-    font-size: .82rem; font-weight: 700; cursor: pointer;
-    font-family: var(--font-principal);
-    transition: all .2s;
-    flex-shrink: 0;
-    white-space: nowrap;
-}
-.btnVerAula:hover {
-    background: var(--color-verde-hover);
-    transform: translateY(-1px);
-}
-
-/* Empty */
-.construccionCard {
-    background: var(--color-blanco);
-    border-radius: var(--radio-xl);
-    border: 2px solid var(--color-borde-suave);
-    padding: 52px 48px;
-    max-width: 460px;
-    display: flex; flex-direction: column; align-items: center;
-    text-align: center; gap: 14px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
-    animation: scaleIn .35s ease both;
-}
-.xolotl { width: 110px; object-fit: contain; }
-.titulo {
-    font-size: 1.4rem; font-weight: 800;
-    color: var(--color-texto-oscuro);
-    margin: 0; font-family: var(--font-principal);
-}
-.desc {
-    font-size: .88rem; color: var(--color-texto-muted);
-    margin: 0; max-width: 340px; line-height: 1.6;
-    font-family: var(--font-principal);
-}
-
-@media (max-width: 640px) {
-    .aulasGrid { grid-template-columns: 1fr; }
-    .aulaCard { flex-wrap: wrap; }
-}
-
-/* ── Header con título + botón ────────────────────────────────────────────── */
 .headerRow {
     display: flex;
     justify-content: space-between;
@@ -125,7 +63,178 @@
     margin-bottom: 0;
 }
 
-/* ── Botón Unirse a clase ─────────────────────────────────────────────────── */
+/* ── Cuadrícula de aulas ───────────────────────────────────── */
+
+.aulasGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.aulaCard {
+    background: var(--color-blanco);
+    border-radius: var(--radio-lg);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-borde-suave);
+    transition: box-shadow .2s, transform .2s;
+}
+
+.aulaCard:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.09);
+    transform: translateY(-2px);
+}
+
+.aulaIconWrap {
+    width: 44px;
+    height: 44px;
+    background: var(--color-verde-bg);
+    border-radius: var(--radio-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.aulaIcon {
+    width: 22px;
+    height: 22px;
+    opacity: .8;
+}
+
+.aulaInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.aulaNombre {
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--color-texto-oscuro);
+    margin: 0 0 4px;
+    font-family: var(--font-principal);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.aulaCodigo {
+    font-family: 'Courier New', monospace;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--color-azul-fuerte);
+    background: var(--color-azul-bg);
+    padding: 2px 8px;
+    border-radius: var(--radio-sm);
+    border: 1px solid var(--color-azul-claro);
+    display: inline-block;
+}
+
+/* ── Botón Ir al Muro ──────────────────────────────────────── */
+
+.btnVerAula {
+    padding: 9px 18px;
+    background: var(--color-verde-primario);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: var(--radio-md);
+    font-size: .82rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    transition: all .2s;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.btnVerAula:hover {
+    background: var(--color-verde-hover);
+    transform: translateY(-1px);
+}
+
+/* ── Acciones de cada aula ─────────────────────────────────── */
+
+.aulaAcciones {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* ── Botón Calificar profesor ──────────────────────────────── */
+
+.btnCalificar {
+    padding: 9px 12px;
+    border: 1.5px solid #f0b429;
+    border-radius: var(--radio-md);
+    background: #fff9e8;
+    color: #8a5a00;
+    font-size: .78rem;
+    font-weight: 700;
+    font-family: var(--font-principal);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .2s, transform .2s;
+}
+
+.btnCalificar:hover {
+    background: #ffefbf;
+    transform: translateY(-1px);
+}
+
+.btnCalificar:focus-visible,
+.btnVerAula:focus-visible,
+.btnNuevo:focus-visible {
+    outline: 3px solid #8ab4ff;
+    outline-offset: 3px;
+}
+
+/* ── Vista sin aulas ───────────────────────────────────────── */
+
+.construccionCard {
+    background: var(--color-blanco);
+    border-radius: var(--radio-xl);
+    border: 2px solid var(--color-borde-suave);
+    padding: 52px 48px;
+    max-width: 460px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+    animation: scaleIn .35s ease both;
+}
+
+.xolotl {
+    width: 110px;
+    object-fit: contain;
+}
+
+.titulo {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--color-texto-oscuro);
+    margin: 0;
+    font-family: var(--font-principal);
+}
+
+.desc {
+    font-size: .88rem;
+    color: var(--color-texto-muted);
+    margin: 0;
+    max-width: 340px;
+    line-height: 1.6;
+    font-family: var(--font-principal);
+}
+
+/* ── Botón Unirse a un aula ────────────────────────────────── */
+
 .btnNuevo {
     padding: 10px 20px;
     background: var(--color-verde-primario);
@@ -147,7 +256,10 @@
     box-shadow: 0 6px 18px rgba(109, 191, 38, 0.38);
 }
 
-/* ── Modal overlay ────────────────────────────────────────────────────────── */
+/* ============================================================
+   MODAL GENERAL
+============================================================ */
+
 .modalOverlay {
     position: fixed;
     top: 0;
@@ -175,13 +287,16 @@
     overflow: hidden;
 }
 
-/* ── Modal header ─────────────────────────────────────────────────────────── */
+/* ── Encabezado del modal ──────────────────────────────────── */
+
 .modalHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px 24px 16px;
     border-bottom: 1.5px solid var(--color-borde-suave);
+    gap: 12px;
+    flex-shrink: 0;
 }
 
 .modalHeaderLeft {
@@ -237,7 +352,13 @@
     color: #e53e3e;
 }
 
-/* ── Modal body ───────────────────────────────────────────────────────────── */
+.modalClose:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+/* ── Cuerpo del modal ──────────────────────────────────────── */
+
 .modalBody {
     padding: 20px 24px;
     display: flex;
@@ -263,9 +384,11 @@
     font-family: var(--font-principal);
 }
 
-/* ── Input código (monospace, grande, centrado) ───────────────────────────── */
+/* ── Campo del código de aula ──────────────────────────────── */
+
 .codigoInput {
     width: 100%;
+    box-sizing: border-box;
     padding: 12px 16px;
     font-family: 'Courier New', monospace;
     font-size: 1.2rem;
@@ -279,7 +402,6 @@
     background: var(--color-blanco);
     color: var(--color-texto-oscuro);
     transition: border-color .18s ease;
-    box-sizing: border-box;
 }
 
 .codigoInput:focus {
@@ -291,7 +413,8 @@
     cursor: not-allowed;
 }
 
-/* ── Alertas inline ───────────────────────────────────────────────────────── */
+/* ── Mensajes de error y éxito ─────────────────────────────── */
+
 .errorMsg {
     margin: 0;
     padding: 10px 14px;
@@ -302,6 +425,8 @@
     background: #fff0f0;
     color: #c53030;
     border: 1.5px solid #e53e3e;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
 }
 
 .exitoMsg {
@@ -314,9 +439,11 @@
     background: #edfaf3;
     color: #0ca678;
     border: 1.5px solid #0ca678;
+    line-height: 1.5;
 }
 
-/* ── Modal footer ─────────────────────────────────────────────────────────── */
+/* ── Pie del modal ─────────────────────────────────────────── */
+
 .modalFooter {
     display: flex;
     align-items: center;
@@ -344,14 +471,24 @@
     background: var(--color-fondo-suave, #f3f4f6);
 }
 
+.btnCancelar:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
 .btnUnirse {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     padding: 10px 22px;
     border-radius: var(--radio-md);
     border: none;
-    background: linear-gradient(135deg, var(--color-verde-primario), var(--color-verde-hover));
+    background: linear-gradient(
+        135deg,
+        var(--color-verde-primario),
+        var(--color-verde-hover)
+    );
     color: var(--color-blanco);
     font-size: .88rem;
     font-weight: 700;
@@ -370,7 +507,8 @@
     opacity: .9;
 }
 
-/* ── Spinner del botón ────────────────────────────────────────────────────── */
+/* ── Indicador de carga ────────────────────────────────────── */
+
 .btnSpinner {
     display: inline-block;
     width: 14px;
@@ -382,6 +520,327 @@
     flex-shrink: 0;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
+/* ============================================================
+   EVALUACIONES DE PROFESORES
+============================================================ */
+
+/* ── Modal de evaluación ───────────────────────────────────── */
+
+.modalEvaluacionCard {
+    max-width: 560px;
+    max-height: 90vh;
+}
+
+/* ── Formulario de evaluación ──────────────────────────────── */
+
+.evalForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.evalLabel {
+    display: block;
+    font-family: var(--font-principal);
+    font-size: .86rem;
+    font-weight: 800;
+    color: var(--color-texto-oscuro);
+}
+
+/* ── Selector de estrellas ─────────────────────────────────── */
+
+.estrellas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+}
+
+.estrella,
+.estrellaActiva {
+    padding: 2px;
+    border: none;
+    background: transparent;
+    font-size: 2.2rem;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: transform .15s, color .15s;
+}
+
+.estrella {
+    color: #cbd0d9;
+}
+
+.estrellaActiva {
+    color: #f5b301;
+}
+
+.estrella:hover,
+.estrellaActiva:hover {
+    transform: scale(1.15);
+}
+
+.estrella:focus-visible,
+.estrellaActiva:focus-visible {
+    outline: 2px solid #4786f5;
+    outline-offset: 3px;
+    border-radius: 5px;
+}
+
+.estrella:disabled,
+.estrellaActiva:disabled {
+    cursor: not-allowed;
+    opacity: .7;
+}
+
+.evalPuntuacion {
+    margin: 0 0 8px;
+    text-align: center;
+    color: #8a5a00;
+    font-size: .85rem;
+    font-weight: 700;
+    font-family: var(--font-principal);
+}
+
+/* ── Área para escribir el comentario ──────────────────────── */
+
+.evalTextarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 100px;
+    padding: 12px 14px;
+    border: 1.5px solid var(--color-borde-suave);
+    border-radius: var(--radio-md);
+    background: var(--color-blanco);
+    color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+    font-size: .9rem;
+    line-height: 1.5;
+    outline: none;
+    transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+.evalTextarea::placeholder {
+    color: var(--color-texto-muted);
+    opacity: .8;
+}
+
+.evalTextarea:focus {
+    border-color: var(--color-azul-fuerte, #3b5bdb);
+    box-shadow: 0 0 0 3px rgba(59, 91, 219, .1);
+}
+
+.evalTextarea:disabled {
+    opacity: .65;
+    cursor: not-allowed;
+}
+
+.evalContador {
+    display: block;
+    text-align: right;
+    font-size: .75rem;
+    color: var(--color-texto-muted);
+    font-family: var(--font-principal);
+}
+
+/* ── Botón para publicar o actualizar ──────────────────────── */
+
+.btnGuardarEvaluacion {
+    width: 100%;
+    margin-top: 8px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: var(--radio-md);
+    background: var(--color-verde-primario);
+    color: var(--color-blanco);
+    font-family: var(--font-principal);
+    font-size: .9rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background .2s, opacity .2s, transform .2s;
+}
+
+.btnGuardarEvaluacion:hover:not(:disabled) {
+    background: var(--color-verde-hover);
+    transform: translateY(-1px);
+}
+
+.btnGuardarEvaluacion:focus-visible {
+    outline: 3px solid #8ab4ff;
+    outline-offset: 3px;
+}
+
+.btnGuardarEvaluacion:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+/* ── Mensajes informativos ─────────────────────────────────── */
+
+.evalInfo {
+    margin: 4px 0;
+    color: var(--color-texto-muted);
+    font-family: var(--font-principal);
+    font-size: .83rem;
+    line-height: 1.5;
+}
+
+/* ============================================================
+   OPINIONES PUBLICADAS
+============================================================ */
+
+.opinionesSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1.5px solid var(--color-borde-suave);
+}
+
+.opinionesTitulo {
+    margin: 0;
+    color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+    font-size: .98rem;
+    font-weight: 800;
+}
+
+/* ── Tarjeta de opinión ─────────────────────────────────────── */
+
+.opinionCard {
+    padding: 14px;
+    border: 1px solid var(--color-borde-suave);
+    border-radius: var(--radio-md);
+    background: var(--color-blanco);
+    transition: box-shadow .2s, border-color .2s;
+}
+
+.opinionCard:hover {
+    border-color: var(--color-azul-claro);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .04);
+}
+
+.opinionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.opinionAutor {
+    color: var(--color-texto-oscuro);
+    font-size: .82rem;
+    font-weight: 800;
+    font-family: var(--font-principal);
+}
+
+.opinionEstrellas {
+    color: #f5b301;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.opinionTexto {
+    margin: 10px 0;
+    color: var(--color-texto-oscuro);
+    font-family: var(--font-principal);
+    font-size: .88rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.opinionFecha {
+    display: block;
+    color: var(--color-texto-muted);
+    font-size: .74rem;
+    font-family: var(--font-principal);
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 640px) {
+    .aulasGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .aulaCard {
+        flex-wrap: wrap;
+    }
+
+    .aulaInfo {
+        flex: 1 1 calc(100% - 70px);
+    }
+
+    .aulaAcciones {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .aulaAcciones button {
+        flex: 1 1 auto;
+    }
+
+    .construccionCard {
+        padding: 32px 20px;
+    }
+
+    .headerRow {
+        align-items: flex-start;
+    }
+
+    .modalOverlay {
+        padding: 10px;
+    }
+
+    .modalCard {
+        max-height: 90vh;
+    }
+
+    .modalHeader {
+        padding: 16px 18px 14px;
+    }
+
+    .modalBody {
+        padding: 18px;
+    }
+
+    .modalFooter {
+        padding: 14px 18px 18px;
+    }
+
+    .modalEvaluacionCard {
+        max-height: 90vh;
+    }
+
+    .estrella,
+    .estrellaActiva {
+        font-size: 1.9rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wrapper,
+    .construccionCard,
+    .modalCard {
+        animation: none;
+    }
+
+    .aulaCard,
+    .btnCalificar,
+    .btnNuevo,
+    .btnVerAula,
+    .estrella,
+    .estrellaActiva {
+        transition: none;
+    }
 }
