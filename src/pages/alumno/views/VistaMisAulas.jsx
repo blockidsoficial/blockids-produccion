@@ -1,5 +1,4 @@
-﻿
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { supabase } from '../../../config/supabaseClient';
 import styles from './VistaMisAulas.css';
@@ -7,21 +6,68 @@ import xolotlIdea from '../../../assets/xolotl/xolotl-idea.svg';
 import iconCurso from '../../../assets/iconos-ui/ui-curso.svg';
 import { celebrarLogrosNuevos } from '../../../services/gamificationService';
 
+/*
+ * FILTRO DE LENGUAJE
+ * Agrega o modifica términos según las reglas de BLOCKIDS.
+ * Este filtro de interfaz no sustituye la validación del servidor.
+ */
+const PALABRAS_PROHIBIDAS = [
+    'puta','puto','putas','putos','mierda','mierdas','pendejo','pendeja','pendejos','pendejas','cabron','cabrona','cabrones',
+    'chingar','chingada','chingado','chingados','chingada madre','verga','vergas','culero','culera','culeros','idiota',
+    'idiotas','imbecil','imbeciles','estupido','estupida','estupidos','estupidas','maldito','maldita','malditos',
+    'malditas'
+];
+
+const normalizarTexto = (texto) =>
+    texto
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/0/g, 'o')
+        .replace(/1/g, 'i')
+        .replace(/3/g, 'e')
+        .replace(/4/g, 'a')
+        .replace(/5/g, 's')
+        .replace(/7/g, 't')
+        .replace(/[^a-zñ\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+const contieneLenguajeInapropiado = (texto) => {
+    const textoNormalizado = normalizarTexto(texto);
+
+    return PALABRAS_PROHIBIDAS.some((termino) => {
+        const terminoNormalizado = normalizarTexto(termino);
+        const escapado = terminoNormalizado.replace(
+            /[.*+?^${}()|[\]\\]/g,
+            '\\$&'
+        );
+
+        // Busca términos completos y expresiones de varias palabras.
+        const expresion = new RegExp(
+            `(^|\\s)${escapado}(?=\\s|$)`,
+            'i'
+        );
+
+        return expresion.test(textoNormalizado);
+    });
+};
+
 const VistaMisAulas = ({
     userId,
-    misAulas,
+    misAulas = [],
     aulaIds,
     onAulasUpdated,
     onNavigate
 }) => {
-    // Estados del modal para unirse a un aula
+    // Inscripción a aulas
     const [modalAbierto, setModalAbierto] = useState(false);
     const [codigo, setCodigo] = useState('');
     const [cargando, setCargando] = useState(false);
     const [error, setError] = useState(null);
     const [exito, setExito] = useState(null);
 
-    // Estados de evaluaciones
+    // Evaluaciones
     const [aulaSeleccionada, setAulaSeleccionada] = useState(null);
     const [modalEvaluacion, setModalEvaluacion] = useState(false);
     const [calificacion, setCalificacion] = useState(0);
@@ -48,7 +94,8 @@ const VistaMisAulas = ({
         setExito(null);
     };
 
-    // Inscripción a un aula: se conserva la funcionalidad original.
+    // ── Inscripción a un aula ──────────────────────────────────
+
     const handleUnirse = async (e) => {
         e.preventDefault();
 
@@ -76,7 +123,7 @@ const VistaMisAulas = ({
                 .eq('codigo_aula', codigoLimpio)
                 .maybeSingle();
 
-            if (aulaError) throw new Error('Error al buscar el aula.');
+            if (aulaError) throw aulaError;
 
             if (!aula) {
                 setError('Código inválido. Verifica que lo escribiste correctamente.');
@@ -88,7 +135,7 @@ const VistaMisAulas = ({
                 return;
             }
 
-            if (misAulas.some(a => a.id === aula.id)) {
+            if (misAulas.some((a) => a.id === aula.id)) {
                 setError('Ya estás inscrito en esta clase.');
                 return;
             }
@@ -107,10 +154,8 @@ const VistaMisAulas = ({
 
             setExito(`¡Te uniste a "${aula.nombre}"!`);
 
-            setTimeout(() => {
-                cerrarModal();
-                if (onAulasUpdated) onAulasUpdated();
-            }, 1500);
+            // Actualiza la vista sin depender del cierre del modal.
+            if (onAulasUpdated) onAulasUpdated();
 
         } catch (err) {
             setError(err.message || 'Ocurrió un error. Intenta de nuevo.');
@@ -119,7 +164,8 @@ const VistaMisAulas = ({
         }
     };
 
-    // Abrir las opiniones y cargar la evaluación del alumno.
+    // ── Abrir y cargar evaluaciones ────────────────────────────
+
     const abrirEvaluaciones = async (aula) => {
         setAulaSeleccionada(aula);
         setModalEvaluacion(true);
@@ -132,7 +178,6 @@ const VistaMisAulas = ({
         setCargandoOpiniones(true);
 
         try {
-            // El profesor se obtiene de la tabla real de aulas.
             const { data: datosAula, error: aulaError } = await supabase
                 .from('aulas')
                 .select('id, nombre, profesor_id')
@@ -147,10 +192,11 @@ const VistaMisAulas = ({
 
             setAulaSeleccionada(datosAula);
 
-            // RLS debe autorizar la consulta del alumno inscrito.
             const { data, error: opinionesError } = await supabase
                 .from('evaluaciones_profesores')
-                .select('id, aula_id, alumno_id, profesor_id, calificacion, comentario, fecha_creacion')
+                .select(
+                    'id, aula_id, alumno_id, profesor_id, calificacion, comentario, fecha_creacion'
+                )
                 .eq('aula_id', aula.id)
                 .order('fecha_creacion', { ascending: false });
 
@@ -160,7 +206,7 @@ const VistaMisAulas = ({
             setOpiniones(lista);
 
             const propia = lista.find(
-                opinion => opinion.alumno_id === userId
+                (opinion) => opinion.alumno_id === userId
             );
 
             if (propia) {
@@ -168,10 +214,10 @@ const VistaMisAulas = ({
                 setCalificacion(propia.calificacion);
                 setComentario(propia.comentario);
             }
-
         } catch (err) {
+            console.error('Error cargando evaluaciones:', err);
             setErrorEvaluacion(
-                err.message || 'No se pudieron cargar las opiniones.'
+                'No se pudieron cargar las opiniones. Verifica los permisos de Supabase.'
             );
         } finally {
             setCargandoOpiniones(false);
@@ -186,22 +232,39 @@ const VistaMisAulas = ({
         setExitoEvaluacion('');
     };
 
-    // Guardar una evaluación nueva o actualizar la del alumno.
+    // ── Guardar o actualizar una evaluación ────────────────────
+
     const guardarEvaluacion = async (e) => {
         e.preventDefault();
 
-        if (!aulaSeleccionada || !userId) {
+        if (!userId || !aulaSeleccionada) {
             setErrorEvaluacion('No se pudo identificar tu usuario o aula.');
             return;
         }
 
         if (calificacion < 1 || calificacion > 5) {
-            setErrorEvaluacion('Selecciona una calificación de 1 a 5 estrellas.');
+            setErrorEvaluacion('Selecciona de 1 a 5 estrellas.');
             return;
         }
 
-        if (!comentario.trim()) {
+        const comentarioLimpio = comentario.trim();
+
+        if (!comentarioLimpio) {
             setErrorEvaluacion('Escribe tu opinión antes de guardar.');
+            return;
+        }
+
+        if (comentarioLimpio.length > 2000) {
+            setErrorEvaluacion('Tu comentario no puede superar los 2000 caracteres.');
+            return;
+        }
+
+        // Filtro de lenguaje antes de contactar con Supabase.
+        if (contieneLenguajeInapropiado(comentarioLimpio)) {
+            setErrorEvaluacion(
+                'Tu comentario contiene palabras inapropiadas. ' +
+                'Utiliza un lenguaje respetuoso para evaluar a tu profesor.'
+            );
             return;
         }
 
@@ -215,7 +278,7 @@ const VistaMisAulas = ({
                 alumno_id: userId,
                 profesor_id: aulaSeleccionada.profesor_id,
                 calificacion,
-                comentario: comentario.trim()
+                comentario: comentarioLimpio
             };
 
             let resultado;
@@ -243,34 +306,35 @@ const VistaMisAulas = ({
             setEvaluacionPropia(resultado.data);
             setExitoEvaluacion('¡Tu evaluación se guardó correctamente!');
 
-            // Actualizar la lista visible de opiniones.
             const { data: listaActualizada, error: recargaError } =
                 await supabase
                     .from('evaluaciones_profesores')
-                    .select('id, aula_id, alumno_id, profesor_id, calificacion, comentario, fecha_creacion')
+                    .select(
+                        'id, aula_id, alumno_id, profesor_id, calificacion, comentario, fecha_creacion'
+                    )
                     .eq('aula_id', aulaSeleccionada.id)
                     .order('fecha_creacion', { ascending: false });
 
             if (recargaError) throw recargaError;
 
             setOpiniones(listaActualizada || []);
-
         } catch (err) {
-            console.error('Error al guardar evaluación:', err);
+            console.error('Error guardando evaluación:', err);
             setErrorEvaluacion(
-                err.message || 'No se pudo guardar la evaluación.'
+                'No se pudo guardar la evaluación. Comprueba la conexión y los permisos de Supabase.'
             );
         } finally {
             setGuardandoEvaluacion(false);
         }
     };
 
-    // Modal para unirse a una clase.
+    // ── Modal para unirse a una clase ──────────────────────────
+
     const renderModal = () => ReactDOM.createPortal(
         <div className={styles.modalOverlay} onClick={cerrarModal}>
             <div
                 className={styles.modalCard}
-                onClick={e => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()}
             >
                 <div className={styles.modalHeader}>
                     <div className={styles.modalHeaderLeft}>
@@ -284,11 +348,13 @@ const VistaMisAulas = ({
                             </p>
                         </div>
                     </div>
+
                     <button
+                        type="button"
                         className={styles.modalClose}
                         onClick={cerrarModal}
                         disabled={cargando}
-                        type="button"
+                        aria-label="Cerrar"
                     >
                         ✕
                     </button>
@@ -306,7 +372,7 @@ const VistaMisAulas = ({
                                 className={styles.codigoInput}
                                 placeholder="BLK-XXXX"
                                 value={codigo}
-                                onChange={e => setCodigo(e.target.value.toUpperCase())}
+                                onChange={(e) => setCodigo(e.target.value.toUpperCase())}
                                 disabled={cargando || !!exito}
                                 maxLength={8}
                                 autoComplete="off"
@@ -327,13 +393,14 @@ const VistaMisAulas = ({
                         >
                             Cancelar
                         </button>
+
                         <button
                             type="submit"
                             className={styles.btnUnirse}
                             disabled={cargando || !codigo.trim() || !!exito}
                         >
                             {cargando
-                                ? <><span className={styles.btnSpinner} />Buscando...</>
+                                ? 'Buscando...'
                                 : '✓ Unirme'}
                         </button>
                     </div>
@@ -343,7 +410,8 @@ const VistaMisAulas = ({
         document.body
     );
 
-    // Modal de estrellas, comentario y opiniones.
+    // ── Modal de evaluación ────────────────────────────────────
+
     const renderModalEvaluacion = () => {
         if (!modalEvaluacion || !aulaSeleccionada) return null;
 
@@ -354,7 +422,7 @@ const VistaMisAulas = ({
             >
                 <div
                     className={`${styles.modalCard} ${styles.modalEvaluacionCard}`}
-                    onClick={e => e.stopPropagation()}
+                    onClick={(e) => e.stopPropagation()}
                 >
                     <div className={styles.modalHeader}>
                         <div>
@@ -365,6 +433,7 @@ const VistaMisAulas = ({
                                 {aulaSeleccionada.nombre}
                             </p>
                         </div>
+
                         <button
                             type="button"
                             className={styles.modalClose}
@@ -394,7 +463,7 @@ const VistaMisAulas = ({
                                             role="group"
                                             aria-label="Calificación de una a cinco estrellas"
                                         >
-                                            {[1, 2, 3, 4, 5].map(numero => (
+                                            {[1, 2, 3, 4, 5].map((numero) => (
                                                 <button
                                                     key={numero}
                                                     type="button"
@@ -404,7 +473,7 @@ const VistaMisAulas = ({
                                                             : styles.estrella
                                                     }
                                                     onClick={() => setCalificacion(numero)}
-                                                    aria-label={`${numero} ${numero === 1 ? 'estrella' : 'estrellas'}`}
+                                                    aria-label={`${numero} estrellas`}
                                                     aria-pressed={calificacion === numero}
                                                     disabled={guardandoEvaluacion}
                                                 >
@@ -425,28 +494,34 @@ const VistaMisAulas = ({
                                         >
                                             Tu opinión
                                         </label>
+
                                         <textarea
                                             id="comentario-profesor"
                                             className={styles.evalTextarea}
-                                            placeholder="Escribe tu opinión de manera respetuosa..."
+                                            placeholder="Explica respetuosamente qué te gusta de las clases o qué podría mejorar..."
                                             value={comentario}
-                                            onChange={e => setComentario(e.target.value)}
+                                            onChange={(e) => {
+                                                setComentario(e.target.value);
+                                                setErrorEvaluacion('');
+                                                setExitoEvaluacion('');
+                                            }}
                                             maxLength={2000}
                                             rows={4}
                                             disabled={guardandoEvaluacion}
                                         />
+
                                         <span className={styles.evalContador}>
                                             {comentario.length}/2000 caracteres
                                         </span>
 
                                         {errorEvaluacion && (
-                                            <p className={styles.errorMsg}>
+                                            <p className={styles.errorMsg} role="alert">
                                                 {errorEvaluacion}
                                             </p>
                                         )}
 
                                         {exitoEvaluacion && (
-                                            <p className={styles.exitoMsg}>
+                                            <p className={styles.exitoMsg} role="status">
                                                 {exitoEvaluacion}
                                             </p>
                                         )}
@@ -454,7 +529,7 @@ const VistaMisAulas = ({
                                         <button
                                             type="submit"
                                             className={styles.btnGuardarEvaluacion}
-                                            disabled={guardandoEvaluacion || cargandoOpiniones}
+                                            disabled={guardandoEvaluacion}
                                         >
                                             {guardandoEvaluacion
                                                 ? 'Guardando...'
@@ -480,10 +555,10 @@ const VistaMisAulas = ({
                                     {opiniones.length === 0 ? (
                                         <p className={styles.evalInfo}>
                                             Todavía no hay opiniones para esta aula.
-                                            ¡Puedes ser el primero en compartir la tuya!
+                                            Puedes compartir la primera.
                                         </p>
                                     ) : (
-                                        opiniones.map(opinion => (
+                                        opiniones.map((opinion) => (
                                             <article
                                                 className={styles.opinionCard}
                                                 key={opinion.id}
@@ -492,16 +567,23 @@ const VistaMisAulas = ({
                                                     <span className={styles.opinionAutor}>
                                                         Opinión de alumno
                                                     </span>
-                                                    <span className={styles.opinionEstrellas}>
+                                                    <span
+                                                        className={styles.opinionEstrellas}
+                                                        aria-label={`${opinion.calificacion} de 5 estrellas`}
+                                                    >
                                                         {'★'.repeat(opinion.calificacion)}
                                                         {'☆'.repeat(5 - opinion.calificacion)}
                                                     </span>
                                                 </div>
+
                                                 <p className={styles.opinionTexto}>
                                                     {opinion.comentario}
                                                 </p>
+
                                                 <time className={styles.opinionFecha}>
-                                                    {new Date(opinion.fecha_creacion).toLocaleDateString('es-MX')}
+                                                    {new Date(
+                                                        opinion.fecha_creacion
+                                                    ).toLocaleDateString('es-MX')}
                                                 </time>
                                             </article>
                                         ))
@@ -527,7 +609,8 @@ const VistaMisAulas = ({
         );
     };
 
-    // Vista cuando el alumno todavía no tiene aulas.
+    // ── Vista sin aulas ────────────────────────────────────────
+
     if (misAulas.length === 0) {
         return (
             <div className={styles.wrapper}>
@@ -553,7 +636,8 @@ const VistaMisAulas = ({
         );
     }
 
-    // Vista normal de las aulas.
+    // ── Vista con aulas ────────────────────────────────────────
+
     return (
         <div className={styles.wrapper}>
             {modalAbierto && renderModal()}
@@ -567,7 +651,7 @@ const VistaMisAulas = ({
             </div>
 
             <div className={styles.aulasGrid}>
-                {misAulas.map(aula => (
+                {misAulas.map((aula) => (
                     <div key={aula.id} className={styles.aulaCard}>
                         <div className={styles.aulaIconWrap}>
                             <img
@@ -588,6 +672,7 @@ const VistaMisAulas = ({
 
                         <div className={styles.aulaAcciones}>
                             <button
+                                type="button"
                                 className={styles.btnVerAula}
                                 onClick={() => onNavigate('Muro')}
                             >
@@ -610,3 +695,4 @@ const VistaMisAulas = ({
 };
 
 export default VistaMisAulas;
+
