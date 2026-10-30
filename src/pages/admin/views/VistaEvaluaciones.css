@@ -1,0 +1,222 @@
+
+.panel {
+    width: 100%;
+    animation: fadeEvaluaciones .3s ease;
+}
+
+@keyframes fadeEvaluaciones {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.encabezado {
+    margin-bottom: 24px;
+}
+
+.encabezado h1 {
+    color: var(--color-texto-oscuro);
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0 0 7px;
+}
+
+.encabezado p {
+    color: var(--color-texto-suave);
+    font-size: .9rem;
+    margin: 0;
+}
+
+.estadisticas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.estadistica {
+    background: var(--color-blanco);
+    border: 1.5px solid var(--color-borde-suave);
+    border-radius: var(--radio-lg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,.04);
+}
+
+.estadistica span {
+    color: var(--color-texto-suave);
+    font-size: .8rem;
+}
+
+.estadistica strong {
+    color: var(--color-texto-oscuro);
+    font-size: 1.7rem;
+    font-weight: 800;
+}
+
+.estrellas {
+    color: #e5a000 !important;
+    letter-spacing: 2px;
+}
+
+.filtros {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+.filtros input,
+.filtros select {
+    padding: 12px 14px;
+    border: 1.5px solid var(--color-borde);
+    border-radius: var(--radio-md);
+    background: var(--color-blanco);
+    color: var(--color-texto-oscuro);
+    font-size: .85rem;
+    outline: none;
+}
+
+.filtros input {
+    flex: 1;
+    min-width: 220px;
+}
+
+.filtros select {
+    min-width: 210px;
+}
+
+.filtros input:focus,
+.filtros select:focus {
+    border-color: var(--color-azul-fuerte);
+}
+
+.lista {
+    background: var(--color-blanco);
+    border: 1.5px solid var(--color-borde-suave);
+    border-radius: var(--radio-lg);
+    padding: 22px;
+    box-shadow: 0 4px 8px rgba(0,0,0,.04);
+}
+
+.listaTitulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.listaTitulo h2 {
+    color: var(--color-texto-oscuro);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.listaTitulo span {
+    color: var(--color-texto-suave);
+    font-size: .78rem;
+}
+
+.evaluacion {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--color-borde-suave);
+}
+
+.evaluacion:last-child {
+    border-bottom: none;
+}
+
+.evaluacionSuperior {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.evaluacion h3 {
+    color: var(--color-texto-oscuro);
+    font-size: .95rem;
+    margin: 0 0 5px;
+}
+
+.aula {
+    color: var(--color-texto-suave);
+    font-size: .78rem;
+}
+
+.calificacion {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.calificacion span {
+    color: var(--color-texto-medio);
+    font-size: .75rem;
+    font-weight: 700;
+}
+
+.calificacion strong {
+    color: #e5a000;
+    letter-spacing: 2px;
+}
+
+.comentario {
+    margin: 14px 0;
+    padding: 13px 15px;
+    border-radius: var(--radio-md);
+    background: #f8fafc;
+    color: var(--color-texto-medio);
+    font-size: .86rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.fecha {
+    color: var(--color-texto-muted);
+    font-size: .72rem;
+}
+
+.estado,
+.vacio {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--color-texto-suave);
+    background: var(--color-blanco);
+    border-radius: var(--radio-lg);
+}
+
+.error {
+    padding: 14px 16px;
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    border-radius: var(--radio-md);
+    margin-bottom: 18px;
+}
+
+@media (max-width: 780px) {
+    .estadisticas {
+        grid-template-columns: 1fr;
+    }
+
+    .filtros {
+        flex-direction: column;
+    }
+
+    .filtros input,
+    .filtros select {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .listaTitulo {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

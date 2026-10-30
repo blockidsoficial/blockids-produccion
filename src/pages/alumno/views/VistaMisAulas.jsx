@@ -15,7 +15,9 @@ const PALABRAS_PROHIBIDAS = [
     'puta','puto','putas','putos','mierda','mierdas','pendejo','pendeja','pendejos','pendejas','cabron','cabrona','cabrones',
     'chingar','chingada','chingado','chingados','chingada madre','verga','vergas','culero','culera','culeros','idiota',
     'idiotas','imbecil','imbeciles','estupido','estupida','estupidos','estupidas','maldito','maldita','malditos',
-    'malditas'
+    'malditas','feo','fea','feos','feas','desgraciado','desgraciada','desgraciados','desgraciadas', 'muera','muere',
+    'muerte','horrible','horribles','matar','pegar','golpear','payaso','payasa','payasos','payasas','cortar',
+    'morder','coger','cogerlo','violar','violencia'
 ];
 
 const normalizarTexto = (texto) =>
