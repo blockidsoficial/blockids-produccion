@@ -5,8 +5,15 @@
 }
 
 @keyframes fadeEvaluaciones {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .encabezado {
@@ -25,6 +32,8 @@
     font-size: .9rem;
     margin: 0;
 }
+
+/* ESTADÍSTICAS */
 
 .estadisticas {
     display: grid;
@@ -60,6 +69,8 @@
     letter-spacing: 2px;
 }
 
+/* FILTROS */
+
 .filtros {
     display: flex;
     gap: 12px;
@@ -92,6 +103,8 @@
     border-color: var(--color-azul-fuerte);
 }
 
+/* LISTA */
+
 .lista {
     background: var(--color-blanco);
     border: 1.5px solid var(--color-borde-suave);
@@ -118,6 +131,8 @@
     color: var(--color-texto-suave);
     font-size: .78rem;
 }
+
+/* TARJETAS DE EVALUACIONES */
 
 .evaluacion {
     padding: 18px 0;
@@ -177,10 +192,47 @@
     white-space: pre-wrap;
 }
 
+/* PIE DE EVALUACIÓN */
+
+.pieEvaluacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
 .fecha {
     color: var(--color-texto-muted);
     font-size: .72rem;
 }
+
+/* BOTÓN ELIMINAR */
+
+.btnEliminar {
+    border: none;
+    border-radius: 8px;
+    padding: 9px 13px;
+    background: #fff1f1;
+    color: #c62828;
+    font-size: .78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.btnEliminar:hover:not(:disabled) {
+    background: #c62828;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.btnEliminar:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+/* MENSAJES */
 
 .estado,
 .vacio {
@@ -200,6 +252,19 @@
     margin-bottom: 18px;
 }
 
+.mensajeExito {
+    padding: 14px 16px;
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+    border-radius: var(--radio-md);
+    margin-bottom: 18px;
+    font-size: .88rem;
+    font-weight: 600;
+}
+
+/* RESPONSIVE */
+
 @media (max-width: 780px) {
     .estadisticas {
         grid-template-columns: 1fr;
@@ -218,5 +283,22 @@
     .listaTitulo {
         align-items: flex-start;
         flex-direction: column;
+    }
+
+    .evaluacionSuperior {
+        flex-direction: column;
+    }
+
+    .calificacion {
+        align-items: flex-start;
+    }
+
+    .pieEvaluacion {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .btnEliminar {
+        width: 100%;
     }
 }
