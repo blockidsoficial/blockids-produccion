@@ -1,154 +1,186 @@
-/* ── Contenedor principal ──────────────────────────────────────────────────── */
-.muroWrapper {
+/* BLOCKIDS - Chat del aula / Profesor */
+.profesorWrapper {
+    --chat-green: #62c977;
     display: flex;
     flex-direction: column;
-    background: var(--color-blanco);
-    border: 1.5px solid var(--color-borde-suave);
-    border-radius: var(--radio-xl);
-    overflow: hidden;
-    min-height: 520px;
+    gap: 18px;
+    min-width: 0;
+    animation: muroFadeIn .3s ease both;
 }
-
-/* ── Lista de mensajes ─────────────────────────────────────────────────────── */
-.mensajesList {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 24px 24px 8px;
-    overflow-y: auto;
-    max-height: 460px;
+@keyframes muroFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-
-.muroEstado {
-    text-align: center;
-    color: var(--color-texto-suave);
-    font-size: .9rem;
-    padding: 40px 0;
-    margin: 0;
-}
-
-/* ── Burbuja base ──────────────────────────────────────────────────────────── */
-.mensajeBase {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    max-width: 68%;
-    padding: 10px 14px;
-    font-size: .88rem;
-    line-height: 1.5;
-    word-break: break-word;
-}
-
-/* ── Posición derecha: mensaje propio ─────────────────────────────────────── */
-.derecha {
-    align-self: flex-end;
-    background: var(--color-azul-bg, #e8f0fe);
-    border-radius: 15px 15px 0 15px;
-}
-
-/* ── Posición izquierda: mensaje de otro ──────────────────────────────────── */
-.izquierda {
-    align-self: flex-start;
-    background: var(--color-fondo-suave, #f3f4f6);
-    border-radius: 15px 15px 15px 0;
-}
-
-/* ── Distinción: mensaje del profesor ─────────────────────────────────────── */
-.esProfesor {
-    border-left: 4px solid var(--color-verde, #0ca678);
-    background: #edfaf3;
-}
-
-.esProfesor.derecha {
-    border-left: none;
-    border-right: 4px solid var(--color-verde, #0ca678);
-    background: #edfaf3;
-}
-
-/* ── Badge MAESTRO ────────────────────────────────────────────────────────── */
-.etiquetaProfe {
-    display: inline-block;
-    background: var(--color-verde, #0ca678);
-    color: #fff;
-    font-size: .62rem;
-    font-weight: 800;
-    letter-spacing: .08em;
-    padding: 1px 7px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    margin-left: 6px;
-    vertical-align: middle;
-}
-
-/* ── Partes internas del mensaje ──────────────────────────────────────────── */
-.mensajeAutor {
-    font-size: .75rem;
-    font-weight: 700;
-    color: var(--color-azul-fuerte, #3b5bdb);
+.chatHeader {
     display: flex;
     align-items: center;
-    gap: 4px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 18px 20px;
+    background: #fff;
+    border: 1px solid #e8edf6;
+    border-radius: 18px;
+    box-shadow: 0 5px 18px rgba(32,53,88,.045);
 }
-
-.mensajeContenido {
-    margin: 0;
-    color: var(--color-texto-oscuro);
+.headerIdentity, .headerActions { display: flex; align-items: center; gap: 13px; }
+.headerIconWrap {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background: #e9f8ed;
+    font-size: 1.35rem;
 }
-
-.mensajeFecha {
-    font-size: .7rem;
-    color: var(--color-texto-suave);
-    align-self: flex-end;
+.headerText { min-width: 0; }
+.pageTitle { margin: 0 0 3px; color: #263449; font: 800 1.25rem/1.2 var(--font-principal); }
+.pageSubtitle { margin: 0; color: #8291a8; font: 600 .84rem var(--font-principal); }
+.headerActions { flex-wrap: wrap; justify-content: flex-end; }
+.chatStatus {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 11px;
+    border-radius: 999px;
+    background: #f5f8fc;
+    color: #718198;
+    font: 600 .78rem var(--font-principal);
 }
-
-/* ── Área de envío ────────────────────────────────────────────────────────── */
-.muroInputArea {
-    display: flex;
-    gap: 10px;
-    align-items: flex-end;
-    padding: 16px 24px 20px;
-    border-top: 1.5px solid var(--color-borde-suave);
-    background: var(--color-fondo-suave, #f9fafb);
-}
-
-.muroTextarea {
-    flex: 1;
-    resize: none;
-    border-radius: var(--radio-md);
-    font-size: .9rem;
-    line-height: 1.5;
-    border: 1.5px solid var(--color-borde-suave);
-    padding: 10px 14px;
-    font-family: var(--font-principal);
-    color: var(--color-texto-oscuro);
-    background: var(--color-blanco);
-    outline: none;
-    transition: border-color .18s ease;
-}
-
-.muroTextarea:focus {
-    border-color: var(--color-azul-fuerte, #3b5bdb);
-}
-
-.muroTextarea:disabled {
-    opacity: .55;
-    cursor: not-allowed;
-}
-
-.btnEnviarMensaje {
-    padding: 10px 22px;
-    border-radius: var(--radio-md);
-    background: linear-gradient(135deg, var(--color-azul-fuerte, #3b5bdb), var(--color-morado, #7048e8));
-    color: #fff;
-    font-weight: 700;
-    font-size: .88rem;
-    border: none;
+.statusDot { width: 8px; height: 8px; border-radius: 50%; background: #62c977; box-shadow: 0 0 0 3px rgba(98,201,119,.13); }
+.filtroAula {
+    min-width: 170px;
+    max-width: 260px;
+    padding: 10px 34px 10px 13px;
+    border: 1px solid #e1e8f2;
+    border-radius: 11px;
+    background: #fff;
+    color: #34445d;
+    font: 600 .83rem var(--font-principal);
     cursor: pointer;
-    white-space: nowrap;
-    transition: opacity .18s ease;
-    font-family: var(--font-principal);
+}
+.filtroAula:focus, .muroTextarea:focus { outline: none; border-color: #75c987; box-shadow: 0 0 0 3px rgba(98,201,119,.13); }
+.filtroAula:disabled { opacity: .6; cursor: not-allowed; }
+.chatPanel {
+    display: flex;
+    flex-direction: column;
+    min-height: 590px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e7edf6;
+    border-radius: 20px;
+    box-shadow: 0 7px 24px rgba(32,53,88,.055);
+}
+.chatIntro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 24px;
+    border-bottom: 1px solid #edf1f7;
+    background: linear-gradient(115deg, #fbfefc 0%, #f5f9ff 100%);
+}
+.introEyebrow { color: #70a77d; font: 800 .65rem var(--font-principal); letter-spacing: .11em; }
+.chatIntro h3 { margin: 4px 0 3px; color: #29384d; font: 800 1rem var(--font-principal); }
+.chatIntro p { margin: 0; color: #8a98ac; font: 400 .8rem/1.5 var(--font-principal); }
+.introIcon {
+    width: 43px; height: 43px; display: grid; place-items: center; flex-shrink: 0;
+    border-radius: 14px; background: #e9f8ed; font-size: 1.25rem;
+}
+.mensajesLista {
+    flex: 1;
+    min-height: 330px;
+    max-height: min(58vh, 590px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    padding: 22px clamp(14px, 3vw, 30px);
+    background-color: #fbfcfe;
+    background-image: radial-gradient(#e8edf5 .7px, transparent .7px);
+    background-size: 18px 18px;
+    scroll-behavior: smooth;
+}
+.mensajesLista::-webkit-scrollbar { width: 7px; }
+.mensajesLista::-webkit-scrollbar-thumb { background: #d8e0eb; border-radius: 10px; }
+.dateDivider { display: flex; justify-content: center; margin: 5px 0 2px; }
+.dateDivider span {
+    padding: 6px 12px;
+    border: 1px solid #e8edf5;
+    border-radius: 999px;
+    background: rgba(255,255,255,.92);
+    color: #8794a8;
+    font: 600 .7rem var(--font-principal);
+    box-shadow: 0 2px 6px rgba(30,50,80,.035);
+}
+.mensajeFila { display: flex; align-items: flex-end; gap: 9px; width: 100%; }
+.filaMio { justify-content: flex-end; }
+.filaOtro { justify-content: flex-start; }
+.avatarMensaje {
+    width: 31px; height: 31px; display: grid; place-items: center; flex: 0 0 31px;
+    border-radius: 50%; background: #e8eefb; color: #5475bb;
+    font: 800 .68rem var(--font-principal); border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(30,50,80,.08);
+}
+.avatarProfesor { background: #e1f5e7; color: #21814a; }
+.burbuja {
+    display: flex; flex-direction: column; gap: 6px;
+    max-width: min(76%, 650px); padding: 11px 15px 9px;
+    border: 1px solid transparent; box-shadow: 0 3px 9px rgba(35,55,85,.045);
+    animation: muroFadeIn .2s ease both;
+}
+.burbujaMia { color: #fff; background: linear-gradient(135deg,#65cc7b,#50bd6b); border-radius: 17px 17px 4px 17px; }
+.burbujaProfesor { background: #eaf7ee; border-color: #d9efdf; border-left: 3px solid #269451; border-radius: 5px 17px 17px 17px; }
+.burbujaAlumno { background: #fff; border-color: #e8edf5; border-radius: 5px 17px 17px 17px; }
+.mensajeHeader { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+.autorNombre { color: #3978df; font: 800 .76rem var(--font-principal); }
+.badgeProfesor { padding: 3px 7px; border-radius: 999px; background: #168447; color: #fff; font: 800 .58rem var(--font-principal); letter-spacing: .04em; }
+.mensajeContenido { margin: 0; color: #29384b; font: 400 .91rem/1.55 var(--font-principal); white-space: pre-wrap; overflow-wrap: anywhere; }
+.burbujaMia .mensajeContenido { color: #fff; }
+.mensajeFecha { align-self: flex-end; color: #8a98aa; font: 500 .65rem var(--font-principal); }
+.burbujaMia .mensajeFecha { color: rgba(255,255,255,.82); }
+.estadoChat {
+    flex: 1; min-height: 280px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 10px; text-align: center;
+    color: #8795a9; font: 500 .87rem var(--font-principal);
+}
+.estadoChat h3 { margin: 2px 0 0; color: #35445a; font: 800 1rem var(--font-principal); }
+.estadoChat p { max-width: 330px; margin: 0; line-height: 1.55; }
+.estadoIcon { width: 58px; height: 58px; display: grid; place-items: center; border-radius: 18px; background: #eaf7ee; font-size: 1.6rem; }
+.spinner { width: 32px; height: 32px; border: 3px solid #e5edf5; border-top-color: #62c977; border-radius: 50%; animation: muroSpin .8s linear infinite; }
+@keyframes muroSpin { to { transform: rotate(360deg); } }
+.errorMsg { margin: 12px 20px 0; padding: 10px 13px; border: 1px solid #f5caca; border-radius: 10px; background: #fff3f3; color: #bd3d3d; font: 600 .82rem var(--font-principal); }
+.composer { padding: 15px 20px 17px; border-top: 1px solid #e9eef5; background: #fff; }
+.muroTextarea {
+    display: block; width: 100%; min-height: 58px; max-height: 150px; resize: vertical;
+    box-sizing: border-box; padding: 13px 15px; border: 1px solid #e1e8f1;
+    border-radius: 13px; background: #fbfcfe; color: #29384b;
+    font: 400 .9rem/1.5 var(--font-principal); transition: border-color .18s, box-shadow .18s;
+}
+.muroTextarea::placeholder { color: #9aa6b7; }
+.muroTextarea:disabled { opacity: .55; cursor: not-allowed; }
+.composerFooter { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; }
+.charCount { color: #9aa6b7; font: 500 .7rem var(--font-principal); }
+.btnEnviarMensaje {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 10px 17px; border: 0; border-radius: 11px;
+    background: linear-gradient(135deg,#68ce7e,#4fbd69); color: #fff;
+    font: 800 .82rem var(--font-principal); cursor: pointer;
+    box-shadow: 0 4px 11px rgba(83,190,108,.2);
+    transition: transform .18s, box-shadow .18s, opacity .18s;
+}
+.btnEnviarMensaje:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 15px rgba(83,190,108,.27); }
+.btnEnviarMensaje:disabled { opacity: .48; cursor: not-allowed; box-shadow: none; }
+@media (max-width: 650px) {
+    .chatHeader { padding: 14px; }
+    .headerActions { width: 100%; justify-content: space-between; }
+    .filtroAula { max-width: 100%; flex: 1; }
+    .chatPanel { min-height: 520px; border-radius: 15px; }
+    .chatIntro { padding: 15px; }
+    .mensajesLista { min-height: 300px; max-height: 55vh; padding: 17px 12px; }
+    .burbuja { max-width: 86%; padding: 10px 12px 8px; }
+    .composer { padding: 12px; }
+    .btnEnviarMensaje { padding: 10px 13px; }
 }
 
-.btnEnviarMensaje:disabled { opacity: .5; cursor: not-allowed; }
-.btnEnviarMensaje:hover:not(:disabled) { opacity: .88; }
