@@ -106,6 +106,14 @@ function VistaMinijuegos({ onVolver }) {
         );
     }
 
+    if (juegoActivo === 'laberinto') {
+        return (
+            <JuegoLaberinto
+                onVolver={() => setJuegoActivo(null)}
+                ganarXP={() => ganarXP('laberintoXolotl')} />
+        );
+    }
+
 
     // ========================================================
     // PANTALLA DE MINIJUEGOS
@@ -229,7 +237,7 @@ function VistaMinijuegos({ onVolver }) {
                         }`}
                         onClick={() => setFiltroActivo('todos')}
                     >
-                        Todos (3)
+                        Todos (4)
                     </button>
 
                     <button
@@ -442,6 +450,42 @@ function VistaMinijuegos({ onVolver }) {
 
                     </div>
 
+                </article>
+                )}
+
+                {/* ================================
+                    LABERINTO DE XOLOTL
+                ================================= */}
+                {(filtroActivo === 'todos' || filtroActivo === 'logica') && (
+                <article className={styles.juegoCard}>
+                    <div className={`${styles.juegoPortada} ${styles.portadaLaberinto}`}>
+                        <span className={styles.dificultad}>Aventura</span>
+                        <div className={styles.juegoIcono}>🧭</div>
+                    </div>
+
+                    <div className={styles.juegoContenido}>
+                        <h2>Laberinto de Xolotl</h2>
+                        <p className={styles.juegoDescripcion}>
+                            Ayuda a Xolotl a encontrar la salida. Planea tus movimientos,
+                            evita las paredes y supera tres laberintos.
+                        </p>
+
+                        <div className={styles.juegoInfo}>
+                            <span className={`${styles.juegoTag} ${styles.juegoXp}`}>
+                                ⭐ +125 XP
+                            </span>
+                            <span className={styles.juegoTag}>
+                                Secuencias y orientación
+                            </span>
+                        </div>
+
+                        <button
+                            className={styles.btnJugar}
+                            onClick={() => setJuegoActivo('laberinto')}
+                        >
+                            Jugar Ahora →
+                        </button>
+                    </div>
                 </article>
                 )}
 
@@ -1021,6 +1065,228 @@ const generarSecuencia = () => {
 
         </div>
 
+    );
+};
+
+
+
+// ============================================================
+// JUEGO 4 — LABERINTO DE XOLOTL
+// ============================================================
+
+const NIVELES_LABERINTO = [
+    {
+        nombre: 'Primer recorrido',
+        mapa: [
+            '#######',
+            '#S...G#',
+            '#.###.#',
+            '#.....#',
+            '#######'
+        ]
+    },
+    {
+        nombre: 'El camino escondido',
+        mapa: [
+            '########',
+            '#S#....#',
+            '#.#.##.#',
+            '#......#',
+            '######G#'
+        ]
+    },
+    {
+        nombre: 'El gran desafío',
+        mapa: [
+            '#########',
+            '#S....###',
+            '#####.###',
+            '#.....###',
+            '#.#####.#',
+            '#.#####.#',
+            '#.......#',
+            '#######G#',
+            '#########'
+        ]
+    }
+];
+
+const JuegoLaberinto = ({ onVolver, ganarXP }) => {
+    const [nivel, setNivel] = useState(0);
+    const [posicion, setPosicion] = useState({ fila: 1, columna: 1 });
+    const [movimientos, setMovimientos] = useState(0);
+    const [mensaje, setMensaje] = useState('¡Guía a Xolotl hasta la salida!');
+    const [nivelCompletado, setNivelCompletado] = useState(false);
+    const [juegoCompletado, setJuegoCompletado] = useState(false);
+    const [guardando, setGuardando] = useState(false);
+
+    const mapa = NIVELES_LABERINTO[nivel];
+    const filas = mapa.mapa.length;
+    const columnas = mapa.mapa[0].length;
+
+    const mover = (df, dc) => {
+        if (nivelCompletado || juegoCompletado || guardando) return;
+
+        const nuevaFila = posicion.fila + df;
+        const nuevaColumna = posicion.columna + dc;
+
+        if (
+            nuevaFila < 0 || nuevaFila >= filas ||
+            nuevaColumna < 0 || nuevaColumna >= columnas ||
+            mapa.mapa[nuevaFila][nuevaColumna] === '#'
+        ) {
+            setMensaje('🧱 ¡Hay una pared! Prueba otra dirección.');
+            return;
+        }
+
+        setPosicion({ fila: nuevaFila, columna: nuevaColumna });
+        setMovimientos(actual => actual + 1);
+
+        if (mapa.mapa[nuevaFila][nuevaColumna] === 'G') {
+            setNivelCompletado(true);
+
+            if (nivel === NIVELES_LABERINTO.length - 1) {
+                setJuegoCompletado(true);
+                setMensaje('🏆 ¡Increíble! Completaste los tres laberintos.');
+                setGuardando(true);
+                Promise.resolve(ganarXP())
+                    .catch(error => console.error('Error al registrar el laberinto:', error))
+                    .finally(() => setGuardando(false));
+            } else {
+                setMensaje('🎉 ¡Encontraste la salida! Avanza al siguiente laberinto.');
+            }
+        } else {
+            setMensaje('¡Buen camino! Sigue buscando la salida.');
+        }
+    };
+
+    const siguienteNivel = () => {
+        const siguiente = nivel + 1;
+        const mapaSiguiente = NIVELES_LABERINTO[siguiente].mapa;
+        const inicio = mapaSiguiente.findIndex(fila => fila.includes('S'));
+        setNivel(siguiente);
+        setPosicion({
+            fila: inicio,
+            columna: mapaSiguiente[inicio].indexOf('S')
+        });
+        setMovimientos(0);
+        setNivelCompletado(false);
+        setMensaje('¡Nuevo laberinto! Encuentra la salida.');
+    };
+
+    const reiniciar = () => {
+        setNivel(0);
+        setPosicion({ fila: 1, columna: 1 });
+        setMovimientos(0);
+        setNivelCompletado(false);
+        setJuegoCompletado(false);
+        setGuardando(false);
+        setMensaje('¡Guía a Xolotl hasta la salida!');
+    };
+
+    return (
+        <div className={styles.juegoPantalla}>
+            <div className={`${styles.juegoPanel} ${styles.laberintoPanel}`}>
+                <button
+                    type="button"
+                    className={styles.btnVolverJuego}
+                    onClick={onVolver}
+                >
+                    ← Volver a Minijuegos
+                </button>
+
+                <div className={styles.granIcono}>🧭</div>
+                <h1>Laberinto de Xolotl</h1>
+                <p className={styles.laberintoSubtitulo}>
+                    Nivel {nivel + 1} de {NIVELES_LABERINTO.length}: {mapa.nombre}
+                </p>
+                <p className={styles.laberintoMensaje} aria-live="polite">
+                    {mensaje}
+                </p>
+
+                <div className={styles.laberintoProgreso}>
+                    {NIVELES_LABERINTO.map((item, indice) => (
+                        <span
+                            key={item.nombre}
+                            className={`${styles.laberintoPunto} ${
+                                indice < nivel || (indice === nivel && nivelCompletado)
+                                    ? styles.laberintoPuntoActivo : ''
+                            }`}
+                            aria-label={`Nivel ${indice + 1}`}
+                        >
+                            {indice < nivel || (indice === nivel && nivelCompletado) ? '✓' : indice + 1}
+                        </span>
+                    ))}
+                </div>
+
+                <div
+                    className={styles.laberintoTablero}
+                    style={{ gridTemplateColumns: `repeat(${columnas}, minmax(0, 1fr))` }}
+                    role="grid"
+                    aria-label="Tablero del laberinto"
+                >
+                    {mapa.mapa.map((fila, filaIndex) =>
+                        fila.split('').map((celda, columnaIndex) => {
+                            const esJugador =
+                                posicion.fila === filaIndex &&
+                                posicion.columna === columnaIndex;
+
+                            return (
+                                <div
+                                    key={`${filaIndex}-${columnaIndex}`}
+                                    className={`${styles.laberintoCelda} ${
+                                        celda === '#' ? styles.laberintoPared : styles.laberintoCamino
+                                    }`}
+                                    role="gridcell"
+                                >
+                                    {esJugador ? '🦎' : celda === 'G' ? '🏁' : ''}
+                                </div>
+                            );
+                        })
+                    )}
+                </div>
+
+                <div className={styles.laberintoLeyenda}>
+                    <span>🦎 Xolotl</span>
+                    <span>🏁 Salida</span>
+                    <span>⬛ Pared</span>
+                </div>
+
+                <div className={styles.laberintoControles}>
+                    <button type="button" onClick={() => mover(-1, 0)} disabled={nivelCompletado || juegoCompletado || guardando} aria-label="Mover arriba">↑</button>
+                    <div>
+                        <button type="button" onClick={() => mover(0, -1)} disabled={nivelCompletado || juegoCompletado || guardando} aria-label="Mover a la izquierda">←</button>
+                        <button type="button" onClick={() => mover(1, 0)} disabled={nivelCompletado || juegoCompletado || guardando} aria-label="Mover abajo">↓</button>
+                        <button type="button" onClick={() => mover(0, 1)} disabled={nivelCompletado || juegoCompletado || guardando} aria-label="Mover a la derecha">→</button>
+                    </div>
+                </div>
+
+                <div className={styles.laberintoEstadisticas}>
+                    <span>👣 Movimientos: <strong>{movimientos}</strong></span>
+                    <span>🏅 Recompensa: <strong>125 XP</strong></span>
+                </div>
+
+                {nivelCompletado && !juegoCompletado && (
+                    <button type="button" className={styles.btnReiniciar} onClick={siguienteNivel}>
+                        Siguiente nivel →
+                    </button>
+                )}
+
+                {juegoCompletado && (
+                    <div className={styles.laberintoFinal}>
+                        <h2>¡Misión cumplida!</h2>
+                        <p>
+                            {guardando
+                                ? 'Guardando tu recompensa...'
+                                : 'Terminaste los tres laberintos. ¡Buen trabajo!'}
+                        </p>
+                        <button type="button" className={styles.btnReiniciar} onClick={reiniciar}>
+                            🔄 Volver a jugar
+                        </button>
+                    </div>
+                )}
+            </div>
+        </div>
     );
 };
 

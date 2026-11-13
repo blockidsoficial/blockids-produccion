@@ -1458,3 +1458,164 @@
     }
 
 }
+
+/* ============================================================
+   JUEGO 4 — LABERINTO DE XOLOTL
+   ============================================================ */
+
+.portadaLaberinto {
+    background: linear-gradient(135deg, #dff7f1 0%, #dceaff 100%);
+}
+
+.laberintoPanel {
+    max-width: 760px;
+}
+
+.laberintoSubtitulo {
+    color: #52647a;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.laberintoMensaje {
+    min-height: 28px;
+    font-weight: 700;
+    color: #365b8c;
+}
+
+.laberintoProgreso {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 18px 0;
+}
+
+.laberintoPunto {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #e8edf5;
+    color: #66758a;
+    font-weight: 800;
+}
+
+.laberintoPuntoActivo {
+    background: #d8f6e8;
+    color: #16834f;
+    box-shadow: 0 0 0 3px #b9ebd2;
+}
+
+.laberintoTablero {
+    width: min(100%, 460px);
+    margin: 18px auto;
+    display: grid;
+    gap: 5px;
+    padding: 10px;
+    background: #dce6f2;
+    border-radius: 16px;
+    border: 2px solid #c7d5e5;
+}
+
+.laberintoCelda {
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+    border-radius: 6px;
+    font-size: clamp(15px, 3vw, 25px);
+    min-width: 0;
+}
+
+.laberintoPared {
+    background: #52657d;
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .12);
+}
+
+.laberintoCamino {
+    background: #fff;
+}
+
+.laberintoLeyenda {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    color: #52647a;
+    font-size: .9rem;
+    margin: 8px 0 18px;
+}
+
+.laberintoControles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    margin: 18px 0;
+}
+
+.laberintoControles > div {
+    display: flex;
+    gap: 7px;
+}
+
+.laberintoControles button {
+    width: 54px;
+    height: 48px;
+    border: 0;
+    border-radius: 12px;
+    background: #3978d4;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #285ca8;
+    transition: transform .15s, opacity .15s;
+}
+
+.laberintoControles button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.laberintoControles button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.laberintoEstadisticas {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    color: #52647a;
+    margin: 14px 0;
+}
+
+.laberintoFinal {
+    margin-top: 18px;
+    padding: 18px;
+    border-radius: 16px;
+    background: #effaf4;
+    color: #246344;
+}
+
+.laberintoFinal h2 {
+    margin-top: 0;
+}
+
+@media (max-width: 480px) {
+    .laberintoTablero {
+        gap: 3px;
+        padding: 6px;
+    }
+
+    .laberintoCelda {
+        border-radius: 4px;
+    }
+
+    .laberintoControles button {
+        width: 50px;
+        height: 46px;
+    }
+}

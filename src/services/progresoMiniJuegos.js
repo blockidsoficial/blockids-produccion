@@ -5,7 +5,8 @@ import { supabase } from '../config/supabaseClient';
 export const XP_JUEGOS = {
     adivinaNumero: 50,
     memoriaCodigo: 75,
-    secuenciaLogica: 100
+    secuenciaLogica: 100,
+    laberintoXolotl: 125
 };
 
 // Calcula el nivel según el XP acumulado.
