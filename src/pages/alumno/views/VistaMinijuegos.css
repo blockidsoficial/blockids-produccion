@@ -1468,7 +1468,7 @@
 }
 
 .laberintoPanel {
-    max-width: 760px;
+    max-width: 900px;
 }
 
 .laberintoSubtitulo {
@@ -1508,11 +1508,11 @@
 }
 
 .laberintoTablero {
-    width: min(100%, 460px);
+    width: min(100%, 620px);
     margin: 18px auto;
     display: grid;
-    gap: 5px;
-    padding: 10px;
+    gap: 3px;
+    padding: 8px;
     background: #dce6f2;
     border-radius: 16px;
     border: 2px solid #c7d5e5;
@@ -1523,8 +1523,9 @@
     display: grid;
     place-items: center;
     border-radius: 6px;
-    font-size: clamp(15px, 3vw, 25px);
+    font-size: clamp(7px, 1.5vw, 18px);
     min-width: 0;
+    overflow: hidden;
 }
 
 .laberintoPared {
@@ -1606,12 +1607,15 @@
 
 @media (max-width: 480px) {
     .laberintoTablero {
-        gap: 3px;
-        padding: 6px;
+        width: 100%;
+        gap: 2px;
+        padding: 5px;
+        border-radius: 10px;
     }
 
     .laberintoCelda {
-        border-radius: 4px;
+        border-radius: 2px;
+        font-size: clamp(6px, 2vw, 10px);
     }
 
     .laberintoControles button {
@@ -1619,3 +1623,4 @@
         height: 46px;
     }
 }
+

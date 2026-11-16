@@ -1074,45 +1074,104 @@ const generarSecuencia = () => {
 // JUEGO 4 — LABERINTO DE XOLOTL
 // ============================================================
 
-const NIVELES_LABERINTO = [
-    {
-        nombre: 'Primer recorrido',
-        mapa: [
-            '#######',
-            '#S...G#',
-            '#.###.#',
-            '#.....#',
-            '#######'
-        ]
-    },
-    {
-        nombre: 'El camino escondido',
-        mapa: [
-            '########',
-            '#S#....#',
-            '#.#.##.#',
-            '#......#',
-            '######G#'
-        ]
-    },
-    {
-        nombre: 'El gran desafío',
-        mapa: [
-            '#########',
-            '#S....###',
-            '#####.###',
-            '#.....###',
-            '#.#####.#',
-            '#.#####.#',
-            '#.......#',
-            '#######G#',
-            '#########'
-        ]
-    }
+// Biblioteca de 50 patrones. Cada patrón usa una semilla distinta para
+// generar un recorrido nuevo y reproducible.
+const TOTAL_PATRONES_LABERINTO = 50;
+const PATRONES_LABERINTO = Array.from(
+    { length: TOTAL_PATRONES_LABERINTO },
+    (_, indice) => indice + 1
+);
+
+const CONFIGURACION_DIFICULTAD = [
+    { nombre: 'Explorador', filas: 13, columnas: 13 },
+    { nombre: 'Aventurero', filas: 19, columnas: 19 },
+    { nombre: 'Maestro del laberinto', filas: 25, columnas: 25 }
 ];
+
+// Generador pseudoaleatorio con semilla: el mismo patrón siempre produce
+// el mismo laberinto, pero cada semilla crea una distribución diferente.
+function crearAleatorio(semillaInicial) {
+    let semilla = semillaInicial >>> 0;
+
+    return () => {
+        semilla = (semilla + 0x6D2B79F5) | 0;
+        let valor = Math.imul(semilla ^ (semilla >>> 15), 1 | semilla);
+        valor ^= valor + Math.imul(valor ^ (valor >>> 7), 61 | valor);
+        return ((valor ^ (valor >>> 14)) >>> 0) / 4294967296;
+    };
+}
+
+function crearMapaLaberinto(numeroPatron, indiceNivel) {
+    const dificultad = CONFIGURACION_DIFICULTAD[indiceNivel];
+    const filas = dificultad.filas;
+    const columnas = dificultad.columnas;
+    const aleatorio = crearAleatorio(numeroPatron * 7919 + (indiceNivel + 1) * 104729);
+    const celdas = Array.from(
+        { length: filas },
+        () => Array(columnas).fill('#')
+    );
+
+    const inicio = { fila: 1, columna: 1 };
+    celdas[inicio.fila][inicio.columna] = '.';
+    const pendientes = [inicio];
+    const direcciones = [
+        [-2, 0], [2, 0], [0, -2], [0, 2]
+    ];
+
+    // Recorrido aleatorio tipo backtracking: genera caminos conectados,
+    // cruces y callejones sin salida sin crear rutas imposibles.
+    while (pendientes.length > 0) {
+        const actual = pendientes[pendientes.length - 1];
+        const opciones = direcciones
+            .map(([df, dc]) => ({
+                fila: actual.fila + df,
+                columna: actual.columna + dc,
+                paredFila: actual.fila + df / 2,
+                paredColumna: actual.columna + dc / 2
+            }))
+            .filter(posicion =>
+                posicion.fila > 0 && posicion.fila < filas - 1 &&
+                posicion.columna > 0 && posicion.columna < columnas - 1 &&
+                celdas[posicion.fila][posicion.columna] === '#'
+            );
+
+        if (opciones.length === 0) {
+            pendientes.pop();
+            continue;
+        }
+
+        const siguiente = opciones[Math.floor(aleatorio() * opciones.length)];
+        celdas[siguiente.paredFila][siguiente.paredColumna] = '.';
+        celdas[siguiente.fila][siguiente.columna] = '.';
+        pendientes.push({ fila: siguiente.fila, columna: siguiente.columna });
+    }
+
+    celdas[inicio.fila][inicio.columna] = 'S';
+    celdas[filas - 2][columnas - 2] = 'G';
+
+    return {
+        nombre: `${dificultad.nombre} · Patrón ${numeroPatron}`,
+        patron: numeroPatron,
+        dificultad: dificultad.nombre,
+        mapa: celdas.map(fila => fila.join(''))
+    };
+}
+
+function mezclarPatrones() {
+    const patrones = [...PATRONES_LABERINTO];
+
+    for (let indice = patrones.length - 1; indice > 0; indice--) {
+        const aleatorio = Math.floor(Math.random() * (indice + 1));
+        [patrones[indice], patrones[aleatorio]] = [patrones[aleatorio], patrones[indice]];
+    }
+
+    // Tres patrones distintos por partida.
+    return patrones.slice(0, CONFIGURACION_DIFICULTAD.length);
+}
 
 const JuegoLaberinto = ({ onVolver, ganarXP }) => {
     const [nivel, setNivel] = useState(0);
+    const [patronesPartida, setPatronesPartida] = useState(() => mezclarPatrones());
     const [posicion, setPosicion] = useState({ fila: 1, columna: 1 });
     const [movimientos, setMovimientos] = useState(0);
     const [mensaje, setMensaje] = useState('¡Guía a Xolotl hasta la salida!');
@@ -1120,7 +1179,7 @@ const JuegoLaberinto = ({ onVolver, ganarXP }) => {
     const [juegoCompletado, setJuegoCompletado] = useState(false);
     const [guardando, setGuardando] = useState(false);
 
-    const mapa = NIVELES_LABERINTO[nivel];
+    const mapa = crearMapaLaberinto(patronesPartida[nivel], nivel);
     const filas = mapa.mapa.length;
     const columnas = mapa.mapa[0].length;
 
@@ -1145,7 +1204,7 @@ const JuegoLaberinto = ({ onVolver, ganarXP }) => {
         if (mapa.mapa[nuevaFila][nuevaColumna] === 'G') {
             setNivelCompletado(true);
 
-            if (nivel === NIVELES_LABERINTO.length - 1) {
+            if (nivel === CONFIGURACION_DIFICULTAD.length - 1) {
                 setJuegoCompletado(true);
                 setMensaje('🏆 ¡Increíble! Completaste los tres laberintos.');
                 setGuardando(true);
@@ -1162,7 +1221,7 @@ const JuegoLaberinto = ({ onVolver, ganarXP }) => {
 
     const siguienteNivel = () => {
         const siguiente = nivel + 1;
-        const mapaSiguiente = NIVELES_LABERINTO[siguiente].mapa;
+        const mapaSiguiente = crearMapaLaberinto(patronesPartida[siguiente], siguiente).mapa;
         const inicio = mapaSiguiente.findIndex(fila => fila.includes('S'));
         setNivel(siguiente);
         setPosicion({
@@ -1176,6 +1235,7 @@ const JuegoLaberinto = ({ onVolver, ganarXP }) => {
 
     const reiniciar = () => {
         setNivel(0);
+        setPatronesPartida(mezclarPatrones());
         setPosicion({ fila: 1, columna: 1 });
         setMovimientos(0);
         setNivelCompletado(false);
@@ -1198,14 +1258,14 @@ const JuegoLaberinto = ({ onVolver, ganarXP }) => {
                 <div className={styles.granIcono}>🧭</div>
                 <h1>Laberinto de Xolotl</h1>
                 <p className={styles.laberintoSubtitulo}>
-                    Nivel {nivel + 1} de {NIVELES_LABERINTO.length}: {mapa.nombre}
+                    Nivel {nivel + 1} de {CONFIGURACION_DIFICULTAD.length}: {mapa.nombre}
                 </p>
                 <p className={styles.laberintoMensaje} aria-live="polite">
                     {mensaje}
                 </p>
 
                 <div className={styles.laberintoProgreso}>
-                    {NIVELES_LABERINTO.map((item, indice) => (
+                    {CONFIGURACION_DIFICULTAD.map((item, indice) => (
                         <span
                             key={item.nombre}
                             className={`${styles.laberintoPunto} ${
@@ -1238,6 +1298,9 @@ const JuegoLaberinto = ({ onVolver, ganarXP }) => {
                                         celda === '#' ? styles.laberintoPared : styles.laberintoCamino
                                     }`}
                                     role="gridcell"
+                                    style={{
+                                        fontSize: columnas >= 25 ? '7px' : columnas >= 19 ? '9px' : '13px'
+                                    }}
                                 >
                                     {esJugador ? '🦎' : celda === 'G' ? '🏁' : ''}
                                 </div>
@@ -1281,7 +1344,7 @@ const JuegoLaberinto = ({ onVolver, ganarXP }) => {
                                 : 'Terminaste los tres laberintos. ¡Buen trabajo!'}
                         </p>
                         <button type="button" className={styles.btnReiniciar} onClick={reiniciar}>
-                            🔄 Volver a jugar
+                            🔄 Jugar con otros patrones
                         </button>
                     </div>
                 )}
